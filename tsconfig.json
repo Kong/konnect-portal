@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+    },
+    "sourceMap": true,
+    "strict": false,
+    "target": "ESNext",
+    "types": [
+      "node",
+      "cypress",
+      "./cypress/support",
+      "vite/client",
+      "vitest/globals"
+    ]
+  },
+  "vueCompilerOptions": {
+    "target": 3
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/additionalModules.ts",
+    "src/hooks/usePortalApi.js",
+    "tests/unit/**/*.ts",
+    "cypress/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,152 @@
+:root {
+  --KInputBackground: var(--section_colors-tertiary);
+  --KInputReadonlyBackground: var(--section_colors-tertiary);
+  --KInputSelectBackground: var(--section_colors-tertiary);
+  --KInputBorder: var(--section_colors-stroke);
+  --KInputColor: var(--text_colors-primary);
+  --KInputLabelColor: var(--text_colors-secondary);
+  --KButtonSecondaryBase: var(--section_colors-body);
+  --KButtonSecondaryBorder: var(--section_colors-stroke);
+  --KButtonSecondaryHoverBorder: var(--text_colors-secondary);
+  --KCardBackground: var(--section_colors-body);
+  --KTableColor: var(--text_colors-primary);
+  --KTableBorder: var(--text_colors-accent);
+  --KButtonPrimaryBase: var(--button_colors-primary-fill);
+  --KButtonPrimaryHover: var(--button_colors-primary-fill);
+  --KPaginationColor: var(--text_colors-link);
+  --KPaginationDisabledColor: var(--text_colors-secondary);
+  --KPaginationActiveColor: var(--text_colors-link);
+  --KPaginationBackgroundColor:	var(--section_colors-body);
+  --KPaginationBorderColor: var(--section_colors-stroke);
+  --KPaginationActiveBackgroundColor: var(--section_colors-accent);
+  --KPaginationActiveBorderColor: var(--section_colors-stroke);
+  --KPaginationPageSizeColor: var(--text_colors-link);
+}
+
+.card-pagination-bar {
+  .pagination-text {
+    color: var(--text_colors-primary) !important;
+
+    .pagination-text-pages {
+      color: var(--text_colors-link) !important;
+    }
+  }
+
+  .pagination-button {
+    &.square {
+      background-color: var(--section_colors-body) !important;
+      border: 1px solid var(--KPaginationBorderColor, var(--grey-300)) !important;
+    }
+  }
+}
+
+.k-skeleton-container {
+  .skeleton-table-row, .skeleton-loader {
+    .box {
+      background: linear-gradient(-70deg, var(--section_colors-accent) 0%, var(--section_colors-accent) 40%, var(--section_colors-body) 50%, var(--section_colors-accent) 60%, var(--section_colors-accent) 100%) repeat;
+      background-size: 400% 100%;
+    }
+  }
+}
+
+
+
+.k-button.secondary {
+  border-color: var(--KButtonSecondaryBorder,var(--black-10,rgba(0,0,0,.1))) !important;
+  color: var(--text_colors-primary) !important;
+
+  &:hover, &:active, &:hover:not(:disabled) {
+    border-color: var(--KButtonSecondaryHoverBorder,var(--black-45,rgba(0,0,0,.45))) !important;
+    background-color: var(--KButtonSecondaryBase) !important;
+  }  
+
+  &:focus {
+    box-shadow: 0 0 0 2px var(--white,#fff),0 0 0 4px var(--KButtonSecondaryHoverBorder,var(--blue-500,#1155cb)) !important;
+  }
+}
+
+.k-button.primary {
+  color: var(--button_colors-primary-text) !important;
+  background-color: var(--button_colors-primary-fill) !important;
+}
+
+.k-button.primary:hover {
+  opacity: 0.85;
+}
+
+.k-button.primary:active {
+  opacity: 0.5;
+}
+
+.k-table tbody tr {
+  background-color: var(--section_colors-tertiary) !important;
+}
+
+.k-table thead {
+  background-color: initial !important;
+}
+
+.toaster-item .k-alert {
+  color: var(--text_colors-primary) !important;
+  background-color: var(--section_colors-tertiary) !important;
+  svg path { fill: var(--text_colors-primary) !important; }
+}
+
+.k-modal {
+  .modal-dialog {
+    background: var(--section_colors-body) !important;
+  }
+}
+
+.k-button:disabled, .kbutton[disabled] {
+  opacity: .3;
+  cursor: not-allowed;
+
+  &:hover {
+    opacity: .3;
+  }
+}
+
+.kong-card .k-card-content div.k-card-body {
+  font-size: 16px;
+  line-height: 24px;
+  color: inherit;
+}
+
+.k-breadcrumbs li.k-breadcrumbs-item a span.k-breadcrumb-text {
+  color: var(--text_colors-link);
+}
+
+.k-input--full {
+  width: 100% !important;
+
+  label {
+    width: 100%;
+  }
+
+  .k-input[type="text"] {
+    width: 100%;
+  }
+
+  .k-input[type="search"] {
+    width: 100%;
+    padding-left: 36px !important;
+  }
+
+  textarea.k-input {
+    width: 100%;
+  }
+
+}
+
+// Fix for centred modal for now 
+// TODO: figure out better solution or adjust all modals
+.k-modal .k-modal-content .k-modal-body.content-centered {
+  margin-left: initial !important;
+  margin-right: initial !important;
+}
+
+// TODO: Discuss if needed
+.k-button {
+  font-weight: 400 !important;
+}

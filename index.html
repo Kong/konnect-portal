@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <link rel="icon" href="%VITE_INDEX_API_URL%api/v2/portal/favicon.ico">
+    <title>Developer Portal</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="stylesheet" href="%VITE_INDEX_API_URL%api/v2/portal/stylesheet/font.css" type="text/css">
+    <link rel="stylesheet" href="%VITE_INDEX_API_URL%api/v2/portal/stylesheet.css" type="text/css">
+
+    <style>
+      #initial-fullscreen-loading-container {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10500;
+        flex-direction: column;
+        background: white;
+      }
+
+      @keyframes svg-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(1turn); }
+      }
+
+      #initial-fullscreen-loading-container svg g {
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+        animation: svg-spin 1.2s linear infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+
+    <div id="initial-fullscreen-loading-container">
+      <svg viewBox="0 0 20 20" fill="#a3b6d9" xmlns="http://www.w3.org/2000/svg" role="img" width="96" height="96">
+        <title>Loading</title>
+        <g>
+          <path d="M5 10a5 5 0 1 0 5-5" fill="none" stroke="#a3b6d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+      </svg>
+
+    </div>
+
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

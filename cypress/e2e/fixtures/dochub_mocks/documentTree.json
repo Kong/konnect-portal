@@ -1,0 +1,19 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "id": "02abb9bc-6e1c-4bd4-9356-64b631f6ecf3",
+        "meta": {},
+        "parent_document_id": "70eb4ad2-ffef-4b39-9d37-de5081a1a97c",
+        "slug": "children-api-document",
+        "title": "This is the child document"
+      }
+    ],
+    "id": "70eb4ad2-ffef-4b39-9d37-de5081a1a97c",
+    "meta": {},
+    "parent_document_id": "00000000-0000-0000-0000-000000000000",
+    "slug": "parent-api-document",
+    "title": "This is the parent document"
+  }
+]

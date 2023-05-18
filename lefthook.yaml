@@ -1,0 +1,20 @@
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-push:
+  parallel: true
+  commands:
+    eslint:
+      skip:
+        - merge
+        - rebase
+      run: yarn lint
+
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      skip:
+        - merge
+        - rebase
+      run: yarn commitlint --edit

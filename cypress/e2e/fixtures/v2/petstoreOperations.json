@@ -1,0 +1,204 @@
+{
+  "operations": [
+    {
+      "path": "/pet",
+      "method": "post",
+      "operation_id": "addPet",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Add a new pet to the store",
+      "deprecated": false
+    },
+    {
+      "path": "/pet",
+      "method": "put",
+      "operation_id": "updatePet",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Update an existing pet",
+      "deprecated": false
+    },
+    {
+      "path": "/pet/findByStatus",
+      "method": "get",
+      "operation_id": "findPetsByStatus",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Finds Pets by status",
+      "deprecated": false
+    },
+    {
+      "path": "/pet/findByTags",
+      "method": "get",
+      "operation_id": "findPetsByTags",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Finds Pets by tags",
+      "deprecated": true
+    },
+    {
+      "path": "/pet/{petId}",
+      "method": "get",
+      "operation_id": "getPetById",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Find pet by ID",
+      "deprecated": false
+    },
+    {
+      "path": "/pet/{petId}",
+      "method": "post",
+      "operation_id": "updatePetWithForm",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Updates a pet in the store with form data",
+      "deprecated": false
+    },
+    {
+      "path": "/pet/{petId}",
+      "method": "delete",
+      "operation_id": "deletePet",
+      "tags": [
+        "pet"
+      ],
+      "summary": "Deletes a pet",
+      "deprecated": false
+    },
+    {
+      "path": "/pet/{petId}/uploadImage",
+      "method": "post",
+      "operation_id": "uploadFile",
+      "tags": [
+        "pet"
+      ],
+      "summary": "uploads an image",
+      "deprecated": false
+    },
+    {
+      "path": "/store/inventory",
+      "method": "get",
+      "operation_id": "getInventory",
+      "tags": [
+        "store"
+      ],
+      "summary": "Returns pet inventories by status",
+      "deprecated": false
+    },
+    {
+      "path": "/store/order",
+      "method": "post",
+      "operation_id": "placeOrder",
+      "tags": [
+        "store"
+      ],
+      "summary": "Place an order for a pet",
+      "deprecated": false
+    },
+    {
+      "path": "/store/order/{orderId}",
+      "method": "get",
+      "operation_id": "getOrderById",
+      "tags": [
+        "store"
+      ],
+      "summary": "Find purchase order by ID",
+      "deprecated": false
+    },
+    {
+      "path": "/store/order/{orderId}",
+      "method": "delete",
+      "operation_id": "deleteOrder",
+      "tags": [
+        "store"
+      ],
+      "summary": "Delete purchase order by ID",
+      "deprecated": false
+    },
+    {
+      "path": "/user",
+      "method": "post",
+      "operation_id": "createUser",
+      "tags": [
+        "user"
+      ],
+      "summary": "Create user",
+      "deprecated": false
+    },
+    {
+      "path": "/user/createWithArray",
+      "method": "post",
+      "operation_id": "createUsersWithArrayInput",
+      "tags": [
+        "user"
+      ],
+      "summary": "Creates list of users with given input array",
+      "deprecated": false
+    },
+    {
+      "path": "/user/createWithList",
+      "method": "post",
+      "operation_id": "createUsersWithListInput",
+      "tags": [
+        "user"
+      ],
+      "summary": "Creates list of users with given input array",
+      "deprecated": false
+    },
+    {
+      "path": "/user/login",
+      "method": "get",
+      "operation_id": "loginUser",
+      "tags": [
+        "user"
+      ],
+      "summary": "Logs user into the system",
+      "deprecated": false
+    },
+    {
+      "path": "/user/logout",
+      "method": "get",
+      "operation_id": "logoutUser",
+      "tags": [
+        "user"
+      ],
+      "summary": "Logs out current logged in user session",
+      "deprecated": false
+    },
+    {
+      "path": "/user/{username}",
+      "method": "get",
+      "operation_id": "getUserByName",
+      "tags": [
+        "user"
+      ],
+      "summary": "Get user by user name",
+      "deprecated": false
+    },
+    {
+      "path": "/user/{username}",
+      "method": "put",
+      "operation_id": "updateUser",
+      "tags": [
+        "user"
+      ],
+      "summary": "Updated user",
+      "deprecated": false
+    },
+    {
+      "path": "/user/{username}",
+      "method": "delete",
+      "operation_id": "deleteUser",
+      "tags": [
+        "user"
+      ],
+      "summary": "Delete user",
+      "deprecated": false
+    }
+  ]
+}

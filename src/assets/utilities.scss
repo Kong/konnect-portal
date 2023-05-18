@@ -1,0 +1,198 @@
+/* position */
+.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.text-uppercase { text-transform: uppercase; }
+.text-italic { font-style: italic;}
+
+.font-normal { font-weight: 400; }
+.font-light { font-weight: 100; }
+.font-semibold { font-weight: 500; }
+.font-bold { font-weight: 700; }
+
+/* responsive */
+.xl\:mt-0 {
+  @media (min-width: 1200px) {
+    margin-top: 0 !important;
+  }
+}
+.xl\:pl-2 {
+  @media (min-width: 1200px) {
+    padding-left: var(--spacing-xs) !important;
+  }
+}
+
+//remove button default styles for elements that act like buttons, but don't look like them
+.non-visual-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* table */
+.bold-col-1 tbody {
+  td:nth-of-type(1) {
+    min-width: 120px;
+    font-weight: 600;
+  }
+}
+
+.underline {
+  text-decoration: underline !important;
+  &:hover { text-decoration: underline !important; }
+}
+.no-underline {
+  text-decoration: none !important;
+  &:hover {text-decoration: none !important; }
+}
+
+/* badges */
+.badge {
+  display: inline-block;
+  padding: .25rem .4rem;
+  font-size: 75%;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25rem;
+}
+
+.list-badge.k-badge {
+  --KBadgePaddingY: 2px;
+  --KBadgeBorderRadius: 12px;
+  --KBadgePaddingX: var(--spacing-sm);
+  cursor: pointer;
+  a &:hover {
+    text-decoration: none;
+  }
+
+  &.badge-white {
+    color: var(--blue-500);
+    background-color: var(--white);
+    border: 1px solid var(--steel-200);
+  }
+  &.badge-grey {
+    color: var(--black-70);
+    background-color: var(--black-10);
+    &:hover {
+      background-color: var(--black-25);
+    }
+  }
+  &.badge-blue {
+    color: var(--blue-500);
+    background-color: var(--blue-200);
+    &:hover {
+      background-color: var(--blue-300);
+    }
+  }
+}
+
+.top-border {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--black-10);
+}
+
+.bottom-border {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--black-10);
+}
+
+.text-muted { color: var(--black-45) !important; }
+.text-danger { color: var(--red-500) !important; }
+
+.h-100 { height: 100%; }
+.h-screen { min-height: 100vh;}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.max-char-width {
+  max-width: 20ch;
+}
+
+.text-nowrap {
+  white-space: nowrap;
+}
+
+/* Tabs - Bootstrap styling 😢️😩️ */
+.nav {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  &.nav-tabs {
+    border-bottom: 1px solid var(--grey-300);
+    .nav-item {
+      margin-bottom: -1px;
+      cursor: pointer;
+    }
+    .nav-link {
+      display: block;
+      color: var(--black-45);
+      padding: var(--spacing-xs) var(--spacing-md);
+      border: 1px solid transparent;
+      border-top-right-radius: 3px;
+      border-top-left-radius: 3px;
+      &.active {
+        color: var(--blue-700);
+        border-color: var(--grey-300) var(--grey-300) #fff;
+        background-color: #fff;
+        &:hover,
+        &:focus {
+          border-color: var(--grey-300) var(--grey-300) #fff;
+        }
+      }
+      &:hover,
+      &:focus {
+        text-decoration: none;
+        border-color: var(--grey-200) var(--grey-200) var(--grey-300);
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1650px) {
+.sidebar-content-margin {
+    margin-left: var(--sidebarOpenWidth);
+    &.has-subnav {
+      margin-left: calc(var(--sidebarCollapsedWidth) + var(--subnavWidth));
+    }
+  }
+}
+/* Show pages */
+.widget-cards {
+  .k-card {
+    margin-bottom: 0;
+  }
+  .k-table {
+    --spacing-md: 12px;
+    .float-right { margin: 0 !important; }
+    .btn-link { padding: 0; }
+  }
+}
+
+/* Services publish status */
+.publish-status {
+  --KBadgePaddingX: var(--spacing-xs);
+  --KBadgePaddingY: 1px;
+  --KBadgeFontSize: var(--type-xs);
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+// make uuid-icon-wrapper inline-block so it stays on the same line
+.uuid-icon-wrapper {
+  display: flex;
+  margin-left: 4px;
+}

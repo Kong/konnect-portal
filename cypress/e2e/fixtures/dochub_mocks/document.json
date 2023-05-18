@@ -1,0 +1,717 @@
+{
+  "id": "70eb4ad2-ffef-4b39-9d37-de5081a1a97c",
+  "parent_document_id": "00000000-0000-0000-0000-000000000000",
+  "slug": "sample",
+  "meta": {},
+  "title": "sample",
+  "content": {
+    "children": [
+      {
+        "children": [
+          {
+            "text": "An h1 header",
+            "type": "text"
+          }
+        ],
+        "level": 1,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "text": "Paragraphs are separated by a blank line.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "2nd paragraph. ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "text": "Italic",
+                "type": "text"
+              }
+            ],
+            "level": 1,
+            "type": "emphasis"
+          },
+          {
+            "text": ", ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "text": "bold",
+                "type": "text"
+              }
+            ],
+            "level": 2,
+            "type": "emphasis"
+          },
+          {
+            "text": ", and ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "text": "monospace",
+                "type": "text"
+              }
+            ],
+            "type": "code"
+          },
+          {
+            "softBreak": true,
+            "text": ". Itemized lists look like:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "this one",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "that one",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "the other one",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          }
+        ],
+        "isOrdered": false,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "Note that --- not considering the asterisk --- the actual text content starts at 4-columns in.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "softBreak": true,
+                "text": "Block quotes are written like so.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "children": [
+              {
+                "softBreak": true,
+                "text": "They can span multiple paragraphs, if you like.",
+                "type": "text"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ],
+        "type": "blockquote"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., \"it's all in chapters 12--14\"). Three dots ... will be converted to an ellipsis. Unicode is supported. ☺",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "An h2 header",
+            "type": "text"
+          }
+        ],
+        "level": 2,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "text": "Here's a numbered list:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "first item",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "second item",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "third item",
+                    "type": "text"
+                  }
+                ],
+                "type": "text_block"
+              }
+            ],
+            "type": "list_item"
+          }
+        ],
+        "isOrdered": true,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "Note again how the actual text starts at 4 columns in (4 characters from the left side). Here's a code sample:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "# Let me re-iterate ...\n",
+            "type": "text"
+          },
+          {
+            "text": "for i in 1 .. 10 { do-something(i) }\n",
+            "type": "text"
+          }
+        ],
+        "lang": "plain",
+        "type": "code_block"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "As you probably guessed, indented 4 spaces. By the way, instead of indenting the block, you can use delimited blocks, if you like:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "define foobar() {\n",
+            "type": "text"
+          },
+          {
+            "text": "    print \"Welcome to flavor country!\";\n",
+            "type": "text"
+          },
+          {
+            "text": "}\n",
+            "type": "text"
+          }
+        ],
+        "lang": "",
+        "type": "code_block"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "(which makes copying & pasting easier). You can optionally mark the delimited block for Pandoc to syntax highlight it:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "import time\n",
+            "type": "text"
+          },
+          {
+            "text": "# Quick, count to ten!\n",
+            "type": "text"
+          },
+          {
+            "text": "for i in range(10):\n",
+            "type": "text"
+          },
+          {
+            "text": "    # (but not *too* quick)\n",
+            "type": "text"
+          },
+          {
+            "text": "    time.sleep(0.5)\n",
+            "type": "text"
+          },
+          {
+            "text": "    print i\n",
+            "type": "text"
+          }
+        ],
+        "lang": "python",
+        "type": "code_block"
+      },
+      {
+        "children": [
+          {
+            "text": "An h3 header",
+            "type": "text"
+          }
+        ],
+        "level": 3,
+        "type": "heading"
+      },
+      {
+        "children": [
+          {
+            "text": "Now a nested list:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "First, get these ingredients:",
+                    "type": "text"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "carrots",
+                            "type": "text"
+                          }
+                        ],
+                        "type": "text_block"
+                      }
+                    ],
+                    "type": "list_item"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "celery",
+                            "type": "text"
+                          }
+                        ],
+                        "type": "text_block"
+                      }
+                    ],
+                    "type": "list_item"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "text": "lentils",
+                            "type": "text"
+                          }
+                        ],
+                        "type": "text_block"
+                      }
+                    ],
+                    "type": "list_item"
+                  }
+                ],
+                "isOrdered": false,
+                "type": "list"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "text": "Boil some water.",
+                    "type": "text"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "type": "list_item"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "softBreak": true,
+                    "text": "Dump everything in the pot and follow this algorithm:",
+                    "type": "text"
+                  }
+                ],
+                "type": "paragraph"
+              },
+              {
+                "children": [
+                  {
+                    "text": "find wooden spoon\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "uncover pot\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "stir\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "cover pot\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "balance wooden spoon precariously on pot handle\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "wait 10 minutes\n",
+                    "type": "text"
+                  },
+                  {
+                    "text": "goto first step (or shut off burner when done)\n",
+                    "type": "text"
+                  }
+                ],
+                "lang": "plain",
+                "type": "code_block"
+              },
+              {
+                "children": [
+                  {
+                    "text": "Do not bump wooden spoon or it will fall.",
+                    "type": "text"
+                  }
+                ],
+                "type": "paragraph"
+              }
+            ],
+            "type": "list_item"
+          }
+        ],
+        "isOrdered": true,
+        "type": "list"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "Notice again how text always lines up on 4-space indents (including that last line which continues item 3 above).",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "Here's a link to ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "text": "a website",
+                "type": "text"
+              }
+            ],
+            "href": "http://foo.bar",
+            "title": "",
+            "type": "link"
+          },
+          {
+            "text": ", to a ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "softBreak": true,
+                "text": "local doc",
+                "type": "text"
+              }
+            ],
+            "href": "local-doc.html",
+            "title": "",
+            "type": "link"
+          },
+          {
+            "text": ", and to a ",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "softBreak": true,
+                "text": "section heading in the current doc",
+                "type": "text"
+              }
+            ],
+            "href": "#an-h2-header",
+            "title": "",
+            "type": "link"
+          },
+          {
+            "text": ". Here's a footnote [^1].",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "[^1]: Footnote text goes here.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "Tables can look like this:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "size  material      color",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "break"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "9     leather       brown 10    hemp canvas   natural 11    glass         transparent",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "Table: Shoes, their sizes, and what they're made of",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "(The above is the caption for the table.) Pandoc also supports multi-line tables:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "break"
+      },
+      {
+        "children": [
+          {
+            "text": "keyword   text",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "break"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "red       Sunsets, apples, and other red or reddish things.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "green     Leaves, grass, frogs and other things it's not easy being.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "break"
+      },
+      {
+        "children": [
+          {
+            "text": "A horizontal rule follows.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "type": "break"
+      },
+      {
+        "children": [
+          {
+            "text": "Here's a definition list:",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "apples : Good for making applesauce. oranges : Citrus ! tomatoes : There's no \"e\" in tomatoe.",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "Again, text is indented 4 spaces. (Put a blank line between each term/definition pair to spread things out more.)",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "text": "Here's a \"line block\":",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      },
+      {
+        "children": [
+          {
+            "softBreak": true,
+            "text": "| Line one |   Line too | Line tree",
+            "type": "text"
+          }
+        ],
+        "type": "paragraph"
+      }
+    ],
+    "type": "document",
+    "version": "1"
+  }
+}

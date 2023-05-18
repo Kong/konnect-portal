@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* set portal theming values */
+:root {
+  --headerHeight: 55px;
+  --font-family-sans: var(--font-base), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-headings: var(--font-headings), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-mono: var(--font-code), "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--text_colors-primary);
+  background-color: var(--section_colors-body);
+  font-family: var(--font-family-sans)
+}
+pre,code,kbd {
+  font-family: inherit;
+  font-family: var(--font-family-mono);
+}
+h1, h2, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-headings);
+  color: var(--text_colors-headings);
+}
+.base-font {
+  font-family: var(--font-family-sans) !important;
+}
+.headings-font {
+  font-family: var(--font-family-headings) !important;
+}
+.code-font {
+  font-family: var(--font-family-mono) !important;
+}
+a {
+  color: var(--text_colors-link);
+}
+
+[id] {
+  scroll-margin-top: calc(var(--headerHeight) + 12px);
+}
