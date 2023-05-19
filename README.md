@@ -102,7 +102,7 @@ limitations under the License.
 ```
 
 [custom-dev-portal-url]: https://docs.konghq.com/konnect/dev-portal/customization/#custom-dev-portal-url
-[kong-konnect-register-url]: https://konghq.com/products/kong-konnect/register?utm_medium=referral&utm_source=docs&utm_campaign=gateway-konnect&utm_content=top-nav
+[kong-konnect-register-url]: https://konghq.com/products/kong-konnect/register?utm_medium=referral&utm_source=github&utm_campaign=gateway-konnect&utm_content=konnect-portal-readme
 [kong-logo-url]: https://konghq.com/wp-content/uploads/2018/05/kong-logo-github-readme.png
 [kong-url]: https://konghq.com/
 [konnect-docs-url]: https://docs.konghq.com/konnect/
