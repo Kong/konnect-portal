@@ -319,7 +319,7 @@ describe('Catalog', () => {
         mockServiceSearchResults(servicesData.slice(12, 24), 1, totalServiceCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
-          .get('.card-pagination-bar')
+        cy.get('.card-pagination-bar')
           .contains('13 - 24 of 37')
 
         const searchQuery = 'barAPI22'
@@ -350,7 +350,7 @@ describe('Catalog', () => {
         mockServiceSearchResults(servicesData.slice(12, 24), 2, totalServiceCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
-          .get('.card-pagination-bar')
+        cy.get('.card-pagination-bar')
           .contains('13 - 24 of 37')
 
         const searchQuery = 'API'
@@ -376,7 +376,7 @@ describe('Catalog', () => {
         mockServiceSearchResults(servicesData.slice(12, 24), 2, totalServiceCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
-          .get('.card-pagination-bar')
+        cy.get('.card-pagination-bar')
           .contains('13 - 24 of 37')
 
         cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
