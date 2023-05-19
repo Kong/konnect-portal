@@ -1,4 +1,4 @@
-import { kongAuthApi } from '@/services'
+import { authApi } from '@/services'
 import { usePermissionsStore, useAppStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 
@@ -40,9 +40,9 @@ export default class SessionCookie {
     this.sessionName = sessionName || this.SESSION_NAME_COOKIE
   }
 
-  encode (data) {
+  encode (data: Record<string, any>) {
     try {
-      return btoa(encodeURIComponent(JSON.stringify(data)))
+      return window.btoa(encodeURIComponent(JSON.stringify(data)))
     } catch (e) {
       if (!data.developer) {
         // this means session invalided
@@ -55,11 +55,11 @@ export default class SessionCookie {
     }
   }
 
-  decode (encodedJson) {
-    return JSON.parse(decodeURIComponent(atob(encodedJson)))
+  decode (encodedJson: string) {
+    return JSON.parse(decodeURIComponent(window.atob(encodedJson)))
   }
 
-  fetchData () {
+  checkLocalDataForUser () {
     const sessionDataRaw = localStorage.getItem(this.sessionName) || this.encode(this.data)
 
     try {
@@ -91,7 +91,7 @@ export default class SessionCookie {
 
     if (sessionExists && !isPublic.value && isRbacEnabled.value) {
       try {
-        const { data: developerPermissions } = await kongAuthApi.client.get(`/api/v2/portals/${portalId.value}/developers/me/permissions`)
+        const { data: developerPermissions } = await authApi.client.get(`/api/v2/portals/${portalId.value}/developers/me/permissions`)
 
         // response can be a JSON (object) or string
         // when permissions feature flag is not enabled, string with HTTP 200 is returned
@@ -110,7 +110,7 @@ export default class SessionCookie {
   }
 
   getUser () {
-    const { developer } = this.fetchData()
+    const { developer } = this.checkLocalDataForUser()
 
     return {
       email: developer?.email,
@@ -134,7 +134,7 @@ export default class SessionCookie {
       }
 
       // Check for IdP single logout URL via kauth endpoint
-      await kongAuthApi.authentication.logout()
+      await authApi.authenticationV1.logout()
 
       // Otherwise, build a new URL from the root
       const logoutUrl = new URL(`${window.location.origin}/login`)
@@ -179,17 +179,17 @@ export default class SessionCookie {
     // Trigger auth refresh
     try {
       // Trigger auth refresh
-      const response = await kongAuthApi.authentication.refresh()
+      const response = await authApi.authenticationV1.refresh()
 
       if (response.status === 200) {
         // refresh data
-        this.saveData(this.fetchData())
+        this.saveData(this.checkLocalDataForUser())
 
         // Successful refresh, session did not expire
         return false
       }
     } catch (err) {
-      // Not reachable as kongAuthApi.authentication.refreshDeveloper({}) call
+      // Not reachable as kongAuthApi.authentication.refresh() call
       // is silently failing on 401 response and its not catched - so the behavior was reimplemented in
       // interceptor of KongAuthApi
       return true
