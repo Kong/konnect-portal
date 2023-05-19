@@ -6,7 +6,7 @@ const versions: ProductVersion[] = [
     created_at: '2022-03-26T14:52:46.323Z',
     updated_at: '2022-03-26T14:52:46.323Z',
     id: '1afac832-5b2a-474c-a56d-c241364f41cf',
-    version: 'v1-beta',
+    name: 'v1-beta',
     deprecated: false,
     registration_configs: [{ name: 'key-auth' }]
   }
@@ -71,7 +71,7 @@ const serviceRegistration: GetRegistrationResponse = {
   product_id: product.id,
   product_name: product.name,
   product_version_id: productVersion.id,
-  product_version_name: productVersion.version
+  product_version_name: productVersion.name
 }
 
 const defaultContext: PortalContext = {

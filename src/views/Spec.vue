@@ -313,7 +313,7 @@ export default defineComponent({
         .forEach(version => {
           serviceVersions.value.set(version.id, {
             ...version,
-            dropdownLabel: `${version.version}${version.deprecated ? ' (Deprecated)' : ''}`
+            dropdownLabel: `${version.name}${version.deprecated ? ' (Deprecated)' : ''}`
           })
         })
     }
@@ -409,7 +409,7 @@ export default defineComponent({
         // Also it handles a situation when non-exisitng id/name will be provided
 
         const serviceVersion = Array.from(serviceVersions.value.values()).find((serviceVersion) => {
-          return serviceVersion.version === serviceVersionId
+          return serviceVersion.name === serviceVersionId
         })
 
         $router.replace({
@@ -423,7 +423,7 @@ export default defineComponent({
         return // return because the route change will trigger load swagger again
       }
 
-      setTitle(currentServiceVersion?.version)
+      setTitle(currentServiceVersion?.name)
 
       if (currentServiceVersion) {
         currentVersion.value = currentServiceVersion

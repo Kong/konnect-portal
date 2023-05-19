@@ -136,7 +136,7 @@ function initactiveProductVersionId () {
   const val = serviceVersionParam.value?.toLowerCase()
   if (val) {
     const newServiceVersion = versions.find(
-      (serviceVersion) => serviceVersion.id === val || serviceVersion.version?.toLowerCase() === val
+      (serviceVersion) => serviceVersion.id === val || serviceVersion.name?.toLowerCase() === val
     )
 
     if (newServiceVersion) {
