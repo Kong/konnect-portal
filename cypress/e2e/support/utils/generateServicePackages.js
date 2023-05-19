@@ -15,7 +15,7 @@ const generateServicePackages = (count, options = []) => {
             id: 'a41041e4-d324-43c8-977a-ad68f1839751' + i,
             created_at: '2020-08-25T16:14:54.564Z',
             updated_at: '2020-08-25T16:14:54.564Z',
-            version: 'v2'
+            name: 'v2'
           }
         ],
         ...options[i] || {}

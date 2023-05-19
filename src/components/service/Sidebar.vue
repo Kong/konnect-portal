@@ -58,7 +58,7 @@ function updateVersionSelectItems () {
     .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
     .map((serviceVersion) => ({
       value: serviceVersion.id,
-      label: `${serviceVersion.version}${serviceVersion.deprecated ? helpText.deprecated : ''}`,
+      label: `${serviceVersion.name}${serviceVersion.deprecated ? helpText.deprecated : ''}`,
       selected: serviceVersion.id === activeProductVersionId.value
     })) || []
 }

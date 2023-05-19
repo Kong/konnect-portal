@@ -42,7 +42,7 @@
       :has-sidebar="false"
       :application-registration-enabled="applicationRegistrationEnabled"
       :active-operation="sidebarActiveOperationListItem"
-      :current-version="currentVersion.version"
+      :current-version="currentVersion.name"
       @clicked-view-spec="triggerViewSpecModal"
       @clicked-register="triggerViewSpecRegistrationModal"
     />
