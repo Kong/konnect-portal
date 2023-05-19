@@ -138,7 +138,7 @@ describe('Spec Renderer Page', () => {
       created_at: '2022-03-24T14:52:46.323Z',
       updated_at: '2022-03-27T14:52:46.323Z',
       id: '2afac832-5b2a-474c-a56d-c241364f41cf',
-      version: 'v2-beta',
+      name: 'v2-beta',
       publish_status: 'published',
       registration_configs: [],
       deprecated: false
@@ -148,7 +148,7 @@ describe('Spec Renderer Page', () => {
       created_at: '2022-03-24T13:52:46.323Z',
       updated_at: '2022-03-24T13:52:46.323Z',
       id: '2afac832-4b2a-474c-a56d-c241364f41cf',
-      version: weirdVersionName,
+      name: weirdVersionName,
       publish_status: 'published',
       registration_configs: [],
       deprecated: false

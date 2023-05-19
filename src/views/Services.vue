@@ -138,7 +138,7 @@ export default defineComponent({
           services.value = sources.map(({ source }) => {
             const versions = [...source.versions]
               .sort(sortBy('created_at', SortOrder.ASC, SortType.DATE))
-              .map(version => version.version)
+              .map(version => version.name)
 
             return {
               id: source.id,
