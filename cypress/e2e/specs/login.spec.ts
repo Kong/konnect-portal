@@ -1,9 +1,8 @@
-import { versions } from '../fixtures/consts'
 
 describe('Login Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
-    cy.intercept('POST', '/kauth/api/v2/logout', {
+    cy.intercept('POST', '**/kauth/api/v1/developer-logout', {
       statusCode: 200,
       body: {},
       delay: 300

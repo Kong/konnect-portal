@@ -125,8 +125,8 @@ export default class KongAuthApi {
 
     this.authentication = new AuthenticationApi(baseConfig, baseConfig.basePath, this.client)
     this.authenticationV1 = {
-      logout: () => this.client.post(this.baseUrl + '/v1/logout'),
-      refresh: () => this.client.post(this.baseUrl + '/v1/refresh-developer')
+      logout: () => this.client.post(this.baseUrl + '/api/v1/developer-logout'),
+      refresh: () => this.client.post(this.baseUrl + '/api/v1/developer-refresh')
     }
   }
 
