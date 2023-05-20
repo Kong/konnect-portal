@@ -1,7 +1,8 @@
-import axios, { AxiosError, AxiosInstance } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import { AuthenticationApi, Configuration } from '@kong/sdk-portal-js'
 import { useAppStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import SessionCookie from './SessionCookie'
 
 export default class KongAuthApi {
   authErrorCallback: (error: AxiosError) => void
@@ -12,9 +13,14 @@ export default class KongAuthApi {
 
   failedQueue = []
 
-  session: any
+  session: SessionCookie
 
   client: AxiosInstance
+
+  authenticationV1: {
+    logout(): Promise<AxiosResponse<void>>
+    refresh(): Promise<AxiosResponse<void>>
+  }
 
   public setAuthErrorCallback (authErrorCallback?: (error: AxiosError) => void) {
     this.authErrorCallback = authErrorCallback
@@ -42,7 +48,7 @@ export default class KongAuthApi {
         // Try to refresh the token once and then retry requests if successful
         if (originalErr.response.status === 401 && !originalRequest._retry) {
           // If the original request is to refresh the auth token, and the request has failed, do not retry requests
-          // It is directly done there, as in SessionCookie this.kongAuthApi.authentication.refreshDeveloper({}) call
+          // It is directly done there, as in SessionCookie this.kongAuthApi.authentication.refresh() call
           // is silently failing on 401 response and its not possible to rely on code there
           if (originalRequest.url.includes('/developer-refresh')) {
             // Refresh token was invalid, so don't retry requests
@@ -118,6 +124,10 @@ export default class KongAuthApi {
     })
 
     this.authentication = new AuthenticationApi(baseConfig, baseConfig.basePath, this.client)
+    this.authenticationV1 = {
+      logout: () => this.client.post(this.baseUrl + '/api/v1/developer-logout'),
+      refresh: () => this.client.post(this.baseUrl + '/api/v1/developer-refresh')
+    }
   }
 
   processQueue (shouldProceed = true) {

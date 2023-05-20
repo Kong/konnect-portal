@@ -29,7 +29,7 @@ export const useAppStore = defineStore('app', () => {
     basicAuthEnabled: boolean;
     oidcAuthEnabled: boolean;
   }>(null)
-  const logout = async (fullPath: string) => {
+  const logout = async (fullPath?: string) => {
     return await developerSession.value.destroy(fullPath)
   }
 

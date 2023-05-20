@@ -27,11 +27,11 @@
 import { isNavigationFailure, NavigationFailureType } from 'vue-router'
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
-import { ApiServiceAuthErrorReason } from '@/services/ApiService'
+import { ApiServiceAuthErrorReason } from '@/services/PortalV2ApiService'
 import removeElementFromDOMById from '@/helpers/removeElementFromDOMById'
 import { isAuthRoute } from '@/router/route-utils'
 import Nav from '@/components/Nav.vue'
-import { portalApi, kongAuthApi } from '@/services'
+import { portalApiV2, authApi } from '@/services'
 import { useAppStore } from '@/stores'
 
 const initialLoadingId = 'initial-fullscreen-loading-container'
@@ -66,7 +66,7 @@ export default defineComponent({
       }
 
       // Konnect API Client
-      portalApi.setAuthErrorCallback(async (err, reason) => {
+      portalApiV2.setAuthErrorCallback(async (err, reason) => {
         // redirect to 403 page if portal api returns HTTP 403 but the session is correct
         if (reason === ApiServiceAuthErrorReason.RESPONSE_FORBIDDEN) {
           this.$router.replace({ name: 'forbidden' })
@@ -80,7 +80,7 @@ export default defineComponent({
       })
 
       // KAuth API Client
-      kongAuthApi.setAuthErrorCallback(async (err) => {
+      authApi.setAuthErrorCallback(async (err) => {
         if (err && !isAuthRoute(this.$router.currentRoute.name)) {
           await captureRouteAndLogout()
         }

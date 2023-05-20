@@ -8,7 +8,7 @@ import { removeQueryParam } from './router/route-utils'
 
 import useLaunchDarkly from '@/composables/useLaunchDarkly'
 
-import { kongAuthApiBaseUrl, session } from '@/services'
+import { authApiBaseUrl, session } from '@/services'
 
 // Import kong-auth-elements, styles, and options interface
 import { KongAuthElementsPlugin } from '@kong/kong-auth-elements/dist/kong-auth-elements.es'
@@ -74,7 +74,7 @@ async function init () {
     setSession(session)
 
     // Fetch session data from localStorage
-    await session.saveData(session.fetchData())
+    await session.saveData(session.checkLocalDataForUser())
 
     if (!isPublic) {
       if (session.authenticatedWithIdp()) {
@@ -104,7 +104,7 @@ async function init () {
 
     // Register the kong-auth-elements Vue plugin
     app.use(KongAuthElementsPlugin, {
-      apiBaseUrl: kongAuthApiBaseUrl,
+      apiBaseUrl: authApiBaseUrl,
       userEntity: 'developer',
       shadowDom: false,
       customErrorHandler: handleKongAuthElementsError,

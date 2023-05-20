@@ -47,7 +47,7 @@ export default defineComponent({
     const appStore = useAppStore()
     const { authClientConfig } = storeToRefs(appStore)
     const isBasicAuthEnabled = computed(() => authClientConfig.value.basicAuthEnabled)
-    const { portalApi } = usePortalApi()
+    const { portalApiV2 } = usePortalApi()
 
     function onRegisterSuccess () {
       // Need to cast this type as boolean isn't accepted
@@ -69,7 +69,7 @@ export default defineComponent({
     })
 
     return {
-      registerEndpoint: portalApi.value.getApiLink('/api/v2/developer'),
+      registerEndpoint: portalApiV2.value.getApiLink('/api/v2/developer'),
       onRegisterSuccess,
       isBasicAuthEnabled,
       wrapRegisterRequest,
