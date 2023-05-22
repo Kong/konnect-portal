@@ -22,9 +22,10 @@ function parseValidationErrorNode (errorNode: Record<string, any>) {
       const niceErrorMessage = helpText.validationErrors[key]
       if (niceErrorMessage) {
         return niceErrorMessage
-      } else {
-        // @ts-ignore
+      } else if (Array.isArray(message)) {
         return message[0].toUpperCase() + message.slice(1)
+      } else {
+        return message
       }
     }))
   }
