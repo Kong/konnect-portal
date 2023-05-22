@@ -5,6 +5,7 @@
   --KInputBorder: var(--section_colors-stroke);
   --KInputColor: var(--text_colors-primary);
   --KInputLabelColor: var(--text_colors-secondary);
+  --KInputPlaceholderColor: var(--text_colors-secondary);
   --KButtonSecondaryBase: var(--section_colors-body);
   --KButtonSecondaryBorder: var(--section_colors-stroke);
   --KButtonSecondaryHoverBorder: var(--text_colors-secondary);
@@ -16,7 +17,7 @@
   --KPaginationColor: var(--text_colors-link);
   --KPaginationDisabledColor: var(--text_colors-secondary);
   --KPaginationActiveColor: var(--text_colors-link);
-  --KPaginationBackgroundColor:	var(--section_colors-body);
+  --KPaginationBackgroundColor: var(--section_colors-body);
   --KPaginationBorderColor: var(--section_colors-stroke);
   --KPaginationActiveBackgroundColor: var(--section_colors-accent);
   --KPaginationActiveBorderColor: var(--section_colors-stroke);
@@ -97,13 +98,18 @@
     background: var(--section_colors-body) !important;
   }
 }
-
-.k-button:disabled, .kbutton[disabled] {
+// feat(style): supports dark mode disabled state
+#app .k-button {
+  &:disabled,
+  &[disabled] {
   opacity: .3;
   cursor: not-allowed;
+    color: var(--button_colors-primary-text) !important;
+    background-color: var(--button_colors-primary-fill) !important;
 
   &:hover {
     opacity: .3;
+    }
   }
 }
 
@@ -140,13 +146,12 @@
 }
 
 // Fix for centred modal for now 
-// TODO: figure out better solution or adjust all modals
 .k-modal .k-modal-content .k-modal-body.content-centered {
   margin-left: initial !important;
   margin-right: initial !important;
 }
 
-// TODO: Discuss if needed
+
 .k-button {
   font-weight: 400 !important;
 }
