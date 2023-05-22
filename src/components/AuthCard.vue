@@ -7,8 +7,7 @@
     >
       <template #body>
         <div class="d-flex flex-column justify-content-center align-items-center mb-5 card-header">
-          <!-- TODO: Change router link to home page when unauthenticated portal feature is enabled -->
-          <router-link :to="`/login`">
+          <router-link :to="headerRouteLink">
             <img
               class="logo"
               :src="logoSrc"
@@ -23,19 +22,22 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" s>
 import { defineComponent } from 'vue'
 import usePortalApi from '@/hooks/usePortalApi'
+import { useAppStore } from '@/stores'
 
 export default defineComponent({
   name: 'AuthCard',
   setup () {
     const { portalApiV2 } = usePortalApi()
+    const { isPublic } = useAppStore()
 
     const logoSrc: string = portalApiV2.value.getApiLink('/api/v2/portal/logo')
 
     return {
-      logoSrc
+      logoSrc,
+      headerRouteLink: isPublic ? '/' : '/login'
     }
   }
 })
