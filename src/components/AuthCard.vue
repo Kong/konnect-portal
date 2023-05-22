@@ -22,7 +22,7 @@
   </div>
 </template>
 
-<script lang="ts" s>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import { useAppStore } from '@/stores'

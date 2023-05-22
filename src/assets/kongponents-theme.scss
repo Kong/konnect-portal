@@ -98,7 +98,6 @@
     background: var(--section_colors-body) !important;
   }
 }
-// feat(style): supports dark mode disabled state
 #app .k-button {
   &:disabled,
   &[disabled] {
@@ -145,7 +144,6 @@
 
 }
 
-// Fix for centred modal for now 
 .k-modal .k-modal-content .k-modal-body.content-centered {
   margin-left: initial !important;
   margin-right: initial !important;
