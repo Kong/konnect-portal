@@ -7,16 +7,29 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16.19.0'
+          cache: 'yarn'
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Copy .env.example
         run: cp .env.example .env
-      - name: Run tests
-        run : |
-          yarn test:e2e:ci
+      - run: yarn build
+        # run 3 copies of the current job in parallel
+      - name: Run split Cypress tests 🧪
+        uses: cypress-io/github-action@v5
+        with:
+          start: node cypress.server.mjs
+          browser: chrome
+        # pass the machine index and the total number
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
