@@ -1,9 +1,14 @@
 const { defineConfig } = require('cypress')
+const cypressSplit = require('cypress-split')
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents (on, config) {
       require('cypress-terminal-report/src/installLogsPrinter')(on)
+      cypressSplit(on, config)
+
+      // IMPORTANT: return the config object
+      return config
     },
     baseUrl: 'http://localhost:8088',
     specPattern: 'cypress/e2e/specs/*.spec.(js|ts)',
