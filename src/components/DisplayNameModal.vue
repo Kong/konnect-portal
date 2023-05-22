@@ -141,3 +141,10 @@ export default defineComponent({
 
 })
 </script>
+
+<style lang="scss" scoped>
+.display-name-modal {
+  --KModalHeaderColor: var(--text_colors-headings);
+  --KModalColor: var(--text_colors-primary);
+}
+</style>

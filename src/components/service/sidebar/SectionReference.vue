@@ -95,7 +95,6 @@ watch([() => props.service, () => props.activeProductVersionId], fetchOperations
   --kong-ui-spec-renderer-operations-list-item-summary-text-color-selected: var(--section_colors-body);
 
   :deep(.k-input) {
-    --KInputPlaceholderColor: color: var(--text_colors-primary);
     padding-left: 32px !important;
   }
 }
