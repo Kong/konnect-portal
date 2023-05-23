@@ -12,7 +12,7 @@
     "commit": "cz",
     "build:watch": "vite build --watch",
     "build:watch:dev": "vite build --watch --mode development --minify false",
-    "test": "yarn test:e2e",
+    "test": "yarn lint && yarn test:e2e",
     "test:e2e": "concurrently --kill-others \"yarn build:watch\" \"cypress open -C cypress.config.js --e2e -b chrome\" \"node cypress.server.mjs \"",
     "test:e2e:ci": "concurrently --success first --kill-others  \"yarn build && DEBUG=cypress:server cypress run -C cypress.config.js --e2e -b chrome\" \"node cypress.server.mjs \""
   },
