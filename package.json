@@ -57,7 +57,7 @@
     "eslint-plugin-cypress": "2.12.1",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-portal-vue": "link:./eslint-plugin-portal-vue",
+    "eslint-plugin-portal-vue": "file:./eslint-plugin-portal-vue",
     "eslint-plugin-promise": "6.1.1",
     "eslint-plugin-standard": "4.1.0",
     "eslint-plugin-vue": "^9.9.0",
@@ -78,6 +78,11 @@
     "last 2 versions",
     "not dead"
   ],
+  "engines": {
+    "npm": "please-use-yarn",
+    "node": ">= 16.19.0",
+    "yarn": ">= 1.22.17"
+  },
   "volta": {
     "node": "16.19.0",
     "yarn": "1.22.17"
