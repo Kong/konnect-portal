@@ -472,9 +472,13 @@ export default defineComponent({
   --KModalHeaderColor: var(--text_colors-headings);
   --KModalColor: var(--text_colors-primary);
 }
+.k-input+.help, .k-input-wrapper+.help {
+  color: var(--text_colors-secondary) !important;
+}
 </style>
 
 <style lang="scss" scoped>
+
 .generate-reference-id-button {
   position: relative;
   height: 36px;

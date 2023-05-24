@@ -37,12 +37,9 @@ export default defineComponent({
 
 })
 </script>
-
 <style lang="scss" scoped>
-// TODO: Replace with --KInputPlaceholderColor CSS variable
-// when @kongponents/styles is upgraded to version 6.5.2+ and TDX-1656 is merged
 input.k-input::placeholder {
-  color: var(--KInputColor);
+  color: var(--KInputPlaceholderColor);
   opacity: 0.57;
 }
 </style>

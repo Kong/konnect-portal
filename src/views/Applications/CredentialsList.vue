@@ -32,6 +32,7 @@
           <template #id="{ row }">
             <CopyUuid
               class="flex"
+              :icon-color="'var(--text_colors-primary)'"
               :uuid="row.id"
               :truncated="false"
             />
@@ -451,13 +452,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .revoke-credential-modal, .copy-credential-modal {
+    --KModalHeaderColor: var(--text_colors-headings);
+    --KModalColor: var(--text_colors-primary);
     .copy-text {
-      color: var(--black-70);
       text-align: left;
       font-size: var(--type-md, 16px);
 
       &.copy-label {
-        color: var(--black-85);
         font-weight: 500;
       }
     }

@@ -44,6 +44,7 @@ import { DocumentContentTypeEnum, ListDocumentsTree } from '@kong/sdk-portal-js'
 import { fetchAll } from '@/helpers/fetchAll'
 import { Operation } from '@kong-ui-public/spec-renderer'
 import { AxiosResponse } from 'axios'
+import { sortByDate } from '@/helpers/sortBy'
 
 const { notify } = useToaster()
 const helpText = useI18nStore().state.helpText
@@ -54,7 +55,6 @@ const serviceError = ref(null)
 const activeServiceVersionDeprecated = ref(false)
 const deselectOperation = ref<boolean>(false)
 
-// @ts-ignore
 const productStore = useProductStore()
 const { product, documentTree, activeDocumentSlug, activeProductVersionId } = storeToRefs(productStore)
 
@@ -125,14 +125,12 @@ function initactiveProductVersionId () {
 
   const versions = product.value.versions
     .slice()
-    // @ts-ignore
-    .sort((a, b) => new Date(a) - new Date(b))
+    .sort(sortByDate('created_at'))
 
   if (!versions) {
     return
   }
 
-  // @ts-ignore
   const val = serviceVersionParam.value?.toLowerCase()
   if (val) {
     const newServiceVersion = versions.find(
