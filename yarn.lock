@@ -3718,7 +3718,7 @@ eslint-plugin-node@11.1.0:
     resolve "^1.10.1"
     semver "^6.1.0"
 
-"eslint-plugin-portal-vue@link:./eslint-plugin-portal-vue":
+"eslint-plugin-portal-vue@file:./eslint-plugin-portal-vue":
   version "0.0.0"
 
 eslint-plugin-promise@6.1.1:
