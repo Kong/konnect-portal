@@ -926,10 +926,12 @@
     v-calendar "^3.0.0-alpha.8"
     vue-draggable-next "^2.1.1"
 
-"@kong/sdk-portal-js@0.0.1-beta.19":
-  version "0.0.1-beta.19"
-  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-0.0.1-beta.19.tgz#8b2a73d1b214ff0faa128cd7b60387cab7713672"
-  integrity sha512-d4fpn2c65rnnT2wop6byrNon6H0w7gDtt0nTNHtwQsYaW9pQdfwsRAOVXrquqJ3pRmEf4Dr9bYbfHXNYCJhM7w==
+"@kong/sdk-portal-js@0.0.1-beta.20":
+  version "0.0.1-beta.20"
+  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-0.0.1-beta.20.tgz#fce868f80f0597c028a4de0f06a7e03ff0c1d492"
+  integrity sha512-UYYByKvHIxq2nHjdCzYUDvXCy6pbXBYkBrueWQjA9PKOsLaIDWvCwtcLEa1oYo+aJEp3VOPA6AlvG6mduIrpJQ==
+  dependencies:
+    axios "1.4.0"
 
 "@kong/swagger-ui-kong-theme-universal@^4.1.6":
   version "4.1.6"
@@ -2018,6 +2020,15 @@ axios@0.27.2, axios@^0.27.2:
   dependencies:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
+
+axios@1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
+  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axios@=1.3.4:
   version "1.3.4"
