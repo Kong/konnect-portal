@@ -1,4 +1,4 @@
-import { ProductCatalogIndexSource, ProductVersion, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import { ProductCatalogIndexSource, ProductCatalogIndexSourceLatestVersion, ProductVersion, SearchResultsDataInner } from '@kong/sdk-portal-js'
 
 export const generateProducts = (count: number, options: Partial<ProductCatalogIndexSource>[] = []): SearchResultsDataInner[] => {
   const productsList: SearchResultsDataInner[] = []
@@ -12,10 +12,9 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
         updated_at: '2020-08-25T16:14:52.450Z',
         name: 'barAPI' + i,
         description: undefined,
-        has_documentation: false,
-        versions: [
-          generateVersion(i)
-        ],
+        document_count: 0,
+        latest_version: generateLatestVersion(i),
+        version_count: 1,
         ...options[i] || {}
       }
     })
@@ -24,13 +23,9 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
   return productsList
 }
 
-function generateVersion (i: number):ProductVersion {
+function generateLatestVersion (i: number): ProductCatalogIndexSourceLatestVersion {
   return {
     id: 'a41041e4-d324-43c8-977a-ad68f1839751' + i,
-    created_at: '2020-08-25T16:14:54.564Z',
-    updated_at: '2020-08-25T16:14:54.564Z',
-    name: 'v2',
-    deprecated: false,
-    registration_configs: []
+    name: 'v2'
   }
 }

@@ -13,7 +13,23 @@ const mockServiceSearchQuery = (searchQuery: string) => {
     .filter((data) =>
       searchQuery !== '' ? JSON.stringify(data).includes(searchQuery) : true
     )
-    .map(([name, versions, id]) => ({ index: 'product-catalog', source: { description: '', has_documentation: false, created_at: '', updated_at: '', name, versions, id } }))
+    .map(([name, versions, id]) => ({
+      index: 'product-catalog',
+      source: {
+        id,
+        description: '',
+        document_count: 0,
+        created_at: '',
+        updated_at: '',
+        name,
+        version_count: versions.length,
+        latest_version: {
+          name: versions[0].name,
+          id: versions[0].id
+        }
+      }
+    }))
+
   const responseBody: SearchResults = {
     data: searchResults,
     meta: {
@@ -108,7 +124,7 @@ describe('Catalog', () => {
 
     it('renders the documentation link for catalog item', () => {
       cy.mockPrivatePortal()
-      cy.mockProductsCatalog(1, [{ description: 'great description', has_documentation: true }])
+      cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 2 }])
       cy.visit('/')
       cy.get('.catalog-item .link').contains('Documentation').should('exist')
     })
@@ -138,7 +154,7 @@ describe('Catalog', () => {
     })
     it('renders the documentation link for catalog item ', () => {
       cy.mockPrivatePortal()
-      cy.mockProductsCatalog(1, [{ description: 'great description', has_documentation: true }])
+      cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 1 }])
 
       cy.visit('/')
 
@@ -158,22 +174,11 @@ describe('Catalog', () => {
 
     it('displays most recent created_at version', () => {
       cy.mockProductsCatalog(1, [{
-        versions: [
-          {
-            created_at: '2022-03-23T12:41:09.371Z',
-            updated_at: '2022-03-23T12:41:09.371Z',
-            id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-            name: 'v4',
-            deprecated: false
-          },
-          {
-            created_at: '2022-03-23T11:46:35.613Z',
-            updated_at: '2022-03-23T11:46:35.613Z',
-            id: 'b820d3eb-5b70-47e5-8d97-9436a8021282',
-            name: 'v1-beta',
-            deprecated: false
-          }
-        ]
+        version_count: 2,
+        latest_version: {
+          id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
+          name: 'v4'
+        }
       }])
 
       cy.visit('/')
@@ -188,22 +193,11 @@ describe('Catalog', () => {
 
     it('displays most recent created_at regardless of version name', () => {
       cy.mockProductsCatalog(1, [{
-        versions: [
-          {
-            created_at: '2022-03-23T12:41:09.371Z',
-            updated_at: '2022-03-23T12:41:09.371Z',
-            id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-            name: 'v4',
-            deprecated: false
-          },
-          {
-            created_at: '2022-03-24T11:46:35.613Z',
-            updated_at: '2022-03-24T11:46:35.613Z',
-            id: 'b820d3eb-5b70-47e5-8d97-9436a8021282',
-            name: 'v1-beta',
-            deprecated: false
-          }
-        ]
+        version_count: 2,
+        latest_version: {
+          id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
+          name: 'v4'
+        }
       }])
       cy.visit('/')
       cy.get('[data-testid="view-switcher"]:not(:disabled)')
