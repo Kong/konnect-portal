@@ -63,6 +63,15 @@ First and foremost please and comply with the standards outlined in the [CODE_OF
 
  Please follow the following branch naming scheme when creating your branch: This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). [Commitizen](https://github.com/commitizen/cz-cli) can be used to help build commit messages.
 
+#### _Note:_
+ _To disable commit formatting on your fork you can either comment out the contents of the lefthook.yaml file or remove it, as well as uninstall lefthook from the package.json file._
+
+ i.e
+ ```sh
+ $ rm lefthook.yaml 
+ $ yarn remove lefthook
+ ```
+
  ### Branch naming conventions
 
 Please follow the following branch naming scheme when creating your branch:
