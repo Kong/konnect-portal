@@ -52,7 +52,7 @@ import { PropType, defineComponent } from 'vue'
 import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
 import CatalogTableList from './CatalogTableList.vue'
-import { CustomProduct, useI18nStore } from '@/stores'
+import { CatalogItemModel, useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'Catalog',
@@ -63,7 +63,7 @@ export default defineComponent({
   },
   props: {
     services: {
-      type: Array as PropType<CustomProduct[]>,
+      type: Array as PropType<CatalogItemModel[]>,
       default: () => []
     },
     cardsPerPage: {

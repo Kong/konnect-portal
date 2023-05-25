@@ -118,7 +118,7 @@ async function fetchDocumentTree () {
   }
 }
 
-function initactiveProductVersionId () {
+function initActiveProductVersionId () {
   if (!product.value) {
     return
   }
@@ -193,7 +193,7 @@ onMounted(async () => {
   setActiveDocumentSlug()
   await fetchServicePackage()
   await fetchDocumentTree()
-  initactiveProductVersionId()
+  initActiveProductVersionId()
 })
 
 watch(() => serviceVersionParam.value, () => {
@@ -201,7 +201,7 @@ watch(() => serviceVersionParam.value, () => {
     productStore.setActiveProductVersionId(serviceVersionParam.value)
   }
 
-  initactiveProductVersionId()
+  initActiveProductVersionId()
 })
 
 // This ensures deselection of operations in the sidebar when the user navigates away from the spec page
@@ -214,7 +214,7 @@ watch(() => activeProductVersionId.value, (newVal, oldVal) => {
     onSwitchVersion()
   }
 
-  if (!product.value?.versions) {
+  if (!product.value?.version_count) {
     return
   }
 

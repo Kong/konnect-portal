@@ -6,12 +6,13 @@ import { ref } from 'vue'
 export interface ProductWithVersions extends Product {
   versions: ProductVersion[]
 }
-export interface CustomProduct {
+export interface CatalogItemModel {
   id: string;
   title: string;
-  versions: string[];
+  latestVersion: null|{ name: string; id: string}
   description: string;
-  hasDocumentation: boolean;
+  documentCount: number;
+  versionCount: number;
 }
 
 export type CustomOperation = Operation & {tag?: string}
