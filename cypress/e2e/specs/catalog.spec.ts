@@ -204,7 +204,7 @@ describe('Catalog', () => {
         .click()
         .get('.k-table tbody tr:first-child td:nth-child(3)')
         .should('have.length', 1)
-        .contains('v1-beta')
+        .contains('v4')
       cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
     })
   })
