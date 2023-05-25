@@ -47,7 +47,7 @@
                 background-color="var(--section_colors-accent)"
                 class="service-version"
               >
-                {{ version }}
+                {{ version.name }}
               </KBadge>
             </template>
           </span>
@@ -73,7 +73,7 @@
             </template>
           </div>
           <div
-            v-if="service.hasDocumentation"
+            v-if="service.documentCount"
             class="details-item"
           >
             <template v-if="loading">
@@ -101,14 +101,14 @@
 </template>
 
 <script lang="ts">
-import { CustomProduct } from '@/stores'
+import { CatalogItemModel } from '@/stores'
 import { PropType } from 'vue'
 
 export default {
   name: 'CatalogItem',
   props: {
     service: {
-      type: Object as PropType<CustomProduct>,
+      type: Object as PropType<CatalogItemModel>,
       default: () => {}
     },
     loading: {
@@ -121,10 +121,10 @@ export default {
   },
   computed: {
     version () {
-      return this.service.versions[this.service.versions.length - 1]
+      return this.service.latestVersion
     },
     versionLabel () {
-      return this.service.versions.length === 1 ? 'Version: ' : 'Versions: '
+      return this.service.versionCount === 1 ? 'Version: ' : 'Versions: '
     }
   }
 }

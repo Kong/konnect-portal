@@ -56,9 +56,8 @@
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import Catalog from '@/components/Catalog.vue'
-import { sortBy, SortOrder, SortType } from '@/helpers/sortBy'
 import { debounce } from '@/helpers/debounce'
-import { useI18nStore, CustomProduct } from '@/stores'
+import { useI18nStore, CatalogItemModel } from '@/stores'
 
 export default defineComponent({
   name: 'Services',
@@ -70,7 +69,7 @@ export default defineComponent({
     const primary_header = ref('')
     const cardsPerPage = ref(12)
     const searchString = ref('')
-    const services = ref<CustomProduct[]>([])
+    const services = ref<CatalogItemModel[]>([])
     const totalCount = ref<number>(undefined)
     const loading = ref<boolean>(null)
     const searchTriggered = ref<boolean>(false)
@@ -136,16 +135,13 @@ export default defineComponent({
           const { data: sources, meta } = portalEntities
 
           services.value = sources.map(({ source }) => {
-            const versions = [...source.versions]
-              .sort(sortBy('created_at', SortOrder.ASC, SortType.DATE))
-              .map(version => version.name)
-
             return {
               id: source.id,
               title: source.name,
-              versions,
+              latestVersion: source.latest_version,
               description: source.description,
-              hasDocumentation: source.has_documentation
+              documentCount: source.document_count,
+              versionCount: source.version_count
             }
           })
           totalCount.value = meta.page.total
