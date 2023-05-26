@@ -24,6 +24,7 @@
     "@kong/kongponents": "8.60.1",
     "@kong/sdk-portal-js": "0.0.1-beta.20",
     "@xstate/vue": "^2.0.0",
+    "autoprefixer": "^10.4.14",
     "axios": "0.27.2",
     "date-fns": "2.30.0",
     "js-yaml": "4.1.0",
