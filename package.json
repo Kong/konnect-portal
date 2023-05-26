@@ -46,7 +46,7 @@
     "@vitejs/plugin-vue-jsx": "^2.1.1",
     "@vue/compiler-sfc": "^3.3.4",
     "@vue/eslint-config-standard": "5.1.2",
-    "@vue/eslint-config-typescript": "5.1.0",
+    "@vue/eslint-config-typescript": "11.0.3",
     "commitizen": "^4.3.0",
     "concurrently": "7.6.0",
     "cypress": "12.11.0",
