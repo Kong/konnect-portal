@@ -13,15 +13,15 @@
       <template #title="{rowValue}">
         {{ rowValue }}
       </template>
-      <template #latestVersion="{row}">
+      <template #versions="{row}">
         <div>
           <KBadge
-            v-if="row.latestVersion"
+            v-if="row.versions.length > 0"
             color="var(--text_colors-secondary)"
             background-color="var(--section_colors-accent)"
             class="service-version"
           >
-            {{ row.latestVersion.name }}
+            {{ row.versions[row.versions.length - 1] }}
           </KBadge>
         </div>
       </template>
@@ -33,7 +33,7 @@
           Specification
         </router-link>
         <router-link
-          v-if="row.documentCount"
+          v-if="row.hasDocumentation"
           :to="{ name: 'api-documentation-page', params: { service_package: row.id } }"
           class="link"
         >
@@ -91,7 +91,7 @@ export default defineComponent({
       tableHeaders: [
         { label: 'Title', key: 'title' },
         { label: 'Description', key: 'description' },
-        { label: 'Latest Version', key: 'latestVersion' },
+        { label: 'Latest Version', key: 'versions' },
         { label: 'Details', key: 'links' }
       ]
     }

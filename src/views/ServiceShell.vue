@@ -7,9 +7,7 @@
       :message="serviceError"
     />
     <template v-else>
-      <div
-        class="sidebar-wrapper"
-      >
+      <div class="sidebar-wrapper">
         <Sidebar
           class="sidebar"
           :deselect-operation="deselectOperation"
@@ -31,213 +29,252 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia'
-import getMessageFromError from '@/helpers/getMessageFromError'
-import usePortalApi from '@/hooks/usePortalApi'
-import { useI18nStore, useProductStore } from '@/stores'
-import type { ProductWithVersions } from '@/stores/product'
-import Sidebar from '@/components/service/Sidebar.vue'
-import useToaster from '@/composables/useToaster'
-import { DocumentContentTypeEnum, ListDocumentsTree } from '@kong/sdk-portal-js'
-import { fetchAll } from '@/helpers/fetchAll'
-import { Operation } from '@kong-ui-public/spec-renderer'
-import { AxiosResponse } from 'axios'
-import { sortByDate } from '@/helpers/sortBy'
+import { computed, onMounted, ref, watch, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import getMessageFromError from "@/helpers/getMessageFromError";
+import usePortalApi from "@/hooks/usePortalApi";
+import { useI18nStore, useProductStore } from "@/stores";
+import type { ProductWithVersions } from "@/stores/product";
+import Sidebar from "@/components/service/Sidebar.vue";
+import useToaster from "@/composables/useToaster";
+import {
+  DocumentContentTypeEnum,
+  ListDocumentsTree,
+} from "@kong/sdk-portal-js";
+import { fetchAll } from "@/helpers/fetchAll";
+import { Operation } from "@kong-ui-public/spec-renderer";
+import { AxiosResponse } from "axios";
+import { sortByDate } from "@/helpers/sortBy";
 
-const { notify } = useToaster()
-const helpText = useI18nStore().state.helpText
-const route = useRoute()
-const router = useRouter()
-const { portalApiV2 } = usePortalApi()
-const serviceError = ref(null)
-const activeServiceVersionDeprecated = ref(false)
-const deselectOperation = ref<boolean>(false)
+const { notify } = useToaster();
+const helpText = useI18nStore().state.helpText;
+const route = useRoute();
+const router = useRouter();
+const { portalApiV2 } = usePortalApi();
+const serviceError = ref(null);
+const activeServiceVersionDeprecated = ref(false);
+const deselectOperation = ref<boolean>(false);
 
-const productStore = useProductStore()
-const { product, documentTree, activeDocumentSlug, activeProductVersionId } = storeToRefs(productStore)
+const productStore = useProductStore();
+const { product, documentTree, activeDocumentSlug, activeProductVersionId } =
+  storeToRefs(productStore);
 
-const servicePackageIdParam = computed(() => route.params.service_package as string)
-const serviceVersionParam = computed(() => route.params.service_version as string)
+const servicePackageIdParam = computed(
+  () => route.params.service_package as string
+);
+const serviceVersionParam = computed(
+  () => route.params.service_version as string
+);
 
-function setActiveDocumentSlug () {
-  const slugs = route.params.slug
+function setActiveDocumentSlug() {
+  const slugs = route.params.slug;
 
   // The last slug is the active document to be rendered
-  const slug = Array.isArray(slugs) ? slugs[slugs.length - 1] : slugs
+  const slug = Array.isArray(slugs) ? slugs[slugs.length - 1] : slugs;
 
   if (slug !== activeDocumentSlug.value) {
-    productStore.setActiveDocumentSlug(slug)
+    productStore.setActiveDocumentSlug(slug);
   }
 }
 
-const { productsApi, versionsApi, documentationApi } = portalApiV2.value.service
+const { productsApi, versionsApi, documentationApi } =
+  portalApiV2.value.service;
 
-async function fetchServicePackage () {
-  const id = servicePackageIdParam.value
+async function fetchServicePackage() {
+  const id = servicePackageIdParam.value;
 
   try {
-    const { data: product } = await productsApi.getProduct({ productId: id })
+    const { data: product } = await productsApi.getProduct({ productId: id });
 
     const productWithVersion: ProductWithVersions = {
       ...product,
-      versions: await fetchAll(meta => versionsApi.listProductVersions({ ...meta, productId: id }))
-    }
+      versions: await fetchAll((meta) =>
+        versionsApi.listProductVersions({ ...meta, productId: id })
+      ),
+    };
 
-    productStore.setProduct(productWithVersion)
+    productStore.setProduct(productWithVersion);
   } catch (err) {
-    console.error(err)
-    serviceError.value = getMessageFromError(err)
+    console.error(err);
+    serviceError.value = getMessageFromError(err);
   }
 }
 
-async function fetchDocumentTree () {
-  const id = servicePackageIdParam.value
+async function fetchDocumentTree() {
+  const id = servicePackageIdParam.value;
 
   try {
     const requestOptions = {
       productId: id,
-      accept: DocumentContentTypeEnum.KonnectDocumentTreejson
-    }
+      accept: DocumentContentTypeEnum.KonnectDocumentTreejson,
+    };
 
     // overriding the axios response because we're specifying what we're accepting above
-    const res = await documentationApi.listProductDocuments(requestOptions) as AxiosResponse<ListDocumentsTree, any>
+    const res = (await documentationApi.listProductDocuments(
+      requestOptions
+    )) as AxiosResponse<ListDocumentsTree, any>;
 
-    productStore.setDocumentTree((res.data).data)
+    productStore.setDocumentTree(res.data.data);
   } catch (err) {
     if (err.response.status === 404) {
-      productStore.setDocumentTree([])
+      productStore.setDocumentTree([]);
     } else {
-      console.error(err)
+      console.error(err);
       notify({
-        appearance: 'danger',
-        message: helpText.serviceVersion.unableToRetrieveDoc
-      })
+        appearance: "danger",
+        message: helpText.serviceVersion.unableToRetrieveDoc,
+      });
     }
   }
 }
 
-function initActiveProductVersionId () {
+function initactiveProductVersionId() {
   if (!product.value) {
-    return
+    return;
   }
 
   const versions = product.value.versions
     .slice()
-    .sort(sortByDate('created_at'))
+    .sort(sortByDate("created_at"));
 
   if (!versions) {
-    return
+    return;
   }
 
-  const val = serviceVersionParam.value?.toLowerCase()
+  const val = serviceVersionParam.value?.toLowerCase();
   if (val) {
     const newServiceVersion = versions.find(
-      (serviceVersion) => serviceVersion.id === val || serviceVersion.name?.toLowerCase() === val
-    )
+      (serviceVersion) =>
+        serviceVersion.id === val || serviceVersion.name?.toLowerCase() === val
+    );
 
     if (newServiceVersion) {
-      productStore.setActiveProductVersionId(newServiceVersion.id)
+      productStore.setActiveProductVersionId(newServiceVersion.id);
     }
   }
 
   if (!activeProductVersionId.value) {
-    productStore.setActiveProductVersionId(versions[0]?.id)
+    productStore.setActiveProductVersionId(versions[0]?.id);
   }
 }
 
-function routeToDocumentBySlug (slug: string) {
+function routeToDocumentBySlug(slug: string) {
   if (slug) {
     router.replace({
-      name: 'api-documentation-page',
+      name: "api-documentation-page",
       params: {
         service_package: route.params.service_package,
-        slug: [slug]
-      }
-    })
+        slug: [slug],
+      },
+    });
   }
 }
 
-function onSwitchVersion () {
-  if (route.name === 'spec') {
-    productStore.setSidebarActiveOperation(null)
+function onSwitchVersion() {
+  if (route.name === "spec") {
+    productStore.setSidebarActiveOperation(null);
 
     router.push({
-      name: 'spec',
+      name: "spec",
       params: {
         service_package: servicePackageIdParam.value,
-        service_version: activeProductVersionId.value
-      }
-    })
+        service_version: activeProductVersionId.value,
+      },
+    });
   }
 }
 
-function onOperationSelectedSidebar (operation: Operation) {
+function onOperationSelectedSidebar(operation: Operation) {
   const routeLocation = {
-    name: 'spec',
+    name: "spec",
     params: {
       service_package: servicePackageIdParam.value,
-      service_version: activeProductVersionId.value
-    }
-  }
+      service_version: activeProductVersionId.value,
+    },
+  };
 
-  if (route.name !== 'spec') {
-    router.push(routeLocation).then(() => productStore.setSidebarActiveOperation(operation))
+  if (route.name !== "spec") {
+    router
+      .push(routeLocation)
+      .then(() => productStore.setSidebarActiveOperation(operation));
   } else {
-    router.replace(routeLocation).then(() => productStore.setSidebarActiveOperation(operation))
+    router
+      .replace(routeLocation)
+      .then(() => productStore.setSidebarActiveOperation(operation));
   }
 }
 
 onMounted(async () => {
-  setActiveDocumentSlug()
-  await fetchServicePackage()
-  await fetchDocumentTree()
-  initActiveProductVersionId()
-})
+  setActiveDocumentSlug();
+  await fetchServicePackage();
+  await fetchDocumentTree();
+  initactiveProductVersionId();
+});
 
-watch(() => serviceVersionParam.value, () => {
-  if (serviceVersionParam.value && (serviceVersionParam.value !== activeProductVersionId.value)) {
-    productStore.setActiveProductVersionId(serviceVersionParam.value)
+watch(
+  () => serviceVersionParam.value,
+  () => {
+    if (
+      serviceVersionParam.value &&
+      serviceVersionParam.value !== activeProductVersionId.value
+    ) {
+      productStore.setActiveProductVersionId(serviceVersionParam.value);
+    }
+
+    initactiveProductVersionId();
   }
-
-  initActiveProductVersionId()
-})
+);
 
 // This ensures deselection of operations in the sidebar when the user navigates away from the spec page
-watch(() => route.name, () => {
-  deselectOperation.value = route.name !== 'spec'
-})
-
-watch(() => activeProductVersionId.value, (newVal, oldVal) => {
-  if (oldVal && (newVal !== oldVal)) {
-    onSwitchVersion()
+watch(
+  () => route.name,
+  () => {
+    deselectOperation.value = route.name !== "spec";
   }
+);
 
-  if (!product.value?.version_count) {
-    return
+watch(
+  () => activeProductVersionId.value,
+  (newVal, oldVal) => {
+    if (oldVal && newVal !== oldVal) {
+      onSwitchVersion();
+    }
+
+    if (!product.value?.versions) {
+      return;
+    }
+
+    const newServiceVersion = product.value.versions.filter(
+      (version) => version.id === activeProductVersionId.value
+    )[0];
+
+    activeServiceVersionDeprecated.value = newServiceVersion?.deprecated;
   }
+);
 
-  const newServiceVersion = product.value.versions.filter((version) => version.id === activeProductVersionId.value)[0]
-
-  activeServiceVersionDeprecated.value = newServiceVersion?.deprecated
-})
-
-watch(() => servicePackageIdParam.value, () => {
-  if (servicePackageIdParam.value !== product.value?.id) {
-    productStore.setProduct(null)
+watch(
+  () => servicePackageIdParam.value,
+  () => {
+    if (servicePackageIdParam.value !== product.value?.id) {
+      productStore.setProduct(null);
+    }
   }
-})
+);
 
 watchEffect(() => {
-  setActiveDocumentSlug()
+  setActiveDocumentSlug();
 
-  if (documentTree.value && !activeDocumentSlug.value && route.path.includes('/docs/')) {
-    const firstDocumentSlug = documentTree.value[0]?.slug
+  if (
+    documentTree.value &&
+    !activeDocumentSlug.value &&
+    route.path.includes("/docs/")
+  ) {
+    const firstDocumentSlug = documentTree.value[0]?.slug;
 
-    routeToDocumentBySlug(firstDocumentSlug)
+    routeToDocumentBySlug(firstDocumentSlug);
   }
-})
+});
 </script>
 
 <style scoped>
@@ -263,11 +300,46 @@ watchEffect(() => {
 .sidebar-wrapper {
   flex: 0 0 auto;
   border-right: 1px solid var(--section_colors-stroke);
+  /* laft panel background css */
+  background: linear-gradient(
+    127deg,
+    hsl(155, 92%, 67%),
+    hsl(219, 86%, 70%) 70.71%
+  );
 }
-
+/* custom scroll bar */
 .sidebar {
   height: 100%;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #74b9ff #cccccc;
+}
+
+/* For Webkit-based browsers */
+.sidebar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background-color: #cccccc;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #74b9ff;
+}
+::-webkit-scrollbar-track {
+  border: 5px solid white;
+  background-color: #b2bec3;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  background-color: #dfe6e9;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #74b9ff;
+  border-radius: 20px;
 }
 
 .content {

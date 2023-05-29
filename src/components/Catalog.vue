@@ -43,6 +43,7 @@
         v-else
         :services="services"
       />
+  
     </div>
   </div>
 </template>
@@ -52,7 +53,7 @@ import { PropType, defineComponent } from 'vue'
 import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
 import CatalogTableList from './CatalogTableList.vue'
-import { CatalogItemModel, useI18nStore } from '@/stores'
+import { CustomProduct, useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'Catalog',
@@ -63,7 +64,7 @@ export default defineComponent({
   },
   props: {
     services: {
-      type: Array as PropType<CatalogItemModel[]>,
+      type: Array as PropType<CustomProduct[]>,
       default: () => []
     },
     cardsPerPage: {
@@ -135,6 +136,7 @@ export default defineComponent({
     --KButtonOutlineHover: var(--section_colors-tertiary);
 
     border: 1px solid var(--KButtonOutlineBorder) !important;
+    border-radius: 8px;
   }
 }
 

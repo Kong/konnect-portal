@@ -6,7 +6,7 @@
         :key="service.id + index"
         class="catalog-item"
         :service="service"
-        :has-documentation="service.documentCount > 0"
+        :has-documentation="service.hasDocumentation"
         :loading="loading"
       />
     </div>
@@ -24,7 +24,7 @@
 import CatalogItem from './CatalogItem.vue'
 import PaginationBar from './PaginationBar.vue'
 import { PropType } from 'vue'
-import { CatalogItemModel } from '@/stores'
+import { CustomProduct } from '@/stores'
 
 export default {
   name: 'CatalogCardList',
@@ -34,7 +34,7 @@ export default {
   },
   props: {
     services: {
-      type: Array as PropType<CatalogItemModel[]>,
+      type: Array as PropType<CustomProduct[]>,
       default: () => []
     },
     pageSize: {

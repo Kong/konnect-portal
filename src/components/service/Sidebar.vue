@@ -31,74 +31,80 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, watch, ref } from 'vue'
-import SectionOverview from './sidebar/SectionOverview.vue'
-import SectionReference from './sidebar/SectionReference.vue'
-import { storeToRefs } from 'pinia'
-import { useI18nStore, useProductStore } from '@/stores'
+import { onMounted, watch, ref } from "vue";
+import SectionOverview from "./sidebar/SectionOverview.vue";
+import SectionReference from "./sidebar/SectionReference.vue";
+import { storeToRefs } from "pinia";
+import { useI18nStore, useProductStore } from "@/stores";
 
-const productStore = useProductStore()
-const { product: servicePackage, activeProductVersionId } = storeToRefs(productStore)
-const helpText = useI18nStore().state.helpText.sidebar
+const productStore = useProductStore();
+const { product: servicePackage, activeProductVersionId } =
+  storeToRefs(productStore);
+const helpText = useI18nStore().state.helpText.sidebar;
 
-const emit = defineEmits(['operationSelected'])
+const emit = defineEmits(["operationSelected"]);
 
 defineProps({
   deselectOperation: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const versionSelectItems = ref([])
+const versionSelectItems = ref([]);
 
-function updateVersionSelectItems () {
-  versionSelectItems.value = servicePackage.value?.versions
-    .slice() // clone before sorting
-    .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
-    .map((serviceVersion) => ({
-      value: serviceVersion.id,
-      label: `${serviceVersion.name}${serviceVersion.deprecated ? helpText.deprecated : ''}`,
-      selected: serviceVersion.id === activeProductVersionId.value
-    })) || []
+function updateVersionSelectItems() {
+  versionSelectItems.value =
+    servicePackage.value?.versions
+      .slice() // clone before sorting
+      .sort(
+        (a, b) =>
+          new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      )
+      .map((serviceVersion) => ({
+        value: serviceVersion.id,
+        label: `${serviceVersion.name}${
+          serviceVersion.deprecated ? helpText.deprecated : ""
+        }`,
+        selected: serviceVersion.id === activeProductVersionId.value,
+      })) || [];
 }
 
-function onChangeVersion (event) {
-  const version = servicePackage.value?.versions.find((serviceVersion) => serviceVersion.id === event.value)
+function onChangeVersion(event) {
+  const version = servicePackage.value?.versions.find(
+    (serviceVersion) => serviceVersion.id === event.value
+  );
   if (!version) {
-    return
+    return;
   }
 
-  productStore.setActiveProductVersionId(version.id)
+  productStore.setActiveProductVersionId(version.id);
 }
 
 onMounted(() => {
-  updateVersionSelectItems()
-})
+  updateVersionSelectItems();
+});
 
-watch([
-  () => servicePackage.value,
-  () => activeProductVersionId.value
-], () => {
-  updateVersionSelectItems()
-})
-
+watch([() => servicePackage.value, () => activeProductVersionId.value], () => {
+  updateVersionSelectItems();
+});
 </script>
 
 <style scoped>
-  aside {
-    width: 100%;
-    max-width: 260px;
-  }
+aside {
+  width: 100%;
+  max-width: 260px;
+}
 
-  .title {
-    font-weight: 500;
-    font-size: 20px;
-    display: block;
-    color: var(--text_colors-primary);
-  }
+.title {
+  font-weight: 500;
+  font-size: 20px;
+  display: block;
+  color: var(--text_colors-primary);
+  text-transform: uppercase;
+}
 
-  .version-select-dropdown :deep(div.k-select-input.select-input-container) {
-    border-color: var(--section_colors-stroke);
-  }
+.version-select-dropdown :deep(div.k-select-input.select-input-container) {
+  border-color: var(--section_colors-stroke);
+}
 </style>

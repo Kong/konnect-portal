@@ -4,13 +4,20 @@
       class="services-top-section flex flex-col items-center justify-center py-16 bg-section_colors-hero"
       :style="catalog_cover_style"
     >
-      <h4 class="services-welcome mb-4 font-normal color-text_colors-secondary text-2xl">
+      <h4
+        class="services-welcome mb-4 font-normal color-text_colors-secondary text-2xl"
+      >
         {{ welcome_message }}
       </h4>
-      <h1 class="services-title mb-5 font-normal color-text_colors-hero text-4xl">
+      <h1
+        class="services-title mb-5 font-normal color-text_colors-hero text-4xl"
+      >
         {{ primary_header }}
       </h1>
-      <div class="w-full max-w-lg mx-auto inline-flex">
+      <!-- Search bar and button on home page -->
+      <div
+        class="w-full max-w-lg mx-auto inline-flex overflow-hidden rounded-xl"
+      >
         <form
           id="searchServicesForm"
           @submit.prevent="searchServices"
@@ -28,14 +35,18 @@
           />
           <KButton
             form="searchServicesForm"
-            appearance="primary"
             data-testid="catalog-search-button"
             type="submit"
             size="small"
             :disabled="loading"
             :is-rounded="false"
           >
-            {{ searchString !== '' && loading ? helpText.searching : helpText.search }}
+            <!-- appearance="primary" -->
+            {{
+              searchString !== "" && loading
+                ? helpText.searching
+                : helpText.search
+            }}
           </KButton>
         </form>
       </div>
@@ -53,122 +64,137 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeMount } from 'vue'
-import usePortalApi from '@/hooks/usePortalApi'
-import Catalog from '@/components/Catalog.vue'
-import { debounce } from '@/helpers/debounce'
-import { useI18nStore, CatalogItemModel } from '@/stores'
+import { defineComponent, ref, onBeforeMount } from "vue";
+import usePortalApi from "@/hooks/usePortalApi";
+import Catalog from "@/components/Catalog.vue";
+import { sortBy, SortOrder, SortType } from "@/helpers/sortBy";
+import { debounce } from "@/helpers/debounce";
+import { useI18nStore, CustomProduct } from "@/stores";
 
 export default defineComponent({
-  name: 'Services',
+  name: "Services",
   components: { Catalog },
 
-  setup () {
-    const catalog_cover_style = ref<{backgroundImage:string}>({ backgroundImage: '' })
-    const welcome_message = ref('')
-    const primary_header = ref('')
-    const cardsPerPage = ref(12)
-    const searchString = ref('')
-    const services = ref<CatalogItemModel[]>([])
-    const totalCount = ref<number>(undefined)
-    const loading = ref<boolean>(null)
-    const searchTriggered = ref<boolean>(false)
-    const catalogView = ref<string>(undefined)
-    const catalogPageNumber = ref(1)
-    const helpText = useI18nStore().state.helpText.services
+  setup() {
+    const catalog_cover_style = ref<{ backgroundImage: string }>({
+      backgroundImage: "",
+    });
+    const welcome_message = ref("");
+    const primary_header = ref("");
+    const cardsPerPage = ref(12);
+    const searchString = ref("");
+    const services = ref<CustomProduct[]>([]);
+    const totalCount = ref<number>(undefined);
+    const loading = ref<boolean>(null);
+    const searchTriggered = ref<boolean>(false);
+    const catalogView = ref<string>(undefined);
+    const catalogPageNumber = ref(1);
+    const helpText = useI18nStore().state.helpText.services;
 
-    const { portalApiV2 } = usePortalApi()
+    const { portalApiV2 } = usePortalApi();
 
     const loadAppearance = async () => {
-      return portalApiV2.value.service.portalApi.getPortalAppearance().then(res => {
-        const portalVariables = res.data.variables.catalog
+      return portalApiV2.value.service.portalApi
+        .getPortalAppearance()
+        .then((res) => {
+          const portalVariables = res.data.variables.catalog;
 
-        if (portalVariables.welcome_message) {
-          welcome_message.value = portalVariables.welcome_message.text
-        }
+          if (portalVariables.welcome_message) {
+            welcome_message.value = portalVariables.welcome_message.text;
+          }
 
-        if (portalVariables.primary_header) {
-          primary_header.value = portalVariables.primary_header.text
-        }
+          if (portalVariables.primary_header) {
+            primary_header.value = portalVariables.primary_header.text;
+          }
 
-        if (portalVariables.cover) {
-          const imageUrl = portalApiV2.value.getApiLink('/api/v2/portal/catalog-cover')
+          if (portalVariables.cover) {
+            const imageUrl = portalApiV2.value.getApiLink(
+              "/api/v2/portal/catalog-cover"
+            );
 
-          catalog_cover_style.value.backgroundImage = `url(${imageUrl})`
-        }
-      }).catch(e => { console.error('Failed to load appearance.', e) }).then(defaultHeaders)
-    }
+            catalog_cover_style.value.backgroundImage = `url(${imageUrl})`;
+          }
+        })
+        .catch((e) => {
+          console.error("Failed to load appearance.", e);
+        })
+        .then(defaultHeaders);
+    };
 
     const defaultHeaders = () => {
       if (!welcome_message.value) {
-        welcome_message.value = 'Welcome to our API Portal!'
+        welcome_message.value = "Welcome to our API Portal!";
       }
 
       if (!primary_header.value) {
-        primary_header.value = 'Start building and innovating with our APIs'
+        primary_header.value = "Start building and innovating with our APIs";
       }
-    }
+    };
 
     const searchServices = debounce(async () => {
-      searchTriggered.value = true
-      catalogPageNumber.value = 1
+      searchTriggered.value = true;
+      catalogPageNumber.value = 1;
 
       try {
-        return await fetchServices()
+        return await fetchServices();
       } finally {
-        searchTriggered.value = false
+        searchTriggered.value = false;
       }
-    })
+    });
 
     const fetchServices = async () => {
-      loading.value = true
+      loading.value = true;
 
       try {
         try {
-          const { data: portalEntities } = await portalApiV2.value.service.searchApi.searchPortalEntities({
-            indices: 'product-catalog',
-            q: searchString.value,
-            pageNumber: catalogPageNumber.value,
-            pageSize: cardsPerPage.value,
-            join: 'versions'
-          })
-          const { data: sources, meta } = portalEntities
+          const { data: portalEntities } =
+            await portalApiV2.value.service.searchApi.searchPortalEntities({
+              indices: "product-catalog",
+              q: searchString.value,
+              pageNumber: catalogPageNumber.value,
+              pageSize: cardsPerPage.value,
+              join: "versions",
+            });
+          const { data: sources, meta } = portalEntities;
 
           services.value = sources.map(({ source }) => {
+            const versions = [...source.versions]
+              .sort(sortBy("created_at", SortOrder.ASC, SortType.DATE))
+              .map((version) => version.name);
+
             return {
               id: source.id,
               title: source.name,
-              latestVersion: source.latest_version,
+              versions,
               description: source.description,
-              documentCount: source.document_count,
-              versionCount: source.version_count
-            }
-          })
-          totalCount.value = meta.page.total
+              hasDocumentation: source.has_documentation,
+            };
+          });
+          totalCount.value = meta.page.total;
         } catch (e) {
-          console.error('failed to find Service Packages', e)
+          console.error("failed to find Service Packages", e);
         }
       } finally {
-        loading.value = null
+        loading.value = null;
       }
-    }
+    };
 
     const catalogViewChanged = (viewType: string) => {
-      services.value = []
-      catalogView.value = viewType
-      fetchServices()
-    }
+      services.value = [];
+      catalogView.value = viewType;
+      fetchServices();
+    };
 
     const catalogPageChanged = (pageNumber: number) => {
-      catalogPageNumber.value = pageNumber
+      catalogPageNumber.value = pageNumber;
       if (!searchTriggered.value) {
-        fetchServices()
+        fetchServices();
       }
-    }
+    };
 
     onBeforeMount(async () => {
-      await loadAppearance()
-    })
+      await loadAppearance();
+    });
 
     return {
       catalog_cover_style,
@@ -185,10 +211,10 @@ export default defineComponent({
       helpText,
       searchServices,
       catalogViewChanged,
-      catalogPageChanged
-    }
-  }
-})
+      catalogPageChanged,
+    };
+  },
+});
 </script>
 
 <style lang="scss">
@@ -203,14 +229,25 @@ export default defineComponent({
     .k-input {
       fill: var(--text_colors-accent);
       border-radius: 3px 0 0 3px !important;
-      &::-webkit-input-placeholder { color:var(--text_colors-secondary) !important; }
-      &::-moz-placeholder { color:var(--text_colors-secondary) !important; }
-      &::-ms-placeholder { color:var(--text_colors-secondary) !important; }
-      &::placeholder { color:var(--text_colors-secondary) !important; }
+      &::-webkit-input-placeholder {
+        color: var(--text_colors-secondary) !important;
+      }
+      &::-moz-placeholder {
+        color: var(--text_colors-secondary) !important;
+      }
+      &::-ms-placeholder {
+        color: var(--text_colors-secondary) !important;
+      }
+      &::placeholder {
+        color: var(--text_colors-secondary) !important;
+      }
     }
     .k-button {
       border-radius: 0 3px 3px 0;
       font-weight: normal !important;
+      // buttion css
+      background-color: #334bc1 !important;
+      color: white !important;
     }
   }
 }

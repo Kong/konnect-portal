@@ -1,17 +1,25 @@
 <template>
-  <header
-    id="site-header"
-    class="flex items-center fixed w-full top-0 z-10"
-  >
-    <div class="w-100 container max-w-screen-2xl mx-auto flex justify-between items-center px-5 md:px-0">
+  <header id="site-header" class="flex items-center fixed w-full top-0 z-10">
+    <div
+      class="w-100 container max-w-screen-2xl mx-auto flex justify-between items-center px-5 md:px-0"
+    >
       <router-link to="/">
-        <img
+        <!-- <img
           class="logo"
           :src="logoSrc"
           alt="logo"
-        >
+        > -->
+        <div class="flex gap-3">
+          <img class="logo" src="../assets/Seatgeek_logo.svg" alt="logo" />
+          <div class="h-10 border-l-4 border-black"></div>
+          <span class="text-black text-3xl font-medium">Ringside</span>
+        </div>
       </router-link>
       <nav class="flex items-center links">
+        <!-- Faq Navigation -->
+        <router-link to="/faq">
+          <div>FAQ</div>
+        </router-link>
         <router-link
           data-testid="catalog-link"
           :to="{ name: 'catalog' }"
@@ -32,45 +40,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState, storeToRefs } from 'pinia'
-import { useI18nStore, useAppStore } from '@/stores'
-import UserDropdown from './UserDropdown.vue'
-import usePortalApi from '@/hooks/usePortalApi'
+import { defineComponent } from "vue";
+import { mapState, storeToRefs } from "pinia";
+import { useI18nStore, useAppStore } from "@/stores";
+import UserDropdown from "./UserDropdown.vue";
+import usePortalApi from "@/hooks/usePortalApi";
 
 export default defineComponent({
-  name: 'Nav',
+  name: "Nav",
   components: { UserDropdown },
-  setup () {
-    const appStore = useAppStore()
-    const { globalLoading } = storeToRefs(appStore)
-    const helpText = useI18nStore().state.helpText.nav
+  setup() {
+    const appStore = useAppStore();
+    const { globalLoading } = storeToRefs(appStore);
+    const helpText = useI18nStore().state.helpText.nav;
 
     const logout = async () => {
-      globalLoading.value = true
+      globalLoading.value = true;
 
-      const logoutUrl = await appStore.logout()
+      const logoutUrl = await appStore.logout();
 
-      window.location.href = logoutUrl
-    }
-    const { portalApiV2 } = usePortalApi()
-    const logoSrc = portalApiV2.value.getApiLink('/api/v2/portal/logo')
+      window.location.href = logoutUrl;
+    };
+    const { portalApiV2 } = usePortalApi();
+    const logoSrc = portalApiV2.value.getApiLink("/api/v2/portal/logo");
 
     return {
       logout,
       logoSrc,
-      helpText
-    }
+      helpText,
+    };
   },
 
   computed: {
     ...mapState(useAppStore, {
-      developer: store => store.developerSession.data?.developer,
-      isPublic: 'isPublic'
-    })
-  }
-
-})
+      developer: (store) => store.developerSession.data?.developer,
+      isPublic: "isPublic",
+    }),
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -85,7 +92,7 @@ export default defineComponent({
 
   .links a {
     color: var(--text_colors-header);
-    &:hover{
+    &:hover {
       backdrop-filter: brightness(1.35);
     }
   }

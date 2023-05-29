@@ -57,6 +57,9 @@
 .k-button.secondary {
   border-color: var(--KButtonSecondaryBorder, var(--black-10, rgba(0, 0, 0, .1))) !important;
   color: var(--text_colors-primary) !important;
+  // button radious
+  border-radius: 3rem !important;
+
 
   &:hover,
   &:active,
@@ -73,6 +76,9 @@
 .k-button.primary {
   color: var(--button_colors-primary-text) !important;
   background-color: var(--button_colors-primary-fill) !important;
+  // button radious
+  border-radius: 3rem !important;
+
 }
 
 .k-button.primary:hover {
@@ -103,8 +109,12 @@
 .k-modal {
   .modal-dialog {
     background: var(--section_colors-body) !important;
+    // view Raw card
+    border-radius: 30px !important;
+    margin-top: 10% !important;
   }
 }
+
 #app .k-button {
 
   &:disabled,

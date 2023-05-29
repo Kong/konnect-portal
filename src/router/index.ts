@@ -10,6 +10,7 @@ import Registration from '../views/Registration.vue'
 import Login from '../views/Login.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
 import ResetPassword from '../views/ResetPassword.vue'
+import Faq from '../components/Faq.vue'
 
 import {
   canUserAccess,
@@ -66,6 +67,13 @@ const routes: Readonly<RouteRecordRaw[]> = [
           title: 'Service Catalog'
         },
         component: Services
+      },
+      // Faq navigation
+      {
+        path: '/faq',
+        name: 'faq',
+      
+        component: Faq
       },
       {
         // Nest Service-related routes, so they can use a unified shell component
@@ -186,11 +194,10 @@ export const portalRouter = () => {
   })
 
   router.beforeEach((to, from, next) => {
-    document.title = `${
-      typeof to.meta.title === 'function'
-        ? to.meta.title(to)
-        : to.meta.title || ''
-    } | Developer Portal`
+    document.title = `${typeof to.meta.title === 'function'
+      ? to.meta.title(to)
+      : to.meta.title || ''
+      } | Developer Portal`
     next()
   })
 
@@ -236,7 +243,7 @@ export const portalRouter = () => {
   return router
 }
 
-export function shouldRedirectUserToPreviouslyAccessedRoute ({
+export function shouldRedirectUserToPreviouslyAccessedRoute({
   isPublic,
   to,
   previousRoute
