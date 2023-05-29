@@ -878,14 +878,14 @@
     swagger-client "^3.19.0"
     swagger-ui "^4.17.1"
 
-"@kong/kong-auth-elements@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.0.0.tgz#03abeb722d8309feedbd1570cb0c5f07a227103b"
-  integrity sha512-iLgT9mP7sirjF42iihlAZ2Fd3ksXgoDI1bpDa9eUaRzCwOfCvEuaYDt/54ZRQqwY80GQbc27Bxt7bBk8Qh4+yg==
+"@kong/kong-auth-elements@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.0.3.tgz#43bf200a7db54f81d4cb52982f493efbf1d86f3e"
+  integrity sha512-8xWrjTrjcHbsayBVDYBUpdqIjgpodEKyOWyuaGbcmARHNiVeDX/5JyfULvgTp+TMQAStw8/STnEGCHimg4tDBg==
   dependencies:
     "@xstate/vue" "^0.8.1"
     axios "^0.27.2"
-    vue "^3.2.47"
+    vue "^3.3.4"
     vue-recaptcha "^2.0.3"
     xstate "^4.37.2"
 
@@ -8447,7 +8447,7 @@ vue-screen-utils@^1.0.0-beta.13:
   resolved "https://registry.yarnpkg.com/vue-screen-utils/-/vue-screen-utils-1.0.0-beta.13.tgz#0c739e19f6ffbffab63184aba7b6d710b6a63681"
   integrity sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==
 
-vue@^3.2.47, vue@^3.3.4:
+vue@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==
