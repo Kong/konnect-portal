@@ -193,7 +193,6 @@ export default class SessionCookie {
       // is silently failing on 401 response and its not catched - so the behavior was reimplemented in
       // interceptor of KongAuthApi
       return true
-    } finally {
     }
   }
 
