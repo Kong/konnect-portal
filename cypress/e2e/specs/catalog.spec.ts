@@ -42,6 +42,7 @@ const mockServiceSearchQuery = (searchQuery: string) => {
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
+    times: 1,
     statusCode: 200,
     body: responseBody,
     delay: 0
@@ -338,7 +339,7 @@ describe('Catalog', () => {
       })
 
       it('returns to first page on search', () => {
-        mockServiceSearchResults(servicesData, 1, totalServiceCount)
+        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
         cy.visit('/')
         cy.get('[data-testid=catalog-search]').type('{enter}')
         mockServiceSearchResults(servicesData.slice(12, 24), 2, totalServiceCount)
