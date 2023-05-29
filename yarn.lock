@@ -6208,13 +6208,13 @@ pify@^2.2.0, pify@^2.3.0:
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
 
-pinia@^2.0.33:
-  version "2.0.33"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.33.tgz#b70065be697874d5824e9792f59bd5d87ddb5e7d"
-  integrity sha512-HOj1yVV2itw6rNIrR2f7+MirGNxhORjrULL8GWgRwXsGSvEqIQ+SE0MYt6cwtpegzCda3i+rVTZM+AM7CG+kRg==
+pinia@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.1.3.tgz#50c70c7b4c94c109fade0ed4122231cbba72f8c5"
+  integrity sha512-XNA/z/ye4P5rU1pieVmh0g/hSuDO98/a5UC8oSP0DNdvt6YtetJNHTrXwpwsQuflkGT34qKxAEcp7lSxXNjf/A==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
-    vue-demi "*"
+    vue-demi ">=0.14.5"
 
 pinkie-promise@^1.0.0:
   version "1.0.0"
@@ -8112,7 +8112,12 @@ vite@^4.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vue-demi@*, vue-demi@^0.13.11:
+vue-demi@>=0.14.5:
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.14.5.tgz#676d0463d1a1266d5ab5cba932e043d8f5f2fbd9"
+  integrity sha512-o9NUVpl/YlsGJ7t+xuqJKx8EBGf1quRhCiT6D/J0pfwmk9zUwYkC7yrF4SZCe6fETvSM3UNL2edcbYrSyc4QHA==
+
+vue-demi@^0.13.11:
   version "0.13.11"
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
