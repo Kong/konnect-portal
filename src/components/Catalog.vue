@@ -13,8 +13,8 @@
       v-if="!services.length"
       class="serv-catalog-empty-state"
     >
-    <div class="serv-catalog-no-services type-lg color-text_colors-secondary">
-      <template v-if="!loading">
+      <div class="serv-catalog-no-services type-lg color-text_colors-secondary">
+        <template v-if="!loading">
           <EmptyState class="mb-2 mx-auto" />
           {{ helpText.noResults }}
         </template>
