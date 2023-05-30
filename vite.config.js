@@ -82,14 +82,6 @@ export default ({ command, mode }) => {
             mutateCookieAttributes(proxy)
           }
         },
-        '^/portal_api': {
-          target: portalApiUrl,
-          changeOrigin: true,
-          configure: (proxy, options) => {
-            mutateCookieAttributes(proxy)
-            setHostHeader(proxy)
-          }
-        },
         '^/api': {
           target: portalApiUrl,
           changeOrigin: true,
