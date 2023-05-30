@@ -91,11 +91,11 @@ export default defineComponent({
         key: 'service-package',
         to: props.service
           ? {
-              name: 'spec',
-              params: {
-                service_package: props.service.id
-              }
+            name: 'spec',
+            params: {
+              service_package: props.service.id
             }
+          }
           : undefined,
         text: props.service?.display_name || 'Service'
       },
@@ -104,11 +104,11 @@ export default defineComponent({
         text: 'Documentation',
         to: props.service
           ? {
-              name: 'api-documentation-page',
-              params: {
-                servicePackage: props.service.id
-              }
+            name: 'api-documentation-page',
+            params: {
+              servicePackage: props.service.id
             }
+          }
           : undefined
       }
     ]))
