@@ -110,6 +110,7 @@ export default defineComponent({
     tbody {
       td {
         color: var(--text_colors-secondary);
+
         &:nth-of-type(1) {
           min-width: 120px;
           color: var(--text_colors-headings);
@@ -117,6 +118,7 @@ export default defineComponent({
         &:nth-of-type(2) {
           width: auto;
           max-width: 65ch;
+          white-space: normal;
         }
       }
     }
