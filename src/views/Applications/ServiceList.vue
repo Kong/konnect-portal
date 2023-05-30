@@ -154,7 +154,7 @@ export default defineComponent({
     const handleDeleteRegistration = (registrationId: string) => {
       portalApiV2.value.service.registrationsApi.deleteApplicationRegistration({
         applicationId: props.id,
-        registrationId: registrationId
+        registrationId
       })
         .then(() => {
           handleSuccess('unregistered')
