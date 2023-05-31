@@ -13,9 +13,9 @@
       v-if="!services.length"
       class="serv-catalog-empty-state"
     >
-      <EmptyState class="mt-1 mx-auto" />
       <div class="serv-catalog-no-services type-lg color-text_colors-secondary">
         <template v-if="!loading">
+          <EmptyState class="mb-2 mx-auto" />
           {{ helpText.noResults }}
         </template>
         <div
@@ -23,7 +23,6 @@
           class="serv-catalog-loading-spinner"
         >
           <KSkeleton
-            type="spinner"
             :delay-milliseconds="0"
           />
         </div>
@@ -142,13 +141,11 @@ export default defineComponent({
   margin: auto;
   width: 20rem;
   display: block;
-  margin-top: 80px;
 }
 
 .serv-catalog-loading-spinner {
   width: 100%;
   display: flex;
-  justify-content: center;
 }
 
 .serv-catalog-no-services {
