@@ -22,7 +22,7 @@
     "@kong-ui-public/document-viewer": "^0.8.0",
     "@kong-ui-public/spec-renderer": "^0.9.0",
     "@kong/kong-auth-elements": "2.0.3",
-    "@kong/kongponents": "8.70.0",
+    "@kong/kongponents": "8.73.1",
     "@kong/sdk-portal-js": "0.0.1-beta.20",
     "@xstate/vue": "^2.0.0",
     "autoprefixer": "^10.4.14",
