@@ -429,3 +429,22 @@ Cypress.Commands.add('mockServiceOperations', (productId = '*', versionId = '*',
     body: operationsResponse
   }).as('operations')
 })
+
+/**
+ * Pass in the names and target values of Launch Darkly feature flags
+ * @param {Array<FeatureFlag>} flags array of LD feature flags
+ * @returns {Cypress.Chainable<null>} interceptor for chaining
+ */
+Cypress.Commands.add('mockLaunchDarklyFlags', (flags) => {
+  return cy.intercept(
+    'GET',
+    'https://app.launchdarkly.com/sdk/evalx/**',
+    (req) => {
+      req.continue((res) => {
+        for (const flag of flags) {
+          res.body[flag.name].value = flag.value
+        }
+      })
+    }
+  ).as('mockLaunchDarklyFlags')
+})
