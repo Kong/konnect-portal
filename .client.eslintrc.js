@@ -13,6 +13,7 @@ module.exports = {
     '@vue/typescript'
   ],
   rules: {
+    "vue/no-bare-strings-in-template": ["error"],
     'arrow-parens': 'off',
     'generator-star-spacing': 'off',
     'object-property-newline': 'error',
