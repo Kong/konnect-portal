@@ -1,5 +1,5 @@
 import { CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
-import { product, versions, serviceRegistration, apps } from '../fixtures/consts'
+import { product, versions, productRegistration, apps } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
@@ -54,16 +54,16 @@ Cypress.Commands.add('createNewApplication', (app, productId, versions) => {
   const submitButton = 'button[type="submit"]'
 
   cy.viewport(1440, 900)
-  cy.mockServicePackageDocumentTree(productId)
-  cy.mockServiceDocument(productId)
+  cy.mockProductDocumentTree(productId)
+  cy.mockProductDocument(productId)
   cy.mockApplications([], 0)
   cy.mockRegistrations(app.id)
 
-  cy.mockServicePackage(productId, product, versions)
+  cy.mockProduct(productId, product, versions)
   cy.mockProductVersionSpec(productId, versions[0].id)
-  cy.mockServiceOperations(productId, versions[0].id, versions[0].operations)
+  cy.mockProductOperations(productId, versions[0].id, versions[0].operations)
 
-  cy.mockServiceVersionApplicationRegistration(versions[0])
+  cy.mockProductVersionApplicationRegistration(versions[0])
 
   cy.intercept('POST', '**/api/v2/applications', {
     body: {
@@ -215,16 +215,18 @@ describe('Application Registration', () => {
   })
 
   it('can return to My Apps from application details via breadcrumb', () => {
+    cy.mockDeveloperRefresh()
     cy.mockApplications(apps, 4)
+    // navigate directly to My Apps
     cy.visit('/my-apps')
 
-    cy.get('[data-testid="applications-table"] tbody tr')
-      .contains(apps[0].name)
-      .click()
-
     mockApplicationWithCredAndReg(apps[0])
-
-    cy.mockApplications(apps, 4)
+    // go to application details
+    cy.get('[data-testid="applications-table"] tbody tr')
+    .contains(apps[0].name)
+    .click()
+    
+    // use breadcrumb to navigate back to My Apps
     cy.get('.k-breadcrumbs .k-breadcrumbs-item a').contains('My Apps').click()
     cy.url().should('include', 'my-apps')
   })
@@ -478,12 +480,12 @@ describe('Application Registration', () => {
   })
 
   describe('Registration Management', () => {
-    it('can request registration to a service', () => {
-      cy.mockServiceDocument()
-      cy.mockServicePackage()
-      cy.mockServiceVersionApplicationRegistration(versions[0])
-      cy.mockGetServicePackageDocuments(product.id)
-      cy.mockServiceOperations(product.id, versions[0].id)
+    it('can request registration to a product', () => {
+      cy.mockProductDocument()
+      cy.mockProduct()
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
       cy.mockProductVersionSpec(product.id, versions[0].id)
       cy.mockRegistrations('*', []) // mock with empty so that we add one.
 
@@ -498,7 +500,7 @@ describe('Application Registration', () => {
       cy.get(`${selectors.appRegModal} select`).should('contain', apps[0].name)
 
       const mockCreateRegResponse = {
-        ...serviceRegistration,
+        ...productRegistration,
         status: 'pending',
         application: apps[0]
       }
@@ -518,12 +520,12 @@ describe('Application Registration', () => {
       )
     })
 
-    it('can request registration to a service and is directed to application upon auto_approval', () => {
-      cy.mockServiceDocument()
-      cy.mockServicePackage()
-      cy.mockServiceVersionApplicationRegistration(versions[0])
-      cy.mockGetServicePackageDocuments(product.id)
-      cy.mockServiceOperations(product.id, versions[0].id)
+    it('can request registration to a product and is directed to application upon auto_approval', () => {
+      cy.mockProductDocument()
+      cy.mockProduct()
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
       cy.mockProductVersionSpec(product.id, versions[0].id)
       cy.mockRegistrations('*', [])
 
@@ -540,16 +542,16 @@ describe('Application Registration', () => {
         'POST',
         `/api/v2/applications/${apps[0].id}/registrations*`,
         {
-          body: serviceRegistration
+          body: productRegistration
         }
       ).as('postApplicationRegistration')
 
-      mockApplicationWithCredAndReg(apps[1], [], [serviceRegistration])
+      mockApplicationWithCredAndReg(apps[1], [], [productRegistration])
 
       cy.get('[data-testid="submit-registration"]').click()
 
-      cy.get('[data-testid="services-list"]')
-      cy.get('[data-testid="services-list"]').should('contain', 'barAPI')
+      cy.get('[data-testid="products-list"]')
+      cy.get('[data-testid="products-list"]').should('contain', 'barAPI')
       cy.get('[data-testid="status-badge"]').should('contain', 'approved')
     })
 
@@ -557,13 +559,13 @@ describe('Application Registration', () => {
       cy.createNewApplication(apps[2], product.id, versions)
       cy.viewport(1440, 900)
 
-      cy.mockServiceDocument()
+      cy.mockProductDocument()
       cy.visit(`/spec/${product.id}`).get('.swagger-ui', {
         timeout: 12000
       })
       cy.get('[data-testid="register-button"]', { timeout: 12000 })
-      cy.mockRegistrations(apps[0].id, [serviceRegistration])
-      cy.mockRegistrations(apps[1].id, [serviceRegistration])
+      cy.mockRegistrations(apps[0].id, [productRegistration])
+      cy.mockRegistrations(apps[1].id, [productRegistration])
 
       cy.mockApplications(
         [

@@ -14,7 +14,7 @@ describe('Not Found Page', () => {
     it('allows able to move to home using button available on 404 page', () => {
       cy.visit('/oooooooooo')
       cy.get('[data-testid="go-home"]').click()
-      cy.get('.services-welcome').should('exist')
+      cy.get('.products-welcome').should('exist')
     })
   })
 })

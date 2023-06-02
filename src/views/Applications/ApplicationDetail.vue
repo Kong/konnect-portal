@@ -68,7 +68,7 @@
         :id="id"
         class="mb-6"
       />
-      <ServiceList :id="id" />
+      <ProductList :id="id" />
     </section>
   </Content>
 </template>
@@ -84,13 +84,13 @@ import usePortalApi from '@/hooks/usePortalApi'
 import { useRoute } from 'vue-router'
 import PageTitle from '@/components/PageTitle.vue'
 import CredentialsList from './CredentialsList.vue'
-import ServiceList from './ServiceList.vue'
+import ProductList from './ProductList.vue'
 import DcrAuthenticationTable from './DcrAuthenticationTable.vue'
 import { useI18nStore, useAppStore } from '@/stores'
 
 export default defineComponent({
   name: 'ApplicationDetail',
-  components: { PageTitle, CredentialsList, ServiceList, DcrAuthenticationTable },
+  components: { PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
 
   setup () {
     const errorMessage = ref('')

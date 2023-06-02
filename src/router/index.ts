@@ -4,8 +4,8 @@ import { storeToRefs } from 'pinia'
 import { session } from '@/services'
 import { useAppStore, useI18nStore } from '@/stores'
 import Shell from '../views/Shell.vue'
-import Services from '../views/Services.vue'
-import ServiceShell from '../views/ServiceShell.vue'
+import ProductCatalogWrapper from '../views/ProductCatalogWrapper.vue'
+import ProductShell from '../views/ProductShell.vue'
 import Registration from '../views/Registration.vue'
 import Login from '../views/Login.vue'
 import ForgotPassword from '../views/ForgotPassword.vue'
@@ -75,37 +75,37 @@ export const portalRouter = () => {
             meta: {
               title: apiProductLanguageEnabled ? helpText.catalogTitleProduct : helpText.catalogTitleService
             },
-            component: Services
+            component: ProductCatalogWrapper
           },
           {
             // Nest Service-related routes, so they can use a unified shell component
             // that provides the navigation sidebar and handles product data fetching.
             // All child routes have the current Service injected in the `product` prop.
             path: '/',
-            component: ServiceShell,
+            component: ProductShell,
             children: [
               {
-                path: '/spec/:service_package/:service_version?',
+                path: '/spec/:product/:product_version?',
                 name: 'spec',
                 meta: {
                   title: helpText.specTitle,
                   isAuthorized: (route, { portalId }) => canUserAccess({
                     service: 'konnect',
                     action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.service_package}`
+                    resourcePath: `portals/${portalId}/services/${route.params.product}`
                   })
                 },
                 component: () => import('../views/Spec.vue')
               },
               {
-                path: '/docs/:service_package/:slug*',
+                path: '/docs/:product/:slug*',
                 name: 'api-documentation-page',
                 meta: {
                   title: helpText.docsTitle,
                   isAuthorized: (route, { portalId }) => canUserAccess({
                     service: 'konnect',
                     action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.service_package}`
+                    resourcePath: `portals/${portalId}/services/${route.params.product}`
                   })
                 },
                 component: () => import('../views/ApiDocumentationPage.vue')

@@ -3,16 +3,16 @@
     <template #title>
       <p
         v-if="loading"
-        class="services-card-title"
+        class="products-card-title"
       >
         <KSkeletonBox width="10" />
       </p>
       <router-link
         v-else
-        :to="`/spec/${service.id}`"
+        :to="`/spec/${product.id}`"
       >
-        <p class="services-card-title truncate">
-          {{ service.title }}
+        <p class="products-card-title truncate">
+          {{ product.title }}
         </p>
       </router-link>
     </template>
@@ -26,7 +26,7 @@
           <KSkeletonBox width="75" />
         </template>
         <template v-else>
-          {{ service.description }}
+          {{ product.description }}
         </template>
       </p>
       <ul class="mt-auto pt1">
@@ -45,7 +45,7 @@
               <KBadge
                 color="var(--text_colors-secondary)"
                 background-color="var(--section_colors-accent)"
-                class="service-version"
+                class="product-version"
               >
                 {{ version.name }}
               </KBadge>
@@ -59,7 +59,7 @@
             </template>
             <template v-else>
               <router-link
-                :to="{ name: 'spec', params: { service_package: service.id } }"
+                :to="{ name: 'spec', params: { product: product.id } }"
                 class="link"
               >
                 {{ helpText.specificationLink }}
@@ -73,7 +73,7 @@
             </template>
           </div>
           <div
-            v-if="service.documentCount"
+            v-if="product.documentCount"
             class="details-item"
           >
             <template v-if="loading">
@@ -81,7 +81,7 @@
             </template>
             <template v-else>
               <router-link
-                :to="{ name: 'api-documentation-page', params: { service_package: service.id } }"
+                :to="{ name: 'api-documentation-page', params: { product: product.id } }"
                 class="link"
               >
                 {{ helpText.documentationLink }}
@@ -107,7 +107,7 @@ import { PropType } from 'vue'
 export default {
   name: 'CatalogItem',
   props: {
-    service: {
+    product: {
       type: Object as PropType<CatalogItemModel>,
       default: () => {}
     },
@@ -125,17 +125,17 @@ export default {
   },
   computed: {
     version () {
-      return this.service.latestVersion
+      return this.product.latestVersion
     },
     versionLabel () {
-      return this.service.versionCount === 1 ? 'Version: ' : 'Versions: '
+      return this.product.versionCount === 1 ? 'Version: ' : 'Versions: '
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .services-card-title {
+  .products-card-title {
     color: var(--text_colors-accent);
     font-weight: 600;
     padding: 1.5rem 1rem;

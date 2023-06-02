@@ -162,7 +162,7 @@ export const en = {
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
     registeredApplicationsService: 'The following applications are already registered to this service:',
     modalApplicationRegistrationDefault: {
-      title: (serviceName: string, serviceVersion: string) => `Register for ${serviceName} - ${serviceVersion}`,
+      title: (serviceName: string, productVersion: string) => `Register for ${serviceName} - ${productVersion}`,
       buttonText: 'Request Access'
     },
     modalApplicationRegistrationStatusIsPending: {

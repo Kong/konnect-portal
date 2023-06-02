@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { generateProducts } from '../support/utils/generateProducts'
 import { FeatureFlags } from '@/constants/feature-flags'
 
-const mockServiceSearchQuery = (searchQuery: string) => {
+const mockProductSearchQuery = (searchQuery: string) => {
   const searchResults: SearchResultsDataInner[] = [
     ['barAPI', ['v1-beta'], uuidv4()],
     ['fooApi', ['v1'], uuidv4()],
@@ -50,7 +50,7 @@ const mockServiceSearchQuery = (searchQuery: string) => {
   }).as('productSearch')
 }
 
-const mockServiceSearchResults = (searchResults:SearchResultsDataInner[], pageNumber: number, totalCount:number) => {
+const mockProductSearchResults = (searchResults:SearchResultsDataInner[], pageNumber: number, totalCount:number) => {
   const responseBody: SearchResults = {
     data: searchResults,
     meta: {
@@ -78,7 +78,7 @@ describe('Catalog', () => {
       cy.visit('/')
     })
 
-    it('loads one service package with details', () => {
+    it('loads one product package with details', () => {
       cy.get('.products-label').should('contain', 'Service')
       cy.get('.catalog-item').should('have.length', 1)
       cy.get('.catalog-item').should('contain', 'barAPI')
@@ -89,7 +89,6 @@ describe('Catalog', () => {
     
     it('TDX-3134 - catalog title should read "Product" when flag enabled', () => {
       cy.mockLaunchDarklyFlags([{ name: FeatureFlags.ApiProductBuilder, value: true }]).then(() => {
-        cy.reload()
         cy.get('.products-label').should('contain', 'Product')
         cy.title().should('eq', 'Product Catalog | Developer Portal')
       })
@@ -97,15 +96,15 @@ describe('Catalog', () => {
 
     it('goes to details view on header click', () => {
       cy.mockPublicPortal()
-      cy.mockServicePackage()
+      cy.mockProduct()
 
-      cy.get('.catalog-item .services-card-title').first().click()
+      cy.get('.catalog-item .products-card-title').first().click()
       cy.url().should('include', '/spec')
     })
 
     it('goes to details view on specification link click', () => {
       cy.mockPublicPortal()
-      cy.mockServicePackage()
+      cy.mockProduct()
       cy.mockProductsCatalog(1, [{ description: 'great description' }])
 
       cy.visit('/')
@@ -114,22 +113,22 @@ describe('Catalog', () => {
       cy.url().should('include', '/spec')
     })
 
-    it('displays an empty state with no services', () => {
+    it('displays an empty state with no products', () => {
       cy.mockPublicPortal()
       cy.mockProductsCatalog(0)
 
       cy.visit('/')
 
-      cy.get('.serv-catalog-no-services').should('have.length', 1)
+      cy.get('.product-catalog-no-products').should('have.length', 1)
     })
 
-    it('disables view switcher with no services', () => {
+    it('disables view switcher with no products', () => {
       cy.mockPublicPortal()
       cy.mockProductsCatalog(0)
 
       cy.visit('/')
 
-      cy.get('.serv-catalog-no-services').should('have.length', 1)
+      cy.get('.product-catalog-no-products').should('have.length', 1)
       cy.get('[data-testid="view-switcher"]').should('be.disabled')
     })
 
@@ -159,7 +158,7 @@ describe('Catalog', () => {
     it('goes to details view on click', () => {
       cy.get('.k-table tbody td:nth-of-type(1)').first().click()
 
-      cy.mockServicePackage()
+      cy.mockProduct()
 
       cy.url().should('include', '/spec')
     })
@@ -193,7 +192,7 @@ describe('Catalog', () => {
       }])
 
       cy.visit('/')
-      cy.get('.service-version').should('have.length', 1).contains('v4')
+      cy.get('.product-version').should('have.length', 1).contains('v4')
       cy.get('[data-testid="view-switcher"]:not(:disabled)')
         .click()
         .get('.k-table tbody tr:first-child td:nth-child(3)')
@@ -223,18 +222,18 @@ describe('Catalog', () => {
   describe('Catalog search', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
-      mockServiceSearchQuery('')
+      mockProductSearchQuery('')
       cy.visit('/')
     })
 
-    it('loads all service packages', () => {
+    it('loads all product packages', () => {
       cy.get('.catalog-item').should('have.length', 5)
     })
 
     it('searches when search button clicked', () => {
       const searchQuery = 'x'
 
-      mockServiceSearchQuery(searchQuery)
+      mockProductSearchQuery(searchQuery)
 
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search-button]').click()
@@ -247,7 +246,7 @@ describe('Catalog', () => {
     it('searches when {enter} is typed', () => {
       const searchQuery = 'x'
 
-      mockServiceSearchQuery(searchQuery)
+      mockProductSearchQuery(searchQuery)
 
       cy.get('[data-testid=catalog-search]').type(searchQuery + '{enter}')
       cy.wait('@productSearch').then(() => {
@@ -259,7 +258,7 @@ describe('Catalog', () => {
     it('shows multiple results when searching', () => {
       const searchQuery = 's'
 
-      mockServiceSearchQuery(searchQuery)
+      mockProductSearchQuery(searchQuery)
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search-button]').click()
       cy.wait('@productSearch').then(() => {
@@ -271,14 +270,14 @@ describe('Catalog', () => {
     it('updates table entries when searching', () => {
       const searchQuery = 's'
 
-      mockServiceSearchQuery('')
+      mockProductSearchQuery('')
       cy.get('[data-testid=catalog-search]').type('{enter}')
       cy.get('[data-testid="view-switcher"]:not(:disabled)')
         .click()
         .get('.k-table tbody td:nth-of-type(1)')
         .should('have.length', 5)
 
-      mockServiceSearchQuery(searchQuery)
+      mockProductSearchQuery(searchQuery)
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search]').type('{enter}')
       cy.wait('@productSearch').then(() => {
@@ -288,14 +287,14 @@ describe('Catalog', () => {
     it('updates the table entries when clearing the field', () => {
       const searchQuery = 's'
 
-      mockServiceSearchQuery(searchQuery)
+      mockProductSearchQuery(searchQuery)
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search]').type('{enter}')
       cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
       cy.wait('@productSearch').then(() => {
         cy.get('.k-table tbody td:nth-of-type(1)').should('have.length', 2)
       })
-      mockServiceSearchQuery('')
+      mockProductSearchQuery('')
       cy.get('[data-testid=catalog-search]').trigger('search')
       cy.wait('@productSearch').then(() => {
         cy.get('.k-table tbody td:nth-of-type(1)').should('have.length', 5)
@@ -303,9 +302,9 @@ describe('Catalog', () => {
     })
   })
 
-  describe('Create a lot of services', () => {
-    const totalServiceCount = 37
-    const servicesData = generateProducts(37)
+  describe('Create a lot of products', () => {
+    const totalProductCount = 37
+    const productsData = generateProducts(37)
 
     describe('Catalog search', () => {
       beforeEach(() => {
@@ -313,15 +312,15 @@ describe('Catalog', () => {
         cy.mockAppearance()
       })
 
-      it('shows 12 services', () => {
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+      it('shows 12 products', () => {
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.visit('/')
         cy.get('.catalog-item').should('have.length', 12)
       })
 
       it('does not display pagination bar if few enough results', () => {
         cy.visit('/')
-        mockServiceSearchResults(servicesData.slice(12, 24), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(12, 24), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
         cy.get('.card-pagination-bar')
@@ -329,8 +328,8 @@ describe('Catalog', () => {
 
         const searchQuery = 'barAPI22'
 
-        mockServiceSearchResults(
-          servicesData.filter((s) => s.source.name === searchQuery),
+        mockProductSearchResults(
+          productsData.filter((s) => s.source.name === searchQuery),
           1,
           1
         )
@@ -349,10 +348,10 @@ describe('Catalog', () => {
       })
 
       it('returns to first page on search', () => {
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.visit('/')
         cy.get('[data-testid=catalog-search]').type('{enter}')
-        mockServiceSearchResults(servicesData.slice(12, 24), 2, totalServiceCount)
+        mockProductSearchResults(productsData.slice(12, 24), 2, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
         cy.get('.card-pagination-bar')
@@ -360,7 +359,7 @@ describe('Catalog', () => {
 
         const searchQuery = 'API'
 
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, 13)
+        mockProductSearchResults(productsData.slice(0, 12), 1, 13)
         cy.get('[data-testid=catalog-search]').type(searchQuery + '{enter}')
         cy.wait('@productSearch')
           .its('response.url')
@@ -375,10 +374,10 @@ describe('Catalog', () => {
       })
 
       it('sets offset back to 0 when switching to table view', () => {
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.visit('/')
         cy.get('[data-testid=catalog-search]').type('{enter}')
-        mockServiceSearchResults(servicesData.slice(12, 24), 2, totalServiceCount)
+        mockProductSearchResults(productsData.slice(12, 24), 2, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
         cy.get('.card-pagination-bar')
@@ -386,7 +385,7 @@ describe('Catalog', () => {
 
         cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
 
-        mockServiceSearchResults(servicesData.slice(0, 12), 2, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 2, totalProductCount)
         cy.wait('@productSearch')
           .its('response.url')
           .should('contain', 'page%5Bnumber%5D=1')
@@ -396,11 +395,11 @@ describe('Catalog', () => {
     describe('Catalog card list pagination', () => {
       beforeEach(() => {
         cy.mockPublicPortal()
-        cy.mockProductsCatalog(totalServiceCount)
+        cy.mockProductsCatalog(totalProductCount)
       })
 
-      it('shows 12 services', () => {
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+      it('shows 12 products', () => {
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.visit('/')
         cy.wait('@productSearch').then(() => {
           cy.get('.catalog-item').should('have.length', 12)
@@ -413,19 +412,19 @@ describe('Catalog', () => {
 
       it('allows next page and back', () => {
         // forwards
-        mockServiceSearchResults(servicesData.slice(0, 12), 2, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 2, totalProductCount)
         cy.visit('/')
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
         cy.get('.card-pagination-bar').contains('13 - 24 of 37')
         // backwards
-        mockServiceSearchResults(servicesData.slice(0, 12), 12, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 12, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-backwards]').click()
         cy.get('.card-pagination-bar')
           .contains('1 - 12 of 37')
           .get('.catalog-item')
           .should('have.length', 12)
         // to last page
-        mockServiceSearchResults(servicesData.slice(0, 1), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 1), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
           .click()
           .get('.card-pagination-bar [data-testid=pagination-forwards]')
@@ -443,12 +442,12 @@ describe('Catalog', () => {
       it('allows go to first page and go to last page', () => {
         cy.visit('/')
         // forwards
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
         // to first page
-        mockServiceSearchResults(servicesData.slice(0, 12), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-first]')
           .click()
           .get('.card-pagination-bar')
@@ -456,7 +455,7 @@ describe('Catalog', () => {
           .get('.catalog-item')
           .should('have.length', 12)
         // to last page
-        mockServiceSearchResults(servicesData.slice(0, 1), 1, totalServiceCount)
+        mockProductSearchResults(productsData.slice(0, 1), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-last]')
           .click()
           .get('.card-pagination-bar')

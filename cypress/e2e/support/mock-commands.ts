@@ -3,7 +3,7 @@ import petstoreJson from '../fixtures/oas_specs/petstoreJson.json'
 import petstoreJson30 from '../fixtures/oas_specs/petstoreJson3.0.json'
 import { generateProducts } from './utils/generateProducts'
 import { generateDocuments } from './utils/generateDocuments'
-import { defaultContext, product as servicePackage, versions } from '../fixtures/consts'
+import { defaultContext, product as product, versions } from '../fixtures/consts'
 import document from '../fixtures/dochub_mocks/document.json'
 import documentTreeJson from '../fixtures/dochub_mocks/documentTree.json'
 import apiDocumentationJson from '../fixtures/dochub_mocks/parentApiDocumentation.json'
@@ -154,6 +154,13 @@ Cypress.Commands.add('mockSuccessfulDeveloperAuth', () => {
     delay: 300
   }).as('userAuthenticate')
 })
+Cypress.Commands.add('mockDeveloperRefresh', () => {
+  return cy.intercept('POST', '**/kauth/api/v1/developer-refresh', {
+    statusCode: 200,
+    body: {},
+    delay: 300
+  }).as('developerRefresh')
+})
 
 Cypress.Commands.add('mockSuccessfulPasswordReset', () => {
   return cy.intercept('POST', '**/api/v2/developer/forgot-password', {
@@ -176,7 +183,7 @@ Cypress.Commands.add('mockGetUserInfo', () => {
   }).as('getUserInfo')
 })
 
-Cypress.Commands.add('mockServiceDocument', (productId = '*', documentId = '*', options = { body: petstoreJson }) => {
+Cypress.Commands.add('mockProductDocument', (productId = '*', documentId = '*', options = { body: petstoreJson }) => {
   const documentTreeResponse: ProductDocumentRaw = {
     content: JSON.stringify(options.body),
     id: documentId,
@@ -192,7 +199,7 @@ Cypress.Commands.add('mockServiceDocument', (productId = '*', documentId = '*', 
   }).as('getMockedServiceDocument')
 })
 
-Cypress.Commands.add('mockServicePackageDocumentTree', (productId = '*', options = { body: documentTreeJson }) => {
+Cypress.Commands.add('mockProductDocumentTree', (productId = '*', options = { body: documentTreeJson }) => {
   const documentTreeResponse: ListDocumentsTree = {
     data: options.body,
     meta: {
@@ -208,20 +215,20 @@ Cypress.Commands.add('mockServicePackageDocumentTree', (productId = '*', options
     statusCode: 200,
     delay: 100,
     body: documentTreeResponse
-  }).as('getMockServicePackageDocumentTree')
+  }).as('getMockProductDocumentTree')
 })
 
-Cypress.Commands.add('mockServicePackageApiDocument', (productId = '*', options = { body: apiDocumentationJson }) => {
+Cypress.Commands.add('mockProductApiDocument', (productId = '*', options = { body: apiDocumentationJson }) => {
   const productDocumentResponse: ProductDocument = options.body
 
   return cy.intercept('GET', `**/api/v2/products/${productId}/documents/${productDocumentResponse.slug}`, {
     statusCode: 200,
     delay: 100,
     body: productDocumentResponse
-  }).as('getMockServicePackageApiDocument')
+  }).as('getMockProductApiDocument')
 })
 
-Cypress.Commands.add('mockServicePackage', (productId = '*', mockServicePackage = servicePackage, mockVersions = versions) => {
+Cypress.Commands.add('mockProduct', (productId = '*', mockProduct = product, mockVersions = versions) => {
   const versionsResponse: ProductVersionListPage = {
     data: mockVersions,
     meta: {
@@ -238,14 +245,14 @@ Cypress.Commands.add('mockServicePackage', (productId = '*', mockServicePackage 
   })
 
   const productResponse: Product = {
-    ...mockServicePackage
+    ...mockProduct
   }
 
   return cy.intercept('GET', `**/api/v2/products/${productId}`, {
     statusCode: 200,
     delay: 100,
     body: productResponse
-  }).as('getServicePackage')
+  }).as('getProduct')
 })
 
 Cypress.Commands.overwrite('visit', (originalFn, ...options) => {
@@ -304,22 +311,22 @@ Cypress.Commands.add('mockRegistrations', (applicationId = '*', registrations = 
   }).as('getRegistrations')
 })
 
-Cypress.Commands.add('mockServiceVersionApplicationRegistration', (version, config = {}) => {
+Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, config = {}) => {
   return cy.intercept(
     'GET',
-    `**/api/v2/application_registrations/service_versions/${version.id}`, {
+    `**/api/v2/application_registrations/product_versions/${version.id}`, {
       body: {
         auth_config: { name: 'key-auth', config: {} },
         auto_approve: false,
         created_at: '2022-03-25T10:56:27.268Z',
         errors: [],
         id: 'fb4d83a5-ebf3-497c-b7a4-14aa152da470',
-        service_version: version,
+        product_version: version,
         status: 'enabled',
         updated_at: '2022-03-25T10:56:27.268Z',
         ...config
       }
-    }).as('getServiceVersionApplicationRegistration')
+    }).as('getProductVersionApplicationRegistration')
 })
 
 Cypress.Commands.add('mockProductsCatalog', (count = 1, overrides = [], pageNum = 1, pageSize = 12) => {
@@ -342,7 +349,7 @@ Cypress.Commands.add('mockProductsCatalog', (count = 1, overrides = [], pageNum 
   }).as('productSearch')
 })
 
-Cypress.Commands.add('mockGetServicePackageDocumentBySlug', (productId, slug, options = {}) => {
+Cypress.Commands.add('mockGetProductDocumentBySlug', (productId, slug, options = {}) => {
   const docId = uuidv4()
   const revId = uuidv4()
   const time = new Date().toISOString()
@@ -373,10 +380,10 @@ Cypress.Commands.add('mockGetServicePackageDocumentBySlug', (productId, slug, op
     'GET',
     `**/api/v2/products/${productId}/documents/${slug}`,
     resp
-  ).as('servicePackageDocument')
+  ).as('productDocument')
 })
 
-Cypress.Commands.add('mockGetServicePackageDocuments', (productId) => {
+Cypress.Commands.add('mockGetProductDocuments', (productId) => {
   const docId = uuidv4()
 
   const resp: ListDocumentsTree = {
@@ -394,10 +401,10 @@ Cypress.Commands.add('mockGetServicePackageDocuments', (productId) => {
     'GET',
     `**/api/v2/products/${productId}/documents`,
     resp
-  ).as('servicePackageDocuments')
+  ).as('productDocuments')
 })
 
-Cypress.Commands.add('mockGetServicePackageDocumentTree', (productId) => {
+Cypress.Commands.add('mockGetProductDocumentTree', (productId) => {
   return cy.intercept(
     'GET',
     `**/api/v2/products/${productId}/document_tree`,
@@ -405,7 +412,7 @@ Cypress.Commands.add('mockGetServicePackageDocumentTree', (productId) => {
       statusCode: 304,
       body: {}
     }
-  ).as('ServicePackageDocumentTree')
+  ).as('ProductDocumentTree')
 })
 
 Cypress.Commands.add('mockProductVersionSpec', (productId = '*', versionId = '*', content = JSON.stringify(petstoreJson30)) => {
@@ -419,7 +426,7 @@ Cypress.Commands.add('mockProductVersionSpec', (productId = '*', versionId = '*'
   }).as('spec')
 })
 
-Cypress.Commands.add('mockServiceOperations', (productId = '*', versionId = '*', operations = petstoreOperationsV2.operations as ProductVersionSpecOperationsOperationsInner[]) => {
+Cypress.Commands.add('mockProductOperations', (productId = '*', versionId = '*', operations = petstoreOperationsV2.operations as ProductVersionSpecOperationsOperationsInner[]) => {
   const operationsResponse: ProductVersionSpecOperations = {
     api_type: 'openapi',
     operations: operations

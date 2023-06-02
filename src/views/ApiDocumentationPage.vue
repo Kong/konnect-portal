@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watchEffect } from 'vue'
+import { defineComponent, computed, ref, watchEffect, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import getMessageFromError from '@/helpers/getMessageFromError'
@@ -51,7 +51,7 @@ import usePortalApi from '@/hooks/usePortalApi'
 import DocumentSections from '@/components/ApiDocumentation/DocumentSections.vue'
 import ErrorWrapper from '@/components/ErrorWrapper.vue'
 import { findAllNodesOfType, getNodeTextContent } from '@/helpers/document'
-import { useI18nStore, useProductStore } from '@/stores'
+import { ProductWithVersions, useI18nStore, useProductStore } from '@/stores'
 import useToaster from '@/composables/useToaster'
 import DocumentViewer, { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
 
@@ -66,8 +66,8 @@ export default defineComponent({
     ErrorWrapper
   },
   props: {
-    service: {
-      type: Object,
+    product: {
+      type: Object as PropType<ProductWithVersions>,
       required: true
     }
   },
@@ -83,30 +83,30 @@ export default defineComponent({
 
     const breadcrumbs = computed(() => ([
       {
-        key: 'service-catalog',
+        key: 'product-catalog',
         to: { name: 'catalog' },
         text: 'Catalog'
       },
       {
-        key: 'service-package',
-        to: props.service
+        key: 'product-package',
+        to: props.product
           ? {
               name: 'spec',
               params: {
-                service_package: props.service.id
+                product: props.product.id
               }
             }
           : undefined,
-        text: props.service?.display_name || 'Service'
+        text: props.product?.name || 'Service'
       },
       {
         key: 'documentation',
         text: 'Documentation',
-        to: props.service
+        to: props.product
           ? {
               name: 'api-documentation-page',
               params: {
-                servicePackage: props.service.id
+                product: props.product.id
               }
             }
           : undefined
@@ -145,12 +145,12 @@ export default defineComponent({
         })
     })
 
-    async function fetchDocument (servicePackageId: string, slug: string) {
+    async function fetchDocument (productId: string, slug: string) {
       errorCode.value = null
       isDocumentLoading.value = true
 
       await portalApiV2.value.service.documentationApi.getProductDocument({
-        productId: servicePackageId,
+        productId,
         documentId: slug
       }, {
         headers: {
@@ -187,9 +187,9 @@ export default defineComponent({
     }
 
     watchEffect(async () => {
-      if (activeDocumentSlug.value && props.service) {
+      if (activeDocumentSlug.value && props.product) {
         try {
-          await fetchDocument(props.service.id, activeDocumentSlug.value)
+          await fetchDocument(props.product.id, activeDocumentSlug.value)
         } catch (e) {
           handleError(e)
         }
@@ -203,7 +203,6 @@ export default defineComponent({
       isDocumentLoading,
       sections,
       breadcrumbs,
-      servicePackage: props.service,
       document,
       errorCode,
       slug: activeDocumentSlug.value

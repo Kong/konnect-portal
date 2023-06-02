@@ -2,11 +2,11 @@
   <div class="container max-w-screen-2xl mx-auto catalog-card-view">
     <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
       <CatalogItem
-        v-for="(service, index) in services"
-        :key="service.id + index"
+        v-for="(product, index) in products"
+        :key="product.id + index"
         class="catalog-item"
-        :service="service"
-        :has-documentation="service.documentCount > 0"
+        :product="product"
+        :has-documentation="product.documentCount > 0"
         :loading="loading"
       />
     </div>
@@ -33,7 +33,7 @@ export default {
     PaginationBar
   },
   props: {
-    services: {
+    products: {
       type: Array as PropType<CatalogItemModel[]>,
       default: () => []
     },

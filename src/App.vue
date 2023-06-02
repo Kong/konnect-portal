@@ -99,7 +99,7 @@ export default defineComponent({
     border-color: var(--section_colors-stroke);
   }
 
-  .service-version {
+  .product-version {
     --KBadgeBorderRadius: 12px;
     --KBadgeMinWidth: auto;
     --KBadgePaddingY: 2px;

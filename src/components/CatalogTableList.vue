@@ -10,16 +10,16 @@
       disable-pagination
       @row:click="handleRowClick"
     >
-      <template #title="{rowValue}">
+      <template #title="{ rowValue }">
         {{ rowValue }}
       </template>
-      <template #latestVersion="{row}">
+      <template #latestVersion="{ row }">
         <div>
           <KBadge
             v-if="row.latestVersion"
             color="var(--text_colors-secondary)"
             background-color="var(--section_colors-accent)"
-            class="service-version"
+            class="product-version"
           >
             {{ row.latestVersion.name }}
           </KBadge>
@@ -27,14 +27,14 @@
       </template>
       <template #links="{ row }">
         <router-link
-          :to="{ name: 'spec', params: { service_package: row.id } }"
+          :to="{ name: 'spec', params: { product: row.id } }"
           class="link"
         >
           {{ helpText.specificationLink }}
         </router-link>
         <router-link
           v-if="row.documentCount"
-          :to="{ name: 'api-documentation-page', params: { service_package: row.id } }"
+          :to="{ name: 'api-documentation-page', params: { product: row.id } }"
           class="link"
         >
           {{ helpText.documentationLink }}
@@ -44,16 +44,16 @@
   </div>
 </template>
 
-<script>
-import { useI18nStore } from '@/stores'
-import { defineComponent, ref, computed, watch } from 'vue'
+<script lang="ts">
+import { useI18nStore, CatalogItemModel } from '@/stores'
+import { defineComponent, ref, computed, watch, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'CatalogTableList',
   props: {
-    services: {
-      type: Array,
+    products: {
+      type: Array as PropType<CatalogItemModel[]>,
       default: () => []
     }
   },
@@ -72,12 +72,12 @@ export default defineComponent({
 
     function fetcher () {
       return {
-        total: props.services.length,
-        data: props.services
+        total: props.products.length,
+        data: props.products
       }
     }
 
-    watch(() => props.services, () => {
+    watch(() => props.products, () => {
       revalidate()
     }, { deep: true })
 
@@ -106,9 +106,11 @@ export default defineComponent({
   .k-table {
     max-height: 600px;
     overflow: auto;
+
     thead th {
       color: var(--text_colors-secondary);
     }
+
     tbody {
       td {
         color: var(--text_colors-secondary);
@@ -117,6 +119,7 @@ export default defineComponent({
           min-width: 120px;
           color: var(--text_colors-headings);
         }
+
         &:nth-of-type(2) {
           width: auto;
           max-width: 65ch;

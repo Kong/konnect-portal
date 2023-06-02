@@ -23,7 +23,7 @@ export default defineComponent({
         let requestedKrnDictionaryIsValid = true
 
         for (const [key, krnArgs] of Object.entries(args)) {
-          if (['service', 'action', 'resourcePath'].includes(key)) {
+          if (['product', 'action', 'resourcePath'].includes(key)) {
             requestedKrnDictionaryIsValid = false
             // Log error to help developer find invalid key
             console.error(`Invalid krn object key: ${key}`)

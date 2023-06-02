@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 
-const servicePackageId = 'a5afb115-025e-4da1-a013-bf05b326e0a51'
-const serviceVersionId = '1afac832-5b2a-474c-a56d-c241364f41cf'
+const productId = 'a5afb115-025e-4da1-a013-bf05b326e0a51'
+const productVersionId = '1afac832-5b2a-474c-a56d-c241364f41cf'
 const applicationId = uuidv4()
 
 const matrix = {
@@ -12,8 +12,8 @@ const matrix = {
         '/application/:applicationId',
         '/application/create',
         '/my-apps',
-        '/spec/:servicePackageId',
-        '/spec/:servicePackageId/:serviceVersionId'
+        '/spec/:productId',
+        '/spec/:productId/:productVersionId'
       ],
       viewable: [
         '/forgot-password',
@@ -30,8 +30,8 @@ const matrix = {
         '/my-apps',
         '/forgot-password',
         '/reset-password',
-        '/spec/:servicePackageId',
-        '/spec/:servicePackageId/:serviceVersionId'
+        '/spec/:productId',
+        '/spec/:productId/:productVersionId'
       ],
       redirectToSlash: [
         '/login',
@@ -43,8 +43,8 @@ const matrix = {
     authenticated: {
       viewable: [
         '/',
-        '/spec/:servicePackageId',
-        '/spec/:servicePackageId/:serviceVersionId'
+        '/spec/:productId',
+        '/spec/:productId/:productVersionId'
       ],
       redirectToSlash: [
         '/application/:applicationId',
@@ -59,8 +59,8 @@ const matrix = {
     unauthenticated: {
       viewable: [
         '/',
-        '/spec/:servicePackageId',
-        '/spec/:servicePackageId/:serviceVersionId'
+        '/spec/:productId',
+        '/spec/:productId/:productVersionId'
       ],
       redirectToSlash: [
         '/application/:applicationId',
@@ -76,8 +76,8 @@ const matrix = {
 }
 
 const replaceRouteValues = route => route
-  .replace(/:servicePackageId/g, servicePackageId)
-  .replace(/:serviceVersionId/g, serviceVersionId)
+  .replace(/:productId/g, productId)
+  .replace(/:productVersionId/g, productVersionId)
   .replace(/:applicationId/g, applicationId)
 
 // when true it means that it tried to access without cookie set

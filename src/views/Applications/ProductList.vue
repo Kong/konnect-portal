@@ -1,5 +1,5 @@
 <template>
-  <div class="services-list">
+  <div class="products-list">
     <PageTitle class="mb-5">
       <h2 class="font-normal type-lg m-0">
         {{ title }}
@@ -8,7 +8,7 @@
     <KCard>
       <template #body>
         <KTable
-          data-testid="services-list"
+          data-testid="products-list"
           :fetcher-cache-key="fetcherCacheKey"
           :fetcher="fetcher"
           has-side-border
@@ -76,7 +76,7 @@ import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
-  name: 'ServiceList',
+  name: 'ProductList',
   components: { PageTitle, StatusBadge, ActionsDropdown },
   props: {
     id: {
@@ -106,7 +106,7 @@ export default defineComponent({
     const { state: currentState, send } = useMachine(
       createMachine({
         predictableActionArguments: true,
-        id: 'ServiceList',
+        id: 'ProductList',
         initial: 'idle',
         states: {
           idle: { on: { FETCH: 'pending' } },
