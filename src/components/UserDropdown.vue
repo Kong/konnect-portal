@@ -30,7 +30,7 @@
             class="color-text_colors-primary block py-3 px-4"
             @click="toggle"
           >
-            My Apps
+            {{ helpText.myApps }}
           </router-link>
         </li>
         <li
@@ -38,7 +38,7 @@
           class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
           @click="$emit('logout')"
         >
-          Logout
+          {{ helpText.logout }}
         </li>
       </ul>
     </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts">
+import { useI18nStore } from '@/stores'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -56,7 +57,10 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['logout']
+  emits: ['logout'],
+  data: () => ({
+    helpText: useI18nStore().state.helpText.userDropdown
+  })
 })
 </script>
 

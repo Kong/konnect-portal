@@ -2,7 +2,7 @@
   <div class="credentials-list">
     <PageTitle class="mb-5">
       <h2 class="font-normal type-lg m-0">
-        Authentication
+        {{ helpText.title }}
       </h2>
       <template #right>
         <KButton
@@ -73,7 +73,7 @@
     >
       <template #body-content>
         <p class="copy-text">
-          {{ helpText.revokeModal.description(deletedKeyRow?.display_name ? deletedKeyRow?.display_name : deletedKeyRow?.id) }}
+          {{ helpText.revokeModal.description.start + (deletedKeyRow?.display_name ? deletedKeyRow?.display_name : deletedKeyRow?.id) + helpText.revokeModal.description.end }}
         </p>
       </template>
       <template #footer-content>
@@ -119,7 +119,7 @@
         </p>
 
         <p class="copy-text copy-label">
-          <span>{{ helpText.copySubheading(copyCredentialDisplayName) }}</span>
+          <span>{{ copySubheading + copyCredentialDisplayName }}</span>
         </p>
 
         <CopyButton
@@ -378,7 +378,10 @@ export default defineComponent({
       displayNameModalVisible.value = false
     }
 
+    const copySubheading = ''
+
     return {
+      copySubheading,
       helpText,
       tableHeaders,
       currentState,

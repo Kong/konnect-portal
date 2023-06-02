@@ -1,7 +1,7 @@
 <template>
   <div class="products-content px-5">
     <div class="container max-w-screen-2xl mx-auto mt-6 mb-5 flex justify-between">
-      <span class="products-label">{{ helpText.services }}</span>
+      <span class="products-label">{{ catalogTitle }}</span>
       <KViewSwitcher
         data-testid="view-switcher"
         :disabled="disabled"
@@ -16,7 +16,7 @@
       <div class="serv-catalog-no-services type-lg color-text_colors-secondary">
         <template v-if="!loading">
           <EmptyState class="mb-2 mx-auto" />
-          {{ helpText.noResults }}
+          {{ noResultsMessage }}
         </template>
         <div
           v-else
@@ -52,6 +52,8 @@ import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
 import CatalogTableList from './CatalogTableList.vue'
 import { CatalogItemModel, useI18nStore } from '@/stores'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'Catalog',
@@ -85,9 +87,14 @@ export default defineComponent({
   emits: ['cards-page-changed', 'active-view-changed'],
   setup () {
     const helpText = useI18nStore().state.helpText.catalog
+    const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
+    const catalogTitle = apiProductLanguageEnabled ? helpText.entityTypeProduct : helpText.entityTypeService
+    const noResultsMessage = apiProductLanguageEnabled ? helpText.noResultsProduct : helpText.noResultsService
 
     return {
-      helpText
+      helpText,
+      catalogTitle,
+      noResultsMessage
     }
   },
   data () {

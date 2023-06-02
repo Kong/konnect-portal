@@ -75,7 +75,7 @@ export default defineComponent({
     const searchTriggered = ref<boolean>(false)
     const catalogView = ref<string>(undefined)
     const catalogPageNumber = ref(1)
-    const helpText = useI18nStore().state.helpText.services
+    const helpText = useI18nStore().state.helpText.products
 
     const { portalApiV2 } = usePortalApi()
 

@@ -32,19 +32,18 @@ export default function useLaunchDarkly () {
     if (!enableLD) {
       return
     }
-    
+
     try {
       ldClient = ldModule.initialize(
         featuresetId.value,
         getUser(),
         { bootstrap: 'localStorage' }
       )
-  
+
       await ldClient.waitUntilReady()
     } catch (error) {
       console.error('Error initializing LaunchDarkly client', error)
     }
-
   }
 
   /**

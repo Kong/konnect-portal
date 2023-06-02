@@ -1,7 +1,7 @@
 <template>
   <Section
     v-if="documentTree.length && props.service"
-    title="Overview"
+    :title="helpText.title"
   >
     <DocumentTree
       :documents="documentTree"
@@ -15,7 +15,9 @@
 import { storeToRefs } from 'pinia'
 import Section from './Section.vue'
 import DocumentTree from '@/components/ApiDocumentation/DocumentTree.vue'
-import { useProductStore } from '@/stores'
+import { useProductStore, useI18nStore } from '@/stores'
+
+const helpText = useI18nStore().state.helpText.sectionOverview
 
 const props = defineProps({
   service: {

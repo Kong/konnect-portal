@@ -20,7 +20,7 @@
         <KAlert
           v-if="activeServiceVersionDeprecated"
           appearance="warning"
-          :alert-message="helpText.serviceVersion.deprecatedWarning"
+          :alert-message="deprecatedWarning"
           class="deprecated-warning"
         />
         <!-- pass service to child routes as a prop -->
@@ -45,6 +45,8 @@ import { fetchAll } from '@/helpers/fetchAll'
 import { Operation } from '@kong-ui-public/spec-renderer'
 import { AxiosResponse } from 'axios'
 import { sortByDate } from '@/helpers/sortBy'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 const { notify } = useToaster()
 const helpText = useI18nStore().state.helpText
@@ -55,6 +57,10 @@ const serviceError = ref(null)
 const activeServiceVersionDeprecated = ref(false)
 const deselectOperation = ref<boolean>(false)
 
+const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
+const deprecatedWarning = apiProductLanguageEnabled ? helpText.productVersion.deprecatedWarningProduct : helpText.productVersion.deprecatedWarningService
+
+// @ts-ignore
 const productStore = useProductStore()
 const { product, documentTree, activeDocumentSlug, activeProductVersionId } = storeToRefs(productStore)
 
@@ -100,7 +106,7 @@ async function fetchDocumentTree () {
       productId: id,
       accept: DocumentContentTypeEnum.KonnectDocumentTreejson
     }
-
+    // @ts-ignore
     // overriding the axios response because we're specifying what we're accepting above
     const res = await documentationApi.listProductDocuments(requestOptions) as AxiosResponse<ListDocumentsTree, any>
 
@@ -112,7 +118,7 @@ async function fetchDocumentTree () {
       console.error(err)
       notify({
         appearance: 'danger',
-        message: helpText.serviceVersion.unableToRetrieveDoc
+        message: helpText.productVersion.unableToRetrieveDoc
       })
     }
   }

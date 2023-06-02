@@ -43,7 +43,6 @@ async function init () {
 
   registerComponents(app)
 
-  const router = portalRouter()
   const { portalApiV2 } = usePortalApi()
 
   try {
@@ -76,6 +75,11 @@ async function init () {
     // Fetch session data from localStorage
     await session.saveData(session.checkLocalDataForUser())
 
+    const { initialize: initLaunchDarkly } = useLaunchDarkly()
+
+    await initLaunchDarkly()
+    const router = portalRouter()
+
     if (!isPublic) {
       if (session.authenticatedWithIdp()) {
         let res
@@ -95,10 +99,6 @@ async function init () {
         })
       }
     }
-
-    const { initialize: initLaunchDarkly } = useLaunchDarkly()
-
-    await initLaunchDarkly()
 
     app.use(router)
 
