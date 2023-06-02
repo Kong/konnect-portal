@@ -15,7 +15,7 @@
           @change="onChangeVersion"
         >
           <template #empty>
-            <div>{{ helpText.noResults }}</div>
+            <div>{{ noResultsMessage }}</div>
           </template>
         </KSelect>
       </header>
@@ -36,10 +36,14 @@ import SectionOverview from './sidebar/SectionOverview.vue'
 import SectionReference from './sidebar/SectionReference.vue'
 import { storeToRefs } from 'pinia'
 import { useI18nStore, useProductStore } from '@/stores'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 const productStore = useProductStore()
 const { product: servicePackage, activeProductVersionId } = storeToRefs(productStore)
 const helpText = useI18nStore().state.helpText.sidebar
+const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
+const noResultsMessage = apiProductLanguageEnabled ? helpText.noResultsProduct : helpText.noResultsService
 
 const emit = defineEmits(['operationSelected'])
 

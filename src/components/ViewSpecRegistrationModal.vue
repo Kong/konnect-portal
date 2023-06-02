@@ -29,7 +29,7 @@
           </p>
           <div v-if="registeredApplications.length">
             <p>
-              {{ helpText.applicationRegistration.registeredApplications }}
+              {{ alreadyRegisteredMessage }}
             </p>
             <ul class="registered-apps-list">
               <li
@@ -127,6 +127,8 @@ import usePortalApi from '@/hooks/usePortalApi'
 import { useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import { fetchAll } from '@/helpers/fetchAll'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ViewSpecRegistrationModal',
@@ -152,6 +154,7 @@ export default defineComponent({
   emits: ['close'],
 
   setup (props, { emit }) {
+    const apiProductFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
     const $router = useRouter()
     const $route = useRoute()
     const { notify } = useToaster()
@@ -317,6 +320,8 @@ export default defineComponent({
       }
     })
 
+    const alreadyRegisteredMessage = apiProductFlagEnabled ? helpText.applicationRegistration.registeredApplicationsProduct : helpText.applicationRegistration.registeredApplicationsService
+
     return {
       currentState,
       errorMessage,
@@ -325,6 +330,7 @@ export default defineComponent({
       helpText,
       modalText,
       availableApplications,
+      alreadyRegisteredMessage,
       registeredApplications,
       submitSelection,
       closeModal

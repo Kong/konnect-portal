@@ -8,7 +8,7 @@
         <img
           class="logo"
           :src="logoSrc"
-          alt="logo"
+          :alt="helpText.logoAlt"
         >
       </div>
 

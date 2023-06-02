@@ -17,6 +17,9 @@
     "test:e2e": "concurrently --kill-others \"yarn build:watch\" \"cypress open -C cypress.config.js --e2e -b chrome\" \"node cypress.server.mjs \"",
     "test:e2e:ci": "concurrently --success first --kill-others  \"yarn build && DEBUG=cypress:server cypress run -C cypress.config.js --e2e -b chrome\" \"node cypress.server.mjs \""
   },
+  "optionalDependencies": {
+    "launchdarkly-js-client-sdk": "2.24.2"
+  },
   "dependencies": {
     "@kong-ui-public/copy-uuid": "^0.3.15",
     "@kong-ui-public/document-viewer": "^0.8.0",

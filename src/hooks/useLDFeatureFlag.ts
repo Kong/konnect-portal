@@ -1,13 +1,7 @@
 import useLaunchDarkly from '@/composables/useLaunchDarkly'
+import { LDFlagValue } from 'launchdarkly-js-client-sdk'
 
-/**
- * @description Provides a hook to access LD feature flags
- * @param {FeatureFlags} [key] Feature flag
- * @param {any} [defaultValue] Default flag value
- * @return LDFlagValue
- */
-
-export default function useLDFeatureFlag (key, defaultValue) {
+export default function useLDFeatureFlag (key:string, defaultValue:boolean): LDFlagValue {
   const { ldClient } = useLaunchDarkly()
 
   return ldClient?.variation(key, defaultValue)

@@ -2,7 +2,7 @@
   <div class="services-list">
     <PageTitle class="mb-5">
       <h2 class="font-normal type-lg m-0">
-        {{ helpText.title }}
+        {{ title }}
       </h2>
     </PageTitle>
     <KCard>
@@ -39,13 +39,9 @@
             </ActionsDropdown>
           </template>
           <template #empty-state>
-            <EmptyState
-              message="No Services"
-            >
-              <template
-                #title
-              >
-                {{ helpText.emptyState.title }}
+            <EmptyState :message="emptyStateTitle">
+              <template #title>
+                {{ emptyStateTitle }}
               </template>
               <template #message>
                 <div>
@@ -53,7 +49,7 @@
                     :to="{ name: 'catalog' }"
                   >
                     {{ helpText.emptyState.viewCatalog1 }}
-                  </router-link> {{ helpText.emptyState.viewCatalog2 }}
+                  </router-link> {{ viewCatalog2 }}
                 </div>
               </template>
             </EmptyState>
@@ -76,6 +72,8 @@ import usePortalApi from '@/hooks/usePortalApi'
 import PageTitle from '@/components/PageTitle.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
 import ActionsDropdown from '@/components/ActionsDropdown.vue'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ServiceList',
@@ -87,13 +85,20 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const helpText = useI18nStore().state.helpText.serviceList
+    const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
+    const helpText = useI18nStore().state.helpText.productList
+
+    const nameLabel = apiProductLanguageEnabled ? helpText.labels.nameProduct : helpText.labels.nameService
+    const title = apiProductLanguageEnabled ? helpText.titleProducts : helpText.titleServices
+    const emptyStateTitle = apiProductLanguageEnabled ? helpText.emptyState.titleProducts : helpText.emptyState.titleServices
+    const viewCatalog2 = apiProductLanguageEnabled ? helpText.emptyState.viewCatalog2Product : helpText.emptyState.viewCatalog2Service
+
     const { notify } = useToaster()
     const tableHeaders = [
-      { label: 'Service', key: 'name' },
-      { label: 'Version', key: 'version' },
-      { label: 'Status', key: 'status' },
-      { key: 'actions', hideLabel: true }
+      { label: nameLabel, key: 'name' },
+      { label: helpText.labels.version, key: 'version' },
+      { label: helpText.labels.status, key: 'status' },
+      { key: helpText.labels.actions, hideLabel: true }
     ]
 
     const { portalApiV2 } = usePortalApi()
@@ -183,7 +188,10 @@ export default defineComponent({
       handleDeleteRegistration,
       fetcher,
       fetcherCacheKey,
-      paginationConfig
+      paginationConfig,
+      emptyStateTitle,
+      title,
+      viewCatalog2
     }
   }
 })

@@ -41,7 +41,7 @@
               <KSkeletonBox width="2" />
             </template>
             <template v-else>
-              <span class="mr-2">Latest Version:</span>
+              <span class="mr-2">{{ helpText.latestVersion }}</span>
               <KBadge
                 color="var(--text_colors-secondary)"
                 background-color="var(--section_colors-accent)"
@@ -62,7 +62,7 @@
                 :to="{ name: 'spec', params: { service_package: service.id } }"
                 class="link"
               >
-                Specification
+                {{ helpText.specificationLink }}
                 <KIcon
                   icon="arrowRight"
                   size="16"
@@ -84,7 +84,7 @@
                 :to="{ name: 'api-documentation-page', params: { service_package: service.id } }"
                 class="link"
               >
-                Documentation
+                {{ helpText.documentationLink }}
                 <KIcon
                   icon="arrowRight"
                   size="16"
@@ -101,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { CatalogItemModel } from '@/stores'
+import { CatalogItemModel, useI18nStore } from '@/stores'
 import { PropType } from 'vue'
 
 export default {
@@ -117,7 +117,11 @@ export default {
     }
   },
   data () {
-    return {}
+    const helpText = useI18nStore().state.helpText.catalogItem
+
+    return {
+      helpText
+    }
   },
   computed: {
     version () {

@@ -11,7 +11,7 @@
             <img
               class="logo"
               :src="logoSrc"
-              alt="logo"
+              :alt="helpText.logoAlt"
             >
           </router-link>
         </div>
@@ -25,17 +25,18 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import usePortalApi from '@/hooks/usePortalApi'
-import { useAppStore } from '@/stores'
+import { useAppStore, useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'AuthCard',
   setup () {
     const { portalApiV2 } = usePortalApi()
     const { isPublic } = useAppStore()
-
+    const helpText = useI18nStore().state.helpText.authCard
     const logoSrc: string = portalApiV2.value.getApiLink('/api/v2/portal/logo')
 
     return {
+      helpText,
       logoSrc,
       headerRouteLink: isPublic ? '/' : '/login'
     }

@@ -13,13 +13,20 @@
     <template
       #below-card
     >
-      <div class="mt-6 text-center">
+      <div
+        id="login-encouragement-message"
+        class="mt-6 text-center"
+      >
         <p class="color-text_colors-primary">
           {{ helpText.registration.alreadyCreated }}
           <router-link
             :to="{ name: 'login' }"
           >
-            {{ helpText.registration.login }} &rarr;
+            {{ helpText.registration.login }}
+            <KIcon
+              color="var(--text_colors-link)"
+              icon="forward"
+            />
           </router-link>
         </p>
       </div>
@@ -78,3 +85,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+#login-encouragement-message .kong-icon {
+  vertical-align: middle;
+}
+</style>

@@ -2,7 +2,7 @@
   <div class="view-spec-modal">
     <KModal
       :is-visible="isVisible"
-      title="View Spec"
+      :title="helpText.viewSpec"
       @canceled="closeModal"
     >
       <template #header-content>

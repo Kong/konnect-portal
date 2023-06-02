@@ -30,14 +30,14 @@
           :to="{ name: 'spec', params: { service_package: row.id } }"
           class="link"
         >
-          Specification
+          {{ helpText.specificationLink }}
         </router-link>
         <router-link
           v-if="row.documentCount"
           :to="{ name: 'api-documentation-page', params: { service_package: row.id } }"
           class="link"
         >
-          Documentation
+          {{ helpText.documentationLink }}
         </router-link>
       </template>
     </KTable>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { useI18nStore } from '@/stores'
 import { defineComponent, ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -58,6 +59,7 @@ export default defineComponent({
   },
   setup (props) {
     const $router = useRouter()
+    const helpText = useI18nStore().state.helpText.catalogTable
     const key = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
     const revalidate = () => {
@@ -82,8 +84,8 @@ export default defineComponent({
     return {
       handleRowClick,
       fetcher,
-      fetcherCacheKey
-
+      fetcherCacheKey,
+      helpText
     }
   },
   data () {

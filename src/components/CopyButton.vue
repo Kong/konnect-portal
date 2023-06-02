@@ -8,7 +8,7 @@
       <KClipboardProvider v-slot="{ copyToClipboard }">
         <KButton
           :is-rounded="false"
-          aria-label="Copy button content to clipboard"
+          :aria-label="helpText.ariaLabel"
           class="clipboard-button w-100 justify-content-between"
           data-testid="copy-button"
           appearance="secondary"
@@ -51,12 +51,12 @@ export default defineComponent({
       if (!executeCopy(props.textToCopy)) {
         notify({
           appearance: 'danger',
-          message: helpText.failedToCopy(props.textToCopy)
+          message: helpText.copyFailed.start + (props.textToCopy) + helpText.copyFailed.end
         })
       }
 
       notify({
-        message: helpText.copiedToClipboard(props.textToCopy)
+        message: helpText.copySucceeded.start + (props.textToCopy) + helpText.copySucceeded.end
       })
     }
 

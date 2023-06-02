@@ -1,6 +1,7 @@
 import { SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
 import { v4 as uuidv4 } from 'uuid'
 import { generateProducts } from '../support/utils/generateProducts'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 const mockServiceSearchQuery = (searchQuery: string) => {
   const searchResults: SearchResultsDataInner[] = [
@@ -78,11 +79,20 @@ describe('Catalog', () => {
     })
 
     it('loads one service package with details', () => {
+      cy.get('.products-label').should('contain', 'Service')
       cy.get('.catalog-item').should('have.length', 1)
       cy.get('.catalog-item').should('contain', 'barAPI')
       cy.get('.catalog-item').should('contain', 'v2')
       cy.get('.catalog-item').should('contain', 'great description')
       cy.title().should('eq', 'Service Catalog | Developer Portal')
+    })
+    
+    it('TDX-3134 - catalog title should read "Product" when flag enabled', () => {
+      cy.mockLaunchDarklyFlags([{ name: FeatureFlags.ApiProductBuilder, value: true }]).then(() => {
+        cy.reload()
+        cy.get('.products-label').should('contain', 'Product')
+        cy.title().should('eq', 'Product Catalog | Developer Portal')
+      })
     })
 
     it('goes to details view on header click', () => {

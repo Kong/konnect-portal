@@ -300,12 +300,12 @@ export default defineComponent({
       if (!executeCopy(copyItem)) {
         notify({
           appearance: 'danger',
-          message: helpText.copyButton.failedToCopy('id')
+          message: helpText.copyButton.copyFailed.start + 'id' + helpText.copyButton.copyFailed.end
         })
       }
 
       notify({
-        message: helpText.copyButton.copiedToClipboard(copyItem)
+        message: helpText.copyButton.copySucceeded.start + (copyItem) + helpText.copyButton.copySucceeded.end
       })
     }
 

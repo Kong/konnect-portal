@@ -31,13 +31,18 @@
       #below-card
     >
       <span
+        id="sign-up-encouragement-message"
         data-testid="sign-up-encouragement-message"
         class="mt-6 text-center"
       >
         <p class="color-text_colors-primary">
           {{ helpText.login.missingAccount }}
           <router-link :to="{ name: 'registration' }">
-            {{ helpText.login.signUp }} &rarr;
+            {{ helpText.login.signUp }}
+            <KIcon
+              color="var(--text_colors-link)"
+              icon="forward"
+            />
           </router-link>
         </p>
       </span>
@@ -180,5 +185,9 @@ export default defineComponent({
 <style lang="scss">
 .auth-card {
   width: 528px;
+}
+
+#sign-up-encouragement-message .kong-icon {
+  vertical-align: middle;
 }
 </style>
