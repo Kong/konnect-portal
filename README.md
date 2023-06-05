@@ -23,7 +23,7 @@ There are several benefits to keep in mind when deciding whether to use a Konnec
 * Hosting service choice: When you self-host, you also get to choose which hosting service you use to deploy your Dev Portal.
 * Range of customization options: With the self-hosted Dev Portal, you determine how much you want to customize. You can choose to use the example application right out of the box or you can use the Portal API to have more fine-grained control.
 * Configurable internationalization
-* Automated end-to-end test suite powered by Cypress
+* Automated front-end test suite powered by Cypress
 
 With those benefits in mind, there _is_ the hosting cost to deploy this single page portal and you may need developer/designer support to fully customize this modern web-application to meet your business requirements.
 
