@@ -10,17 +10,17 @@
       />
     </div>
     <div
-      v-if="!services.length"
-      class="serv-catalog-empty-state"
+      v-if="!catalogItems.length"
+      class="product-catalog-empty-state"
     >
-      <div class="serv-catalog-no-services type-lg color-text_colors-secondary">
+      <div class="product-catalog-no-products type-lg color-text_colors-secondary">
         <template v-if="!loading">
           <EmptyState class="mb-2 mx-auto" />
           {{ noResultsMessage }}
         </template>
         <div
           v-else
-          class="serv-catalog-loading-spinner"
+          class="product-catalog-loading-spinner"
         >
           <KSkeleton
             :delay-milliseconds="0"
@@ -31,7 +31,7 @@
     <div v-else>
       <CatalogCardList
         v-if="activeView == 'grid'"
-        :services="services"
+        :products="catalogItems"
         :page-size="cardsPerPage"
         :total-count="totalCount"
         :search-triggered="searchTriggered"
@@ -40,7 +40,7 @@
       />
       <CatalogTableList
         v-else
-        :services="services"
+        :products="catalogItems"
       />
     </div>
   </div>
@@ -63,7 +63,7 @@ export default defineComponent({
     EmptyState
   },
   props: {
-    services: {
+    catalogItems: {
       type: Array as PropType<CatalogItemModel[]>,
       default: () => []
     },
@@ -104,7 +104,7 @@ export default defineComponent({
   },
   computed: {
     disabled () {
-      return this.services.length === 0 ? true : null
+      return this.catalogItems.length === 0 ? true : null
     }
   },
   mounted () {
@@ -144,18 +144,18 @@ export default defineComponent({
   }
 }
 
-.serv-catalog-empty-state {
+.product-catalog-empty-state {
   margin: auto;
   width: 20rem;
   display: block;
 }
 
-.serv-catalog-loading-spinner {
+.product-catalog-loading-spinner {
   width: 100%;
   display: flex;
 }
 
-.serv-catalog-no-services {
+.product-catalog-no-products {
   text-align: center;
   padding: 20px var(--spacing-xs);
 }

@@ -1,5 +1,5 @@
 <template>
-  <Section v-if="service && service.versions.length">
+  <Section v-if="product && product.versions.length">
     <KSkeleton v-if="isLoading" />
     <SpecOperationsList
       v-else-if="operations"
@@ -24,7 +24,7 @@ const operations = ref<CustomOperation[]>(null)
 const isLoading = ref(true)
 
 const props = defineProps({
-  service: {
+  product: {
     type: Object,
     required: true
   },
@@ -43,10 +43,10 @@ const emit = defineEmits(['operationSelected'])
 const productStore = useProductStore()
 
 async function fetchOperations () {
-  const servicePackageId = props.service?.id
-  const serviceVersionId = props.activeProductVersionId
+  const productId = props.product?.id
+  const productVersionId = props.activeProductVersionId
 
-  if (!servicePackageId || !serviceVersionId) {
+  if (!productId || !productVersionId) {
     return
   }
 
@@ -54,8 +54,8 @@ async function fetchOperations () {
 
   try {
     const res = await portalApiV2.service.versionsApi.getProductVersionSpecOperations({
-      productId: servicePackageId,
-      versionId: serviceVersionId
+      productId,
+      versionId: productVersionId
     })
 
     operations.value = res.data.operations?.map(operation => ({
@@ -73,7 +73,7 @@ async function fetchOperations () {
 
 fetchOperations()
 
-watch([() => props.service, () => props.activeProductVersionId], fetchOperations)
+watch([() => props.product, () => props.activeProductVersionId], fetchOperations)
 
 </script>
 

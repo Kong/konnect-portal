@@ -16,7 +16,7 @@
         <template #visible-content>
           <div class="expandable-node-container">
             <router-link
-              :to="{ name: 'api-documentation-page', params: { service_package: servicePackageId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
+              :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
               :style="{ paddingLeft: `${level - 1}rem` }"
               :class="{ title: true }"
             >
@@ -43,7 +43,7 @@
             <DocumentTree
               :documents="document.children"
               :active-document-id="activeDocumentId"
-              :service-package-id="servicePackageId"
+              :product-id="productId"
               :level="level + 1"
               :parent-document-slug="document.slug"
             />
@@ -52,7 +52,7 @@
       </KCollapse>
       <router-link
         v-else
-        :to="{ name: 'api-documentation-page', params: { service_package: servicePackageId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
+        :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
         :class="{ title: true }"
         :style="{ paddingLeft: `${level - 1}rem` }"
       >
@@ -73,7 +73,7 @@ export default defineComponent({
       type: Array as PropType<SpecDocument[]>,
       required: true
     },
-    servicePackageId: {
+    productId: {
       type: String,
       required: true
     },

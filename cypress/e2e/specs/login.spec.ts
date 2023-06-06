@@ -64,7 +64,7 @@ describe('Login Page', () => {
         data: []
       },
       delay: 300
-    }).as('getServices')
+    }).as('getProducts')
 
     cy.mockGetUserInfo()
 
@@ -93,7 +93,7 @@ describe('Login Page', () => {
         data: []
       },
       delay: 300
-    }).as('getServices')
+    }).as('getProducts')
 
     cy.visit('/', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
@@ -264,10 +264,10 @@ describe('Login Page', () => {
     cy.location('pathname').should('equal', '/login')
     cy.get('[data-testid="auth-form"]').should('be.visible')
     cy.get('[data-testid="kong-auth-login-sso"]').should('be.visible').click()
-    cy.mockServicePackage('*')
-    cy.mockServicePackageDocumentTree()
+    cy.mockProduct('*')
+    cy.mockProductDocumentTree()
     cy.mockProductVersionSpec()
-    cy.mockServiceOperations()
+    cy.mockProductOperations()
     cy.location('pathname').should('equal', '/spec/test')
   })
 

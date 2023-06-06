@@ -1,20 +1,20 @@
 <template>
-  <div class="dev-portal-services">
+  <div class="dev-portal-products">
     <div
-      class="services-top-section flex flex-col items-center justify-center py-16 bg-section_colors-hero"
+      class="products-top-section flex flex-col items-center justify-center py-16 bg-section_colors-hero"
       :style="catalog_cover_style"
     >
-      <h4 class="services-welcome mb-4 font-normal color-text_colors-secondary text-2xl">
+      <h4 class="products-welcome mb-4 font-normal color-text_colors-secondary text-2xl">
         {{ welcome_message }}
       </h4>
-      <h1 class="services-title mb-5 font-normal color-text_colors-hero text-4xl">
+      <h1 class="products-title mb-5 font-normal color-text_colors-hero text-4xl">
         {{ primary_header }}
       </h1>
       <div class="w-full max-w-lg mx-auto inline-flex">
         <form
-          id="searchServicesForm"
-          @submit.prevent="searchServices"
-          @reset.prevent="searchServices"
+          id="searchProductsForm"
+          @submit.prevent="searchProducts"
+          @reset.prevent="searchProducts"
         >
           <KInput
             v-model="searchString"
@@ -23,11 +23,11 @@
             type="search"
             :placeholder="helpText.search"
             data-testid="catalog-search"
-            form="searchServicesForm"
-            @input="searchServices"
+            form="searchProductsForm"
+            @input="searchProducts"
           />
           <KButton
-            form="searchServicesForm"
+            form="searchProductsForm"
             appearance="primary"
             data-testid="catalog-search-button"
             type="submit"
@@ -41,7 +41,7 @@
       </div>
     </div>
     <Catalog
-      :services="services"
+      :catalog-items="catalogItems"
       :cards-per-page="cardsPerPage"
       :total-count="totalCount"
       :search-triggered="searchTriggered"
@@ -60,7 +60,7 @@ import { debounce } from '@/helpers/debounce'
 import { useI18nStore, CatalogItemModel } from '@/stores'
 
 export default defineComponent({
-  name: 'Services',
+  name: 'ProductCatalogWrapper',
   components: { Catalog },
 
   setup () {
@@ -69,7 +69,7 @@ export default defineComponent({
     const primary_header = ref('')
     const cardsPerPage = ref(12)
     const searchString = ref('')
-    const services = ref<CatalogItemModel[]>([])
+    const catalogItems = ref<CatalogItemModel[]>([])
     const totalCount = ref<number>(undefined)
     const loading = ref<boolean>(null)
     const searchTriggered = ref<boolean>(false)
@@ -109,18 +109,18 @@ export default defineComponent({
       }
     }
 
-    const searchServices = debounce(async () => {
+    const searchProducts = debounce(async () => {
       searchTriggered.value = true
       catalogPageNumber.value = 1
 
       try {
-        return await fetchServices()
+        return await fetchProducts()
       } finally {
         searchTriggered.value = false
       }
     })
 
-    const fetchServices = async () => {
+    const fetchProducts = async () => {
       loading.value = true
 
       try {
@@ -134,7 +134,7 @@ export default defineComponent({
           })
           const { data: sources, meta } = portalEntities
 
-          services.value = sources.map(({ source }) => {
+          catalogItems.value = sources.map(({ source }) => {
             return {
               id: source.id,
               title: source.name,
@@ -154,15 +154,15 @@ export default defineComponent({
     }
 
     const catalogViewChanged = (viewType: string) => {
-      services.value = []
+      catalogItems.value = []
       catalogView.value = viewType
-      fetchServices()
+      fetchProducts()
     }
 
     const catalogPageChanged = (pageNumber: number) => {
       catalogPageNumber.value = pageNumber
       if (!searchTriggered.value) {
-        fetchServices()
+        fetchProducts()
       }
     }
 
@@ -176,14 +176,14 @@ export default defineComponent({
       primary_header,
       cardsPerPage,
       searchString,
-      services,
+      catalogItems,
       totalCount,
       loading,
       searchTriggered,
       catalogView,
       catalogPageNumber,
       helpText,
-      searchServices,
+      searchProducts,
       catalogViewChanged,
       catalogPageChanged
     }
@@ -192,12 +192,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.dev-portal-services {
+.dev-portal-products {
   form {
     display: flex;
     width: 100%;
   }
-  .services-top-section {
+  .products-top-section {
     border-bottom: 1px solid var(--section_colors-stroke);
 
     .k-input {

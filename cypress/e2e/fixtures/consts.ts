@@ -62,7 +62,7 @@ const apps: GetApplicationResponse[] = [
   }
 ]
 
-const serviceRegistration: GetRegistrationResponse = {
+const productRegistration: GetRegistrationResponse = {
   created_at: '2022-03-25T13:15:02.104Z',
   updated_at: '2022-03-25T13:15:02.104Z',
   id: 'f3081666-e388-41ac-a6c0-9f37de2c2102',
@@ -85,4 +85,4 @@ const defaultContext: PortalContext = {
   rbac_enabled: false
 }
 
-export { versions, product, productVersion, serviceRegistration, apps, defaultContext }
+export { versions, product, productVersion, productRegistration, apps, defaultContext }

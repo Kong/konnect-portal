@@ -1,11 +1,11 @@
 <template>
   <Section
-    v-if="documentTree.length && props.service"
+    v-if="documentTree.length && props.product"
     :title="helpText.title"
   >
     <DocumentTree
       :documents="documentTree"
-      :service-package-id="props.service.id"
+      :product-id="props.product.id"
       :active-document-id="activeDocumentId"
     />
   </Section>
@@ -20,7 +20,7 @@ import { useProductStore, useI18nStore } from '@/stores'
 const helpText = useI18nStore().state.helpText.sectionOverview
 
 const props = defineProps({
-  service: {
+  product: {
     type: Object,
     required: true
   }
@@ -30,7 +30,3 @@ const productStore = useProductStore()
 const { documentTree, activeDocumentId } = storeToRefs(productStore)
 
 </script>
-
-<style scoped>
-
-</style>

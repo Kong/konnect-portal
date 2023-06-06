@@ -10,15 +10,15 @@
     </div>
     <div class="container mx-auto max-w-screen-2xl px-5 md:px-0">
       <EmptyState
-        v-if="hasServiceError"
+        v-if="hasProductError"
         is-error
         class="mt-6"
-        :message="hasServiceError"
+        :message="hasProductError"
       />
     </div>
 
     <div
-      v-if="hasServiceError"
+      v-if="hasProductError"
       class="spec-render-error"
     />
 
@@ -57,7 +57,7 @@
     <ViewSpecRegistrationModal
       :initial-selected-application="($route.query.application as string)"
       :is-visible="viewSpecRegistrationModalIsVisible"
-      :service="service"
+      :product="product"
       :version="currentVersion"
       @close="closeModal"
     />
@@ -88,7 +88,7 @@ export default defineComponent({
     ViewSpecRegistrationModal
   },
   props: {
-    service: {
+    product: {
       type: Object,
       required: true
     }
@@ -97,14 +97,14 @@ export default defineComponent({
     const loading = ref(false)
     const spec = ref(null)
     const currentVersion = ref(null)
-    const hasServiceError = ref(null)
+    const hasProductError = ref(null)
     const viewSpecModalIsVisible = ref(false)
     const viewSpecRegistrationModalIsVisible = ref(false)
     const isAllowedToRegister = ref(false)
     const specContents = ref('')
     const specName = ref('')
     const specDetails = ref(null)
-    const serviceVersions = ref(new Map())
+    const productVersions = ref(new Map())
     const { canUserAccess } = usePermissionsStore()
     const appStore = useAppStore()
     const { isPublic } = storeToRefs(appStore)
@@ -140,7 +140,7 @@ export default defineComponent({
     const sidebarActiveOperationListItem = computed(convertOperationToListItem)
 
     const breadcrumbs = [{
-      key: 'service-catalog',
+      key: 'product-catalog',
       to: { name: 'catalog' },
       text: helpText.nav.catalog
     }]
@@ -161,14 +161,14 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.service, async () => {
+    watch(() => props.product, async () => {
       isAllowedToRegister.value = await canUserAccess({
         service: 'konnect',
         action: '#consume',
-        resourcePath: `services/${$route.params.service_package}`
+        resourcePath: `services/${$route.params.product}`
       })
 
-      await processService()
+      await processProduct()
       await loadSwagger().then(() => {
         if (sidebarOperations.value.length) {
           // this means that user initially routed to a spec - check if
@@ -186,12 +186,12 @@ export default defineComponent({
       }
     })
 
-    watch(() => $route.params.service_version, async (serviceVersionId) => {
-      if (serviceVersionId) {
+    watch(() => $route.params.product_version, async (productVersionId) => {
+      if (productVersionId) {
         isAllowedToRegister.value = await canUserAccess({
           service: 'konnect',
           action: '#consume',
-          resourcePath: `services/${$route.params.service_package}`
+          resourcePath: `services/${$route.params.product}`
         })
 
         // this is not called on page load, but will be called when back button clicked and on select
@@ -204,10 +204,10 @@ export default defineComponent({
       isAllowedToRegister.value = await canUserAccess({
         service: 'konnect',
         action: '#consume',
-        resourcePath: `services/${$route.params.service_package}`
+        resourcePath: `services/${$route.params.product}`
       })
 
-      await processService()
+      await processProduct()
       await loadSwagger()
 
       // trigger registration modal if an application param is passed
@@ -293,25 +293,25 @@ export default defineComponent({
     function setTitle (versionName: string) {
       const versionText = versionName ? `- ${versionName} ` : ''
 
-      if (props.service) {
-        document.title = `${props.service.name} ${versionText}| Developer Portal`
+      if (props.product) {
+        document.title = `${props.product.name} ${versionText}| Developer Portal`
       } else {
         document.title = 'Developer Portal'
       }
     }
 
-    async function processService () {
-      if (!props.service) {
+    async function processProduct () {
+      if (!props.product) {
         return
       }
 
-      props.service.versions
+      props.product.versions
         .slice()
         .sort(
           (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         )
         .forEach(version => {
-          serviceVersions.value.set(version.id, {
+          productVersions.value.set(version.id, {
             ...version,
             dropdownLabel: `${version.name}${version.deprecated ? ' (Deprecated)' : ''}`
           })
@@ -322,7 +322,7 @@ export default defineComponent({
       loading.value = true
 
       return await portalApiV2.value.service.versionsApi.getProductVersionSpec({
-        productId: $route.params.service_package as string,
+        productId: $route.params.product as string,
         versionId: version
       })
         .then(async res => {
@@ -368,71 +368,71 @@ export default defineComponent({
     }
 
     async function loadSwagger () {
-      if (!props.service) {
+      if (!props.product) {
         return
       }
 
-      const serviceVersion = $route.params.service_version
-      const servicePackage = $route.params.service_package
+      const productVersion = $route.params.product_version
+      const product = $route.params.product
 
-      let serviceVersionId
+      let productVersionId
 
-      if (serviceVersion) {
+      if (productVersion) {
         try {
-          serviceVersionId = decodeURIComponent(serviceVersion as string)
+          productVersionId = decodeURIComponent(productVersion as string)
         } catch (e) {
-          serviceVersionId = serviceVersion
+          productVersionId = productVersion
         }
       }
 
-      if (!serviceVersionId && serviceVersions.value.size > 0) {
-        // Redirect when missing service version id
-        // to first available service version of service package
-        const id = Array.from(serviceVersions.value).pop()[0]
+      if (!productVersionId && productVersions.value.size > 0) {
+        // Redirect when missing product version id
+        // to first available product version of product package
+        const id = Array.from(productVersions.value).pop()[0]
 
         $router.replace({
           name: 'spec',
           params: {
-            service_version: encodeURIComponent(id),
-            service_package: servicePackage
+            product_version: encodeURIComponent(id),
+            product
           }
         })
 
         return // return because the route change will trigger load swagger again
       }
 
-      const currentServiceVersion = serviceVersions.value.get(serviceVersionId)
+      const currentProductVersion = productVersions.value.get(productVersionId)
 
-      if (!currentServiceVersion && serviceVersions.value.size > 0) {
-        // Fallback to previous implementation when we had serviceVersion name in url
-        // instead of serviceVersion id. In that case variable serviceVersionId is serviceVersion name
+      if (!currentProductVersion && productVersions.value.size > 0) {
+        // Fallback to previous implementation when we had productVersion name in url
+        // instead of productVersion id. In that case variable productVersionId is productVersion name
         // Also it handles a situation when non-exisitng id/name will be provided
 
-        const serviceVersion = Array.from(serviceVersions.value.values()).find((serviceVersion) => {
-          return serviceVersion.name === serviceVersionId
+        const productVersion = Array.from(productVersions.value.values()).find((productVersion) => {
+          return productVersion.name === productVersionId
         })
 
         $router.replace({
           name: 'spec',
           params: {
-            service_version: serviceVersion?.id && encodeURIComponent(serviceVersion?.id),
-            service_package: servicePackage
+            product_version: productVersion?.id && encodeURIComponent(productVersion?.id),
+            product
           }
         })
 
         return // return because the route change will trigger load swagger again
       }
 
-      setTitle(currentServiceVersion?.name)
+      setTitle(currentProductVersion?.name)
 
-      if (currentServiceVersion) {
-        currentVersion.value = currentServiceVersion
+      if (currentProductVersion) {
+        currentVersion.value = currentProductVersion
       }
 
-      // if we have a service version, fetch the spec
-      if (currentServiceVersion?.id && $route.params.service_package) {
+      // if we have a product version, fetch the spec
+      if (currentProductVersion?.id && $route.params.product) {
         try {
-          const specResponse = await fetchSpec(serviceVersionId)
+          const specResponse = await fetchSpec(productVersionId)
 
           spec.value = specResponse.data
 
@@ -460,7 +460,7 @@ export default defineComponent({
       spec,
       loading,
       currentVersion,
-      hasServiceError,
+      hasProductError,
       isPublic,
       breadcrumbs,
       downloadSpecContents,

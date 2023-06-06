@@ -387,14 +387,14 @@ export default defineComponent({
 
       // redirect to app reg modal in spec page
       if (
-        $route.query.service_package &&
-        $route.query.service_version
+        $route.query.product &&
+        $route.query.product_version
       ) {
         return {
           name: 'spec',
           params: {
-            service_package: $route.query.service_package,
-            service_version: $route.query.service_version
+            product: $route.query.product,
+            product_version: $route.query.product_version
           },
           query: {
             application: id

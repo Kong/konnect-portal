@@ -1,32 +1,32 @@
-import { product as servicePackage, productVersion as serviceVersion } from '../fixtures/consts'
+import { product, productVersion } from '../fixtures/consts'
 import childrenApiDocumentationJSON from '../fixtures/dochub_mocks/childrenApiDocumentation.json'
 import documentTreeJSON from '../fixtures/dochub_mocks/documentTree.json'
 
 describe('Api Documentation Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
-    cy.mockServicePackage(servicePackage.id)
-    cy.mockGetServicePackageDocumentBySlug(servicePackage.id, 'bar')
-    cy.mockGetServicePackageDocuments(servicePackage.id)
-    cy.mockServiceOperations()
+    cy.mockProduct(product.id)
+    cy.mockGetProductDocumentBySlug(product.id, 'bar')
+    cy.mockGetProductDocuments(product.id)
+    cy.mockProductOperations()
   })
 
-  const PARENT_DOCUMENT_URL = `/docs/${servicePackage.id}/${documentTreeJSON[0].slug}`
+  const PARENT_DOCUMENT_URL = `/docs/${product.id}/${documentTreeJSON[0].slug}`
   const CHILD_DOCUMENT_URL = `${PARENT_DOCUMENT_URL}/${documentTreeJSON[0].children[0].slug}`
 
   it('displays proper error message when 400', () => {
     cy.intercept(
       'GET',
-      `**/api/v2/products/${servicePackage.id}/documents/foo`,
+      `**/api/v2/products/${product.id}/documents/foo`,
       {
         statusCode: 400,
         body: {}
       }
-    ).as('fetchServicePackageDocument')
+    ).as('fetchProductDocument')
 
-    cy.visit(`/docs/${servicePackage.id}/foo`)
+    cy.visit(`/docs/${product.id}/foo`)
 
-    cy.wait('@fetchServicePackageDocument')
+    cy.wait('@fetchProductDocument')
 
     cy.get('[data-testid="api-documentation-page"]').should('be.visible')
     cy.get('[data-testid="error-wrapper"]').should('be.visible')
@@ -35,27 +35,27 @@ describe('Api Documentation Page', () => {
   it('redirect when 404', () => {
     cy.intercept(
       'GET',
-      `**/api/v2/products/${servicePackage.id}/documents/foo`,
+      `**/api/v2/products/${product.id}/documents/foo`,
       {
         statusCode: 404,
         body: {}
       }
-    ).as('fetchServicePackageDocument')
+    ).as('fetchProductDocument')
 
-    cy.visit(`/docs/${servicePackage.id}/foo`)
+    cy.visit(`/docs/${product.id}/foo`)
 
-    cy.wait('@fetchServicePackageDocument')
+    cy.wait('@fetchProductDocument')
 
     cy.location('pathname').should('equal', '/404')
   })
 
-  it('shows correct document tree in left sidebar of the catalog page for each service', () => {
-    cy.mockServiceDocument()
+  it('shows correct document tree in left sidebar of the catalog page for each product', () => {
+    cy.mockProductDocument()
     cy.mockProductVersionSpec()
-    cy.mockServicePackageDocumentTree()
+    cy.mockProductDocumentTree()
 
-    cy.visit(`/spec/${servicePackage.id}/${serviceVersion.id}`)
-    cy.wait('@getMockServicePackageDocumentTree')
+    cy.visit(`/spec/${product.id}/${productVersion.id}`)
+    cy.wait('@getMockProductDocumentTree')
 
     // verify if the parent document link is shown
     cy.get('a.title').contains('a', 'This is the parent document')
@@ -72,14 +72,14 @@ describe('Api Documentation Page', () => {
 
   it('navigates to the correct API documentation page from Spec view using sidebar', () => {
     cy.mockProductVersionSpec()
-    cy.mockServicePackageDocumentTree()
-    cy.mockServicePackageApiDocument()
+    cy.mockProductDocumentTree()
+    cy.mockProductApiDocument()
 
-    cy.visit(`/spec/${servicePackage.id}/${serviceVersion.id}`)
-    cy.wait('@getMockServicePackageDocumentTree')
+    cy.visit(`/spec/${product.id}/${productVersion.id}`)
+    cy.wait('@getMockProductDocumentTree')
 
     cy.get('a.title').contains('a', 'This is the parent document').click()
-    cy.wait('@getMockServicePackageApiDocument')
+    cy.wait('@getMockProductApiDocument')
 
     cy.url().should('include', PARENT_DOCUMENT_URL)
     cy.get('.k-breadcrumb-text').last().should('include.text', 'Documentation')
@@ -89,7 +89,7 @@ describe('Api Documentation Page', () => {
   })
 
   it('shows correct document content', () => {
-    cy.mockServicePackageApiDocument()
+    cy.mockProductApiDocument()
 
     cy.visit(PARENT_DOCUMENT_URL)
 
@@ -116,13 +116,13 @@ describe('Api Documentation Page', () => {
   })
 
   it('scrolls to the correct heading when a link is clicked in sidebar', () => {
-    cy.mockServicePackageDocumentTree()
+    cy.mockProductDocumentTree()
     // mock parent
-    cy.mockServicePackageApiDocument(servicePackage.id, {
+    cy.mockProductApiDocument(product.id, {
       body: documentTreeJSON[0]
     })
     // mock child
-    cy.mockServicePackageApiDocument(servicePackage.id, {
+    cy.mockProductApiDocument(product.id, {
       body: childrenApiDocumentationJSON
     })
 
