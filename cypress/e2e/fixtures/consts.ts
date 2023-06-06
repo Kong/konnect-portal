@@ -85,4 +85,4 @@ const defaultContext: PortalContext = {
   rbac_enabled: false
 }
 
-export { versions, product, productVersion, productRegistration as productRegistration, apps, defaultContext }
+export { versions, product, productVersion, productRegistration, apps, defaultContext }

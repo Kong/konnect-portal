@@ -1,4 +1,4 @@
-import { product as product, versions } from '../fixtures/consts'
+import { product, versions } from '../fixtures/consts'
 import petstoreJson from '../fixtures/oas_specs/petstoreJson.json'
 import petstoreJson3 from '../fixtures/oas_specs/petstoreJson3.0.json'
 

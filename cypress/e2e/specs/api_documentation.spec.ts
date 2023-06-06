@@ -1,4 +1,4 @@
-import { product as product, productVersion as productVersion } from '../fixtures/consts'
+import { product, productVersion } from '../fixtures/consts'
 import childrenApiDocumentationJSON from '../fixtures/dochub_mocks/childrenApiDocumentation.json'
 import documentTreeJSON from '../fixtures/dochub_mocks/documentTree.json'
 
