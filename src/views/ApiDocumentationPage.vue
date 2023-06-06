@@ -88,7 +88,7 @@ export default defineComponent({
         text: 'Catalog'
       },
       {
-        key: 'product-package',
+        key: 'product',
         to: props.product
           ? {
               name: 'spec',

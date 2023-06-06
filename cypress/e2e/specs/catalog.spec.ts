@@ -78,7 +78,7 @@ describe('Catalog', () => {
       cy.visit('/')
     })
 
-    it('loads one product package with details', () => {
+    it('loads one product with details', () => {
       cy.get('.products-label').should('contain', 'Service')
       cy.get('.catalog-item').should('have.length', 1)
       cy.get('.catalog-item').should('contain', 'barAPI')
