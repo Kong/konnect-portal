@@ -9,6 +9,11 @@ pre-push:
         - merge
         - rebase
       run: yarn lint
+    dependencies:
+      skip:
+        - merge
+        - rebase
+      run: ./.github/scripts/pin-version
 
 commit-msg:
   parallel: true
