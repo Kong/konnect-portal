@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
-import { AuthenticationApi, Configuration } from '@kong/sdk-portal-js'
 import { useAppStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import SessionCookie from './SessionCookie'
@@ -8,8 +7,6 @@ export default class KongAuthApi {
   authErrorCallback: (error: AxiosError) => void
 
   baseUrl: string
-
-  authentication: AuthenticationApi
 
   failedQueue = []
 
@@ -119,11 +116,6 @@ export default class KongAuthApi {
       return Promise.reject(originalErr)
     })
 
-    const baseConfig = new Configuration({
-      basePath: this.baseUrl
-    })
-
-    this.authentication = new AuthenticationApi(baseConfig, baseConfig.basePath, this.client)
     this.authenticationV1 = {
       logout: () => this.client.post(this.baseUrl + '/api/v1/developer-logout'),
       refresh: () => this.client.post(this.baseUrl + '/api/v1/developer-refresh')
