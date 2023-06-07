@@ -11,6 +11,8 @@ jobs:
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v5
+      - name: Check unpinned versions
+        run: ./.github/scripts/pin-version
   tests:
     name: Tests
     runs-on: ubuntu-latest

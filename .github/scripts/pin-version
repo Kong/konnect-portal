@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+// ensure that no unpinned version lands in the package.json
+const path = require('path')
+const pkgFileDir = (process.argv.length >= 3) ? process.argv[2] : "."
+const pkgFilePath = path.resolve(pkgFileDir, "package.json")
+
+console.log(`Loading ${pkgFilePath}`)
+const pkg = require(pkgFilePath)
+
+function checkPackage(pkg) {
+  const errors = []
+
+  errors.push(...checkPinned(pkg.dependencies))
+  errors.push(...checkPinned(pkg.devDependencies))
+
+  return errors
+}
+
+function checkPinned(obj) {
+  const errors = []
+
+  for (const dep in obj) {
+    if (obj[dep].startsWith('^') || obj[dep].startsWith('~') || obj[dep].toLowerCase().includes('.x') || obj[dep] === '*') {
+      errors.push(`${dep}:${obj[dep]}`)
+    }
+  }
+
+  return errors
+}
+
+const errors = checkPackage(pkg)
+
+if(errors.length) {
+  console.error(`Unpinned deps in ${pkgFilePath}`)
+  errors.forEach(x=>console.error(x))
+
+  process.exit(1)
+} else {
+  console.log(`No unpinned deps in ${pkgFilePath}`)
+  process.exit(0)
+}
