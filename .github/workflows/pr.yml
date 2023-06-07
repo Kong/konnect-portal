@@ -4,8 +4,8 @@ on:
   pull_request:
 
 jobs:
-  lint:
-    name: Linting
+  code-quality:
+    name: Lint and type check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,8 +14,8 @@ jobs:
       - uses: wagoid/commitlint-github-action@v5
       - name: Check unpinned versions
         run: ./.github/scripts/pin-version
-      - name: Check TypeScript types
-        run: yarn install
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
       - name: Check TypeScript types
         run: yarn typecheck
   tests:

@@ -847,9 +847,9 @@
     uuid "^9.0.0"
 
 "@kong-ui-public/swagger-ui-web-component@^0.5.0":
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.5.5.tgz#3d09ae789c0e5b647e5829321c7a707e0882886a"
-  integrity sha512-CcJUvdxNdxEDv2uCZ+tqQuKZfLJ4nYh5rQd2M+fkNp4eHq6eLreENBErAck5yzij/1DfdOzPYBOqtteGd7kaCQ==
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.5.6.tgz#5a2b6de70235d0b2bfadaf1989e614ca9e4e3182"
+  integrity sha512-+4a/La/liQXGpnMSraICX8P8RkJD90tL8c53x0Wt6Dzy/q1FBglHGVo1mwvrzRvS3h0lUQDNdti6CbHrAEfCmw==
   dependencies:
     "@kong/swagger-ui-kong-theme-universal" "^4.2.1"
     react "17.0.2"
@@ -3343,9 +3343,9 @@ ee-first@1.1.1:
   integrity sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==
 
 electron-to-chromium@^1.4.411:
-  version "1.4.423"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.423.tgz#99567f3a0563fe0d1d0931e9ce851bca239f6658"
-  integrity sha512-y4A7YfQcDGPAeSWM1IuoWzXpg9RY1nwHzHSwRtCSQFp9FgAVDgdWlFf0RbdWfLWQ2WUI+bddUgk5RgTjqRE6FQ==
+  version "1.4.424"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.424.tgz#791402d0737e8d1d05cfb7fbf5c0374f26b3838a"
+  integrity sha512-KOfOIoEE0b3L0CTDgqS+NpokmcBdxpqLIPtp9PL0v5GAMZmZXa9uoUfWJdEy63MNy6jMvKHkBVUYY5DSuqqpdw==
 
 emitter-component@^1.1.1:
   version "1.1.1"
