@@ -1,4 +1,4 @@
-import { ProductCatalogIndexSource, ProductCatalogIndexSourceLatestVersion, ProductVersion, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import { ProductCatalogIndexSource, ProductCatalogIndexSourceLatestVersion, SearchResultsDataInner } from '@kong/sdk-portal-js'
 
 export const generateProducts = (count: number, options: Partial<ProductCatalogIndexSource>[] = []): SearchResultsDataInner[] => {
   const productsList: SearchResultsDataInner[] = []

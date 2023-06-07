@@ -4,7 +4,8 @@ on:
   pull_request:
 
 jobs:
-  commitlint:
+  lint:
+    name: Linting
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -13,6 +14,10 @@ jobs:
       - uses: wagoid/commitlint-github-action@v5
       - name: Check unpinned versions
         run: ./.github/scripts/pin-version
+      - name: Check TypeScript types
+        run: yarn install
+      - name: Check TypeScript types
+        run: yarn typecheck
   tests:
     name: Tests
     runs-on: ubuntu-latest
