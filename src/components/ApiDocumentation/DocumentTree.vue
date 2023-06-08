@@ -64,13 +64,13 @@
 <script lang="ts">
 import { PropType, defineComponent, watch, ref, onMounted } from 'vue'
 import { hasDocumentInTree } from '@/helpers/document'
-import { SpecDocument } from '@kong-ui-public/spec-renderer'
+import { DocumentTree } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'DocumentTree',
   props: {
     documents: {
-      type: Array as PropType<SpecDocument[]>,
+      type: Array as PropType<DocumentTree[]>,
       required: true
     },
     productId: {
