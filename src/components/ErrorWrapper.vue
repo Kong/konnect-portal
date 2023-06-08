@@ -28,7 +28,9 @@
 </template>
 
 <script lang="ts">
+import { useI18nStore } from '@/stores'
 import { defineComponent } from 'vue'
+const helpText = useI18nStore().state.helpText.errorWrapper
 
 export default defineComponent({
   name: 'ErrorWrapper',
@@ -43,7 +45,7 @@ export default defineComponent({
     },
     linkText: {
       type: String,
-      default: 'Go back home →'
+      default: helpText.linkText
     },
     to: {
       type: String,
