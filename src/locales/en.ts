@@ -91,6 +91,7 @@ export const en = {
     }
   },
   application: {
+    breadcrumbMyApps: 'My Apps',
     edit: 'Edit',
     cancel: 'Cancel',
     delete: 'Delete',
@@ -186,6 +187,9 @@ export const en = {
       onThisPage: 'On this page'
     }
   },
+  errorWrapper: {
+    linkText: 'Go back home →'
+  },
   sidebar: {
     deprecated: ' (Deprecated)',
     noResultsProduct: 'No product versions',
@@ -225,6 +229,9 @@ export const en = {
   },
   nav: {
     catalog: 'Catalog',
+    breadcrumbService: 'Service',
+    breadcrumbProduct: 'Product',
+    breadcrumbDocumentation: 'Documentation',
     logoAlt: 'logo'
   },
   authCard: {
