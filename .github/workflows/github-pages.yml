@@ -41,6 +41,7 @@ jobs:
       - name: Deploy to github pages
         uses: peaceiris/actions-gh-pages@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # automatically generated github token
           publish_branch: gh-pages # the branch where you want the dist to be published
           publish_dir: ./dist # this is the output directory of `yarn build` command
           cname: konnect-portal.konghq.com # the cname to be resolved for the UI
