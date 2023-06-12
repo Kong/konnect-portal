@@ -18,11 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: node modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.19.0'
-          key: ${{ hashFiles('yarn.lock') }}
+          node-version-file: '.nvmrc'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: generate env file

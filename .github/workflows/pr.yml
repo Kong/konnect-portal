@@ -14,6 +14,15 @@ jobs:
       - uses: wagoid/commitlint-github-action@v5
       - name: Check unpinned versions
         run: ./.github/scripts/pin-version
+      - name: node modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
       - name: Check TypeScript types
@@ -27,11 +36,15 @@ jobs:
         containers: [1, 2, 3]
     steps:
       - uses: actions/checkout@v3
+      - name: node modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.19.0'
-          cache: 'yarn'
+          node-version-file: '.nvmrc'
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Copy .env.example
