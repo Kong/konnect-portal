@@ -8,7 +8,7 @@ import PortalV2ApiService from '@/services/PortalV2ApiService'
  * properly resolve within container applications, especially when called from nested routes
  */
 
-const kauthBaseUrl = import.meta.env.VITE_PORTAL_API_URL && import.meta.env.VITE_PORTAL_API_URL !== '/' ? import.meta.env.VITE_PORTAL_API_URL : window.location.hostname
+const kauthBaseUrl = import.meta.env.VITE_PORTAL_API_URL && import.meta.env.VITE_PORTAL_API_URL !== '/' ? import.meta.env.VITE_PORTAL_API_URL : window.location.origin
 
 export const authApiBaseUrl = import.meta.env.DEV ? '/kauth' : new URL('/kauth', kauthBaseUrl).href
 

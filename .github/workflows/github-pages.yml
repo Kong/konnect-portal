@@ -33,7 +33,7 @@ jobs:
         # generating the environment file to have our final build
         # This is likely to be adjustred for your needs
         run: |
-          echo "VITE_PORTAL_API_URL='https://api-konnect-portal.konghq.com'" >> .env
+          echo "VITE_PORTAL_API_URL='https://api-konnect-portal.konghq.com/'" >> .env
           echo "VITE_LOCALE='en'" >> .env
           echo "VITE_ENABLE_LAUNCH_DARKLY=true" >> .env
       - name: Lint
