@@ -102,7 +102,7 @@ export default defineComponent({
     const breadcrumbs = computed(() => ([{
       key: 'my-apps',
       to: { name: 'my-apps' },
-      text: 'My Apps'
+      text: helpText.breadcrumbMyApps
     }]))
 
     const { portalApiV2 } = usePortalApi()

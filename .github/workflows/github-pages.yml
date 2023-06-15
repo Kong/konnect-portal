@@ -1,0 +1,52 @@
+name: Deploy on Kong github-pages
+
+# This is a workflow to deploy konnect-portal using github pages
+# This one will build the UI to use the api located https://api-konnect-portal.konghq.com
+# And will be resolved by the CNAME konnect-portal.konghq.com
+# If you want to implement this please see the following workflow and its explanations
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: github.repository == 'kong/konnect-portal'
+    name: deploy build to github-pages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: node modules cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: generate env file
+        # generating the environment file to have our final build
+        # This is likely to be adjustred for your needs
+        run: |
+          echo "VITE_PORTAL_API_URL='https://api-konnect-portal.konghq.com/'" >> .env
+          echo "VITE_LOCALE='en'" >> .env
+          echo "VITE_ENABLE_LAUNCH_DARKLY=true" >> .env
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
+      # See documentation of the github action below
+      # ref: https://github.com/peaceiris/actions-gh-pages/tree/v3
+      - name: Deploy to github pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # automatically generated github token
+          publish_branch: gh-pages # the branch where you want the dist to be published
+          publish_dir: ./dist # this is the output directory of `yarn build` command
+          cname: konnect-portal.konghq.com # the cname to be resolved for the UI
+          force_orphan: true # this will clean the commit history of the `gh-pages` branch

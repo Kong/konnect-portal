@@ -26,10 +26,7 @@
     "target": "ESNext",
     "types": [
       "node",
-      "cypress",
-      "./cypress/support",
-      "vite/client",
-      "vitest/globals"
+      "vite/client"
     ]
   },
   "vueCompilerOptions": {
@@ -39,10 +36,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
-    "src/additionalModules.ts",
-    "src/hooks/usePortalApi.js",
-    "tests/unit/**/*.ts",
-    "cypress/**/*.ts",
   ],
   "exclude": [
     "node_modules"

@@ -14,7 +14,7 @@
           appearance="secondary"
           @click="copyTokenToClipboard(copyToClipboard)"
         >
-          <span>{{ label }} {{ textToCopy }}</span>
+          <span class="truncate">{{ label }} {{ textToCopy }}</span>
           <KIcon
             :title="helpText.copyToClipboard"
             icon="copy"
