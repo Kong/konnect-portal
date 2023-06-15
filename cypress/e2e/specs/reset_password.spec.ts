@@ -1,15 +1,11 @@
-
 describe('Reset Password Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
     cy.mockSuccessfulPasswordReset()
   })
   it('Sends token to backend that developer can get from email and resets password', () => {
-    cy.intercept('PATCH', '/kauth/api/v1/developer-password-resets', {
-      statusCode: 200,
-      body: {
-        email: 'testing123@email.com'
-      },
+    cy.intercept('POST', '**/developer/reset-password', {
+      statusCode: 204,
       delay: 300
     }).as('resetPassword')
 
@@ -44,7 +40,7 @@ describe('Reset Password Page', () => {
     })
   })
   it('Errors out if reset token is invalid', () => {
-    cy.intercept('PATCH', '/kauth/api/v1/developer-password-resets', {
+    cy.intercept('POST', '**/developer/reset-password', {
       statusCode: 400,
       body:
         {

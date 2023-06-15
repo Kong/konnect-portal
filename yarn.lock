@@ -857,10 +857,10 @@
     swagger-client "^3.19.8"
     swagger-ui "^4.19.0"
 
-"@kong/kong-auth-elements@2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.0.4.tgz#5cacec88b170907794463ff46eb22c8c1153bdba"
-  integrity sha512-UGvv8imVHKk+O4z7QNWqogs6QAeOUKJperMmTiYWSJY9DghISsqD4GOuj+fR+p8si1RucSqiXLAdcQ6xTocbwQ==
+"@kong/kong-auth-elements@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.1.0.tgz#80ee2579c7145ca4a9517c15d2f0e971aff5aef7"
+  integrity sha512-Od8hkyHHl4N1sCh+FbwYlce3M6k/fGt5wUrLPzT82VzlAnqmVrli9y8Eb4YNRAH0awZ94XHcCda3qJ86uLXFFA==
   dependencies:
     "@xstate/vue" "^0.8.1"
     axios "^0.27.2"

@@ -14,7 +14,7 @@ export default class KongAuthApi {
 
   client: AxiosInstance
 
-  authenticationV1: {
+  authenticationV2: {
     logout(): Promise<AxiosResponse<void>>
     refresh(): Promise<AxiosResponse<void>>
   }
@@ -116,9 +116,9 @@ export default class KongAuthApi {
       return Promise.reject(originalErr)
     })
 
-    this.authenticationV1 = {
-      logout: () => this.client.post(this.baseUrl + '/api/v1/developer-logout'),
-      refresh: () => this.client.post(this.baseUrl + '/api/v1/developer-refresh')
+    this.authenticationV2 = {
+      logout: async () => this.client.post(this.baseUrl + '/api/v2/developer/logout'),
+      refresh: async () => this.client.post(this.baseUrl + '/api/v2/developer/refresh')
     }
   }
 

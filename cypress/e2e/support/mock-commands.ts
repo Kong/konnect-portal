@@ -148,15 +148,15 @@ Cypress.Commands.add('mockPublicPortal', () => {
 })
 
 Cypress.Commands.add('mockSuccessfulDeveloperAuth', () => {
-  return cy.intercept('POST', '**/kauth/api/v1/developer-authenticate', {
-    statusCode: 200,
+  return cy.intercept('POST', '**/developer/authenticate', {
+    statusCode: 204,
     body: {},
     delay: 300
   }).as('userAuthenticate')
 })
 Cypress.Commands.add('mockDeveloperRefresh', () => {
-  return cy.intercept('POST', '**/kauth/api/v1/developer-refresh', {
-    statusCode: 200,
+  return cy.intercept('POST', '**/developer/refresh', {
+    statusCode: 204,
     body: {},
     delay: 300
   }).as('developerRefresh')
