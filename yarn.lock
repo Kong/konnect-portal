@@ -2876,10 +2876,10 @@ cypress-split@1.3.8:
     find-cypress-specs "^1.27.1"
     humanize-duration "^3.28.0"
 
-cypress-terminal-report@4.1.3:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-4.1.3.tgz#f99fd485b4a085692e8daf031a8ddb9ca5aa2fed"
-  integrity sha512-nOuor2fVHIajMe+a+IPORHTgjAgxNOMqi4JRqqLVzz7u1dvsoPGhyjmPAJA4grdN1wcskw/uM6jer1QVmyvtzA==
+cypress-terminal-report@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-5.2.0.tgz#52a41320d88ec39a61431e7ea439441addbc928c"
+  integrity sha512-XKLt7zGmy1LpFxlwwBOyOoN12zKJ+Ot+YRjplyqew4FfVjlakMnkQ9FPLOLa9ocpK6nxZGRQn/qzTtSZ5NoxHg==
   dependencies:
     chalk "^4.0.0"
     fs-extra "^10.1.0"
