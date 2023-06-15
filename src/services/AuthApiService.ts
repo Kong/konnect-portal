@@ -47,7 +47,7 @@ export default class KongAuthApi {
           // If the original request is to refresh the auth token, and the request has failed, do not retry requests
           // It is directly done there, as in SessionCookie this.kongAuthApi.authentication.refresh() call
           // is silently failing on 401 response and its not possible to rely on code there
-          if (originalRequest.url.includes('/developer-refresh')) {
+          if (originalRequest.url.includes('/developer/refresh')) {
             // Refresh token was invalid, so don't retry requests
             authTokenIsRefreshing.value = false
             // Clear the queue

@@ -103,7 +103,6 @@ export default class SessionCookie {
           })
         }
       } catch (e) {
-        console.log('hey')
         // eslint-disable-next-line no-console
         console.error('Failed to fetch permissions', e)
       }
