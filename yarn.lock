@@ -836,20 +836,20 @@
     flat "^5.0.2"
     intl-messageformat "^10.3.5"
 
-"@kong-ui-public/spec-renderer@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.9.0.tgz#44114b0145d66b1129cb865beed5952fc9fece47"
-  integrity sha512-myQ53EU6YyY4RZT0DnM57wnIlxKvwXd3O0J74DDt03eiO8aU6jZzcSwb0fzxY+gfX6KdrLiGrVx1avVt4qQmrA==
+"@kong-ui-public/spec-renderer@0.9.13":
+  version "0.9.13"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.9.13.tgz#dc72091885a9e28e8a531c1b2dad6daecddf6d0e"
+  integrity sha512-37N2ZXEJlZSfHtWI7FjAWqCJMgbAN3nkAHA1cXu2Yao5WW2W0IEC3ezyZ910HzTL6F0NuYjByps/N/jvxTVWWw==
   dependencies:
     "@kong-ui-public/i18n" "^0.5.0"
-    "@kong-ui-public/swagger-ui-web-component" "^0.5.0"
+    "@kong-ui-public/swagger-ui-web-component" "^0.5.7"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.0"
 
-"@kong-ui-public/swagger-ui-web-component@^0.5.0":
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.5.6.tgz#5a2b6de70235d0b2bfadaf1989e614ca9e4e3182"
-  integrity sha512-+4a/La/liQXGpnMSraICX8P8RkJD90tL8c53x0Wt6Dzy/q1FBglHGVo1mwvrzRvS3h0lUQDNdti6CbHrAEfCmw==
+"@kong-ui-public/swagger-ui-web-component@^0.5.7":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.5.10.tgz#ad3f4e00b903cc17c295aca7733654d1dff38192"
+  integrity sha512-fYEmOE+lLgl8hW+HAoKqo/HxgaG1lXnzpYE2h9SqeEyy1IrZ59HNdDan02Oj+FshCwLd9L8jaej8HF3bwo7kCg==
   dependencies:
     "@kong/swagger-ui-kong-theme-universal" "^4.2.1"
     react "17.0.2"
