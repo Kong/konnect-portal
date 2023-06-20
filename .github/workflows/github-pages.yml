@@ -13,6 +13,10 @@ on:
 
 jobs:
   deploy:
+    # This permission is required on the first run of running the action on a branch
+    # because the branch doesn't exist the workflow needs permission to create it
+    permissions: 
+      contents: write
     if: github.repository == 'kong/konnect-portal'
     name: deploy build to github-pages
     runs-on: ubuntu-latest
