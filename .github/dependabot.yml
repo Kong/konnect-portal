@@ -7,3 +7,6 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: build(deps)
+    ignore:
+    - dependency-name: "*"
+      update-types: ["version-update:semver-patch"]
