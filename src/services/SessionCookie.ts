@@ -134,7 +134,7 @@ export default class SessionCookie {
       }
 
       // Check for IdP single logout URL via kauth endpoint
-      await authApi.authenticationV1.logout()
+      await authApi.authenticationV2.logout()
 
       // Otherwise, build a new URL from the root
       const logoutUrl = new URL(`${window.location.origin}/login`)
@@ -179,7 +179,7 @@ export default class SessionCookie {
     // Trigger auth refresh
     try {
       // Trigger auth refresh
-      const response = await authApi.authenticationV1.refresh()
+      const response = await authApi.authenticationV2.refresh()
 
       if (response.status === 200) {
         // refresh data

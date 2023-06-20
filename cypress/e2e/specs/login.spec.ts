@@ -1,9 +1,8 @@
-
 describe('Login Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
-    cy.intercept('POST', '**/kauth/api/v1/developer-logout', {
-      statusCode: 200,
+    cy.intercept('POST', '**/developer/logout', {
+      statusCode: 204,
       body: {},
       delay: 300
     }).as('userLogout')
@@ -111,37 +110,30 @@ describe('Login Page', () => {
   })
 
   it('is denied access and shows error message on bad credentials', () => {
-    cy.intercept('POST', '/kauth/api/v1/developer-authenticate', {
-      statusCode: 401,
+    cy.intercept('POST', '**/developer/authenticate', {
+      statusCode: 400,
       body: {
-        data: {
-          errors: [
-            {
-              status: '401',
-              code: '1003',
-              title: 'Invalid username or password',
-              detail: 'you have entered an invalid username or password (#1003)'
-            }
-          ]
-        }
+        status: 404,
+        title: 'Not Found',
+        detail: 'The requested developer was not found'
       },
       delay: 300
     }).as('userAuthenticate')
     cy.visit('/login', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
-    cy.get('input[id=email]').type('uh')
+    cy.get('input[id=email]').type('uh@email.com')
     cy.wait(500)
     cy.get('input[id=password]').type('not-valid{enter}')
 
     cy.wait('@userAuthenticate').then(() => {
       cy.url().should('include', '/login')
       cy.get('[data-testid="kong-auth-error-message"]')
-        .should('contain', 'Incorrect username or password. Please try again.')
+        .should('contain', 'The requested developer was not found')
     })
   })
 
   it('is denied access and shows error message when developer not yet allowed access', () => {
-    cy.intercept('POST', '/kauth/api/v1/developer-authenticate', {
+    cy.intercept('POST', '**/developer/authenticate', {
       statusCode: 401,
       body: {
         errors: [
@@ -169,8 +161,8 @@ describe('Login Page', () => {
   })
 
   it('confirms email and resets password when developer status is pending', () => {
-    cy.intercept('PATCH', '/kauth/api/v1/developer-email-verifications', {
-      statusCode: 200,
+    cy.intercept('POST', '**/developer/verify-email', {
+      statusCode: 202,
       body: {
         email: 'email',
         resetToken: 'token'
@@ -178,11 +170,8 @@ describe('Login Page', () => {
       delay: 300
     }).as('verifyEmailToken')
 
-    cy.intercept('PATCH', '/kauth/api/v1/developer-password-resets', {
-      statusCode: 200,
-      body: {
-        email: 'testing123@gmail.com'
-      },
+    cy.intercept('POST', '**/developer/reset-password', {
+      statusCode: 204,
       delay: 300
     }).as('passwordReset')
     cy.visit('/login?email=testing12302%40gmail.com&token=123', { useOriginalFn: true })
@@ -208,7 +197,7 @@ describe('Login Page', () => {
   })
 
   it('throws 500 error when confirmation token has been used', () => {
-    cy.intercept('PATCH', '/kauth/api/v1/developer-email-verifications', {
+    cy.intercept('POST', '**/developer/verify-email', {
       statusCode: 500,
       body: {
         errors: [
@@ -253,7 +242,7 @@ describe('Login Page', () => {
   })
 
   it('routes to intended page after SSO login', () => {
-    cy.intercept('**/kauth/api/v1/developer-authenticate/123*', (req) => {
+    cy.intercept('**/developer/authenticate/sso*', (req) => {
       req.redirect(`${Cypress.config().baseUrl}?loginSuccess=true`, 301)
     })
 

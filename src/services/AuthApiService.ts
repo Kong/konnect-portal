@@ -14,7 +14,7 @@ export default class KongAuthApi {
 
   client: AxiosInstance
 
-  authenticationV1: {
+  authenticationV2: {
     logout(): Promise<AxiosResponse<void>>
     refresh(): Promise<AxiosResponse<void>>
   }
@@ -47,7 +47,7 @@ export default class KongAuthApi {
           // If the original request is to refresh the auth token, and the request has failed, do not retry requests
           // It is directly done there, as in SessionCookie this.kongAuthApi.authentication.refresh() call
           // is silently failing on 401 response and its not possible to rely on code there
-          if (originalRequest.url.includes('/developer-refresh')) {
+          if (originalRequest.url.includes('/developer/refresh')) {
             // Refresh token was invalid, so don't retry requests
             authTokenIsRefreshing.value = false
             // Clear the queue
@@ -116,9 +116,9 @@ export default class KongAuthApi {
       return Promise.reject(originalErr)
     })
 
-    this.authenticationV1 = {
-      logout: () => this.client.post(this.baseUrl + '/api/v1/developer-logout'),
-      refresh: () => this.client.post(this.baseUrl + '/api/v1/developer-refresh')
+    this.authenticationV2 = {
+      logout: async () => this.client.post(this.baseUrl + '/api/v2/developer/logout'),
+      refresh: async () => this.client.post(this.baseUrl + '/api/v2/developer/refresh')
     }
   }
 

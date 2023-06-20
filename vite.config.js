@@ -75,13 +75,6 @@ export default ({ command, mode }) => {
     },
     server: {
       proxy: {
-        '^/kauth': {
-          target: portalApiUrl,
-          changeOrigin: true,
-          configure: (proxy, options) => {
-            mutateCookieAttributes(proxy)
-          }
-        },
         '^/api': {
           target: portalApiUrl,
           changeOrigin: true,
