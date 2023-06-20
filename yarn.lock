@@ -868,10 +868,10 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.37.2"
 
-"@kong/kongponents@8.78.0", "@kong/kongponents@^8.32.0":
-  version "8.78.0"
-  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.78.0.tgz#b57bc302f598e150a704d14b9be3d46b6491a562"
-  integrity sha512-8iqGQAf8s+n4qEecSc3wj2gonsoQcJLw3YrKS7vDe/yANJ6kzCNdWMADOhKcPLOoYQ+7DS3JJqoCLaRLPIEDDw==
+"@kong/kongponents@8.82.2", "@kong/kongponents@^8.32.0":
+  version "8.82.2"
+  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.82.2.tgz#86b655ef8bc32939f02670ac74cb730a0ccd8654"
+  integrity sha512-5bCUjWsDyGNjMkfeghcpGAmyyDV7HTjUV6aZXwhKWBTIbKu+QglIDECoNmEpNidZ1rJgu7W2sDlPdEUxUQrAsQ==
   dependencies:
     axios "^0.27.2"
     date-fns "^2.29.3"
