@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import { defineConfig, loadEnv } from 'vite'
+import fs from 'fs/promises'
+import path from 'path'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-
-const path = require('path')
 
 function mutateCookieAttributes (proxy) {
   proxy.on('proxyRes', function (proxyRes, req, res) {
@@ -17,7 +17,7 @@ function mutateCookieAttributes (proxy) {
   })
 }
 
-function setHostHeader (proxy) {
+function setHostHeader(proxy) {
   const host = new URL(process.env.VITE_PORTAL_API_URL).hostname
 
   proxy.on('proxyReq', function (proxyRes) {
@@ -25,7 +25,13 @@ function setHostHeader (proxy) {
   })
 }
 
-export default ({ command, mode }) => {
+export default defineConfig(async ({ command, mode }) => {
+  try {
+    await fs.access(path.join(__dirname, '.env'), fs.constants.F_OK)
+  } catch (e) {
+    throw new Error('no .env file found. Please run `cp .env.example .env`')
+  }
+
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   // Sets VITE_INDEX_API_URL which is templated in index.html
@@ -47,7 +53,7 @@ export default ({ command, mode }) => {
   // required to prevent localhost from being rendered as 127.0.0.1
   dns.setDefaultResultOrder('verbatim')
 
-  return defineConfig({
+  return {
     plugins: [
       vue(
         {
@@ -85,5 +91,5 @@ export default ({ command, mode }) => {
         }
       }
     }
-  })
-}
+  }
+})
