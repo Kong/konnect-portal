@@ -90,12 +90,10 @@ export default defineComponent({
         if (portalVariables.primary_header) {
           primary_header.value = portalVariables.primary_header.text
         }
+          
+        const imageUrl = 'https://images.axa-contento-118412.eu/www-axa-com/22ed0cdd-df34-47ed-ad9c-dc812b0e0e96_purpose.jpg'
+        catalog_cover_style.value.backgroundImage = `url(${imageUrl})`
 
-        if (portalVariables.cover) {
-          const imageUrl = portalApiV2.value.getApiLink('/api/v2/portal/catalog-cover')
-
-          catalog_cover_style.value.backgroundImage = `url(${imageUrl})`
-        }
       }).catch(e => { console.error('Failed to load appearance.', e) }).then(defaultHeaders)
     }
 
@@ -199,6 +197,7 @@ export default defineComponent({
   }
   .products-top-section {
     border-bottom: 1px solid var(--section_colors-stroke);
+    height: 900px;
 
     .k-input {
       fill: var(--text_colors-accent);

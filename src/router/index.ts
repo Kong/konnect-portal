@@ -113,6 +113,14 @@ export const portalRouter = () => {
             ]
           },
           {
+            path: '/tickets',
+            name: 'tickets',
+            meta: {
+              title: "Tickets"
+            },
+            component: () => import('../views/Tickets.vue')
+          },
+          {
             path: '/my-apps',
             name: 'my-apps',
             meta: {

@@ -2,6 +2,7 @@
   <header
     id="site-header"
     class="flex items-center fixed w-full top-0 z-10"
+    style="background-color: #ffffff !important"
   >
     <div class="w-100 container max-w-screen-2xl mx-auto flex justify-between items-center px-5 md:px-0">
       <router-link to="/">
@@ -11,7 +12,16 @@
           :alt="helpText.logoAlt"
         >
       </router-link>
+
       <nav class="flex items-center links">
+        <router-link
+          data-testid="ticket-link"
+          :to="{ name: 'tickets' }"
+          class="mr-2 p-2 catalog-link"
+        >
+          <div class="background-color-wrapper" />
+          Ticket system
+        </router-link>
         <router-link
           data-testid="catalog-link"
           :to="{ name: 'catalog' }"
@@ -84,7 +94,8 @@ export default defineComponent({
   border-bottom: 1px solid var(--section_colors-stroke);
 
   .links a {
-    color: var(--text_colors-header);
+    color: #00008f;
+    font-weight: 600px;
     &:hover{
       backdrop-filter: brightness(1.35);
     }
