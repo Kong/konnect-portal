@@ -5,15 +5,13 @@
       data-testid="tickets"
     >
 
-
       <div class="align-items-center justify-content-center">
         <h1 class="mt-0 type-xxl">Ticket system</h1>
         <p>Here be dragons</p>
         <!-- {{ helpText.http404 }} -->
       </div>
-
-
     </section>
+    
   </Content>
 </template>
 
