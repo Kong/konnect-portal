@@ -238,6 +238,10 @@ export const en = {
   authCard: {
     logoAlt: 'logo'
   },
+  tickets: {
+    title: 'Ticket system',
+    description: 'Here be dragons...The ticket system is used to report issues and request support for the API platform.'
+  },
   forbidden: {
     logoAlt: 'logo',
     http403: '403',

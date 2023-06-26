@@ -4,14 +4,13 @@
       class="tickets d-flex flex-column justify-content-center align-items-center"
       data-testid="tickets"
     >
-
       <div class="align-items-center justify-content-center">
-        <h1 class="mt-0 type-xxl">Ticket system</h1>
-        <p>Here be dragons</p>
-        <!-- {{ helpText.http404 }} -->
+        <h1 class="mt-0 type-xxl">
+          {{ helpText.title }}
+        </h1>
+        <p>{{ helpText.description }}</p>
       </div>
     </section>
-    
   </Content>
 </template>
 
@@ -26,7 +25,7 @@ export default defineComponent({
     const { portalApiV2 } = usePortalApi()
 
     const logoSrc = portalApiV2.value.getApiLink('/api/v2/portal/logo')
-    const helpText = useI18nStore().state.helpText.notFound
+    const helpText = useI18nStore().state.helpText.tickets
 
     return {
       logoSrc,
