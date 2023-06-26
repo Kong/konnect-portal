@@ -17,9 +17,4 @@ pre-push:
 
 commit-msg:
   parallel: true
-  commands:
-    commitlint:
-      skip:
-        - merge
-        - rebase
-      run: yarn commitlint --edit
+
