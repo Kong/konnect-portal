@@ -229,6 +229,7 @@ export const en = {
   },
   nav: {
     catalog: 'Catalog',
+    tickets: 'Ticket system',
     breadcrumbService: 'Service',
     breadcrumbProduct: 'Product',
     breadcrumbDocumentation: 'Documentation',
