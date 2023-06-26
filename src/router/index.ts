@@ -116,7 +116,7 @@ export const portalRouter = () => {
             path: '/tickets',
             name: 'tickets',
             meta: {
-              title: "Tickets"
+              title: 'Tickets'
             },
             component: () => import('../views/Tickets.vue')
           },

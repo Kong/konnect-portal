@@ -20,7 +20,7 @@
           class="mr-2 p-2 catalog-link"
         >
           <div class="background-color-wrapper" />
-          Ticket system
+          {{ helpText.tickets }}
         </router-link>
         <router-link
           data-testid="catalog-link"
