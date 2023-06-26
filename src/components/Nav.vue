@@ -7,7 +7,7 @@
       <router-link to="/">
         <img
           class="logo"
-          :src="logoSrc"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/AXA_Logo.svg/480px-AXA_Logo.svg.png"
           :alt="helpText.logoAlt"
         >
       </router-link>
