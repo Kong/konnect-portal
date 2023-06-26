@@ -1,35 +1,18 @@
 <template>
   <Content>
     <section
-      class="not-found d-flex flex-column justify-content-center align-items-center"
-      data-testid="404"
+      class="tickets d-flex flex-column justify-content-center align-items-center"
+      data-testid="tickets"
     >
-      <div>
-        <img
-          class="logo"
-          :src="logoSrc"
-          :alt="helpText.logoAlt"
-        >
+
+
+      <div class="align-items-center justify-content-center">
+        <h1 class="mt-0 type-xxl">Ticket system</h1>
+        <p>Here be dragons</p>
+        <!-- {{ helpText.http404 }} -->
       </div>
 
-      <div class="circle d-flex align-items-center justify-content-center">
-        {{ helpText.http404 }}
-      </div>
 
-      <div class="message text-center">
-        <h1 class="mb-1 type-xxl">
-          {{ helpText.sorryMessage }}
-        </h1>
-        <h1 class="mt-0 type-xxl">
-          {{ helpText.goBack }}
-          <router-link
-            data-testid="go-home"
-            to="/"
-          >
-            {{ helpText.home }}
-          </router-link>.
-        </h1>
-      </div>
     </section>
   </Content>
 </template>
