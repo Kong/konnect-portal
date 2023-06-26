@@ -157,7 +157,7 @@ export default defineComponent({
         documentId: slug
       }, {
         headers: {
-          accept: 'application/konnect.document-nodes+json'
+          accept: 'application/vnd.konnect.document-nodes+json'
         }
       })
         .then((res) => {
