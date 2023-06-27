@@ -245,7 +245,7 @@ describe('Application Registration', () => {
 
     cy.get('[data-testid="application-name-input"]').type('{end}z', { delay: 0 })
 
-    cy.intercept('PUT', `api/v2/applications/${apps[0].id}`, {
+    cy.intercept('PATCH', `api/v2/applications/${apps[0].id}`, {
       statusCode: 200,
       body: { ...apps[0], name: apps[0].name + 'z' }
     }).as('getApplicationPatch')

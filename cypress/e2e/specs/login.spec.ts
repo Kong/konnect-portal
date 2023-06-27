@@ -136,14 +136,9 @@ describe('Login Page', () => {
     cy.intercept('POST', '**/developer/authenticate', {
       statusCode: 401,
       body: {
-        errors: [
-          {
-            status: '401',
-            code: '1007',
-            title: 'Account is disabled',
-            detail: 'user account is disabled (#1007)'
-          }
-        ]
+        status: 401,
+        title: "Developer is disabled",
+        detail: "Your account is disabled."
       },
       delay: 300
     }).as('userAuthenticate')
@@ -200,13 +195,10 @@ describe('Login Page', () => {
     cy.intercept('POST', '**/developer/verify-email', {
       statusCode: 500,
       body: {
-        errors: [
-          {
-            status: '500',
-            title: 'Internal Server Error',
-            detail: 'invalid status update request'
-          }
-        ]
+        "status": 500,
+        "title": "Internal",
+        "instance": "konnect:trace:1158228726469534496",
+        "detail": "An internal failure occurred"
       },
       delay: 300
     }).as('verifyEmailToken')
@@ -216,7 +208,7 @@ describe('Login Page', () => {
       // returns to the login page
       cy.location('pathname').should('equal', '/login')
       cy.get('[data-testid="kong-auth-error-message"]')
-        .should('contain', 'Invalid status update request')
+        .should('contain', 'An internal failure occurred')
 
       cy.get('input[id=email]').should('exist')
     })

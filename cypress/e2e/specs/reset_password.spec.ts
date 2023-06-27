@@ -41,20 +41,14 @@ describe('Reset Password Page', () => {
   })
   it('Errors out if reset token is invalid', () => {
     cy.intercept('POST', '**/developer/reset-password', {
-      statusCode: 400,
+      statusCode: 500,
       body:
-        {
-          errors: [
-            {
-              status: '400',
-              title: 'Invalid Token',
-              detail: 'The password reset token is invalid',
-              source: {
-                pointer: '/token'
-              }
-            }
-          ]
-        },
+      {
+        "status": 500,
+        "title": "Internal",
+        "instance": "konnect:trace:1115722991246784904",
+        "detail": "An internal failure occurred"
+      },
       delay: 300
     }).as('resetPassword')
 
@@ -80,7 +74,7 @@ describe('Reset Password Page', () => {
 
         cy.wait('@resetPassword').then(() => {
           // Stays on the page as token is invalid
-          cy.get('[data-testid="kong-auth-error-message"]').should('contain', 'The password reset token is invalid')
+          cy.get('[data-testid="kong-auth-error-message"]').should('contain', 'An internal failure occurred')
           cy.location('pathname').should('equal', '/reset-password')
         })
       })
