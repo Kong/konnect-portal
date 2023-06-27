@@ -52,7 +52,7 @@ function handleKongAuthElementsError ({ error }) {
 
     const errorMsg = error?.response?.data || {}
     if (errorMsg && errorMsg.title.includes('disabled')) {
-      return `${errorMsg.title}: ${errorMsg.detail}`
+      return 'Your account is pending approval for access'
     }
   }
 }

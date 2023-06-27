@@ -151,7 +151,7 @@ describe('Login Page', () => {
     cy.wait('@userAuthenticate').then(() => {
       cy.url().should('include', '/login')
       cy.get('[data-testid="kong-auth-error-message"]')
-        .should('contain', 'Developer is disabled: Your account is disabled.')
+        .should('contain', 'Your account is pending approval for access')
     })
   })
 
