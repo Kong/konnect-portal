@@ -50,18 +50,9 @@ function handleKongAuthElementsError ({ error }) {
       return validationErrors.join(', ')
     }
 
-    const errors = error?.response?.data?.errors || []
-    if (errors.length === 1) {
-      const innerError = errors[0]
-
-      switch (innerError.code) {
-        case '1007':
-          return 'Your account is pending approval for access'
-        default:
-          return null
-      }
-    } else {
-      return null
+    const errorMsg = error?.response?.data || {}
+    if (errorMsg && errorMsg.title.includes('disabled')) {
+      return 'Your account is pending approval for access'
     }
   }
 }
