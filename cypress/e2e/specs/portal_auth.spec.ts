@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-const productId = 'a5afb115-025e-4da1-a013-bf05b326e0a51'
+const productId = 'a5afb115-025e-4da1-a013-bf05b326e0a0'
 const productVersionId = '1afac832-5b2a-474c-a56d-c241364f41cf'
 const applicationId = uuidv4()
 
