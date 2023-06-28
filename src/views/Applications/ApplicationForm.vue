@@ -335,7 +335,7 @@ export default defineComponent({
       portalApiV2.value.service.applicationsApi
         .updateApplication({
           applicationId: id.value,
-          updateApplicationPayload: cleanupEmptyFields(formData.value)
+          updateApplicationPayload: cleanupEmptyFields(formData.value) as { name: string, [x: string]: any }
         })
         .then((res) => handleSuccess(res.data.id, 'updated'))
         .catch((error) => handleError(error))

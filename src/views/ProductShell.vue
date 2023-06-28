@@ -104,7 +104,7 @@ async function fetchDocumentTree () {
   try {
     const requestOptions = {
       productId: id,
-      accept: DocumentContentTypeEnum.KonnectDocumentTreejson
+      accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson
     }
     // @ts-ignore
     // overriding the axios response because we're specifying what we're accepting above
