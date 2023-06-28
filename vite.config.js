@@ -25,20 +25,24 @@ function setHostHeader(proxy) {
   })
 }
 
-export default defineConfig(async ({ command, mode }) => {
-  try {
-    await fs.access(path.join(__dirname, '.env'), fs.constants.F_OK)
-  } catch (e) {
-    throw new Error('no .env file found. Please run `cp .env.example .env`')
-  }
-
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+/**
+ * Defines the default values for environment variables
+ */
+function defaultsMandatoryEnvVars (command) {
+  // Defaults to /
+  process.env.VITE_PORTAL_API_URL ||= '/'
 
   // Sets VITE_INDEX_API_URL which is templated in index.html
   process.env.VITE_INDEX_API_URL = command === 'serve' ? '/' : process.env.VITE_PORTAL_API_URL
 
   // Defaults locale to en
-  process.env.VITE_LOCALE = process.env.VITE_LOCALE || 'en'
+  process.env.VITE_LOCALE ||= 'en'
+}
+
+export default defineConfig(async ({ command, mode }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+
+  defaultsMandatoryEnvVars(command)
 
   let portalApiUrl = process.env.VITE_PORTAL_API_URL
   if (!portalApiUrl.endsWith('/')) {
