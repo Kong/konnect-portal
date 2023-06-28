@@ -121,34 +121,17 @@ export default defineComponent({
         : responseError
     }
 
-    const onLoginSuccess = () => {
+    const onLoginSuccess = async () => {
       send('KAUTH_SUCCESS')
 
-      portalApiV2.value.service.developerApi.getDeveloperMe().then(async res => {
-        send('USER_FETCH_SUCCESS')
+      let me, context
 
-        session.value.saveData({
-          ...session.value.data,
-          developer: res.data
-        })
-
-        let fullPath = '/'
-
-        if (session.value.data.to) {
-          // If we have previous path which we tried to access but got 403
-          // set is to next url
-          fullPath = session.value.data.to
-        }
-
-        // update launch darkly user context after successful login
-        try {
-          await initLaunchDarkly()
-        } catch (e) {
-          console.error('Unable to update LD context')
-        }
-
-        window.location.href = fullPath
-      }).catch(error => {
+      try {
+        [me, context] = await Promise.all([
+          portalApiV2.value.service.developerApi.getDeveloperMe(),
+          portalApiV2.value.service.portalApi.getPortalContext()
+        ])
+      } catch (error) {
         send('USER_FETCH_FAIL')
 
         const { data } = error.response
@@ -159,7 +142,35 @@ export default defineComponent({
         }
 
         errorMessage.value = getError(data, error)
+      }
+
+      send('USER_FETCH_SUCCESS')
+
+      const { setPortalData } = useAppStore()
+
+      setPortalData({ featureSet: context.data.feature_set })
+
+      session.value.saveData({
+        ...session.value.data,
+        developer: me.data
       })
+
+      let fullPath = '/'
+
+      if (session.value.data.to) {
+        // If we have previous path which we tried to access but got 403
+        // set is to next url
+        fullPath = session.value.data.to
+      }
+
+      // update launch darkly user context after successful login
+      try {
+        await initLaunchDarkly()
+      } catch (e) {
+        console.error('Unable to update LD context')
+      }
+
+      window.location.href = fullPath
     }
 
     onMounted(() => {

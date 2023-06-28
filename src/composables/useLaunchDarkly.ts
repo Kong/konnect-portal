@@ -26,7 +26,7 @@ let ldClient: LDClient | undefined
 
 export default function useLaunchDarkly () {
   const appStore = useAppStore()
-  const { featuresetId, portalId, orgId } = storeToRefs(appStore)
+  const { featuresetId, portalId, orgId, featureSet } = storeToRefs(appStore)
 
   const initialize = async () => {
     if (!enableLD) {
@@ -58,7 +58,8 @@ export default function useLaunchDarkly () {
         anonymous: false,
         custom: {
           portalId: portalId.value,
-          orgId: orgId.value
+          orgId: orgId.value,
+          featureSet: featureSet.value
         }
       }
     } else {
