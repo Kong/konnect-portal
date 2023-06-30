@@ -4,14 +4,14 @@ export const de = {
     successText: 'Ihre E-Mail-Adresse wurde bestätigt. Warten auf die Kontobestätigung.',
     successButton: 'OK',
     missingCredentials: 'Bitte Ihre Zugangsdaten eingeben',
-    missingAccount: "Noch kein Konto?",
+    missingAccount: 'Noch kein Konto?',
     signUp: 'Registrieren'
   },
   forgotPassword: {
     successText: 'Bitte überprüfen Sie Ihre E-Mails auf einen Link zum Zurücksetzen Ihres Passworts. Wenn er nicht innerhalb weniger Minuten angezeigt wird, überprüfen Sie bitte Ihren Spam-Ordner.',
     successButton: 'Zurück zur Startseite',
     heading: 'Passwort wiederherstellen',
-    subHeading: "Geben Sie die E-Mail-Adresse deines Benutzerkontos ein und wir senden Ihnen einen Link zum Zurücksetzen deines Passworts.",
+    subHeading: 'Geben Sie die E-Mail-Adresse deines Benutzerkontos ein und wir senden Ihnen einen Link zum Zurücksetzen deines Passworts.',
     placeholderEmail: 'E-Mail',
     buttonIdle: 'E-Mail zum Zurücksetzen des Passworts senden',
     buttonSubmitting: 'Absenden',
@@ -26,7 +26,7 @@ export const de = {
     buttonIdle: 'Passwort ändern',
     buttonSubmitting: 'Absenden',
     confirmPasswordFail: 'Die Passwörter müssen übereinstimmen',
-    missingPassword: 'Passwort darf nicht leer sein',
+    missingPassword: 'Passwort darf nicht leer sein'
   },
   registration: {
     successText: 'Bitte überprüfen Sie Ihre E-Mails, um Ihre Adresse zu bestätigen.',
@@ -118,13 +118,13 @@ export const de = {
     headerDescription1: 'Client-Infimationen für Ihre Applikation ',
     headerDescription2: '. Das Client Secret wird ',
     headerDescription3: 'nur einmal angezeigt.',
-    headerDescription4: 'Bitte kopieren und an einem sicheren Ort speichern.',
+    headerDescription4: 'Bitte kopieren und an einem sicheren Ort speichern.'
   },
   productList: {
     titleProducts: 'Produkte',
     titleServices: 'Services',
     actions: {
-      unregister: 'Registrierung aufheben',
+      unregister: 'Registrierung aufheben'
     },
     emptyState: {
       titleProducts: 'Keine Produkte',
@@ -173,10 +173,10 @@ export const de = {
     }
   },
   defaultForm: {
-    missingFields: 'Bitte alle Pflichtfelder ausfüllen',
+    missingFields: 'Bitte alle Pflichtfelder ausfüllen'
   },
   validationErrors: {
-    isEmail: 'E-Mail ist ungültig',
+    isEmail: 'E-Mail ist ungültig'
   },
   apiDocumentation: {
     error: {
@@ -184,7 +184,7 @@ export const de = {
       linkText: 'Zurück zum Start →'
     },
     sections: {
-      onThisPage: 'Auf dieser Seite',
+      onThisPage: 'Auf dieser Seite'
     }
   },
   errorWrapper: {
@@ -193,13 +193,13 @@ export const de = {
   sidebar: {
     deprecated: ' (Veraltet)',
     noResultsProduct: 'Keine Produktversionen',
-    noResultsService: 'Keine Serviceversionen',
+    noResultsService: 'Keine Serviceversionen'
   },
   catalog: {
     entityTypeProduct: 'Produkt',
     entityTypeService: 'Service',
     noResultsProduct: 'Keine Produkte gefunden',
-    noResultsService: 'Keine Services gefunden',
+    noResultsService: 'Keine Services gefunden'
   },
   catalogItem: {
     latestVersion: 'Aktuelle Version:',
@@ -261,7 +261,7 @@ export const de = {
     noApp: 'Keine Applikationen',
     create: 'Neue Applikation anlegen',
     getStarted: ' um loszulegen',
-    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`,
+    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`
   },
   router: {
     portalTitle: 'Entwicklerportal',
