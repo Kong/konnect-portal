@@ -149,6 +149,12 @@ export const portalRouter = () => {
                     name: 'update-application',
                     meta: { title: helpText.updateAppTitle },
                     component: () => import('../views/Applications/ApplicationForm.vue')
+                  },
+                  {
+                    path: 'application-dashboard',
+                    name: 'application-dashboard',
+                    meta: { title: 'Application Dashboard' },
+                    component: () => import('../views/Applications/ApplicationDashboard.vue')
                   }
                 ]
               }

@@ -25,6 +25,8 @@
     "launchdarkly-js-client-sdk": "3.1.3"
   },
   "dependencies": {
+    "@kong-ui-public/analytics-chart": "0.3.1",
+    "@kong-ui-public/analytics-utilities": "0.4.3",
     "@kong-ui-public/copy-uuid": "1.1.5",
     "@kong-ui-public/document-viewer": "0.10.5",
     "@kong-ui-public/spec-renderer": "0.11.6",
@@ -37,6 +39,7 @@
     "dotenv": "16.3.1",
     "js-yaml": "4.1.0",
     "pinia": "2.1.3",
+    "swrv": "1.0.4",
     "vue": "3.3.4",
     "vue-router": "4.2.1",
     "xstate": "4.38.0"
@@ -60,6 +63,7 @@
     "cypress-split": "1.3.8",
     "cypress-terminal-report": "5.3.2",
     "cz-conventional-changelog": "3.3.0",
+    "druid.d.ts": "0.12.2",
     "eslint": "8.46.0",
     "eslint-plugin-cypress": "2.13.3",
     "eslint-plugin-import": "2.28.0",

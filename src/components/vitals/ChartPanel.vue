@@ -1,0 +1,285 @@
+<template>
+  <div
+    data-testid="analytics-charts"
+    class="chart-grid"
+  >
+    <!-- Requests by Service Versions -->
+    <KSkeleton
+      v-if="!trafficRequestsChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="trafficRequestsChartData"
+      :chart-options="trafficByProductVersionsOptions"
+      :chart-title="chartTitleRequests"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-traffic"
+      synthetics-data-key="chart-traffic"
+    />
+    <KSkeleton
+      v-if="!trafficLatencyChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="trafficLatencyChartData"
+      :chart-options="trafficByProductVersionsOptions"
+      :chart-title="chartTitleLatency"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-latency"
+      synthetics-data-key="chart-latency"
+    />
+
+    <!-- 4xx and 5xx by Service Versions -->
+    <KSkeleton
+      v-if="!productVersion4xxChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="productVersion4xxChartData"
+      :chart-options="errorsByProductVersionsOptions"
+      :chart-title="chartTitle4xx"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-productversion-4xx"
+      synthetics-data-key="chart-productversion-4xx"
+    />
+    <KSkeleton
+      v-if="!productVersion5xxChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="productVersion5xxChartData"
+      :chart-options="errorsByProductVersionsOptions"
+      :chart-title="chartTitle5xx"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-productversion-5xx"
+      synthetics-data-key="chart-productversion-5xx"
+    />
+
+    <!-- 4xx and 5xx by Status Code -->
+    <KSkeleton
+      v-if="!statusCode4xxChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="statusCode4xxChartData"
+      :chart-options="errors4xxStatusCodeOptions as AnalyticsChartOptions"
+      :chart-title="helpText.chartTitle4xxStatusCode"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-statuscode-4xx"
+      synthetics-data-key="chart-statuscode-4xx"
+    />
+    <KSkeleton
+      v-if="!statusCode5xxChartData"
+      class="chart-skeleton"
+      type="table"
+    />
+    <AnalyticsChart
+      v-else
+      :chart-data="statusCode5xxChartData"
+      :chart-options="errors5xxStatusCodeOptions as AnalyticsChartOptions"
+      :chart-title="helpText.chartTitle5xxStatusCode"
+      :legend-position="'bottom'"
+      :tooltip-title="helpText.totalRequests"
+      data-testid="chart-statuscode-5xx"
+      synthetics-data-key="chart-statuscode-5xx"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useI18nStore } from '@/stores'
+import { AnalyticsChart, AnalyticsChartColors, ChartTypes, lookupStatusCodeColor, AnalyticsChartOptions } from '@kong-ui-public/analytics-chart'
+import type { AnalyticsExploreV2Result } from '@kong-ui-public/analytics-utilities'
+import '@kong-ui-public/analytics-chart/dist/style.css'
+import useChartRequest from '@/composables/useChartRequest'
+import useChartQueryBuilder from '@/composables/useChartQueryBuilder'
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+
+// import { QueryApplicationAnalytics } from '@kong/sdk-portal-js'
+
+// Queries
+import {
+  chartQueryTrafficRequests,
+  chartQueryTrafficLatency,
+  chartQueryProductVersions4xx,
+  chartQueryProductVersions5xx,
+  chartQueryStatusCode4xx,
+  chartQueryStatusCode5xx
+} from '@/constants/chartQueries'
+
+// @ts-ignore
+const apiBuilderFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
+
+const helpText = useI18nStore().state.helpText.analytics
+const chartTitleRequests = apiBuilderFlagEnabled ? helpText.chartTitleRequestsProduct : helpText.chartTitleRequestsService
+const chartTitleLatency = apiBuilderFlagEnabled ? helpText.chartTitleLatencyProduct : helpText.chartTitleLatencyService
+const chartTitle4xx = apiBuilderFlagEnabled ? helpText.chartTitle4xxProductVersion : helpText.chartTitle4xxServiceVersion
+const chartTitle5xx = apiBuilderFlagEnabled ? helpText.chartTitle5xxProductVersion : helpText.chartTitle5xxServiceVersion
+
+const props = defineProps<{
+  modelValue,
+  appId
+}>()
+
+const selectedTimeframe = computed(() => props.modelValue.timeframe?.value)
+const selectedProductVersions = computed(() => props.modelValue.apiVersions?.value)
+
+const lineChartCommon = {
+  stacked: false,
+  fill: false,
+  granularity: selectedTimeframe.value.defaultResponseGranularity
+}
+
+const barChartCommon = {
+  stacked: true,
+  fill: false,
+  granularity: selectedTimeframe.value.defaultResponseGranularity
+}
+
+// Set up a custom Status Code color palette
+const getStatusCodePalette = (chartData) => {
+  if (chartData?.records) {
+    const uniqueCodes = [...new Set(chartData?.records.map(r => r.event.STATUS_CODE as string))]
+
+    return uniqueCodes.reduce((obj: AnalyticsChartColors[], dimension: string) => ({ ...obj, [dimension]: lookupStatusCodeColor(dimension) }), {})
+  }
+
+  return []
+}
+
+const trafficByProductVersionsOptions = { ...lineChartCommon, type: ChartTypes.TIMESERIES_LINE }
+const errorsByProductVersionsOptions = { ...barChartCommon, type: ChartTypes.TIMESERIES_BAR }
+const errors4xxStatusCodeOptions = computed(() => {
+  const chartColors = getStatusCodePalette(statusCode4xxChartData.value)
+
+  return {
+    ...barChartCommon,
+    type: ChartTypes.DOUGHNUT,
+    ...(chartColors ? { chartDatasetColors: chartColors } : null)
+  }
+})
+
+const errors5xxStatusCodeOptions = computed(() => {
+  const chartColors = getStatusCodePalette(statusCode5xxChartData.value)
+
+  return {
+    ...barChartCommon,
+    type: ChartTypes.DOUGHNUT,
+    ...(chartColors ? { chartDatasetColors: chartColors } : null)
+  }
+})
+
+const trafficRequestsQuery = computed(() => useChartQueryBuilder(chartQueryTrafficRequests, props.appId, selectedProductVersions.value))
+const trafficRequestsChartData = computed(() => {
+  const chartData = useChartRequest(trafficRequestsQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+
+const trafficLatencyQuery = computed(() => useChartQueryBuilder(chartQueryTrafficLatency, props.appId, selectedProductVersions.value))
+const trafficLatencyChartData = computed(() => {
+  const chartData = useChartRequest(trafficLatencyQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+
+const productVersions4xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions4xx, props.appId, selectedProductVersions.value))
+const productVersion4xxChartData = computed(() => {
+  const chartData = useChartRequest(productVersions4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+
+const productVersions5xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions5xx, props.appId, selectedProductVersions.value))
+const productVersion5xxChartData = computed(() => {
+  const chartData = useChartRequest(productVersions5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+
+const statusCode4xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode4xx, props.appId, selectedProductVersions.value))
+const statusCode4xxChartData = computed(() => {
+  const chartData = useChartRequest(statusCode4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+
+const statusCode5xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode5xx, props.appId, selectedProductVersions.value))
+const statusCode5xxChartData = computed(() => {
+  const chartData = useChartRequest(statusCode5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+
+  return chartData.value as AnalyticsExploreV2Result
+})
+</script>
+
+<style lang="scss" scoped>
+@import '../../assets/mixins.scss';
+@import '../../assets/variables.scss';
+
+.chart-grid {
+  @include grid-columns(1);
+
+  @media (min-width: $viewport-md) {
+    @include grid-columns(2);
+  }
+
+  .chart-skeleton {
+    justify-content: center;
+    margin: var(--spacing-xl, 24px) auto;
+    max-width: 400px;
+  }
+
+  // Tooltip overrides
+  .analytics-chart-parent {
+    // More padding on the right, to balance out space taken up by Y-Axis label
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+    background-color: var(--white, #fff);
+    margin: 0;
+    min-width: 400px !important;
+    position: relative;
+
+    &:deep(.legend-container) {
+      color: #0b172d; // override --text_colors-primary until full portal customization
+      margin-top: 0;
+    }
+
+    &:deep(.chart-title) {
+      color: #3c4557; // override --text_colors-primary until full portal customization
+      padding-top: 0;
+      padding-bottom: var(--spacing-md);
+    }
+
+    &:deep(ul.tooltip) {
+      max-width: 320px;
+      @media (min-width: $viewport-md) {
+        max-width: 440px;
+      }
+      .display-value, .display-label  {
+        color: #3c4557; // override --text_colors-primary until full portal customization
+        font-size: 14px;
+      }
+
+      .tooltip-title {
+        color: #3c4557; // override --text_colors-primary until full portal customization
+      }
+    }
+  }
+}
+</style>
