@@ -62,13 +62,13 @@ export const de = {
       title: 'Name für die Zugangsdaten',
       continueButton: 'Generieren',
       inputLabel: 'Name',
-      inputPlaceholder: 'Bitte',
+      inputPlaceholder: 'Bitte Namen für die Zugangsdaten angeben',
       cancelButton: 'Abbruch'
     },
     revokeModal: {
       title: 'Zugangsdaten widerrufen',
       description: {
-        start: '',
+        start: 'Schlüssel',
         end: ' wird widerrufen, diese Aktion kann nicht rückgängig gemacht werden.'
       },
       revokeButton: 'Widerrufen',
@@ -102,7 +102,7 @@ export const de = {
     reqField: ' Pflichtfeld',
     redirectUriLabel: 'Redirect URI',
     applicationCredentials: 'Zugangsdaten der Applikation',
-    applicationSecret: 'Application Secret',
+    applicationSecret: 'Applikation Secret',
     confirmDelete: (name: any) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`,
     description: 'Beschreibung',
     redirectUri: (uri: string) => `Redirect URI: ${uri}`,
@@ -143,7 +143,7 @@ export const de = {
   },
   dcrAuthentication: {
     authentication: 'Authentifizierung',
-    refreshToken: 'Refresh Token'
+    refreshToken: 'Token erneuern'
   },
   refreshTokenModal: {
     title: 'Secret der Applikation',
@@ -167,7 +167,7 @@ export const de = {
       buttonText: 'Zugriff anfragen'
     },
     modalApplicationRegistrationStatusIsPending: {
-      title: 'Anfrage für Zugriff auf diesen Service wird geprüft',
+      title: 'Anfrage zur Registrierung für diesen Service wird geprüft',
       body: 'Sie werden benachrichtigt, sobald die Anfrage genehmigt wurde.',
       buttonText: 'Schließen'
     }
@@ -191,7 +191,7 @@ export const de = {
     linkText: 'Zurück zum Start →'
   },
   sidebar: {
-    deprecated: ' (Deprecated)',
+    deprecated: ' (Veraltet)',
     noResultsProduct: 'Keine Produktversionen',
     noResultsService: 'Keine Serviceversionen',
   },
@@ -207,7 +207,7 @@ export const de = {
     documentationLink: 'Dokumentation'
   },
   catalogTable: {
-    specificationLink: 'Speuification',
+    specificationLink: 'Spezifikation',
     documentationLink: 'Dokumentation'
   },
   products: {
@@ -255,7 +255,7 @@ export const de = {
     newApp: 'Neue Applikation',
     plus: 'Plus',
     myApps: 'Meine Applikationen',
-    refreshSecret: 'Refresh Secret',
+    refreshSecret: 'Secret erneuern',
     delete: 'Löschen',
     cancel: 'Abbrechen',
     noApp: 'Keine Applikationen',
@@ -271,13 +271,13 @@ export const de = {
     resetPasswordTitle: 'Passwort zurücksetzen',
     catalogTitleProduct: 'Produktkatalog',
     catalogTitleService: 'Servicekatalog',
-    specTitle: 'API Speifikation',
+    specTitle: 'API Spezifikation',
     docsTitle: 'API Dokumentation',
     appsTitle: 'Meine Applikationen',
     createAppTitle: 'Neue Applikation anlegen',
-    createAppTitle2: 'Application erstellen',
+    createAppTitle2: 'Applikation erstellen',
     viewAppTitle: 'Applikation',
-    updateAppTitle: 'Application bearbeiten',
+    updateAppTitle: 'Applikation bearbeiten',
     notFoundTitle: 'Nicht gefunden',
     forbiddenTitle: 'Zugriff verweigert',
     errorTitle: 'Fehler'
