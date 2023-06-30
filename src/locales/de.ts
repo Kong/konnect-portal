@@ -131,7 +131,7 @@ export const de = {
       titleServices: 'Keine Services',
       viewCatalog1: 'Katalog ansehen, um sich für ein',
       viewCatalog2Product: ' Produkt zu registrieren.',
-      viewCatalog2Service: ' Service zu registrieren.'
+      viewCatalog2Service: 'en Service zu registrieren.'
     },
     labels: {
       nameProduct: 'Produkt',
