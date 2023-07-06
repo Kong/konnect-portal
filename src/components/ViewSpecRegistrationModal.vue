@@ -195,7 +195,7 @@ export default defineComponent({
 
       return {
         default: {
-          title: defaultModal.title(props.product.name, props.version?.name),
+          title: defaultModal.title(props.product?.name, props.version?.name),
           buttonText: defaultModal.buttonText
         },
         success: {
