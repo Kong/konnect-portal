@@ -10,6 +10,7 @@ interface PortalData {
     oidcAuthEnabled: boolean;
   };
   featuresetId: string;
+  featureSet: string;
   isPublic: boolean;
   isDcr: boolean;
   isRbacEnabled: boolean;
@@ -25,6 +26,7 @@ export const useAppStore = defineStore('app', () => {
   const orgId = ref<string>(null)
   const developerSession = ref<SessionCookie>(null)
   const featuresetId = ref<string>(null)
+  const featureSet = ref<string>('')
   const authClientConfig = ref<{
     basicAuthEnabled: boolean;
     oidcAuthEnabled: boolean;
@@ -33,7 +35,7 @@ export const useAppStore = defineStore('app', () => {
     return await developerSession.value.destroy(fullPath)
   }
 
-  const setPortalData = (data: PortalData) => {
+  const setPortalData = (data: Partial<PortalData>) => {
     if (data.portalId) {
       portalId.value = data.portalId
     }
@@ -48,6 +50,10 @@ export const useAppStore = defineStore('app', () => {
 
     if (data.featuresetId) {
       featuresetId.value = data.featuresetId
+    }
+
+    if (data.featureSet) {
+      featureSet.value = data.featureSet
     }
 
     if (data.isRbacEnabled) {
@@ -77,6 +83,7 @@ export const useAppStore = defineStore('app', () => {
     orgId,
     developerSession,
     featuresetId,
+    featureSet,
     authClientConfig,
 
     logout,

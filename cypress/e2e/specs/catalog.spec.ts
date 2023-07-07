@@ -79,14 +79,19 @@ describe('Catalog', () => {
     })
 
     it('loads one product with details', () => {
-      cy.get('.products-label').should('contain', 'Service')
       cy.get('.catalog-item').should('have.length', 1)
       cy.get('.catalog-item').should('contain', 'barAPI')
       cy.get('.catalog-item').should('contain', 'v2')
       cy.get('.catalog-item').should('contain', 'great description')
-      cy.title().should('eq', 'Service Catalog | Developer Portal')
     })
-    
+
+    it('TDX-3134 - catalog title should read "Service" when flag disabled', () => {
+      cy.mockLaunchDarklyFlags([{ name: FeatureFlags.ApiProductBuilder, value: false }]).then(() => {
+        cy.get('.products-label').should('contain', 'Service')
+        cy.title().should('eq', 'Service Catalog | Developer Portal')
+      })
+    })
+
     it('TDX-3134 - catalog title should read "Product" when flag enabled', () => {
       cy.mockLaunchDarklyFlags([{ name: FeatureFlags.ApiProductBuilder, value: true }]).then(() => {
         cy.get('.products-label').should('contain', 'Product')

@@ -1,6 +1,7 @@
 <template>
   <KModal
     data-testid="application-registration-modal"
+    class="application-registration-modal"
     :is-visible="isVisible"
     :title="applications.length ? modalText.title : helpText.applicationRegistration.noApplications"
     @proceed="submitSelection"
@@ -195,7 +196,7 @@ export default defineComponent({
 
       return {
         default: {
-          title: defaultModal.title(props.product.name, props.version?.name),
+          title: defaultModal.title(props.product?.name, props.version?.name),
           buttonText: defaultModal.buttonText
         },
         success: {
@@ -340,8 +341,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
  .registered-apps-list {
-   list-style: disc;
+   margin-top: 1rem;
+   list-style: none;
+   text-align: left;
    padding-left: var(--spacing-xl, 32px);
  }
+</style>
+
+<style lang="scss">
+.application-registration-modal {
+  .modal-backdrop {
+    .modal-dialog {
+      margin-top: 7rem;
+    }
+  }
+}
 </style>
