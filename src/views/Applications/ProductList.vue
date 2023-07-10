@@ -98,7 +98,7 @@ export default defineComponent({
       { label: nameLabel, key: 'name' },
       { label: helpText.labels.version, key: 'version' },
       { label: helpText.labels.status, key: 'status' },
-      { key: helpText.labels.actions, hideLabel: true }
+      { label: helpText.labels.actions, key: 'actions', hideLabel: true }
     ]
 
     const { portalApiV2 } = usePortalApi()
