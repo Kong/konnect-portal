@@ -1,6 +1,7 @@
 import SessionCookie from '@/services/SessionCookie'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { PortalTimeframeKeys } from '@/types/vitals'
 
 interface PortalData {
   portalId: string;
@@ -14,6 +15,7 @@ interface PortalData {
   isPublic: boolean;
   isDcr: boolean;
   isRbacEnabled: boolean;
+  allowedTimePeriod: string;
 }
 
 export const useAppStore = defineStore('app', () => {
@@ -27,6 +29,7 @@ export const useAppStore = defineStore('app', () => {
   const developerSession = ref<SessionCookie>(null)
   const featuresetId = ref<string>(null)
   const featureSet = ref<string>('')
+  const allowedTimePeriod = ref<string>(PortalTimeframeKeys.ONE_DAY)
   const authClientConfig = ref<{
     basicAuthEnabled: boolean;
     oidcAuthEnabled: boolean;
@@ -67,6 +70,10 @@ export const useAppStore = defineStore('app', () => {
     if (data.isPublic) {
       isPublic.value = data.isPublic
     }
+
+    if (data.allowedTimePeriod) {
+      allowedTimePeriod.value = data.allowedTimePeriod
+    }
   }
 
   const setSession = (session: SessionCookie) => {
@@ -84,6 +91,7 @@ export const useAppStore = defineStore('app', () => {
     developerSession,
     featuresetId,
     featureSet,
+    allowedTimePeriod,
     authClientConfig,
 
     logout,
