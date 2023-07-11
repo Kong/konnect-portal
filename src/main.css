@@ -41,7 +41,7 @@ a {
 }
 
 .hero-box {
-  background-color: rgba(0,0,0,.7);;
+  background-color: rgba(255,255,255,.7);;
   color: var(--text_colors-hero);
   margin: 1em;
   padding: 1em;
