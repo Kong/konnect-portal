@@ -239,8 +239,8 @@ export const en = {
     logoAlt: 'logo'
   },
   tickets: {
-    title: 'Ticket system',
-    description: 'Here be dragons...The ticket system is used to report issues and request support for the API platform.'
+    title: 'Ticket system backend',
+    description: 'Here we could integrate with an existing ticket system. As during PoC no ticket system has been available, we have created a simple one for demonstration purposes. Click the link below or the screenshot to open the ticket system.',
   },
   forbidden: {
     logoAlt: 'logo',

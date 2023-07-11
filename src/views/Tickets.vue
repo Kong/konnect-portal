@@ -5,10 +5,12 @@
       data-testid="tickets"
     >
       <div class="align-items-center justify-content-center">
-        <h1 class="mt-0 type-xxl">
+        <h1 class="mt-0 type-xxl" style="margin-bottom:1em">
           {{ helpText.title }}
         </h1>
-        <p>{{ helpText.description }}</p>
+        <p style="margin-bottom:1em">{{ helpText.description }}</p>
+        <p style="margin-bottom:2em"><a target="_blank" href="https://axa-ticketsystem.dev-portal.de/?apikey=jkorlnoxltg5fgkbvzuTZViuztvtlhj">&gt; Ticket system backend</a></p>
+        <a target="_blank" href="https://axa-ticketsystem.dev-portal.de/?apikey=jkorlnoxltg5fgkbvzuTZViuztvtlhj"><img src="/images/ticket-backend.jpg" /></a>
       </div>
     </section>
   </Content>

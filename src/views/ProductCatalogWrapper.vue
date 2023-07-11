@@ -4,12 +4,14 @@
       class="products-top-section flex flex-col items-center justify-center py-16 bg-section_colors-hero"
       :style="catalog_cover_style"
     >
-      <h4 class="products-welcome mb-4 font-normal color-text_colors-secondary text-2xl">
-        {{ welcome_message }}
-      </h4>
-      <h1 class="products-title mb-5 font-normal color-text_colors-hero text-4xl">
-        {{ primary_header }}
-      </h1>
+      <div class="hero-box">
+        <h4 class="products-welcome mb-4 font-normal color-text_colors-hero text-2xl">
+          {{ welcome_message }}
+        </h4>
+        <h1 class="products-title mb-5 font-normal color-text_colors-hero text-4xl">
+          {{ primary_header }}
+        </h1>
+      </div>
       <div class="w-full max-w-lg mx-auto inline-flex">
         <form
           id="searchProductsForm"
