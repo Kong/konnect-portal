@@ -93,7 +93,7 @@ export default defineComponent({
           primary_header.value = portalVariables.primary_header.text
         }
 
-        const imageUrl = 'https://images.axa-contento-118412.eu/www-axa-com/22ed0cdd-df34-47ed-ad9c-dc812b0e0e96_purpose.jpg'
+        const imageUrl = '/images/startpage.jpg'
 
         catalog_cover_style.value.backgroundImage = `url(${imageUrl})`
       }).catch(e => { console.error('Failed to load appearance.', e) }).then(defaultHeaders)
