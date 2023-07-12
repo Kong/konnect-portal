@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, createLogger } from 'vite'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
@@ -23,6 +23,26 @@ function setHostHeader (proxy) {
   proxy.on('proxyReq', function (proxyRes) {
     proxyRes.setHeader('host', host)
   })
+}
+
+/**
+ * Create a custom logger to ignore `vite:css` errors (from postcss) for imported packages
+ */
+function createCustomLogger () {
+  const logger = createLogger()
+  const loggerWarn = logger.warn
+  // Create array of partial message strings to ignore
+  const ignoredWarnings = [
+    'end value has mixed support'
+  ]
+
+  logger.warn = (msg, options) => {
+    // if the msg includes `vite:css` and one of the `ignoredWarnings`, ignore and do not log
+    if (msg.includes('vite:css') && ignoredWarnings.some((partialMsg) => msg.includes(partialMsg))) return
+    loggerWarn(msg, options)
+  }
+
+  return logger
 }
 
 export default ({ command, mode }) => {
@@ -84,6 +104,7 @@ export default ({ command, mode }) => {
           }
         }
       }
-    }
+    },
+    customLogger: createCustomLogger()
   })
 }
