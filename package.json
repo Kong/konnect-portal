@@ -28,7 +28,7 @@
     "@kong-ui-public/document-viewer": "0.8.4",
     "@kong-ui-public/spec-renderer": "0.9.41",
     "@kong/kong-auth-elements": "2.1.0",
-    "@kong/kongponents": "8.82.2",
+    "@kong/kongponents": "8.85.0",
     "@kong/sdk-portal-js": "1.0.0",
     "@xstate/vue": "2.0.0",
     "axios": "0.27.2",

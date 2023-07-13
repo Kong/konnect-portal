@@ -153,7 +153,7 @@ export default defineComponent({
       }
     }
 
-    const catalogViewChanged = (viewType: string) => {
+    const catalogViewChanged = (viewType: 'grid' | 'table') => {
       catalogItems.value = []
       catalogView.value = viewType
       fetchProducts()
