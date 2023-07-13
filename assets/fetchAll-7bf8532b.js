@@ -1,0 +1,1 @@
+async function o(s){var n;const a={pageSize:100,pageNumber:1},{data:t}=await s(a),e=[...t.data];for(;e.length<=((n=t==null?void 0:t.meta)==null?void 0:n.total);){a.pageNumber++;const{data:c}=await s(a);e.push(...c.data)}return e}export{o as f};
