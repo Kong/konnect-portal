@@ -29,6 +29,7 @@ export default class KongAuthApi {
     this.authErrorCallback = () => false
 
     this.client = axios.create({
+      baseURL: baseUrl,
       withCredentials: true,
       headers: {
         accept: 'application/json'
