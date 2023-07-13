@@ -4,13 +4,11 @@ module.exports = {
   future: {
     purgeLayersByDefault: true
   },
-  purge: {
-    layers: ['utilities'],
-    content: [
-      './src/**/*.js',
-      './src/**/*.vue'
-    ]
-  },
+  layers: ['utilities'],
+  content: [
+    './src/**/*.js',
+    './src/**/*.vue'
+  ],
   theme: {
     extend: {
       screens: {
@@ -21,6 +19,5 @@ module.exports = {
       }
     }
   },
-  variants: {},
   plugins: []
 }
