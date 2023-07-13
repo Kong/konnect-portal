@@ -9,7 +9,6 @@ module.exports = {
     './src/**/*.js',
     './src/**/*.vue'
   ],
-  sd: {},
   theme: {
     extend: {
       screens: {
