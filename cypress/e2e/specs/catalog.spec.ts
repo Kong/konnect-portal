@@ -177,7 +177,7 @@ describe('Catalog', () => {
     it('renders the documentation link for catalog item ', () => {
       cy.mockPrivatePortal()
       cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 1 }])
-
+      cy.mockProduct()
       cy.visit('/')
 
       cy.wait('@productSearch').then(() => {
