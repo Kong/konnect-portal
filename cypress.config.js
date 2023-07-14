@@ -1,11 +1,20 @@
 const { defineConfig } = require('cypress')
 const cypressSplit = require('cypress-split')
+const dotenv = require('dotenv')
+
+dotenv.config()
 
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents (on, config) {
       require('cypress-terminal-report/src/installLogsPrinter')(on)
       cypressSplit(on, config)
+
+      config.env = {
+        ...process.env,
+        ...config.env
+      }
+
 
       // IMPORTANT: return the config object
       return config
@@ -22,11 +31,10 @@ module.exports = defineConfig({
   fixturesFolder: 'cypress/e2e/fixtures',
   includeShadowDom: true,
   reporter: 'spec',
-  retries: 2,
   screenshotsFolder: 'cypress/e2e/screenshots',
   scrollBehavior: 'center',
   trashAssetsBeforeRuns: false,
   videoCompression: false,
   videosFolder: 'cypress/e2e/videos',
-  watchForFileChanges: false
+  watchForFileChanges: true
 })
