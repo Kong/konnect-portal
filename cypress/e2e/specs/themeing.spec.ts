@@ -7,6 +7,10 @@ beforeEach(() => {
 })
 
 describe('loads color theme variables', () => {
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockAppearance()
+  })
   it('loads mint_rocket theme', () => {
     cy.mockStylesheetCss('mint_rocket')
     cy.visit('/')
@@ -49,6 +53,8 @@ describe('loads color theme variables', () => {
 describe('fonts', () => {
   it('loads default fonts', () => {
     cy.mockStylesheetFont()
+    cy.mockStylesheetCss()
+    cy.mockAppearance()
     cy.visit('/')
     cy.get('#site-header')
     cy.get('body').should('have.css', 'font').should('contain', DEFAULT_FONTS.base)
@@ -66,6 +72,10 @@ describe('fonts', () => {
 })
 
 describe('custom Catalog', () => {
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockStylesheetCss()
+  })
   it('loads default values', () => {
     cy.mockPublicPortal()
     cy.mockAppearance()

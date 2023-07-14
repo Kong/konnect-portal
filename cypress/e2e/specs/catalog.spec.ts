@@ -70,6 +70,13 @@ const mockProductSearchResults = (searchResults:SearchResultsDataInner[], pageNu
 }
 
 describe('Catalog', () => {
+
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockAppearance()
+    cy.mockStylesheetCss()
+  })
+
   describe('Catalog card view', () => {
     beforeEach(() => {
       cy.mockPublicPortal()

@@ -2,6 +2,7 @@ describe('Reset Password Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
     cy.mockSuccessfulPasswordReset()
+    cy.mockStylesheetFont()
   })
   it('Sends token to backend that developer can get from email and resets password', () => {
     cy.intercept('POST', '**/developer/reset-password', {
