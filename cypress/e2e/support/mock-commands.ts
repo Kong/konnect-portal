@@ -169,6 +169,13 @@ Cypress.Commands.add('mockSuccessfulPasswordReset', () => {
   }).as('sendPasswordReset')
 })
 
+Cypress.Commands.add('mockDeveloperLogout', () => {
+  return cy.intercept('POST', '**/api/v2/developer/logout', {
+    statusCode: 200,
+    delay: 300
+  }).as('developerLogout')
+})
+
 Cypress.Commands.add('mockGetUserInfo', () => {
   return cy.intercept('GET', '**/api/v2/developer/me', {
     statusCode: 200,

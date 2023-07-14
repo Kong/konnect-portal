@@ -1,6 +1,7 @@
 describe('Forgot Password Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
+    cy.mockStylesheetFont()
   })
 
   it('has link from login page', () => {

@@ -1,6 +1,7 @@
 describe('Not Found Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
+    cy.mockStylesheetFont()
   })
 
   describe('not found spec', () => {
@@ -12,6 +13,7 @@ describe('Not Found Page', () => {
     })
 
     it('allows able to move to home using button available on 404 page', () => {
+      cy.mockProductsCatalog()
       cy.visit('/oooooooooo')
       cy.get('[data-testid="go-home"]').click()
       cy.get('.products-welcome').should('exist')

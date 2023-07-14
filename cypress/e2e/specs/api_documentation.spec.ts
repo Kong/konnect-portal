@@ -9,6 +9,7 @@ describe('Api Documentation Page', () => {
     cy.mockGetProductDocumentBySlug(product.id, 'bar')
     cy.mockGetProductDocuments(product.id)
     cy.mockProductOperations()
+    cy.mockStylesheetFont()
   })
 
   const PARENT_DOCUMENT_URL = `/docs/${product.id}/${documentTreeJSON[0].slug}`

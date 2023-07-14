@@ -1,6 +1,7 @@
 describe('Login Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
+    cy.mockStylesheetFont()
     cy.intercept('POST', '**/developer/logout', {
       statusCode: 204,
       body: {},
@@ -253,6 +254,7 @@ describe('Login Page', () => {
   })
 
   it('does not hang on loading when loginSuccess provided by user', () => {
+    cy.mockDeveloperRefresh()
     cy.intercept('GET', '**/api/v2/developer/me', {
       statusCode: 401,
       body: {
