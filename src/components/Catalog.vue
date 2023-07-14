@@ -97,9 +97,9 @@ export default defineComponent({
       noResultsMessage
     }
   },
-  data () {
+  data (): { activeView: 'grid' | 'table'} {
     return {
-      activeView: 'grid' as 'grid' | 'table'
+      activeView: 'grid'
     }
   },
   computed: {
