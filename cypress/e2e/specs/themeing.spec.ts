@@ -86,7 +86,7 @@ describe('custom Catalog', () => {
     cy.get('.products-top-section').should('have.css', 'background-image').and('not.match', /catalog_cover/)
   })
   it('loads custom values', () => {
-    cy.readFile('cypress/e2e/kong-logo.png', 'base64').then(b => {
+    cy.readFile('cypress/e2e/fixtures/images/kong-logo.png', 'base64').then(b => {
       cy.mockAppearance({
         variables: {
           catalog: {

@@ -402,6 +402,7 @@ describe('Spec Renderer Page', () => {
       cy.mockProductOperations()
       cy.mockStylesheetFont()
       cy.mockStylesheetCss()
+      cy.mockAppearance()
     })
 
     it('allows seeing spec when portal is public and rbac enabled, does not call developers/me/permissions', () => {

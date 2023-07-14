@@ -9,16 +9,7 @@ const __dirname = path.resolve()
 app.use(express.static('dist', { index: false }))
 app.use(express.json())
 
-app.get('/portal_assets/logo', (req, res) => {
-  res.sendFile(
-    path.join(
-      __dirname,
-      './cypress/e2e.kong-logo.png'
-    )
-  )
-})
-
-app.get(/^\/(?!portal_api|kauth).*/, (req, res) => {
+app.get(/^\/(?!kauth).*/, (req, res) => {
   res.status(200).sendFile(path.join(__dirname, './dist/index.html'))
 })
 

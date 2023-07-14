@@ -36,6 +36,8 @@ declare global {
       mockStylesheetFont(fonts?: {[key:string]:string}): Chainable<JQuery<HTMLElement>>
       mockStylesheetCss(themeName?: string, fonts?: {[key:string]:string}): Chainable<JQuery<HTMLElement>>
       mockAppearance(appearance?: PortalAppearance): Chainable<JQuery<HTMLElement>>
+      mockLogo(): Chainable<JQuery<HTMLElement>>
+      mockCatalogCover(): Chainable<JQuery<HTMLElement>>
       mockLaunchDarklyFlags(flags: Array<{name:string, value:boolean}>): Chainable<JQuery<HTMLElement>>
       mockDeveloperRefresh(): Chainable<JQuery<HTMLElement>>
       mockDeveloperLogout(): Chainable<JQuery<HTMLElement>>

@@ -189,6 +189,7 @@ describe('Portal Auth', () => {
   describe('Public Portal - Unauthenticated', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
+      cy.mockProductsCatalog()
       cy.mockStylesheetFont()
       cy.mockStylesheetCss()
       cy.mockAppearance()
