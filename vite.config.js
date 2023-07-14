@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, loadEnv, createLogger } from 'vite'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const path = require('path')
 
@@ -25,8 +26,36 @@ function setHostHeader (proxy) {
   })
 }
 
+/**
+ * Create a custom logger to ignore `vite:css` errors (from postcss) for imported packages
+ */
+function createCustomLogger () {
+  const logger = createLogger()
+  const loggerWarn = logger.warn
+  // Create array of partial message strings to ignore
+  const ignoredWarnings = [
+    'end value has mixed support'
+  ]
+
+  logger.warn = (msg, options) => {
+    // if the msg includes `vite:css` and one of the `ignoredWarnings`, ignore and do not log
+    if (msg.includes('vite:css') && ignoredWarnings.some((partialMsg) => msg.includes(partialMsg))) return
+    loggerWarn(msg, options)
+  }
+
+  return logger
+}
+
 export default ({ command, mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+
+  // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
+  const buildVisualizerPlugin = process.env.BUILD_VISUALIZER === 'true' && visualizer({
+    filename: path.resolve(__dirname, 'bundle-analyzer/stats-treemap.html'),
+    template: 'treemap', // sunburst|treemap|network
+    sourcemap: true,
+    gzipSize: true
+  })
 
   // Sets VITE_INDEX_API_URL which is templated in index.html
   process.env.VITE_INDEX_API_URL = command === 'serve' ? '/' : process.env.VITE_PORTAL_API_URL
@@ -48,6 +77,22 @@ export default ({ command, mode }) => {
   dns.setDefaultResultOrder('verbatim')
 
   return defineConfig({
+    logLevel: 'info',
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vue: ['vue', 'vue-router'],
+            kongponents: ['@kong/kongponents'],
+            kongAuthelements: ['@kong/kong-auth-elements'],
+            specRenderer: ['@kong-ui-public/spec-renderer']
+          }
+        },
+        plugins: [
+          buildVisualizerPlugin
+        ]
+      }
+    },
     plugins: [
       vue(
         {
@@ -84,6 +129,7 @@ export default ({ command, mode }) => {
           }
         }
       }
-    }
+    },
+    customLogger: createCustomLogger()
   })
 }

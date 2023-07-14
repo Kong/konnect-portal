@@ -3,13 +3,6 @@ import { storeToRefs } from 'pinia'
 
 import { session } from '@/services'
 import { useAppStore, useI18nStore } from '@/stores'
-import Shell from '../views/Shell.vue'
-import ProductCatalogWrapper from '../views/ProductCatalogWrapper.vue'
-import ProductShell from '../views/ProductShell.vue'
-import Registration from '../views/Registration.vue'
-import Login from '../views/Login.vue'
-import ForgotPassword from '../views/ForgotPassword.vue'
-import ResetPassword from '../views/ResetPassword.vue'
 
 import {
   canUserAccess,
@@ -23,6 +16,14 @@ import {
 } from '@/router/route-utils'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { FeatureFlags } from '@/constants/feature-flags'
+
+const ProductCatalogWrapper = () => import('../views/ProductCatalogWrapper.vue')
+const ProductShell = () => import('../views/ProductShell.vue')
+const Shell = () => import('../views/Shell.vue')
+const Registration = () => import('../views/Registration.vue')
+const ForgotPassword = () => import('../views/ForgotPassword.vue')
+const ResetPassword = () => import('../views/ResetPassword.vue')
+const Login = () => import('../views/Login.vue')
 
 export const portalRouter = () => {
   const appStore = useAppStore()
