@@ -7,6 +7,10 @@ beforeEach(() => {
 })
 
 describe('loads color theme variables', () => {
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockAppearance()
+  })
   it('loads mint_rocket theme', () => {
     cy.mockStylesheetCss('mint_rocket')
     cy.visit('/')
@@ -49,6 +53,8 @@ describe('loads color theme variables', () => {
 describe('fonts', () => {
   it('loads default fonts', () => {
     cy.mockStylesheetFont()
+    cy.mockStylesheetCss()
+    cy.mockAppearance()
     cy.visit('/')
     cy.get('#site-header')
     cy.get('body').should('have.css', 'font').should('contain', DEFAULT_FONTS.base)
@@ -66,6 +72,10 @@ describe('fonts', () => {
 })
 
 describe('custom Catalog', () => {
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockStylesheetCss()
+  })
   it('loads default values', () => {
     cy.mockPublicPortal()
     cy.mockAppearance()
@@ -76,7 +86,7 @@ describe('custom Catalog', () => {
     cy.get('.products-top-section').should('have.css', 'background-image').and('not.match', /catalog_cover/)
   })
   it('loads custom values', () => {
-    cy.readFile('cypress/e2e/kong-logo.png', 'base64').then(b => {
+    cy.readFile('cypress/e2e/fixtures/images/kong-logo.png', 'base64').then(b => {
       cy.mockAppearance({
         variables: {
           catalog: {

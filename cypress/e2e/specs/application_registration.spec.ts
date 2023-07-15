@@ -118,6 +118,9 @@ describe('Application Registration', () => {
 
   beforeEach(() => {
     cy.mockPrivatePortal()
+    cy.mockAppearance()
+    cy.mockStylesheetCss()
+    cy.mockStylesheetFont()
   })
 
   it('displays empty dashboard for my apps', () => {
@@ -163,8 +166,11 @@ describe('Application Registration', () => {
         }
       }).as('postApplicationRegistration')
       mockApplicationWithCredAndReg(apps[3])
+      mockApplicationWithCredAndReg(apps[0])
 
       cy.get(submitButton).click()
+
+
 
       cy.wait('@postApplicationRegistration').then(() => {
         cy.get('[data-testid="copy-secret-modal"]').should('exist')
@@ -225,7 +231,7 @@ describe('Application Registration', () => {
     cy.get('[data-testid="applications-table"] tbody tr')
     .contains(apps[0].name)
     .click()
-    
+
     // use breadcrumb to navigate back to My Apps
     cy.get('.k-breadcrumbs .k-breadcrumbs-item a').contains('My Apps').click()
     cy.url().should('include', 'my-apps')

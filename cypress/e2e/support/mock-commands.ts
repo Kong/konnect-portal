@@ -53,6 +53,8 @@ Cypress.Commands.add('mockAppearance', (appearance = {}) => {
       }
     }
   }
+  cy.mockLogo()
+  cy.mockCatalogCover()
 
   cy.intercept('GET', '**/api/v2/portal/appearance', {
     statusCode: 200,
@@ -61,6 +63,18 @@ Cypress.Commands.add('mockAppearance', (appearance = {}) => {
       ...appearance
     }
   }).as('getAppearance')
+})
+
+Cypress.Commands.add('mockCatalogCover', () => {
+  cy.intercept('GET', '**/api/v2/portal/catalog-cover', {
+    fixture: 'images/kong-logo.png'
+  }).as('getCatalogCover')
+})
+
+Cypress.Commands.add('mockLogo', () => {
+  cy.intercept('GET', '**/api/v2/portal/logo', {
+    fixture: 'images/kong-logo.png'
+  }).as('getLogo')
 })
 
 Cypress.Commands.add('mockStylesheetFont', (fonts = {
@@ -167,6 +181,13 @@ Cypress.Commands.add('mockSuccessfulPasswordReset', () => {
     statusCode: 200,
     delay: 300
   }).as('sendPasswordReset')
+})
+
+Cypress.Commands.add('mockDeveloperLogout', () => {
+  return cy.intercept('POST', '**/api/v2/developer/logout', {
+    statusCode: 200,
+    delay: 300
+  }).as('developerLogout')
 })
 
 Cypress.Commands.add('mockGetUserInfo', () => {

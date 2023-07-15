@@ -1,6 +1,8 @@
 describe('Register Page', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
+    cy.mockStylesheetFont()
+    cy.mockDeveloperLogout()
   })
 
   describe('register', () => {

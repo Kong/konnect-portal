@@ -10,6 +10,7 @@ describe('Spec Renderer Page', () => {
     beforeEach(() => {
       cy.mockPrivatePortal()
       cy.mockProductDocument()
+      cy.mockProductsCatalog()
       cy.mockProduct()
       cy.mockProductDocumentTree()
       cy.mockProductOperations()
@@ -135,6 +136,15 @@ describe('Spec Renderer Page', () => {
   })
 
   describe('Multiple Versions', () => {
+    beforeEach(() => {
+      cy.mockPrivatePortal()
+      cy.mockProductDocument()
+      cy.mockProductsCatalog()
+      cy.mockProduct()
+      cy.mockProductDocumentTree()
+      cy.mockProductOperations()
+      cy.mockProductVersionSpec()
+    })
     const weirdVersionName = 'weird <> % $ `'
 
     const v2BetaVersion = {
@@ -311,6 +321,8 @@ describe('Spec Renderer Page', () => {
       cy.mockProduct()
       cy.mockProductVersionSpec()
       cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockProductDocumentTree()
+      cy.mockProductOperations()
     })
 
     it('redirects to 403 page when developer does not have permissions to see the spec', () => {
@@ -386,6 +398,11 @@ describe('Spec Renderer Page', () => {
       cy.mockProduct()
       cy.mockProductVersionSpec()
       cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockProductDocumentTree()
+      cy.mockProductOperations()
+      cy.mockStylesheetFont()
+      cy.mockStylesheetCss()
+      cy.mockAppearance()
     })
 
     it('allows seeing spec when portal is public and rbac enabled, does not call developers/me/permissions', () => {

@@ -1,6 +1,7 @@
 // Import commands.js using ES2015 syntax:
 import { GetApplicationResponse, GetRegistrationResponse, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
+import { SinonStub } from 'cypress/types/sinon'
 
 // from https://docs.cypress.io/guides/tooling/typescript-support
 declare global {
@@ -35,11 +36,28 @@ declare global {
       mockStylesheetFont(fonts?: {[key:string]:string}): Chainable<JQuery<HTMLElement>>
       mockStylesheetCss(themeName?: string, fonts?: {[key:string]:string}): Chainable<JQuery<HTMLElement>>
       mockAppearance(appearance?: PortalAppearance): Chainable<JQuery<HTMLElement>>
+      mockLogo(): Chainable<JQuery<HTMLElement>>
+      mockCatalogCover(): Chainable<JQuery<HTMLElement>>
       mockLaunchDarklyFlags(flags: Array<{name:string, value:boolean}>): Chainable<JQuery<HTMLElement>>
       mockDeveloperRefresh(): Chainable<JQuery<HTMLElement>>
+      mockDeveloperLogout(): Chainable<JQuery<HTMLElement>>
     }
   }
 }
 
 // Import commands.js using ES2015 syntax:
 require('cypress-terminal-report/src/installLogsCollector')()
+
+
+beforeEach(() => {
+  const API_URL = Cypress.env('VITE_PORTAL_API_URL')
+  const notMockedRequests = cy.stub().as('notMockedRequests')
+
+  cy.intercept(`**${API_URL}**`, notMockedRequests)
+})
+
+afterEach(() => {
+  cy.get<SinonStub>('@notMockedRequests')
+    .then(stub => cy.wrap(stub.getCalls().map(call => call.args[0].url).join(', ')))
+    .should('be.empty')
+})

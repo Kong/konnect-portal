@@ -88,9 +88,14 @@ const aliasVisitAndWait = (route, useOriginalFn = true) => {
 }
 
 describe('Portal Auth', () => {
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+  })
+
   describe('Private Portal - Unauthenticated', () => {
     beforeEach(() => {
       cy.mockPrivatePortal()
+      cy.mockDeveloperLogout()
     })
 
     matrix.isNotPublic.unauthenticated.redirectToLogin.forEach((route) => {
@@ -120,6 +125,9 @@ describe('Portal Auth', () => {
   describe('Private Portal - Authenticated', () => {
     beforeEach(() => {
       cy.mockPrivatePortal()
+      cy.mockProductsCatalog()
+      cy.mockStylesheetFont()
+      cy.mockStylesheetCss()
     })
 
     matrix.isNotPublic.authenticated.viewable.forEach((route) => {
@@ -148,6 +156,11 @@ describe('Portal Auth', () => {
   describe('Public Portal - Authenticated', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
+      cy.mockProductsCatalog()
+      cy.mockStylesheetFont()
+      cy.mockStylesheetCss()
+      cy.mockAppearance()
+      cy.mockApplications()
     })
 
     matrix.isPublic.unauthenticated.viewable.forEach((route) => {
@@ -176,6 +189,10 @@ describe('Portal Auth', () => {
   describe('Public Portal - Unauthenticated', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
+      cy.mockProductsCatalog()
+      cy.mockStylesheetFont()
+      cy.mockStylesheetCss()
+      cy.mockAppearance()
     })
 
     matrix.isPublic.unauthenticated.viewable.forEach((route) => {

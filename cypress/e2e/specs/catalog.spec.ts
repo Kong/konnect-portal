@@ -70,6 +70,13 @@ const mockProductSearchResults = (searchResults:SearchResultsDataInner[], pageNu
 }
 
 describe('Catalog', () => {
+
+  beforeEach(() => {
+    cy.mockStylesheetFont()
+    cy.mockAppearance()
+    cy.mockStylesheetCss()
+  })
+
   describe('Catalog card view', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
@@ -170,7 +177,7 @@ describe('Catalog', () => {
     it('renders the documentation link for catalog item ', () => {
       cy.mockPrivatePortal()
       cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 1 }])
-
+      cy.mockProduct()
       cy.visit('/')
 
       cy.wait('@productSearch').then(() => {
