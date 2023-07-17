@@ -7,7 +7,7 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
     productsList.push({
       index: 'product-catalog',
       source: {
-        id: 'a5afb115-025e-4da1-a013-bf05b326e0a5' + i,
+        id: crypto.randomUUID(),
         created_at: '2020-08-25T16:14:52.450Z',
         updated_at: '2020-08-25T16:14:52.450Z',
         name: 'barAPI' + i,
@@ -25,7 +25,7 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
 
 function generateLatestVersion (i: number): ProductCatalogIndexSourceLatestVersion {
   return {
-    id: 'a41041e4-d324-43c8-977a-ad68f1839751' + i,
-    name: 'v2'
+    id: crypto.randomUUID(),
+    name: `v${i}`
   }
 }
