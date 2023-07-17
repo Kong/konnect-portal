@@ -35,7 +35,6 @@ export const en = {
   },
   productVersion: {
     deprecatedWarningProduct: 'This product version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
-    deprecatedWarningService: 'This service version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
     unableToRetrieveDoc: 'Unable to retrieve documentation'
   },
   userDropdown: {
@@ -122,20 +121,16 @@ export const en = {
   },
   productList: {
     titleProducts: 'Products',
-    titleServices: 'Services',
     actions: {
       unregister: 'Unregister'
     },
     emptyState: {
       titleProducts: 'No Products',
-      titleServices: 'No Services',
       viewCatalog1: 'View the catalog',
-      viewCatalog2Product: 'to register to a product.',
-      viewCatalog2Service: 'to register to a service.'
+      viewCatalog2Product: 'to register to a product.'
     },
     labels: {
       nameProduct: 'Product',
-      nameService: 'Service',
       version: 'Version',
       status: 'Status',
       actions: 'Actions'
@@ -161,7 +156,6 @@ export const en = {
     createApplication: 'Create an Application',
     cancelButton: 'Cancel',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
-    registeredApplicationsService: 'The following applications are already registered to this service:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Register for ${serviceName} - ${productVersion}`,
       buttonText: 'Request Access'
@@ -192,14 +186,11 @@ export const en = {
   },
   sidebar: {
     deprecated: ' (Deprecated)',
-    noResultsProduct: 'No product versions',
-    noResultsService: 'No service versions'
+    noResultsProduct: 'No product versions'
   },
   catalog: {
     entityTypeProduct: 'Product',
-    entityTypeService: 'Service',
-    noResultsProduct: 'No Products listed',
-    noResultsService: 'No Services listed'
+    noResultsProduct: 'No Products listed'
   },
   catalogItem: {
     latestVersion: 'Latest Version:',
@@ -229,7 +220,6 @@ export const en = {
   },
   nav: {
     catalog: 'Catalog',
-    breadcrumbService: 'Service',
     breadcrumbProduct: 'Product',
     breadcrumbDocumentation: 'Documentation',
     logoAlt: 'logo'
@@ -270,7 +260,6 @@ export const en = {
     forgotPasswordTitle: 'Forgot Password',
     resetPasswordTitle: 'Reset Password',
     catalogTitleProduct: 'Product Catalog',
-    catalogTitleService: 'Service Catalog',
     specTitle: 'API Spec',
     docsTitle: 'API Docs',
     appsTitle: 'My Apps',

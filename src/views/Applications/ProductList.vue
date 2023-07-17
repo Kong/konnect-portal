@@ -72,8 +72,6 @@ import usePortalApi from '@/hooks/usePortalApi'
 import PageTitle from '@/components/PageTitle.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
 import ActionsDropdown from '@/components/ActionsDropdown.vue'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ProductList',
@@ -85,13 +83,12 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
     const helpText = useI18nStore().state.helpText.productList
 
-    const nameLabel = apiProductLanguageEnabled ? helpText.labels.nameProduct : helpText.labels.nameService
-    const title = apiProductLanguageEnabled ? helpText.titleProducts : helpText.titleServices
-    const emptyStateTitle = apiProductLanguageEnabled ? helpText.emptyState.titleProducts : helpText.emptyState.titleServices
-    const viewCatalog2 = apiProductLanguageEnabled ? helpText.emptyState.viewCatalog2Product : helpText.emptyState.viewCatalog2Service
+    const nameLabel = helpText.labels.nameProduct
+    const title = helpText.titleProducts
+    const emptyStateTitle = helpText.emptyState.titleProducts
+    const viewCatalog2 = helpText.emptyState.viewCatalog2Product
 
     const { notify } = useToaster()
     const tableHeaders = [

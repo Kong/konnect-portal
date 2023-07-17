@@ -37,7 +37,6 @@ export const fr: I18nType = {
   },
   productVersion: {
     deprecatedWarningProduct: 'Cette version du produit est maintenant obsolète. Les points d\'accès resteront entièrement utilisables jusqu\'à la fin de cette version.',
-    deprecatedWarningService: 'Cette version du service est maintenant obsolète. Les points d\'accès resteront entièrement utilisables jusqu\'à la fin de cette version.',
     unableToRetrieveDoc: 'Impossible de récupérer la documentation'
   },
   userDropdown: {
@@ -124,20 +123,16 @@ export const fr: I18nType = {
   },
   productList: {
     titleProducts: 'Produits',
-    titleServices: 'Services',
     actions: {
       unregister: 'Désenregistrer'
     },
     emptyState: {
       titleProducts: 'Aucun produit',
-      titleServices: 'Aucun service',
       viewCatalog1: 'Voir le catalogue',
-      viewCatalog2Product: 'pour vous inscrire à un produit.',
-      viewCatalog2Service: 'pour vous inscrire à un service.'
+      viewCatalog2Product: 'pour vous inscrire à un produit.'
     },
     labels: {
       nameProduct: 'Produit',
-      nameService: 'Service',
       version: 'Version',
       status: 'Statut',
       actions: 'Actions'
@@ -163,7 +158,6 @@ export const fr: I18nType = {
     createApplication: 'Créer une application',
     cancelButton: 'Annuler',
     registeredApplicationsProduct: 'Les applications suivantes sont déjà enregistrées pour ce produit :',
-    registeredApplicationsService: 'Les applications suivantes sont déjà enregistrées pour ce service :',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Inscription à ${serviceName} - ${productVersion}`,
       buttonText: 'Demander l\'accès'
@@ -194,14 +188,11 @@ export const fr: I18nType = {
   },
   sidebar: {
     deprecated: ' (Obsolète)',
-    noResultsProduct: 'Aucune version de produit',
-    noResultsService: 'Aucune version de service'
+    noResultsProduct: 'Aucune version de produit'
   },
   catalog: {
     entityTypeProduct: 'Produit',
-    entityTypeService: 'Service',
-    noResultsProduct: 'Aucun produit répertorié',
-    noResultsService: 'Aucun service répertorié'
+    noResultsProduct: 'Aucun produit répertorié'
   },
   catalogItem: {
     latestVersion: 'Dernière version :',
@@ -231,7 +222,6 @@ export const fr: I18nType = {
   },
   nav: {
     catalog: 'Catalogue',
-    breadcrumbService: 'Service',
     breadcrumbProduct: 'Produit',
     breadcrumbDocumentation: 'Documentation',
     logoAlt: 'logo'
@@ -272,7 +262,6 @@ export const fr: I18nType = {
     forgotPasswordTitle: 'Mot de passe oublié',
     resetPasswordTitle: 'Réinitialisation du mot de passe',
     catalogTitleProduct: 'Catalogue des produits',
-    catalogTitleService: 'Catalogue des services',
     specTitle: 'Spécification de l\'API',
     docsTitle: 'Documentation de l\'API',
     appsTitle: 'Mes applications',

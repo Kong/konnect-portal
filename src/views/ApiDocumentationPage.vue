@@ -57,8 +57,6 @@ import DocumentViewer, { HeadingNode, addSlug } from '@kong-ui-public/document-v
 
 import '@kong-ui-public/document-viewer/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ApiDocumentationPage',
@@ -77,7 +75,6 @@ export default defineComponent({
     const helpText = useI18nStore().state.helpText
     const productStore = useProductStore()
     const { activeDocumentSlug } = storeToRefs(productStore)
-    const apiBuilderFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
 
     const { notify } = useToaster()
     const errorCode = ref(null)
@@ -100,7 +97,7 @@ export default defineComponent({
               }
             }
           : undefined,
-        text: props.product?.name || (apiBuilderFlagEnabled ? helpText.nav.breadcrumbProduct : helpText.nav.breadcrumbService)
+        text: props.product?.name || (helpText.nav.breadcrumbProduct)
       },
       {
         key: 'documentation',

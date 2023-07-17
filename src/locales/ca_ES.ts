@@ -37,7 +37,6 @@ export const ca_ES: I18nType = {
   },
   productVersion: {
     deprecatedWarningProduct: "Aquesta versió del producte ja no està vigent. Els punts d'interacció seguiran sent totalment funcionals fins que aquesta versió sigui retirada.",
-    deprecatedWarningService: "Aquesta versió del servei ja no està vigent. Els punts d'interacció seguiran sent totalment funcionals fins que aquesta versió sigui retirada.",
     unableToRetrieveDoc: 'No es pot recuperar la documentació'
   },
   userDropdown: {
@@ -124,20 +123,16 @@ export const ca_ES: I18nType = {
   },
   productList: {
     titleProducts: 'Productes',
-    titleServices: 'Serveis',
     actions: {
       unregister: 'Anul·lar el registre'
     },
     emptyState: {
       titleProducts: 'Sense productes',
-      titleServices: 'Sense serveis',
       viewCatalog1: 'Vegeu el catàleg',
-      viewCatalog2Product: 'per registrar-vos en un producte.',
-      viewCatalog2Service: 'per registrar-vos en un servei.'
+      viewCatalog2Product: 'per registrar-vos en un producte.'
     },
     labels: {
       nameProduct: 'Producte',
-      nameService: 'Servei',
       version: 'Versió',
       status: 'Estat',
       actions: 'Accions'
@@ -163,7 +158,6 @@ export const ca_ES: I18nType = {
     createApplication: 'Crear una aplicació',
     cancelButton: 'Cancel·lar',
     registeredApplicationsProduct: 'Les següents aplicacions ja estan registrades en aquest producte:',
-    registeredApplicationsService: 'Les següents aplicacions ja estan registrades en aquest servei:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Registrar - se per a ${serviceName} - ${productVersion}`,
       buttonText: 'Sol·licitar accés'
@@ -194,14 +188,11 @@ export const ca_ES: I18nType = {
   },
   sidebar: {
     deprecated: ' (Desactivat)',
-    noResultsProduct: 'Sense versions de producte',
-    noResultsService: 'Sense versions de servei'
+    noResultsProduct: 'Sense versions de producte'
   },
   catalog: {
     entityTypeProduct: 'Producte',
-    entityTypeService: 'Servei',
-    noResultsProduct: 'No hi ha productes disponibles',
-    noResultsService: 'No hi ha serveis disponibles'
+    noResultsProduct: 'No hi ha productes disponibles'
   },
   catalogItem: {
     latestVersion: 'Última versió:',
@@ -231,7 +222,6 @@ export const ca_ES: I18nType = {
   },
   nav: {
     catalog: 'Catàleg',
-    breadcrumbService: 'Servei',
     breadcrumbProduct: 'Producte',
     breadcrumbDocumentation: 'Documentació',
     logoAlt: 'logotip'
@@ -272,7 +262,6 @@ export const ca_ES: I18nType = {
     forgotPasswordTitle: 'Heu oblidat la contrasenya',
     resetPasswordTitle: 'Restablir la contrasenya',
     catalogTitleProduct: 'Catàleg de productes',
-    catalogTitleService: 'Catàleg de serveis',
     specTitle: "Especificació de l'API",
     docsTitle: "Documentació de l'API",
     appsTitle: 'Les meves aplicacions',

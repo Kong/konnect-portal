@@ -45,8 +45,6 @@ import { fetchAll } from '@/helpers/fetchAll'
 import { Operation } from '@kong-ui-public/spec-renderer'
 import { AxiosResponse } from 'axios'
 import { sortByDate } from '@/helpers/sortBy'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 const { notify } = useToaster()
 const helpText = useI18nStore().state.helpText
@@ -57,8 +55,7 @@ const productError = ref(null)
 const activeProductVersionDeprecated = ref(false)
 const deselectOperation = ref<boolean>(false)
 
-const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
-const deprecatedWarning = apiProductLanguageEnabled ? helpText.productVersion.deprecatedWarningProduct : helpText.productVersion.deprecatedWarningService
+const deprecatedWarning = helpText.productVersion.deprecatedWarningProduct
 
 // @ts-ignore
 const productStore = useProductStore()
