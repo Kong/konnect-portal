@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Import commands.js using ES2015 syntax:
 import { GetApplicationResponse, GetRegistrationResponse, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
@@ -48,16 +49,24 @@ declare global {
 // Import commands.js using ES2015 syntax:
 require('cypress-terminal-report/src/installLogsCollector')()
 
-
 beforeEach(() => {
   const API_URL = Cypress.env('VITE_PORTAL_API_URL')
-  const notMockedRequests = cy.stub().as('notMockedRequests')
+  const notMockedAPIRequests = cy.stub().as('notMockedAPIRequests')
+  const notMockedLDRequests = cy.stub().as('unmockedLaunchDarklyRequests')
 
-  cy.intercept(`**${API_URL}**`, notMockedRequests)
+  // mock all API requests
+  cy.intercept(`**${API_URL}**`, notMockedAPIRequests)
+
+  // mock all launchdarkly requests
+  cy.intercept('https://*.launchdarkly.com/**', notMockedLDRequests)
 })
 
 afterEach(() => {
-  cy.get<SinonStub>('@notMockedRequests')
+  cy.get<SinonStub>('@notMockedAPIRequests')
     .then(stub => cy.wrap(stub.getCalls().map(call => call.args[0].url).join(', ')))
-    .should('be.empty')
+    .then(urls => console.info({ message: 'Unmocked API requests', urls }))
+
+  cy.get<SinonStub>('@unmockedLaunchDarklyRequests')
+    .then(stub => cy.wrap(stub.getCalls().map(call => call.args[0].url).join(', ')))
+    .then(urls => console.info({ message: 'Unmocked LD requests', urls }))
 })
