@@ -14,8 +14,6 @@ import {
   shouldDeveloperAccessRoute,
   shouldRedirectToLogin
 } from '@/router/route-utils'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 const ProductCatalogWrapper = () => import('../views/ProductCatalogWrapper.vue')
 const ProductShell = () => import('../views/ProductShell.vue')
@@ -28,7 +26,6 @@ const Login = () => import('../views/Login.vue')
 export const portalRouter = () => {
   const appStore = useAppStore()
   const { portalId, globalLoading, isPublic } = storeToRefs(appStore)
-  const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
   const helpText = useI18nStore().state.helpText.router
 
   const router = createRouter({
@@ -74,7 +71,7 @@ export const portalRouter = () => {
             path: '',
             name: 'catalog',
             meta: {
-              title: apiProductLanguageEnabled ? helpText.catalogTitleProduct : helpText.catalogTitleService
+              title: helpText.catalogTitleProduct
             },
             component: ProductCatalogWrapper
           },

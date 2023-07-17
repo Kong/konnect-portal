@@ -128,8 +128,6 @@ import usePortalApi from '@/hooks/usePortalApi'
 import { useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import { fetchAll } from '@/helpers/fetchAll'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ViewSpecRegistrationModal',
@@ -155,7 +153,6 @@ export default defineComponent({
   emits: ['close'],
 
   setup (props, { emit }) {
-    const apiProductFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
     const $router = useRouter()
     const $route = useRoute()
     const { notify } = useToaster()
@@ -321,7 +318,7 @@ export default defineComponent({
       }
     })
 
-    const alreadyRegisteredMessage = apiProductFlagEnabled ? helpText.applicationRegistration.registeredApplicationsProduct : helpText.applicationRegistration.registeredApplicationsService
+    const alreadyRegisteredMessage = helpText.applicationRegistration.registeredApplicationsProduct
 
     return {
       currentState,

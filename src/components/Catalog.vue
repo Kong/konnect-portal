@@ -52,8 +52,6 @@ import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
 import CatalogTableList from './CatalogTableList.vue'
 import { CatalogItemModel, useI18nStore } from '@/stores'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'Catalog',
@@ -87,9 +85,8 @@ export default defineComponent({
   emits: ['cards-page-changed', 'active-view-changed'],
   setup () {
     const helpText = useI18nStore().state.helpText.catalog
-    const apiProductLanguageEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
-    const catalogTitle = apiProductLanguageEnabled ? helpText.entityTypeProduct : helpText.entityTypeService
-    const noResultsMessage = apiProductLanguageEnabled ? helpText.noResultsProduct : helpText.noResultsService
+    const catalogTitle = helpText.entityTypeProduct
+    const noResultsMessage = helpText.noResultsProduct
 
     return {
       helpText,

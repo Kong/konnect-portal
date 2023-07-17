@@ -35,7 +35,6 @@ export interface I18nType {
   };
   productVersion: {
     deprecatedWarningProduct: string;
-    deprecatedWarningService: string;
     unableToRetrieveDoc: string;
   };
   userDropdown: {
@@ -122,20 +121,16 @@ export interface I18nType {
   };
   productList: {
     titleProducts: string;
-    titleServices: string;
     actions: {
       unregister: string;
     };
     emptyState: {
       titleProducts: string;
-      titleServices: string;
       viewCatalog1: string;
       viewCatalog2Product: string;
-      viewCatalog2Service: string;
     };
     labels: {
       nameProduct: string;
-      nameService: string;
       version: string;
       status: string;
       actions: string;
@@ -161,7 +156,6 @@ export interface I18nType {
     createApplication: string;
     cancelButton: string;
     registeredApplicationsProduct: string;
-    registeredApplicationsService: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;
       buttonText: string;
@@ -193,13 +187,10 @@ export interface I18nType {
   sidebar: {
     deprecated: string;
     noResultsProduct: string;
-    noResultsService: string;
   };
   catalog: {
     entityTypeProduct: string;
-    entityTypeService: string;
     noResultsProduct: string;
-    noResultsService: string;
   };
   catalogItem: {
     latestVersion: string;
@@ -229,7 +220,6 @@ export interface I18nType {
   };
   nav: {
     catalog: string;
-    breadcrumbService: string;
     breadcrumbProduct: string;
     breadcrumbDocumentation: string;
     logoAlt: string;
@@ -270,7 +260,6 @@ export interface I18nType {
     forgotPasswordTitle: string;
     resetPasswordTitle: string;
     catalogTitleProduct: string;
-    catalogTitleService: string;
     specTitle: string;
     docsTitle: string;
     appsTitle: string;
