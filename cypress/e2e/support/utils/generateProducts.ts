@@ -1,4 +1,5 @@
 import { ProductCatalogIndexSource, ProductCatalogIndexSourceLatestVersion, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import { v4 as uuidV4 } from 'uuid'
 
 export const generateProducts = (count: number, options: Partial<ProductCatalogIndexSource>[] = []): SearchResultsDataInner[] => {
   const productsList: SearchResultsDataInner[] = []
@@ -7,13 +8,13 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
     productsList.push({
       index: 'product-catalog',
       source: {
-        id: 'a5afb115-025e-4da1-a013-bf05b326e0a5' + i,
+        id: uuidV4(),
         created_at: '2020-08-25T16:14:52.450Z',
         updated_at: '2020-08-25T16:14:52.450Z',
         name: 'barAPI' + i,
         description: undefined,
         document_count: 0,
-        latest_version: generateLatestVersion(i),
+        latest_version: generateLatestVersion(),
         version_count: 1,
         ...options[i] || {}
       }
@@ -23,9 +24,9 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
   return productsList
 }
 
-function generateLatestVersion (i: number): ProductCatalogIndexSourceLatestVersion {
+function generateLatestVersion (): ProductCatalogIndexSourceLatestVersion {
   return {
-    id: 'a41041e4-d324-43c8-977a-ad68f1839751' + i,
+    id: uuidV4(),
     name: 'v2'
   }
 }

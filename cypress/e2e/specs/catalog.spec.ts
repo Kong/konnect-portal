@@ -73,6 +73,7 @@ describe('Catalog', () => {
 
   beforeEach(() => {
     cy.mockStylesheetFont()
+    cy.mockProduct()
     cy.mockAppearance()
     cy.mockStylesheetCss()
   })
@@ -127,7 +128,7 @@ describe('Catalog', () => {
 
     it('displays an empty state with no products', () => {
       cy.mockPublicPortal()
-      cy.mockProductsCatalog(0)
+      cy.mockProductsCatalog()
 
       cy.visit('/')
 
