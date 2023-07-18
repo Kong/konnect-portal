@@ -1,5 +1,4 @@
 import { GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion } from '@kong/sdk-portal-js'
-import { v4 as uuidv4 } from 'uuid'
 
 const versions: ProductVersion[] = [
   {
@@ -15,7 +14,7 @@ const versions: ProductVersion[] = [
 const product: Product = {
   created_at: '2022-03-23T14:52:41.893Z',
   updated_at: '2022-03-23T14:52:41.893Z',
-  id: 'a5afb115-025e-4da1-a013-bf05b326e0a51',
+  id: '29985c03-a866-46f2-8152-29406243b90f',
   name: 'barAPI',
   description: null,
   document_count: 0,
@@ -36,14 +35,14 @@ const apps: GetApplicationResponse[] = [
     name: 'My Cool App',
     description: 'My Cool App has a cool description',
     reference_id: '1',
-    id: uuidv4(),
+    id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
     updated_at: '2022-03-25T13:15:02.104Z'
   },
   {
     name: 'My Other App',
     reference_id: '2',
-    id: uuidv4(),
+    id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
     updated_at: '2022-03-25T13:15:02.104Z',
     description: 'My Other App has a cool description'
@@ -52,7 +51,7 @@ const apps: GetApplicationResponse[] = [
     name: 'My Other Other App',
     description: 'My Other Other App has a cool description',
     reference_id: '3',
-    id: uuidv4(),
+    id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
     updated_at: '2022-03-25T13:15:02.104Z'
   },
@@ -61,7 +60,7 @@ const apps: GetApplicationResponse[] = [
     description: 'My DCR App has a cool description',
     reference_id: '4',
     redirect_uri: 'http://google.com',
-    id: uuidv4(),
+    id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
     updated_at: '2022-03-25T13:15:02.104Z'
   }
