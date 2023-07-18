@@ -8,7 +8,7 @@ import { removeQueryParam } from './router/route-utils'
 
 import useLaunchDarkly from '@/composables/useLaunchDarkly'
 
-import { authApiBaseUrl, session } from '@/services'
+import { authApi, authApiBaseUrl, session } from '@/services'
 
 // Import kong-auth-elements, styles, and options interface
 import { KongAuthElementsPlugin } from '@kong/kong-auth-elements/dist/kong-auth-elements.es'
@@ -28,6 +28,7 @@ import CopyUuid, { CopyUuidNotifyParam } from '@kong-ui-public/copy-uuid'
 import '@kong-ui-public/copy-uuid/dist/style.css'
 import useToaster from './composables/useToaster'
 import usePortalApi from './hooks/usePortalApi'
+import { createRedirectHandler } from './helpers/auth'
 
 /**
  * Initialize application
@@ -38,6 +39,12 @@ async function init () {
 
   // Initialize the Pinia store
   app.use(piniaInstance)
+
+  const router = portalRouter()
+
+  const { setPortalData, setSession, logout } = useAppStore()
+
+  authApi.setAuthErrorCallback(createRedirectHandler(router, logout))
 
   app.use(Kongponents)
 
@@ -64,8 +71,6 @@ async function init () {
       portalApiV2.value.updateClientWithCredentials()
     }
 
-    const { setPortalData, setSession } = useAppStore()
-
     const authClientConfig = { basicAuthEnabled, oidcAuthEnabled }
 
     const isDcr = Array.isArray(dcrProviderIds) && dcrProviderIds.length > 0
@@ -79,7 +84,6 @@ async function init () {
     const { initialize: initLaunchDarkly } = useLaunchDarkly()
 
     await initLaunchDarkly()
-    const router = portalRouter()
 
     if (!isPublic) {
       if (session.authenticatedWithIdp()) {

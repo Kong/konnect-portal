@@ -24,15 +24,15 @@
 </template>
 
 <script lang="ts">
-import { isNavigationFailure, NavigationFailureType } from 'vue-router'
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { ApiServiceAuthErrorReason } from '@/services/PortalV2ApiService'
 import removeElementFromDOMById from '@/helpers/removeElementFromDOMById'
 import { isAuthRoute } from '@/router/route-utils'
 import Nav from '@/components/Nav.vue'
-import { portalApiV2, authApi } from '@/services'
+import { portalApiV2 } from '@/services'
 import { useAppStore } from '@/stores'
+import { createRedirectHandler } from './helpers/auth'
 
 const initialLoadingId = 'initial-fullscreen-loading-container'
 
@@ -56,15 +56,6 @@ export default defineComponent({
   methods: {
     ...mapActions(useAppStore, ['logout']),
     initializeApiClients () {
-      const captureRouteAndLogout = async () => {
-        await this.logout(this.$router.currentRoute.fullPath)
-        this.$router.push({ name: 'login' }).catch((error) => {
-          if (!isNavigationFailure(error, NavigationFailureType.duplicated)) {
-            throw Error(error)
-          }
-        })
-      }
-
       // Konnect API Client
       portalApiV2.setAuthErrorCallback(async (err, reason) => {
         // redirect to 403 page if portal api returns HTTP 403 but the session is correct
@@ -74,15 +65,8 @@ export default defineComponent({
           return
         }
 
-        if (err && !isAuthRoute(this.$router.currentRoute.name)) {
-          await captureRouteAndLogout()
-        }
-      })
-
-      // KAuth API Client
-      authApi.setAuthErrorCallback(async (err) => {
-        if (err && !isAuthRoute(this.$router.currentRoute.name)) {
-          await captureRouteAndLogout()
+        if (err) {
+          await createRedirectHandler(this.$router, this.logout)()
         }
       })
     }
