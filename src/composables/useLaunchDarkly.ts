@@ -1,7 +1,7 @@
 import { useAppStore } from '@/stores'
 import { session } from '@/services'
 import { storeToRefs } from 'pinia'
-import type { LDClient, LDUser } from 'launchdarkly-js-client-sdk'
+import type { LDClient, LDContext } from 'launchdarkly-js-client-sdk'
 
 const enableLD = import.meta.env.VITE_ENABLE_LAUNCH_DARKLY === 'true'
 
@@ -36,7 +36,7 @@ export default function useLaunchDarkly () {
     try {
       ldClient = ldModule.initialize(
         featuresetId.value,
-        getUser(),
+        getContext(),
         { bootstrap: 'localStorage' }
       )
 
@@ -47,27 +47,26 @@ export default function useLaunchDarkly () {
   }
 
   /**
-   * Returns an LDUser object for either the active user, or an anonymous user if no session exists
-   * @returns {LDUser}
+   * Returns an LD User Context object for either the active user, or an anonymous context if no session exists
    */
-  const getUser = () => {
-    let ldUser: LDUser
+  const getContext = (): LDContext => {
+    let ldUser: LDContext
     if (session.exists()) {
       ldUser = {
+        kind: 'user',
         key: session.data?.developer?.id,
         anonymous: false,
-        custom: {
-          portalId: portalId.value,
-          orgId: orgId.value,
-          featureSet: featureSet.value
-        }
+        featureSet: featureSet.value,
+        portalId: portalId.value,
+        orgId: orgId.value
       }
     } else {
       ldUser = {
         // Use a shared key so this does not count against our MAUs
         // https://docs.launchdarkly.com/home/users/anonymous-users/?q=anonymous#tracking-anonymous-users-with-a-shared-key
         key: 'ANONYMOUS_USER',
-        custom: { orgId: orgId.value, portalId: portalId.value }
+        orgId: orgId.value,
+        portalId: portalId.value
       }
     }
 
