@@ -6,7 +6,7 @@
         class="mb-5"
       />
       <KAlert
-        v-if="currentState.matches('error') && errorMessage"
+        v-if="currentState.matches('error')"
         appearance="danger"
         class="mb-5"
         :alert-message="errorMessage"
@@ -262,7 +262,7 @@ export default defineComponent({
           success: {
             on: { CLICKED_SUBMIT: 'pending', CLICKED_DELETE: 'confirm_delete' }
           },
-          error: { on: { SUBMIT: 'pending' } },
+          error: { on: { CLICKED_SUBMIT: 'pending' } },
           confirm_delete: {
             on: { CLICKED_DELETE: 'pending', CLICKED_CANCEL: 'idle' }
           }
