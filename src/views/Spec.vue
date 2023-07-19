@@ -1,9 +1,9 @@
 <template>
   <div
     :ref="specDetails"
-    :class="{ spec: true, 'mt-6': true, 'api-documentation': true }"
+    class="spec mt-6 api-documentation"
   >
-    <div class="container mx-auto max-w-screen-2xl px-5 md:px-0">
+    <div class="container max-w-screen-2xl px-5 md:px-0">
       <div class="swagger-ui has-sidebar breadcrumbs">
         <KBreadcrumbs :items="breadcrumbs" />
       </div>
