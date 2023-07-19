@@ -262,7 +262,7 @@ export default defineComponent({
           success: {
             on: { CLICKED_SUBMIT: 'pending', CLICKED_DELETE: 'confirm_delete' }
           },
-          error: { on: { SUBMIT: 'pending' } },
+          error: { on: { CLICKED_SUBMIT: 'pending' } },
           confirm_delete: {
             on: { CLICKED_DELETE: 'pending', CLICKED_CANCEL: 'idle' }
           }
@@ -311,6 +311,7 @@ export default defineComponent({
 
     const handleSubmit = () => {
       send('CLICKED_SUBMIT')
+      errorMessage.value = ''
 
       portalApiV2.value.service.applicationsApi
         .createApplication({
@@ -331,6 +332,7 @@ export default defineComponent({
 
     const handleUpdate = () => {
       send('CLICKED_SUBMIT')
+      errorMessage.value = ''
 
       portalApiV2.value.service.applicationsApi
         .updateApplication({
@@ -342,6 +344,7 @@ export default defineComponent({
     }
 
     const handleDelete = () => {
+      errorMessage.value = ''
       portalApiV2.value.service.applicationsApi
         .deleteApplication({ applicationId: id.value })
         .then(() => handleSuccess('', 'deleted'))
