@@ -6,7 +6,7 @@
         class="mb-5"
       />
       <KAlert
-        v-if="currentState.matches('error')"
+        v-if="currentState.matches('error') && errorMessage"
         appearance="danger"
         class="mb-5"
         :alert-message="errorMessage"
@@ -311,6 +311,7 @@ export default defineComponent({
 
     const handleSubmit = () => {
       send('CLICKED_SUBMIT')
+      errorMessage.value = ''
 
       portalApiV2.value.service.applicationsApi
         .createApplication({
@@ -331,6 +332,7 @@ export default defineComponent({
 
     const handleUpdate = () => {
       send('CLICKED_SUBMIT')
+      errorMessage.value = ''
 
       portalApiV2.value.service.applicationsApi
         .updateApplication({
@@ -342,6 +344,7 @@ export default defineComponent({
     }
 
     const handleDelete = () => {
+      errorMessage.value = ''
       portalApiV2.value.service.applicationsApi
         .deleteApplication({ applicationId: id.value })
         .then(() => handleSuccess('', 'deleted'))
