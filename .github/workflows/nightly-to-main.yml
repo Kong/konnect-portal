@@ -1,0 +1,20 @@
+name: Push new main version
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 4'
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Commit dev changes to main
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GHA_TEAM_DEVX_KONG_BOT_PAT }}
+        run: |
+          git config --global user.email "team-devx+github-bot@konghq.com"
+          git config --global user.name "team-devx"
+          git rebase dev
+          git push

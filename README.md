@@ -11,7 +11,7 @@
 
 This repo is an [open source][oss-url] reference implementation of a Konnect Developer Portal Client leveraging the [Konnect Developer Portal Client API][portal-api-url] and [JavaScript SDK][javscript-sdk-url].
 
-The [Konnect Dev Portal][konnect-docs-url] is a web application for developers to locate, access, and consume API services. The Dev Portal enables developers to browse and search API documentation, test API endpoints, and manage their own credentials. 
+The [Konnect Dev Portal][konnect-docs-url] is a web application for developers to locate, access, and consume API services. The Dev Portal enables developers to browse and search API documentation, test API endpoints, and manage their own credentials.
 
 In [Kong Konnect][kong-konnect-register-url], you have two hosting options for the Dev Portal web user interface: a cloud hosted Dev Portal with Konnect or a self-hosted, open source Dev Portal powered by Konnect APIs.
 
@@ -39,7 +39,7 @@ With those benefits in mind, there _is_ the hosting cost to deploy this single p
 Install dependencies
 
 ```sh
-yarn 
+yarn
 ```
 
 Create local .env file
@@ -78,14 +78,24 @@ First and foremost please and comply with the standards outlined in the [CODE_OF
 
 ### Committing Changes
 
- Please follow the following branch naming scheme when creating your branch: This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). [Commitizen](https://github.com/commitizen/cz-cli) can be used to help build commit messages.
+ Please follow the following branch naming scheme when creating your branch: This repo uses [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). [Commitizen](https://github.com/commitizen/cz-cli) can be used to help build commit messages. Or you can utilize the installed version with any of the following commands:
+
+  ```sh
+  yarn commit
+  ```
+
+  or
+
+  ```sh
+  npm run commit
+  ```
 
 #### _Note:_
  _To disable commit formatting on your fork you can either comment out the contents of the lefthook.yaml file or remove it, as well as uninstall lefthook from the package.json file._
 
  i.e
  ```sh
- $ rm lefthook.yaml 
+ $ rm lefthook.yaml
  $ yarn remove lefthook
  ```
 
@@ -99,6 +109,10 @@ Please follow the following branch naming scheme when creating your branch:
 - `refactor/foo-bar` when refactoring code without any behavior change
 - `style/foo-bar` when addressing some style issue
 - `docs/foo-bar` for updates to the README.md, this file, or similar documents
+
+## Releases
+
+This repo uses [Semantic Release](https://github.com/semantic-release/semantic-release) for automated releases. Preview builds (git tags and github releases) are generated from the `dev` branch, while `main` is the stable release branch. The `dev` branch is protected and requires a PR to be merged into it. The PR must be approved by at least one reviewer and pass all checks before it can be merged. Once merged, the PR will trigger a release build and publish a preview release to GitHub. The PR must be merged into `main` to trigger a stable release build and publish a stable release to GitHub.
 
 ## Join the Community
 
