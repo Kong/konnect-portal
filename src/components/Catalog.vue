@@ -94,7 +94,7 @@ export default defineComponent({
       noResultsMessage
     }
   },
-  data () {
+  data (): { activeView: 'grid' | 'table'} {
     return {
       activeView: 'grid'
     }
@@ -110,7 +110,7 @@ export default defineComponent({
     this.setActiveView(activeView)
   },
   methods: {
-    setActiveView (val) {
+    setActiveView (val: 'grid' | 'table') {
       this.activeView = val
       localStorage.setItem('portal-catalog-view', val)
       this.$emit('active-view-changed', val)
