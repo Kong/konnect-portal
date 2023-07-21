@@ -919,21 +919,21 @@
     flat "^5.0.2"
     intl-messageformat "^10.3.5"
 
-"@kong-ui-public/i18n@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-0.6.1.tgz#a8f1ecbe8b11dbd168a5fbbc968afdd48a0b69c2"
-  integrity sha512-2SkOFU4zYNtPA0GP9+J51orkyXNN4xAvalJguSjrmraM3UdJMrJkeRxbVRsv5JVXezQ/yOQPGly+wg6anc5vuQ==
+"@kong-ui-public/i18n@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-0.8.0.tgz#b1e856c5a100fe56a0b4bcc3848b7a52aa01aa00"
+  integrity sha512-Q7zRZ4ayv1WgpkeBM6NX/Gvk2aUwpeaRCx12TyEWzrRPGkWj6HhPdZliQK/908bDCIRL8xuoj4IZ0DBoyzKtUA==
   dependencies:
     "@formatjs/intl" "^2.9.0"
     flat "^5.0.2"
     intl-messageformat "^10.5.0"
 
-"@kong-ui-public/spec-renderer@0.9.41":
-  version "0.9.41"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.9.41.tgz#a225bcca58012db059c9cf8470145a7225f8a1dd"
-  integrity sha512-amPUw96V+WR/haOP+9Xckc/aimURsh368Q4FeJo5ToInSl2HaN8vvDVF/isIT9QxK6tj7+IAnDuGY0TfGyjQug==
+"@kong-ui-public/spec-renderer@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.10.0.tgz#880c8d79907412bda6ee7ebc2a894dcec496c7c3"
+  integrity sha512-ct1Bb+so3Xv+oiji2NVf6gwJrmop+79EIjlrpfoElSrHDVXzG8ynz8Vh2Hr74zuo2AjH2s2LnQJB0UorZ4V8/Q==
   dependencies:
-    "@kong-ui-public/i18n" "^0.6.1"
+    "@kong-ui-public/i18n" "^0.8.0"
     "@kong-ui-public/swagger-ui-web-component" "^0.8.0"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.0"
