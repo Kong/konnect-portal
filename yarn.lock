@@ -827,10 +827,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/copy-uuid@0.3.15":
-  version "0.3.15"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/copy-uuid/-/copy-uuid-0.3.15.tgz#c8c8fc9b98529a984315fe98cb8f470959e72ff2"
-  integrity sha512-XCPVTvieK9qBIDgsGfjrBd0lxwF0mUJxxqVpewOhn4x/++mNEjDJ5+mNdgTHAQ+5uvf3OY/9EIlVjkDk5Iio/g==
+"@kong-ui-public/copy-uuid@0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/copy-uuid/-/copy-uuid-0.6.0.tgz#0e9810392de315d125303974d85c26993451ee62"
+  integrity sha512-SDNeKfTURx8VW0q0i63tYOJzT3lQXd8OoG7hmgyKbstbMmj9XeGwW3NuHeNxW8brY4WTgebXRAWHIoHPktIqwg==
 
 "@kong-ui-public/document-viewer@0.9.0":
   version "0.9.0"
