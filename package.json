@@ -88,11 +88,15 @@
   ],
   "engines": {
     "npm": "please-use-yarn",
-    "node": ">= 16.19.0",
-    "yarn": ">= 1.22.17"
+    "node": ">=18.16.0 < 19",
+    "yarn": "^1.22.19"
   },
   "volta": {
-    "node": "16.19.0",
-    "yarn": "1.22.17"
+    "node": "18.16.0",
+    "yarn": "1.22.19"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kong/konnect-portal.git"
   }
 }
