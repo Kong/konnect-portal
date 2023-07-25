@@ -16,7 +16,7 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install dependencies
         run: |
-          npm install --package-lock-only
+          yarn install --frozen-lockfile
           npm ci
       - name: Semantic Release
         env:
