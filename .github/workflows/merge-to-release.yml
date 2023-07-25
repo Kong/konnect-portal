@@ -20,5 +20,3 @@ jobs:
           git config --global user.name "team-devx"
           git reset --hard ${{ github.event.release.target_commitish }}
           git push --force-with-lease origin release
-
-
