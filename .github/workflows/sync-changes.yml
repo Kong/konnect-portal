@@ -1,7 +1,7 @@
-name: Sync changes from release tag
+name: Sync Changes From Release Tag
 on:
   release:
-    types: [published, created, released]
+    types: published
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -18,5 +18,5 @@ jobs:
         run: |
           git config --global user.email "team-devx+github-bot@konghq.com"
           git config --global user.name "team-devx"
-          git reset --hard ${{ github.event.release.target_commitish }}
+          git reset --hard ${{ github.event.release.tag_name }}
           git push --force-with-lease origin release
