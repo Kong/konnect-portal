@@ -201,4 +201,17 @@ export default defineComponent({
 #sign-up-encouragement-message .kong-icon {
   vertical-align: middle;
 }
+
+#kong-auth-login-wrapper {
+  [data-testid="kong-auth-login-sso"] {
+    color: var(--button_colors-primary-text) !important;
+    background-color: var(--button_colors-primary-fill) !important;
+
+    svg {
+      path {
+        fill: var(--button_colors-primary-text) !important;;
+      }
+    }
+  }
+}
 </style>
