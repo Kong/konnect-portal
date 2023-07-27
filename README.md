@@ -120,14 +120,13 @@ First and foremost please and comply with the standards outlined in the [CODE_OF
   ```
 
 #### _Note:_
-
- _To disable commit formatting on your fork you can either comment out the contents of the lefthook.yaml file or remove it, as well as uninstall lefthook from the package.json file._
+ _To disable linting during the `pre-push` git hook (on your fork), you can either comment out the contents of the lefthook.yaml file or remove it, as well as uninstall lefthook from the package.json file._
 
  i.e
 
  ```sh
- rm lefthook.yaml
- yarn remove lefthook
+ $ rm lefthook.yaml
+ $ yarn remove lefthook
  ```
 
 ### Branch naming conventions

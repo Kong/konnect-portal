@@ -11,7 +11,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v5
       - name: Check unpinned versions
         run: ./.github/scripts/pin-version
       - name: node modules cache
