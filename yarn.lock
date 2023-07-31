@@ -849,10 +849,10 @@
   resolved "https://registry.yarnpkg.com/@kong-ui-public/copy-uuid/-/copy-uuid-0.7.5.tgz#7b76d54a1dfd78a7d3fd7b09c13db3fd355da963"
   integrity sha512-VEFgkzes2QA3MuODIG6DMgAk5PhHn0x8xT0+HqkKOjc2d0QpUCGwonbybT8FAMNTIPrb6vgK9LYRGhtrGf2bjg==
 
-"@kong-ui-public/document-viewer@0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/document-viewer/-/document-viewer-0.9.0.tgz#7a75d91743865ada08ae7aef1c40db1ff3f0c719"
-  integrity sha512-x1xQj/PxO09nSP0yRXKto3nblORlfeGnYW4+WZ9GHYs3YijBvwuevx6O1Q2Y8YX2FdySzMMvC2Us7HrO6/LHbg==
+"@kong-ui-public/document-viewer@0.10.5":
+  version "0.10.5"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/document-viewer/-/document-viewer-0.10.5.tgz#39e115f8a9197adea89edc0b537ac82bfa546378"
+  integrity sha512-HLu+binq/CYT2Vf+JzMz93xCzYibm1lqCoeMy0Tx8ufMF7G5GK2+/n0IHGFHhAfgZeol1+fSHnmv7stuwBRBIA==
   dependencies:
     "@kong-ui-public/i18n" "^0.8.0"
     prismjs "^1.29.0"
