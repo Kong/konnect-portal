@@ -27,7 +27,7 @@
   "dependencies": {
     "@kong-ui-public/copy-uuid": "0.7.5",
     "@kong-ui-public/document-viewer": "0.10.5",
-    "@kong-ui-public/spec-renderer": "0.10.0",
+    "@kong-ui-public/spec-renderer": "0.11.6",
     "@kong/kong-auth-elements": "2.7.1",
     "@kong/kongponents": "8.99.0",
     "@kong/sdk-portal-js": "1.0.0",
