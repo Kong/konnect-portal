@@ -11,6 +11,7 @@ jobs:
         with:
           ref: release
           fetch-depth: 0
+          token: ${{ secrets.GHA_TEAM_DEVX_KONG_BOT_PAT }}
       - name: Override release branch with changes from release tag
         shell: bash
         env:
