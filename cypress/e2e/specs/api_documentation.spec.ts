@@ -4,8 +4,9 @@ import documentTreeJSON from '../fixtures/dochub_mocks/documentTree.json'
 
 describe('Api Documentation Page', () => {
   beforeEach(() => {
+    product.document_count = 1
     cy.mockPrivatePortal()
-    cy.mockProduct(product.id)
+    cy.mockProduct(product.id, product)
     cy.mockGetProductDocumentBySlug(product.id, 'bar')
     cy.mockGetProductDocuments(product.id)
     cy.mockProductOperations()
@@ -14,6 +15,16 @@ describe('Api Documentation Page', () => {
 
   const PARENT_DOCUMENT_URL = `/docs/${product.id}/${documentTreeJSON[0].slug}`
   const CHILD_DOCUMENT_URL = `${PARENT_DOCUMENT_URL}/${documentTreeJSON[0].children[0].slug}`
+
+  it('displays empty state when no products', () => {
+    product.document_count = 0
+    cy.mockProduct(product.id, product)
+    cy.mockProductDocumentTree(product.id, { body: [] })
+    cy.visit(`/docs/${product.id}`)
+
+    cy.get('[data-testid="documentation-empty-state"]').should('be.visible')
+    cy.get('[data-testid="portal-document-viewer"]').should('not.exist')
+  })
 
   it('displays proper error message when 400', () => {
     cy.intercept(

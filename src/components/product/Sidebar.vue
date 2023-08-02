@@ -5,6 +5,12 @@
         <span class="title mb-5">
           {{ product?.name }}
         </span>
+        <KAlert
+          v-if="product && !versionSelectItems.length"
+          appearance="warning"
+          :alert-message="helpText.noVersions"
+          class="mb-4"
+        />
         <KSelect
           appearance="select"
           class="version-select-dropdown"

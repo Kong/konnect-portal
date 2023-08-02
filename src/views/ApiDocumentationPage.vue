@@ -5,7 +5,22 @@
     data-testid="api-documentation-page"
   >
     <div class="col content mt-6">
-      <KSkeleton v-if="isDocumentLoading" />
+      <div 
+        v-if="product && !product.document_count"
+        data-testid="documentation-empty-state"
+      >
+        <EmptyState>
+          <template #title>
+            {{ helpText.apiDocumentation.emptyTitle }}
+          </template>
+          <template #message>
+            <p>
+              {{ helpText.apiDocumentation.emptyMessage }}
+            </p>
+          </template>
+        </EmptyState>
+      </div>
+      <KSkeleton v-else-if="isDocumentLoading" />
       <template v-else>
         <header class="content-header">
           <KBreadcrumbs
@@ -24,6 +39,7 @@
         />
         <DocumentViewer
           v-else-if="content"
+          data-testid="portal-document-viewer"
           class="portal-document-viewer"
           :document="content"
         />
@@ -31,7 +47,7 @@
     </div>
     <aside class="col sidebar sidebar-sections">
       <KSkeleton
-        v-if="isDocumentLoading"
+        v-if="product?.document_count && isDocumentLoading"
         class="skeleton"
       />
       <DocumentSections
