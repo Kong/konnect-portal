@@ -175,6 +175,8 @@ export const de: I18nType = {
     isEmail: 'E-Mail ist ungültig'
   },
   apiDocumentation: {
+    emptyTitle: 'This has not been translated',
+    emptyMessage: 'This has not been translated',
     error: {
       description: 'Ein unerwarteter Fehler ist aufgetreten, als versucht wurde, das angeforderte Dokument zu laden. Bitte versuchen Sie es später noch einmal',
       linkText: 'Zurück zum Start →'
@@ -187,6 +189,7 @@ export const de: I18nType = {
     linkText: 'Zurück zum Start →'
   },
   sidebar: {
+    noVersions: 'This has not been translated',
     deprecated: ' (Veraltet)',
     noResultsProduct: 'Keine Produktversionen'
   },

@@ -175,6 +175,8 @@ export const fr: I18nType = {
     isEmail: 'L\'adresse e-mail doit être valide'
   },
   apiDocumentation: {
+    emptyTitle: 'This has not been translated',
+    emptyMessage: 'This has not been translated',
     error: {
       description: 'Une erreur inattendue s\'est produite lors du chargement du document demandé. Veuillez réessayer ultérieurement.',
       linkText: 'Retourner à la page d\'accueil →'
@@ -187,6 +189,7 @@ export const fr: I18nType = {
     linkText: 'Retour à la page d\'accueil →'
   },
   sidebar: {
+    noVersions: 'This has not been translated',
     deprecated: ' (Obsolète)',
     noResultsProduct: 'Aucune version de produit'
   },
