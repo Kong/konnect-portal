@@ -5,7 +5,7 @@
     data-testid="api-documentation-page"
   >
     <div class="col content mt-6">
-      <div 
+      <div
         v-if="product && !product.document_count"
         data-testid="documentation-empty-state"
       >
