@@ -82,7 +82,7 @@ Create local .env file
 cp .env.example .env
 ```
 
-Set `VITE_PORTAL_API_URL` value in your current environment i.e .env file or local environment, this should match either the Kong supplied portal URL ending in `portal.konghq.com` or the [custom Portal URL set in Konnect][custom-dev-portal-url]. Be sure to set the Custom Client domain to match the domain you will be serving the portal out of to avoid CORS issues.
+Set `VITE_PORTAL_API_URL` value in your current environment i.e .env file or local environment, this should match either the Kong supplied portal URL ending in `portal.konghq.com`(for local development) or the [custom hosted domain URL set in Konnect][custom-dev-portal-url](for your deployed environment). Be sure to set the custom self-hosted UI domain to match the domain you will be serving the portal out of to avoid CORS issues.
 
 For Development you can provide any portal API URL, it is proxied by Vite, so you do not need to set the custom client domain.
 
