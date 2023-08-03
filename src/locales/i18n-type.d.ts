@@ -173,6 +173,8 @@ export interface I18nType {
     isEmail: string;
   };
   apiDocumentation: {
+    emptyTitle: string,
+    emptyMessage: string,
     error: {
       description: string;
       linkText: string;
@@ -185,6 +187,7 @@ export interface I18nType {
     linkText: string;
   };
   sidebar: {
+    noVersions: string;
     deprecated: string;
     noResultsProduct: string;
   };

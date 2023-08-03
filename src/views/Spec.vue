@@ -42,7 +42,7 @@
       :has-sidebar="false"
       :application-registration-enabled="applicationRegistrationEnabled"
       :active-operation="sidebarActiveOperationListItem"
-      :current-version="currentVersion.name"
+      :current-version="currentVersion?.name"
       @clicked-view-spec="triggerViewSpecModal"
       @clicked-register="triggerViewSpecRegistrationModal"
     />
@@ -115,7 +115,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return currentVersion.value.registration_configs?.length && isAllowedToRegister.value
+      return spec.value.statusCode !== 404 && currentVersion.value.registration_configs?.length && isAllowedToRegister.value
     })
 
     const helpText = useI18nStore().state.helpText
@@ -170,7 +170,7 @@ export default defineComponent({
 
       await processProduct()
       await loadSwagger().then(() => {
-        if (sidebarOperations.value.length) {
+        if (sidebarOperations.value?.length) {
           // this means that user initially routed to a spec - check if
           // hash is present in route, if it is, we scroll to it
           const routeHash = $router.currentRoute.value?.hash
@@ -447,6 +447,9 @@ export default defineComponent({
         } catch (e) {
           console.error(e)
         }
+      } else {
+        // We want a 404 in the case that there is no product version spec
+        spec.value = { statusCode: 404 }
       }
     }
 

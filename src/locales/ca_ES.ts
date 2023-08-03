@@ -175,6 +175,8 @@ export const ca_ES: I18nType = {
     isEmail: "L'adreça de correu electrònic ha de ser una adreça vàlida"
   },
   apiDocumentation: {
+    emptyTitle: 'This has not been translated',
+    emptyMessage: 'This has not been translated',
     error: {
       description: "S'ha produït un error inesperat en carregar el document sol·licitat.Si us plau, torneu- ho a provar més tard",
       linkText: 'Tornar a la pàgina inicial →'
@@ -187,6 +189,7 @@ export const ca_ES: I18nType = {
     linkText: 'Tornar a la pàgina inicial →'
   },
   sidebar: {
+    noVersions: 'This has not been translated',
     deprecated: ' (Desactivat)',
     noResultsProduct: 'Sense versions de producte'
   },

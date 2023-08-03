@@ -175,6 +175,8 @@ export const es_ES: I18nType = {
     isEmail: 'El correo electrónico debe ser una dirección de correo electrónico válida'
   },
   apiDocumentation: {
+    emptyTitle: 'This has not been translated',
+    emptyMessage: 'This has not been translated',
     error: {
       description: 'Ocurrió un error inesperado al intentar cargar el documento. Por favor, inténtalo de nuevo más tarde',
       linkText: 'Regresar al inicio →'
@@ -187,6 +189,7 @@ export const es_ES: I18nType = {
     linkText: 'Regresar al inicio →'
   },
   sidebar: {
+    noVersions: 'This has not been translated',
     deprecated: ' (Obsoleto)',
     noResultsProduct: 'No hay versiones del producto'
   },

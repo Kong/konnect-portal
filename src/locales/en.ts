@@ -173,6 +173,8 @@ export const en = {
     isEmail: 'Email must be a valid email address'
   },
   apiDocumentation: {
+    emptyTitle: 'No Documentation',
+    emptyMessage: 'This product currently has no documentation. Reach out to your Developer Portal administrator if this is not expected.',
     error: {
       description: 'An unexpected error occurred when trying to load the requested document. Please try again later',
       linkText: 'Go back home →'
@@ -185,6 +187,7 @@ export const en = {
     linkText: 'Go back home →'
   },
   sidebar: {
+    noVersions: 'This product has no published product versions',
     deprecated: ' (Deprecated)',
     noResultsProduct: 'No product versions'
   },
