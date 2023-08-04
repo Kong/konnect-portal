@@ -198,6 +198,10 @@ export const portalRouter = () => {
 
   // check is authenticated developer
   router.beforeEach(async (to, from, next) => {
+    if (to.meta.public) {
+      return next()
+    }
+
     const sessionDoesExist = session.exists()
 
     // check if needed refirect after SSO login to the page to which we tried access previously
