@@ -30,6 +30,14 @@
           <div class="background-color-wrapper" />
           {{ helpText.catalog }}
         </router-link>
+        <router-link
+          data-testid="statistics-link"
+          :to="{ name: 'statistics' }"
+          class="mr-2 p-2 statistics-link"
+        >
+          <div class="background-color-wrapper" />
+          Statistics
+        </router-link>
 
         <UserDropdown
           v-if="developer && !isPublic"

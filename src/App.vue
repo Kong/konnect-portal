@@ -33,13 +33,15 @@ import { isAuthRoute } from '@/router/route-utils'
 import Nav from '@/components/Nav.vue'
 import { portalApiV2, authApi } from '@/services'
 import { useAppStore } from '@/stores'
+import BarChart from '@/components/BarChart.vue'
 
 const initialLoadingId = 'initial-fullscreen-loading-container'
 
 export default defineComponent({
   name: 'App',
   components: {
-    Nav
+    Nav,
+    BarChart
   },
   setup () {
     removeElementFromDOMById(initialLoadingId)

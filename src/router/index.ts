@@ -24,6 +24,7 @@ const Registration = () => import('../views/Registration.vue')
 const ForgotPassword = () => import('../views/ForgotPassword.vue')
 const ResetPassword = () => import('../views/ResetPassword.vue')
 const Login = () => import('../views/Login.vue')
+const Statistics = () => import('../views/Statistics.vue')
 
 export const portalRouter = () => {
   const appStore = useAppStore()
@@ -120,6 +121,14 @@ export const portalRouter = () => {
               title: 'Tickets'
             },
             component: () => import('../views/Tickets.vue')
+          },
+          {
+            path: '/statistics',
+            name: 'statistics',
+            meta: {
+              title: 'Statistics'
+            },
+            component: () => import('../views/Statistics.vue')
           },
           {
             path: '/my-apps',
