@@ -78,7 +78,7 @@ import { useI18nStore, useAppStore, usePermissionsStore, useProductStore } from 
 import { OperationListItem, SpecDetails } from '@kong-ui-public/spec-renderer'
 import { idFromPathMethod } from '@/helpers/generatedOperationId'
 import '@kong-ui-public/spec-renderer/dist/style.css'
-import { ProductVersionSpec } from '@kong/sdk-portal-js'
+import { ProductVersionSpecDocument } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'Spec',
@@ -328,7 +328,7 @@ export default defineComponent({
         .then(async res => {
           // no content
           if (res.status === 204) {
-            res.data = {} as ProductVersionSpec
+            res.data = {} as ProductVersionSpecDocument
 
             return res
           }
