@@ -11,7 +11,8 @@ import {
   ProductsApi,
   RegistrationsApi,
   DocumentationApi,
-  VersionsApi
+  VersionsApi,
+  ApplicationAnalyticsApi
 } from '@kong/sdk-portal-js'
 
 export const ApiServiceAuthErrorReason = {
@@ -40,7 +41,8 @@ export default class PortalV2ApiService {
     productsApi: ProductsApi,
     registrationsApi: RegistrationsApi,
     documentationApi: DocumentationApi,
-    versionsApi: VersionsApi
+    versionsApi: VersionsApi,
+    applicationAnalyticsApi: ApplicationAnalyticsApi
   }
 
   setAuthErrorCallback (authErrorCallback) {
@@ -78,7 +80,8 @@ export default class PortalV2ApiService {
       productsApi: new ProductsApi(baseConfig, this.baseURL, this.client),
       registrationsApi: new RegistrationsApi(baseConfig, this.baseURL, this.client),
       documentationApi: new DocumentationApi(baseConfig, this.baseURL, this.client),
-      versionsApi: new VersionsApi(baseConfig, this.baseURL, this.client)
+      versionsApi: new VersionsApi(baseConfig, this.baseURL, this.client),
+      applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client)
     }
 
     this.client.interceptors.response.use(res => res, (originalErr) => {
