@@ -291,18 +291,18 @@ export default defineComponent({
 }
 
 .portal-document-viewer {
-  --document-viewer-link-color: var(--text_colors-accent);
-  --document-viewer-link-hover-color: var(--text_colors-accent);
-  --document-viewer-font-family-default: var(--font-family-sans);
-  --document-viewer-font-family-monospace: var(--font-family-mono);
-  --document-viewer-font-family-headings: var(--font-family-headings);
+  --kong-ui-document-viewer-font-family-default: var(--font-family-sans);
+  --kong-ui-document-viewer-font-family-monospace: var(--font-family-mono);
+  --kong-ui-document-viewer-font-family-headings: var(--font-family-headings);
+  --kong-ui-document-viewer-link-color: var(--text_colors-link);
+  --kong-ui-document-viewer-link-hover-color: var(--text_colors-accent);
   --kong-ui-document-viewer-color: var(--text_colors-primary);
   --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
 
   // This is going to solve some contrast issues with blockquotes
   // and their text colors.
 
-  --document-viewer-code-color: var(--steel-700, #0a2b66);
+  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
   :deep(blockquote) {
     color: var(--steel-700, #0a2b66);
 
