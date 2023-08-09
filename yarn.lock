@@ -915,10 +915,10 @@
     v-calendar "^3.0.0-alpha.8"
     vue-draggable-next "^2.1.1"
 
-"@kong/sdk-portal-js@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-1.0.0.tgz#3472a6b27af41345a4359fe712b051d13092c2c9"
-  integrity sha512-ojXeFb94Lqxl91nJAVjZDHPIPmDwTou3oLJTqtsbtGzYKbfqdUXQllnQHe8s0/i6Io7IoRRoLmgHWHmpuLSJDw==
+"@kong/sdk-portal-js@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-2.1.0.tgz#3360fda7608a1a1b2e486feb5d09958205adfbc1"
+  integrity sha512-CKaBKRws041DAcA4URCQBGsRCsl5VQvUWecvpv8v+ynyp9tYTEHrBVRSJGHCWTARJKENqGlGmg6mJi7uJQik0Q==
   dependencies:
     axios "0.27.2"
 
