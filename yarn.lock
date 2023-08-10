@@ -887,10 +887,10 @@
     swagger-client "^3.19.11"
     swagger-ui "^4.19.1"
 
-"@kong/kong-auth-elements@2.7.2":
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.7.2.tgz#e8d6fb967c59491992538e444769dc7efb7437f4"
-  integrity sha512-RHmyeVN0+aXERQofnpMBJH499ILjNKTgD/xQoGq3EfQLIcRfSnPSVtLR0G3GqTSrJu92Ie7mpfighEcrhDGrKw==
+"@kong/kong-auth-elements@2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.8.0.tgz#1caf8c12b1e145efcaac4821d20e830b162b81c2"
+  integrity sha512-ug2F6JnRq8tA7gNkBD6nxw7maUa2PDuXNQUvfHSMuTJLFpp9alIbms98P2ts6210ZXa2j6y+3Sl8gvVBp/gvxw==
   dependencies:
     "@xstate/vue" "^0.8.1"
     axios "^0.27.2"
