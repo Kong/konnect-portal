@@ -105,14 +105,12 @@
 import { computed } from 'vue'
 import { useI18nStore } from '@/stores'
 import { AnalyticsChart, AnalyticsChartColors, ChartTypes, lookupStatusCodeColor, AnalyticsChartOptions } from '@kong-ui-public/analytics-chart'
-import type { AnalyticsExploreV2Result } from '@kong-ui-public/analytics-utilities'
+// import type { AnalyticsExploreV2Result } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-chart/dist/style.css'
 import useChartRequest from '@/composables/useChartRequest'
 import useChartQueryBuilder from '@/composables/useChartQueryBuilder'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-
-// import { QueryApplicationAnalytics } from '@kong/sdk-portal-js'
 
 // Queries
 import {
@@ -190,42 +188,42 @@ const trafficRequestsQuery = computed(() => useChartQueryBuilder(chartQueryTraff
 const trafficRequestsChartData = computed(() => {
   const chartData = useChartRequest(trafficRequestsQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 
 const trafficLatencyQuery = computed(() => useChartQueryBuilder(chartQueryTrafficLatency, props.appId, selectedProductVersions.value))
 const trafficLatencyChartData = computed(() => {
   const chartData = useChartRequest(trafficLatencyQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 
 const productVersions4xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions4xx, props.appId, selectedProductVersions.value))
 const productVersion4xxChartData = computed(() => {
   const chartData = useChartRequest(productVersions4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 
 const productVersions5xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions5xx, props.appId, selectedProductVersions.value))
 const productVersion5xxChartData = computed(() => {
   const chartData = useChartRequest(productVersions5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 
 const statusCode4xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode4xx, props.appId, selectedProductVersions.value))
 const statusCode4xxChartData = computed(() => {
   const chartData = useChartRequest(statusCode4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 
 const statusCode5xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode5xx, props.appId, selectedProductVersions.value))
 const statusCode5xxChartData = computed(() => {
   const chartData = useChartRequest(statusCode5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
 
-  return chartData.value as AnalyticsExploreV2Result
+  return chartData.value
 })
 </script>
 

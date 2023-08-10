@@ -272,7 +272,7 @@ const searchProductVersions = (query: string) => {
 }
 
 const fetchProductVersions = async () => {
-  return await portalApiV2.value.service.registrationsApi.listApplicationRegistrations({ applicationId: appId.value })
+  return portalApiV2.value.service.registrationsApi.listApplicationRegistrations({ applicationId: appId.value })
     .then(({ data }) => {
       filterMultiselectLoading.value = false
 
@@ -323,9 +323,9 @@ const handleError = (error) => {
   })
 }
 
-onMounted(async () => {
-  await fetchApplication()
-  await fetchProductVersions()
+onMounted(() => {
+  fetchApplication()
+  fetchProductVersions()
 })
 
 </script>

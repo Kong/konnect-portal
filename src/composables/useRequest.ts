@@ -9,14 +9,14 @@ export default function useRequest<Data = unknown, Error = { message: string }> 
   AxiosError<Error>
   >(key, fn, {
     errorRetryInterval: 2000,
-    revalidateDebounce: 10500,
+    revalidateDebounce: 500,
     revalidateOnFocus: false,
-    dedupingInterval: 100000,
+    dedupingInterval: 100,
     shouldRetryOnError: false,
     ...config
   })
 
-  const data = computed<Data>(() => {
+  const data = computed<Data | undefined>(() => {
     return response.value?.data
   })
 
