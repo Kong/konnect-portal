@@ -98,6 +98,10 @@ Run tests with
 yarn test:e2e
 ```
 
+### Public Directory
+
+If you need to store assets (e.g. fonts, images, or icons), you can create a `public` directory at the root level of the repository and Vite will utilize it by default. For more information on when or how to use the public folder, visit [here](https://vitejs.dev/guide/assets.html#the-public-directory).
+
 ## Building for production release
 
 Build production bundle '_(dist/)_' for deployment with
