@@ -30,7 +30,7 @@
             :dropdown-footer-text="multiselectFooter"
             dropdown-footer-text-position="static"
             :items="multiselectItems"
-            :label="multiSelectLabel"
+            :label="helpText.analytics.filterLabelProductVersions"
             :loading="filterMultiselectLoading"
             @change="handleChangedItem"
             @query-change="handleProductVersionSearch"
@@ -83,12 +83,12 @@
         v-else-if="!filterMultiselectLoading"
         icon="stateNoData"
         icon-size="96"
-        :title="analyticsTitleMessage"
-        :message="analyticsTitleMessage"
+        :title="helpText.analytics.selectProductVersions"
+        :message="helpText.analytics.selectProductVersions"
       >
         <template #message>
           <p class="mb-4">
-            {{ noProductVersionsMessage }}
+            {{ helpText.productVersion.noProductVersionsDetail }}
           </p>
           <KButton
             appearance="primary"
@@ -97,7 +97,7 @@
             icon="plus"
             :to="{ name: 'catalog' }"
           >
-            {{ registerProductVersion }}
+            {{ helpText.productVersion.registerProductVersion }}
           </KButton>
         </template>
       </AnalyticsEmptyState>
@@ -294,11 +294,6 @@ const fetchProductVersions = async () => {
       }
     }).catch((error) => handleError(error))
 }
-
-const multiSelectLabel = apiBuilderFlagEnabled ? helpText.analytics.filterLabelProductVersions : helpText.analytics.filterLabelServiceVersions
-const noProductVersionsMessage = apiBuilderFlagEnabled ? helpText.productVersion.noProductVersionsDetail : helpText.serviceVersion.noServiceVersionsDetail
-const registerProductVersion = apiBuilderFlagEnabled ? helpText.productVersion.registerProductVersion : helpText.serviceVersion.registerServiceVersion
-const analyticsTitleMessage = apiBuilderFlagEnabled ? helpText.analytics.selectProductVersions : helpText.analytics.selectServiceVersions
 
 const fetchApplication = () => {
   send('FETCH')

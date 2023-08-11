@@ -41,12 +41,6 @@ export const en = {
     noProductVersionsTitle: 'No Product Versions',
     registerProductVersion: 'Register Product version'
   },
-  serviceVersion: {
-    deprecatedWarningService: 'This service version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
-    noServiceVersionsDetail: 'This App is not registered for any Service Versions',
-    noServiceVersionsTitle: 'No Service Versions',
-    registerServiceVersion: 'Register Service version'
-  },
   userDropdown: {
     myApps: 'My Apps',
     logout: 'Logout'
@@ -131,15 +125,10 @@ export const en = {
   },
   analytics: {
     filterLabelProductVersions: 'Product Versions',
-    filterLabelServiceVersions: 'Service Versions',
     chartOverview: 'Chart Overview',
-    chartTitleRequestsService: 'Requests by Service Version',
-    chartTitleRequestsProduct: 'Requests by Product Version',
-    chartTitleLatencyService: 'P99 Latency by Service Version',
-    chartTitleLatencyProduct: 'P99 Latency by Product Version',
-    chartTitle4xxServiceVersion: '4xx by Service Version',
+    chartTitleRequests: 'Requests by Product Version',
+    chartTitleLatency: 'P99 Latency by Product Version',
     chartTitle4xxProductVersion: '4xx by Product Version',
-    chartTitle5xxServiceVersion: '5xx by Service Version',
     chartTitle5xxProductVersion: '5xx by Product Version',
     chartTitle4xxStatusCode: '4xx by Status Code',
     chartTitle5xxStatusCode: '5xx by Status Code',
@@ -151,7 +140,6 @@ export const en = {
     sectionPrevious: 'Previous',
     selectDateRange: 'Please select a date range',
     selectProductVersions: 'Select Product Versions',
-    selectServiceVersions: 'Select Service Versions',
     summary: 'Summary',
     summary24Hours: '24 Hours',
     summary30Days: '30 Days',

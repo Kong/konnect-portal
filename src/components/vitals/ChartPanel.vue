@@ -3,7 +3,7 @@
     data-testid="analytics-charts"
     class="chart-grid"
   >
-    <!-- Requests by Service Versions -->
+    <!-- Requests by Product Versions -->
     <KSkeleton
       v-if="!trafficRequestsChartData"
       class="chart-skeleton"
@@ -13,7 +13,7 @@
       v-else
       :chart-data="trafficRequestsChartData"
       :chart-options="trafficByProductVersionsOptions"
-      :chart-title="chartTitleRequests"
+      :chart-title="helpText.chartTitleRequests"
       :legend-position="'bottom'"
       :tooltip-title="helpText.totalRequests"
       data-testid="chart-traffic"
@@ -28,14 +28,14 @@
       v-else
       :chart-data="trafficLatencyChartData"
       :chart-options="trafficByProductVersionsOptions"
-      :chart-title="chartTitleLatency"
+      :chart-title="helpText.chartTitleLatency"
       :legend-position="'bottom'"
       :tooltip-title="helpText.totalRequests"
       data-testid="chart-latency"
       synthetics-data-key="chart-latency"
     />
 
-    <!-- 4xx and 5xx by Service Versions -->
+    <!-- 4xx and 5xx by Product Versions -->
     <KSkeleton
       v-if="!productVersion4xxChartData"
       class="chart-skeleton"
@@ -45,7 +45,7 @@
       v-else
       :chart-data="productVersion4xxChartData"
       :chart-options="errorsByProductVersionsOptions"
-      :chart-title="chartTitle4xx"
+      :chart-title="helpText.chartTitle4xxProductVersion"
       :legend-position="'bottom'"
       :tooltip-title="helpText.totalRequests"
       data-testid="chart-productversion-4xx"
@@ -60,7 +60,7 @@
       v-else
       :chart-data="productVersion5xxChartData"
       :chart-options="errorsByProductVersionsOptions"
-      :chart-title="chartTitle5xx"
+      :chart-title="helpText.chartTitle5xxProductVersion"
       :legend-position="'bottom'"
       :tooltip-title="helpText.totalRequests"
       data-testid="chart-productversion-5xx"
@@ -109,8 +109,6 @@ import { TimeseriesQueryTime } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-chart/dist/style.css'
 import useChartRequest from '@/composables/useChartRequest'
 import useChartQueryBuilder from '@/composables/useChartQueryBuilder'
-import { FeatureFlags } from '@/constants/feature-flags'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 
 // Queries
 import {
@@ -122,14 +120,7 @@ import {
   chartQueryStatusCode5xx
 } from '@/constants/chartQueries'
 
-// @ts-ignore
-const apiBuilderFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
-
 const helpText = useI18nStore().state.helpText.analytics
-const chartTitleRequests = apiBuilderFlagEnabled ? helpText.chartTitleRequestsProduct : helpText.chartTitleRequestsService
-const chartTitleLatency = apiBuilderFlagEnabled ? helpText.chartTitleLatencyProduct : helpText.chartTitleLatencyService
-const chartTitle4xx = apiBuilderFlagEnabled ? helpText.chartTitle4xxProductVersion : helpText.chartTitle4xxServiceVersion
-const chartTitle5xx = apiBuilderFlagEnabled ? helpText.chartTitle5xxProductVersion : helpText.chartTitle5xxServiceVersion
 
 const props = defineProps<{
   modelValue,
