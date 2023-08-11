@@ -102,10 +102,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18nStore } from '@/stores'
 import { AnalyticsChart, AnalyticsChartColors, ChartTypes, lookupStatusCodeColor, AnalyticsChartOptions } from '@kong-ui-public/analytics-chart'
-// import type { AnalyticsExploreV2Result } from '@kong-ui-public/analytics-utilities'
+import { TimeseriesQueryTime } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-chart/dist/style.css'
 import useChartRequest from '@/composables/useChartRequest'
 import useChartQueryBuilder from '@/composables/useChartQueryBuilder'
@@ -138,6 +138,9 @@ const props = defineProps<{
 
 const selectedTimeframe = computed(() => props.modelValue.timeframe?.value)
 const selectedProductVersions = computed(() => props.modelValue.apiVersions?.value)
+const timeseriesQueryTime = computed(() => new TimeseriesQueryTime(selectedTimeframe.value))
+const productVersionsCacheKey = computed(() => selectedProductVersions.value.map(entry => entry.value).join('-') || '')
+const appCacheKey = computed(() => `${productVersionsCacheKey.value}-${timeseriesQueryTime.value.startMs()}-${timeseriesQueryTime.value.endMs()}`)
 
 const lineChartCommon = {
   stacked: false,
@@ -185,45 +188,45 @@ const errors5xxStatusCodeOptions = computed(() => {
 })
 
 const trafficRequestsQuery = computed(() => useChartQueryBuilder(chartQueryTrafficRequests, props.appId, selectedProductVersions.value))
-const trafficRequestsChartData = computed(() => {
-  const chartData = useChartRequest(trafficRequestsQuery.value, selectedTimeframe.value, selectedProductVersions.value)
-
-  return chartData.value
-})
-
 const trafficLatencyQuery = computed(() => useChartQueryBuilder(chartQueryTrafficLatency, props.appId, selectedProductVersions.value))
-const trafficLatencyChartData = computed(() => {
-  const chartData = useChartRequest(trafficLatencyQuery.value, selectedTimeframe.value, selectedProductVersions.value)
-
-  return chartData.value
-})
-
 const productVersions4xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions4xx, props.appId, selectedProductVersions.value))
-const productVersion4xxChartData = computed(() => {
-  const chartData = useChartRequest(productVersions4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
-
-  return chartData.value
-})
-
 const productVersions5xxQuery = computed(() => useChartQueryBuilder(chartQueryProductVersions5xx, props.appId, selectedProductVersions.value))
-const productVersion5xxChartData = computed(() => {
-  const chartData = useChartRequest(productVersions5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
-
-  return chartData.value
-})
-
 const statusCode4xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode4xx, props.appId, selectedProductVersions.value))
-const statusCode4xxChartData = computed(() => {
-  const chartData = useChartRequest(statusCode4xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
+const statusCode5xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode5xx, props.appId, selectedProductVersions.value))
 
-  return chartData.value
+const trafficRequestsChartData = ref(null)
+const trafficLatencyChartData = ref(null)
+const productVersion4xxChartData = ref(null)
+const productVersion5xxChartData = ref(null)
+const statusCode4xxChartData = ref(null)
+const statusCode5xxChartData = ref(null)
+
+async function getAllChartData () {
+  // Batch all chart requests
+  [
+    trafficRequestsChartData.value,
+    trafficLatencyChartData.value,
+    productVersion4xxChartData.value,
+    productVersion5xxChartData.value,
+    statusCode4xxChartData.value,
+    statusCode5xxChartData.value
+
+  ] = await Promise.all([
+    useChartRequest(trafficRequestsQuery.value, selectedTimeframe.value),
+    useChartRequest(trafficLatencyQuery.value, selectedTimeframe.value),
+    useChartRequest(productVersions4xxQuery.value, selectedTimeframe.value),
+    useChartRequest(productVersions5xxQuery.value, selectedTimeframe.value),
+    useChartRequest(statusCode4xxQuery.value, selectedTimeframe.value),
+    useChartRequest(statusCode5xxQuery.value, selectedTimeframe.value)
+  ])
+}
+
+watch(appCacheKey, () => {
+  getAllChartData()
 })
 
-const statusCode5xxQuery = computed(() => useChartQueryBuilder(chartQueryStatusCode5xx, props.appId, selectedProductVersions.value))
-const statusCode5xxChartData = computed(() => {
-  const chartData = useChartRequest(statusCode5xxQuery.value, selectedTimeframe.value, selectedProductVersions.value)
-
-  return chartData.value
+onMounted(() => {
+  getAllChartData()
 })
 </script>
 

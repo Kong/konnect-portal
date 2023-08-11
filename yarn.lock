@@ -860,6 +860,17 @@
     uuid "^9.0.0"
     vue-chartjs "^5.2.0"
 
+"@kong-ui-public/analytics-metric-provider@1.1.14":
+  version "1.1.14"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.14.tgz#d272562d0af40547803928578c3b4224f0566049"
+  integrity sha512-NZabbQNpju1XdDfpoYPyf0cuHTD/K7yayhozBJuqeZ7enuSsnSbGdStqshCo4txc7znC8RIuZoO/h8tKZHQu5A==
+  dependencies:
+    "@kong-ui-public/analytics-utilities" "^0.4.3"
+    "@kong-ui-public/core" "1.1.0"
+    "@kong-ui-public/metric-cards" "0.2.14"
+    axios "^1.4.0"
+    swrv "^1.0.4"
+
 "@kong-ui-public/analytics-utilities@0.4.3", "@kong-ui-public/analytics-utilities@^0.4.3":
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.4.3.tgz#bf66e1fd327ce728eccbf40ebb1c88d392a0259c"
@@ -871,6 +882,13 @@
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/copy-uuid/-/copy-uuid-1.1.5.tgz#2d5928fdc83d5d840ad376201cec1cde048a877d"
   integrity sha512-60ZdTW273biRyqlewUmQR5Y+VwrQEfCU9/HhSEk+8vdx9NPc6I60tQaINF663nzjNJQzDWU1Nkdk1IGHC0P1GA==
+
+"@kong-ui-public/core@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@kong-ui-public/core/-/core-1.1.0.tgz#882542f6b128e6754c962840b2f312266dc630b5"
+  integrity sha512-j1kK07/zDyxwePi1EX1rZ+3iL955VdhZiodzeT5ift7iVQTiPt9VNUFu9+IXJ/AxHfuYu/gaL+gily9TsJTX3w==
+  dependencies:
+    date-fns "^2.30.0"
 
 "@kong-ui-public/document-viewer@0.10.5":
   version "0.10.5"
@@ -888,6 +906,13 @@
     "@formatjs/intl" "^2.9.0"
     flat "^5.0.2"
     intl-messageformat "^10.5.0"
+
+"@kong-ui-public/metric-cards@0.2.14":
+  version "0.2.14"
+  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.2.14.tgz#97c80f80f862d311072a5e3239bc9e666e6aaf55"
+  integrity sha512-3z7aKeRox1VgxjQG6a0g1W+ME8u+62n+VvIb1HUH00rdacIBIKXGPBJTdIAFbodNtDa+s9oeV/OdjEUS5j+YbQ==
+  dependencies:
+    approximate-number "^2.1.0"
 
 "@kong-ui-public/spec-renderer@0.11.6":
   version "0.11.6"
@@ -10210,15 +10235,15 @@ swagger2har@1.0.3:
     json-schema-instantiator "0.4.4"
     rollup-plugin-babel "^4.4.0"
 
-swrv@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.4.tgz#278b4811ed4acbb1ae46654972a482fd1847e480"
-  integrity sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==
-
 swrv@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.3.tgz#b1af4f55a77d74336d29956924cb1b61f564490f"
   integrity sha512-sl+eLEE+aPPjhP1E8gQ75q3RPRyw5Gd/kROnrTFo3+LkCeLskv7F+uAl5W97wgJkzitobL6FLsRPVm0DgIgN8A==
+
+swrv@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.4.tgz#278b4811ed4acbb1ae46654972a482fd1847e480"
+  integrity sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==
 
 tabbable@^6.1.2:
   version "6.1.2"

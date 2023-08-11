@@ -76,12 +76,12 @@
             </KButton>
           </template>
         </PageTitle>
-        <!-- <AnalyticsMetricsCard
+        <AnalyticsMetricsCard
           class="mb-4"
           data-testid="analytics-metric-cards"
           hide-title
           :application-id="application.id"
-        /> -->
+        />
         <hr class="my-6">
       </div>
       <DcrAuthenticationTable
@@ -112,12 +112,14 @@ import PageTitle from '@/components/PageTitle.vue'
 import CredentialsList from './CredentialsList.vue'
 import ProductList from './ProductList.vue'
 import DcrAuthenticationTable from './DcrAuthenticationTable.vue'
+import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard'
+
 import { useI18nStore, useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
 
 export default defineComponent({
   name: 'ApplicationDetail',
-  components: { PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
+  components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
 
   setup () {
     const errorMessage = ref('')
