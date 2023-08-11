@@ -112,7 +112,7 @@ import PageTitle from '@/components/PageTitle.vue'
 import CredentialsList from './CredentialsList.vue'
 import ProductList from './ProductList.vue'
 import DcrAuthenticationTable from './DcrAuthenticationTable.vue'
-import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard'
+import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
 
 import { useI18nStore, useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'

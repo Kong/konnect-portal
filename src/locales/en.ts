@@ -35,7 +35,6 @@ export const en = {
   },
   productVersion: {
     deprecatedWarningProduct: 'This product version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
-    deprecatedWarningService: 'This service version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
     unableToRetrieveDoc: 'Unable to retrieve documentation',
     noProductVersionsDetail: 'This App is not registered for any Product Versions',
     noProductVersionsTitle: 'No Product Versions',
