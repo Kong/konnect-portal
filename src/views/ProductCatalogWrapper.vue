@@ -71,7 +71,7 @@ export default defineComponent({
     const searchString = ref('')
     const catalogItems = ref<CatalogItemModel[]>([])
     const totalCount = ref<number>(undefined)
-    const loading = ref<boolean>(null)
+    const loading = ref<boolean>(true)
     const searchTriggered = ref<boolean>(false)
     const catalogView = ref<string>(undefined)
     const catalogPageNumber = ref(1)
@@ -149,14 +149,12 @@ export default defineComponent({
           console.error('failed to find Service Packages', e)
         }
       } finally {
-        loading.value = null
+        loading.value = false
       }
     }
 
     const catalogViewChanged = (viewType: 'grid' | 'table') => {
-      catalogItems.value = []
       catalogView.value = viewType
-      fetchProducts()
     }
 
     const catalogPageChanged = (pageNumber: number) => {
@@ -168,6 +166,7 @@ export default defineComponent({
 
     onBeforeMount(async () => {
       await loadAppearance()
+      await fetchProducts()
     })
 
     return {

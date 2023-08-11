@@ -6,6 +6,7 @@
       has-side-border
       :headers="tableHeaders"
       is-small
+      :is-loading="loading"
       is-clickable
       disable-pagination
       @row:click="handleRowClick"
@@ -55,6 +56,10 @@ export default defineComponent({
     products: {
       type: Array as PropType<CatalogItemModel[]>,
       default: () => []
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   setup (props) {
