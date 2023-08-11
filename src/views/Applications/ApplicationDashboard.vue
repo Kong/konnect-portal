@@ -133,8 +133,6 @@ import { PortalTimeframeKeys } from '@/types/vitals'
 
 // @ts-ignore
 const contextualAnalytics = useLDFeatureFlag(FeatureFlags.PortalContextualAnalytics, false)
-// @ts-ignore
-const apiBuilderFlagEnabled = useLDFeatureFlag(FeatureFlags.ApiProductBuilder, false)
 
 const { notify } = useToaster()
 const errorMessage = ref('')
