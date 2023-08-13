@@ -5,6 +5,7 @@ import {
   QueryApplicationAnalytics200Response
 } from '@kong/sdk-portal-js'
 import usePortalApi from '@/hooks/usePortalApi'
+import { snakeToCamelCase } from '@/helpers/snakeToCamelCase'
 const { portalApiV2 } = usePortalApi()
 
 export default async function useChartRequest (query, timeframe): Promise<QueryApplicationAnalytics200Response> {
@@ -27,29 +28,11 @@ export default async function useChartRequest (query, timeframe): Promise<QueryA
     return null
   }
 
-  const snakeToCamel = (obj) => {
-    if (typeof obj !== 'object' || obj === null) { return obj }
-
-    if (Array.isArray(obj)) {
-      return obj.map(item => snakeToCamel(item))
-    }
-
-    return Object.keys(obj).reduce((acc, key) => {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const camelKey = key.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())
-
-        acc[camelKey] = snakeToCamel(obj[key])
-      }
-
-      return acc
-    }, {})
-  }
-
   try {
     const res = await portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(vitalsRequest)
 
     const result = {
-      meta: snakeToCamel(res?.data?.meta),
+      meta: snakeToCamelCase(res?.data?.meta),
       records: res?.data?.records
     } as QueryApplicationAnalytics200Response
 

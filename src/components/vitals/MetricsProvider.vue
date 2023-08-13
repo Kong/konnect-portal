@@ -14,6 +14,8 @@ import { MetricsProviderInternal, DataFetcher, ExploreV2Query, EXPLORE_V2_DIMENS
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
+import { ApplicationAnalyticsApiQueryApplicationAnalyticsRequest } from '@kong/sdk-portal-js'
+import { snakeToCamelCase } from '@/helpers/snakeToCamelCase'
 
 const props = withDefaults(defineProps<{
   overrideTimeframe?: Timeframe,
@@ -36,7 +38,7 @@ const { allowedTimePeriod } = storeToRefs(appStore)
 
 const hasTrendAccess = computed(() => allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS)
 
-const dataFetcher: DataFetcher = (queryTime: QueryTime, query: ExploreV2Query) => {
+const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Query) => {
   const appQuery = {
     queryApplicationAnalytics: {
       ...query,
@@ -45,7 +47,18 @@ const dataFetcher: DataFetcher = (queryTime: QueryTime, query: ExploreV2Query) =
     }
   }
 
-  return portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery)
+  try {
+    // Unpack the original promise
+    const v3Result = await portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery)
+
+    // Transform the `meta` object contained in the response
+    v3Result.data.meta = snakeToCamelCase(v3Result.data.meta)
+
+    // Package the transformed data as a new promise
+    return Promise.resolve(v3Result as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
+  } catch (error) {
+    return Promise.reject(error)
+  }
 }
 
 // Note: if Typescript starts complaining about the prop types, make sure `analytics-utilities` is the same version in both `portal-client` and `analytics-metric-provider`.
