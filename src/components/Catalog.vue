@@ -41,6 +41,7 @@
       <CatalogTableList
         v-else
         :products="catalogItems"
+        :loading="loading"
       />
     </div>
   </div>
