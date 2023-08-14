@@ -165,8 +165,10 @@ export default defineComponent({
     }
 
     onBeforeMount(async () => {
-      await loadAppearance()
-      await fetchProducts()
+      await Promise.all([
+        loadAppearance(),
+        fetchProducts()
+      ])
     })
 
     return {
