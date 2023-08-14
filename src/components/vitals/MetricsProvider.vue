@@ -42,10 +42,14 @@ const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Qu
   const appQuery = {
     queryApplicationAnalytics: {
       ...query,
+      granularity_ms: query.granularityMs,
       start_ms: queryTime.startMs(),
       end_ms: queryTime.endMs()
     }
   }
+
+  // Drop unneeded `granularityMs`
+  delete appQuery.queryApplicationAnalytics?.granularityMs
 
   try {
     // Unpack the original promise
@@ -55,7 +59,7 @@ const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Qu
     v3Result.data.meta = snakeToCamelCase(v3Result.data.meta)
 
     // Package the transformed data as a new promise
-    return Promise.resolve(v3Result as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
+    return Promise.resolve(v3Result as any as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
   } catch (error) {
     return Promise.reject(error)
   }
