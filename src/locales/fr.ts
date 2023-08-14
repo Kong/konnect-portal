@@ -144,10 +144,10 @@ export const fr: I18nType = {
     summary: 'This has not been translated',
     summary24Hours: 'This has not been translated',
     summary30Days: 'This has not been translated',
-    summaryTooltip: (timespan) => `This ${timespan} has not been translated`,
+    summaryTooltip: (timespan: string) => `This ${timespan} has not been translated`,
     timeRange: 'This has not been translated',
     totalRequests: 'This has not been translated',
-    unableToFetch: (itemName) => `This has not been translaed ${itemName}`,
+    unableToFetch: (itemName: string) => `This has not been translaed ${itemName}`,
     viewAnalytics: 'This has not been translateds'
   },
   productList: {

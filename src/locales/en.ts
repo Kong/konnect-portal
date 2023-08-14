@@ -11,7 +11,7 @@ export const en = {
     successText: 'Check your email for a link to reset your password. If it doesn’t appear within a few minutes, please check your spam folder.',
     successButton: 'Return to home page',
     heading: 'Recover Password',
-    subHeading: "Enter your user account's ve rified email address and we will send you a password reset link.",
+    subHeading: "Enter your user account's verified email address and we will send you a password reset link.",
     placeholderEmail: 'Email',
     buttonIdle: 'Send password reset email',
     buttonSubmitting: 'Submitting',
@@ -142,10 +142,10 @@ export const en = {
     summary: 'Summary',
     summary24Hours: '24 Hours',
     summary30Days: '30 Days',
-    summaryTooltip: (timespan) => `Showing ${timespan} summary of analytics for all apps`,
+    summaryTooltip: (timespan: string) => `Showing ${timespan} summary of analytics for all apps`,
     timeRange: 'Time Range',
     totalRequests: 'Total Requests',
-    unableToFetch: (itemName) => `Unable to fetch ${itemName}`,
+    unableToFetch: (itemName: string) => `Unable to fetch ${itemName}`,
     viewAnalytics: 'View analytics'
   },
   productList: {
