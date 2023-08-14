@@ -844,37 +844,37 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/analytics-chart@0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-chart/-/analytics-chart-0.3.1.tgz#71255fd758d3ed9575ac8f23bc39fcbfde449db1"
-  integrity sha512-GYkbb160wMmx721aKE9CqrtellnejJ1QmfI21fo0hJ+H7iXxtanQNDcUDyfsLMJ9OISy8PxRGls9qumWfIi02g==
+"@kong-ui-public/analytics-chart@0.8.25":
+  version "0.8.25"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-0.8.25.tgz#ad045b5f0397aef175c6a5e31183ca1a396f9ac7"
+  integrity sha512-cFKM7ifx5zyKK/qKB35nOpGiSvcnXKzP8b+Nbpecm85XKPsexOiIPuH8KRsuhnKXgyC3JTWualhk4SbYjs773g==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.4.3"
-    approximate-number "^2.1.0"
-    chart.js "^4.3.0"
+    "@kong-ui-public/analytics-utilities" "^0.5.3"
+    approximate-number "^2.1.1"
+    chart.js "^4.3.3"
     chartjs-adapter-date-fns "^3.0.0"
-    chartjs-plugin-annotation "^2.2.1"
+    chartjs-plugin-annotation "^3.0.1"
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
-    pretty-bytes "^6.1.0"
+    pretty-bytes "^6.1.1"
     uuid "^9.0.0"
     vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-metric-provider@1.1.14":
-  version "1.1.14"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.14.tgz#d272562d0af40547803928578c3b4224f0566049"
-  integrity sha512-NZabbQNpju1XdDfpoYPyf0cuHTD/K7yayhozBJuqeZ7enuSsnSbGdStqshCo4txc7znC8RIuZoO/h8tKZHQu5A==
+"@kong-ui-public/analytics-metric-provider@1.1.17":
+  version "1.1.17"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.17.tgz#6952bd736e1e0817b2e82546b4b052914ccfa31a"
+  integrity sha512-XndaSJGKnVQyz6y2s8kPaRvmv5rzNdMlNv8jhxgb44HXWwLj8vE4Xqf2OqWgkbL62/5yIEFW1kt3VB8y0cQKMw==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.4.3"
+    "@kong-ui-public/analytics-utilities" "^0.5.3"
     "@kong-ui-public/core" "1.1.0"
     "@kong-ui-public/metric-cards" "0.2.14"
     axios "^1.4.0"
     swrv "^1.0.4"
 
-"@kong-ui-public/analytics-utilities@0.4.3", "@kong-ui-public/analytics-utilities@^0.4.3":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.4.3.tgz#bf66e1fd327ce728eccbf40ebb1c88d392a0259c"
-  integrity sha512-2mlYatUIRRFq5m6cVhALv34BExF6/TpC9X9Y3uPdiYZso8HoKagB+MnSwTbkUIdxU0oUHgfxoIPBa8OwttzKxg==
+"@kong-ui-public/analytics-utilities@0.5.3", "@kong-ui-public/analytics-utilities@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.5.3.tgz#e47ed1c02fb0d9041e15d35eb866ab24efce73d7"
+  integrity sha512-etXGp/DrVxmnmko5Cx308oZ2lBOxq/zsAbmfzkPVDL9xOcJ0De3ni6TVpsX3JUtrSv05rnwZpyTLxpU66nuGQg==
   dependencies:
     date-fns "^2.30.0"
 
@@ -2663,6 +2663,11 @@ approximate-number@^2.1.0:
   resolved "https://registry.yarnpkg.com/approximate-number/-/approximate-number-2.1.0.tgz#8dbb27957f4f230e386b57258f8f0c75f32313c8"
   integrity sha512-EioK6nto/hEnwaJ7d/TG1WOZ9o0zTyIFVP4Lk7zzR/3I4O7ivkBNo7EvLC2Xh2j2HD/cb9sUqXHdexfGXCXYDA==
 
+approximate-number@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/approximate-number/-/approximate-number-2.1.1.tgz#4a8e570c393728679c0d5965b2fbb8de290998c3"
+  integrity sha512-JAP0WOktu68l1TQoBq9SvwSPOJBLVnlEOchHcPg/brZKiswxGtTbZcd5vXQLjIb1xxD3Q+AOtwNyBU4zt4RP2A==
+
 aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -3293,10 +3298,10 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chart.js@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.3.0.tgz#ac363030ab3fec572850d2d872956f32a46326a1"
-  integrity sha512-ynG0E79xGfMaV2xAHdbhwiPLczxnNNnasrmPEXriXsPJGjmhOBYzFVEsB65w2qMDz+CaBJJuJD0inE/ab/h36g==
+chart.js@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.3.3.tgz#dcd98afadf9fcfa5219e72ace5912092ea48fd36"
+  integrity sha512-aTk7pBw+x6sQYhon/NR3ikfUJuym/LdgpTlgZRe2PaEhjUMKBKyNaFCMVRAyTEWYFNO7qRu7iQVqOw/OqzxZxQ==
   dependencies:
     "@kurkle/color" "^0.3.0"
 
@@ -3305,10 +3310,10 @@ chartjs-adapter-date-fns@^3.0.0:
   resolved "https://registry.yarnpkg.com/chartjs-adapter-date-fns/-/chartjs-adapter-date-fns-3.0.0.tgz#c25f63c7f317c1f96f9a7c44bd45eeedb8a478e5"
   integrity sha512-Rs3iEB3Q5pJ973J93OBTpnP7qoGwvq3nUnoMdtxO+9aoJof7UFcRbWcIDteXuYd1fgAvct/32T9qaLyLuZVwCg==
 
-chartjs-plugin-annotation@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/chartjs-plugin-annotation/-/chartjs-plugin-annotation-2.2.1.tgz#b7c359e46814b27632d9648584435d64c183427c"
-  integrity sha512-RL9UtrFr2SXd7C47zD0MZqn6ZLgrcRt3ySC6cYal2amBdANcYB1QcwFXcpKWAYnO4SGJYRok7P5rKDDNgJMA/w==
+chartjs-plugin-annotation@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/chartjs-plugin-annotation/-/chartjs-plugin-annotation-3.0.1.tgz#4cf51d9797bf3202788ca0beae8694404621ad19"
+  integrity sha512-hlIrXXKqSDgb+ZjVYHefmlZUXK8KbkCPiynSVrTb/HjTMkT62cOInaT1NTQCKtxKKOm9oHp958DY3RTAFKtkHg==
 
 check-more-types@^2.24.0:
   version "2.24.0"
@@ -8675,10 +8680,10 @@ pretty-bytes@^5.6.0:
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
   integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
 
-pretty-bytes@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.1.0.tgz#1d1cc9aae1939012c74180b679da6684616bf804"
-  integrity sha512-Rk753HI8f4uivXi4ZCIYdhmG1V+WKzvRMg/X+M42a6t7D07RcmopXJMDNk6N++7Bl75URRGsb40ruvg7Hcp2wQ==
+pretty-bytes@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz#38cd6bb46f47afbf667c202cfc754bffd2016a3b"
+  integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
 
 prismjs@^1.27.0, prismjs@^1.29.0:
   version "1.29.0"

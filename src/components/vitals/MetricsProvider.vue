@@ -9,7 +9,7 @@
 <script setup lang="ts">
 import usePortalApi from '@/hooks/usePortalApi'
 import { TimeframeKeys, QueryTime, Timeframe } from '@kong-ui-public/analytics-utilities'
-import { Ref, computed } from 'vue'
+import { computed } from 'vue'
 import { MetricsProviderInternal, DataFetcher, ExploreV2Query, EXPLORE_V2_DIMENSIONS, ExploreV2Filter } from '@kong-ui-public/analytics-metric-provider'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores'
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   overrideTimeframe?: Timeframe,
   maxTimeframe?: TimeframeKeys,
   dimension?: EXPLORE_V2_DIMENSIONS,
-  additionalFilter?: Ref<ExploreV2Filter[]>,
+  additionalFilter?: ExploreV2Filter[],
   filterValue?: string,
 }>(), {
   maxTimeframe: TimeframeKeys.THIRTY_DAY,
@@ -49,7 +49,7 @@ const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Qu
 
   try {
     // Unpack the original promise
-    const v3Result = await portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery)
+    const v3Result = await portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
 
     // Transform the `meta` object contained in the response
     v3Result.data.meta = snakeToCamelCase(v3Result.data.meta)
@@ -66,7 +66,7 @@ const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Qu
 const internalProps = computed(() => ({
   ...props,
   dataFetcher,
-  hasTrendAccess,
+  hasTrendAccess: hasTrendAccess.value,
   refreshInterval: 0 // Don't refresh metric cards on the dev portal by default.
 }))
 
