@@ -135,12 +135,9 @@ export default defineComponent({
     }]))
 
     const { portalApiV2 } = usePortalApi()
-
-    // TODO: Default to false, once we bring in MetricsProvider from public-ui
-    const vitalsLoading = ref(false)
-
     const appStore = useAppStore()
     const { isDcr, allowedTimePeriod } = storeToRefs(appStore)
+    const vitalsLoading = ref(false)
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,

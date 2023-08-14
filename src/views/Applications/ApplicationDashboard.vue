@@ -60,16 +60,14 @@
           <h2 class="font-normal type-lg mb-4">
             {{ helpText.analytics.summary }}
           </h2>
-          <div v-if="!vitalsLoading">
-            <!-- <AnalyticsMetricsCard
-              class="mb-6"
-              data-testid="analytics-metric-cards"
-              :application-id="appId"
-              :timeframe="selectedTimeframe"
-              :product-version-ids="selectedProductVersionIds"
-            /> -->
-          </div>
-
+          <AnalyticsMetricsCard
+            v-if="!vitalsLoading"
+            class="mb-6"
+            data-testid="analytics-metric-cards"
+            :application-id="appId"
+            :timeframe="selectedTimeframe"
+            :product-version-ids="selectedProductVersionIds"
+          />
           <h2 class="font-normal type-lg mb-4">
             {{ helpText.analytics.chartOverview }}
           </h2>
@@ -123,7 +121,7 @@ import {
   timeframeToDatepickerSelection
 } from '@kong-ui-public/analytics-utilities'
 import { ProductVersionData, ProductVersionsResult } from '@/types/productVersion'
-// import AnalyticsMetricsCard from '@/components/AnalyticsMetricsCard.vue'
+import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
 import ChartPanel from '@/components/vitals/ChartPanel.vue'
 import { useRoute } from 'vue-router'
 import PageTitle from '@/components/PageTitle.vue'
@@ -187,8 +185,6 @@ const FILTER_SELECTION_DEBOUNCE = 900
 
 const selectedTimeframe = ref(TimePeriods.get(TimeframeKeys.ONE_DAY))
 const timeframe = ref(timeframeToDatepickerSelection(selectedTimeframe.value))
-
-// TODO: default to true once MetricsProvider works
 const vitalsLoading = ref(true)
 
 const allProductVersions = ref<ProductVersionData[]>([])
@@ -208,9 +204,7 @@ const chartFilters = computed(() => {
   }
 })
 
-// TODO: uncomment for Metric Cards
-// const selectedProductVersionIds = computed<string[]>(() => selectedProductVersions.value.map(v => v.value))
-
+const selectedProductVersionIds = computed<string[]>(() => selectedProductVersions.value.map(v => v.value))
 let timeout
 
 const handleProductVersionSearch = (query: string) => {
@@ -301,7 +295,6 @@ const fetchApplication = () => {
       send('RESOLVE')
       application.value = data
 
-      // TODO move this to wherever the Vitals data fetching happens
       vitalsLoading.value = false
     }).catch(error => {
       send('REJECT')
