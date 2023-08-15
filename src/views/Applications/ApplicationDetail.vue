@@ -81,6 +81,7 @@
           data-testid="analytics-metric-cards"
           hide-title
           :application-id="application.id"
+          :timeframe="fixedTimeframe"
         />
         <hr class="my-6">
       </div>
@@ -116,6 +117,10 @@ import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
 
 import { useI18nStore, useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
+import {
+  TimeframeKeys,
+  TimePeriods
+} from '@kong-ui-public/analytics-utilities'
 
 export default defineComponent({
   name: 'ApplicationDetail',
@@ -138,6 +143,9 @@ export default defineComponent({
     const appStore = useAppStore()
     const { isDcr, allowedTimePeriod } = storeToRefs(appStore)
     const vitalsLoading = ref(false)
+    const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
+      ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY))
+      : ref(TimePeriods.get(TimeframeKeys.ONE_DAY))
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,
@@ -182,6 +190,7 @@ export default defineComponent({
       id,
       breadcrumbs,
       isDcr,
+      fixedTimeframe,
       vitalsLoading
     }
   }

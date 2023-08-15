@@ -10,7 +10,7 @@
 import usePortalApi from '@/hooks/usePortalApi'
 import { TimeframeKeys, QueryTime, Timeframe } from '@kong-ui-public/analytics-utilities'
 import { computed } from 'vue'
-import { MetricsProviderInternal, DataFetcher, ExploreV2Query, EXPLORE_V2_DIMENSIONS, ExploreV2Filter } from '@kong-ui-public/analytics-metric-provider'
+import { MetricsProviderInternal, ExploreV2Query, EXPLORE_V2_DIMENSIONS, ExploreV2Filter } from '@kong-ui-public/analytics-metric-provider'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
@@ -23,12 +23,16 @@ const props = withDefaults(defineProps<{
   dimension?: EXPLORE_V2_DIMENSIONS,
   additionalFilter?: ExploreV2Filter[],
   filterValue?: string,
+  queryReady?: boolean,
+  longCardTitles?: boolean
 }>(), {
   maxTimeframe: TimeframeKeys.THIRTY_DAY,
-  overrideTimeframe: null,
+  overrideTimeframe: undefined,
   dimension: undefined,
   additionalFilter: undefined,
-  filterValue: undefined
+  filterValue: undefined,
+  queryReady: undefined,
+  longCardTitles: undefined
 })
 
 const { portalApiV2 } = usePortalApi()
@@ -38,7 +42,8 @@ const { allowedTimePeriod } = storeToRefs(appStore)
 
 const hasTrendAccess = computed(() => allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS)
 
-const dataFetcher: DataFetcher = async (queryTime: QueryTime, query: ExploreV2Query) => {
+// TODO: type as DataFetcher
+const dataFetcher: any = async (queryTime: QueryTime, query: ExploreV2Query) => {
   const appQuery = {
     queryApplicationAnalytics: {
       ...query,
