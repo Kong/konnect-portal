@@ -25,6 +25,7 @@ declare global {
       mockProductApiDocument(productId?: string, options?: Partial<TypeOptions> & {body: any}): Chainable<JQuery<HTMLElement>>
       mockProduct(productId?: string, mockProduct?: Product, mockVersions?: ProductVersion[]): Chainable<JQuery<HTMLElement>>
       mockApplications(searchResults?: Array<GetApplicationResponse>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
+      mockContextualAnalytics(): Chainable<JQuery<HTMLElement>>
       mockRegistrations(applicationId?: string, registrations?: Array<GetRegistrationResponse>, totalCount?: number): Chainable<JQuery<HTMLElement>>
       mockProductVersionApplicationRegistration(value:any): Chainable<JQuery<HTMLElement>>
       mockProductsCatalog(count?: number, overrides?: Partial<ProductCatalogIndexSource>[], pageNum?:number, pageSize?:number): Chainable<JQuery<HTMLElement>>

@@ -370,6 +370,7 @@ describe('Application Registration', () => {
     })
   })
   it('credential\'s display name is visible and editable, id is displayed', () => {
+    cy.mockContextualAnalytics()
     cy.mockApplications(apps, 4)
     mockApplicationWithCredAndReg(apps[0], credentials)
 
@@ -417,6 +418,7 @@ describe('Application Registration', () => {
   })
 
   it('can create and delete credentials for application', () => {
+    cy.mockContextualAnalytics()
     cy.mockApplications(apps, 4)
     cy.visit('/my-apps')
 
@@ -595,6 +597,7 @@ describe('Application Registration', () => {
   })
 
   it("can't refresh token of existing application without dcr", () => {
+    cy.mockContextualAnalytics()
     cy.mockApplications([apps[0]], 1)
     cy.visit('/my-apps')
 
@@ -632,6 +635,7 @@ describe('Application Registration', () => {
 
   describe('Credential management with DCR', () => {
     it('can refresh token of existing application with dcr', () => {
+      cy.mockContextualAnalytics()
       cy.mockDcrPortal()
       cy.mockApplications([{ ...apps[0] }], 1)
       cy.visit('/my-apps')
