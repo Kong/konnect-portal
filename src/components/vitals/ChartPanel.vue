@@ -107,6 +107,7 @@ import { useI18nStore } from '@/stores'
 import { AnalyticsChart, AnalyticsChartColors, ChartTypes, lookupStatusCodeColor, AnalyticsChartOptions } from '@kong-ui-public/analytics-chart'
 import { TimeseriesQueryTime } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-chart/dist/style.css'
+import type { ChartFilters } from '@/types/vitals'
 import useChartRequest from '@/composables/useChartRequest'
 import useChartQueryBuilder from '@/composables/useChartQueryBuilder'
 
@@ -123,13 +124,14 @@ import {
 const helpText = useI18nStore().state.helpText.analytics
 
 const props = defineProps<{
-  modelValue,
-  appId
+  modelValue: ChartFilters,
+  appId: string
 }>()
 
 const selectedTimeframe = computed(() => props.modelValue.timeframe?.value)
 const selectedProductVersions = computed(() => props.modelValue.apiVersions?.value)
 const timeseriesQueryTime = computed(() => new TimeseriesQueryTime(selectedTimeframe.value))
+// @ts-ignore - The actual key name we want to extract is `value`
 const productVersionsCacheKey = computed(() => selectedProductVersions.value.map(entry => entry.value).join('-') || '')
 const appCacheKey = computed(() => `${productVersionsCacheKey.value}-${timeseriesQueryTime.value.startMs()}-${timeseriesQueryTime.value.endMs()}`)
 
@@ -203,12 +205,12 @@ async function getAllChartData () {
     statusCode5xxChartData.value
 
   ] = await Promise.all([
-    useChartRequest(trafficRequestsQuery.value, selectedTimeframe.value),
-    useChartRequest(trafficLatencyQuery.value, selectedTimeframe.value),
-    useChartRequest(productVersions4xxQuery.value, selectedTimeframe.value),
-    useChartRequest(productVersions5xxQuery.value, selectedTimeframe.value),
-    useChartRequest(statusCode4xxQuery.value, selectedTimeframe.value),
-    useChartRequest(statusCode5xxQuery.value, selectedTimeframe.value)
+    useChartRequest(trafficRequestsQuery.value, timeseriesQueryTime.value),
+    useChartRequest(trafficLatencyQuery.value, timeseriesQueryTime.value),
+    useChartRequest(productVersions4xxQuery.value, timeseriesQueryTime.value),
+    useChartRequest(productVersions5xxQuery.value, timeseriesQueryTime.value),
+    useChartRequest(statusCode4xxQuery.value, timeseriesQueryTime.value),
+    useChartRequest(statusCode5xxQuery.value, timeseriesQueryTime.value)
   ])
 }
 

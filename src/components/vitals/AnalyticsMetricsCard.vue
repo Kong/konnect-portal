@@ -5,8 +5,7 @@
   >
     <template #body>
       <MetricsProvider
-        :additional-filter="additionalFilter"
-        :override-timeframe="props.timeframe"
+        v-bind="metricProviderProps"
       >
         <MetricsConsumer />
       </MetricsProvider>
@@ -31,20 +30,23 @@ const props = defineProps<{
   timeframe: Timeframe,
 }>()
 
-const additionalFilter = computed(() => [
-  {
-    dimension: EXPLORE_V2_DIMENSIONS.APPLICATION,
-    type: EXPLORE_V2_FILTER_TYPES.IN,
-    values: [props.applicationId]
-  },
-  ...(props.productVersionIds?.length > 0
-    ? [{
-        dimension: EXPLORE_V2_DIMENSIONS.API_PRODUCT_VERSION,
-        type: EXPLORE_V2_FILTER_TYPES.IN,
-        values: props.productVersionIds
-      }]
-    : [])
-])
+const metricProviderProps = computed(() => ({
+  overrideTimeframe: props.timeframe,
+  additionalFilter: [
+    {
+      dimension: EXPLORE_V2_DIMENSIONS.APPLICATION,
+      type: EXPLORE_V2_FILTER_TYPES.IN,
+      values: [props.applicationId]
+    },
+    ...(props.productVersionIds?.length > 0
+      ? [{
+          dimension: EXPLORE_V2_DIMENSIONS.API_PRODUCT_VERSION,
+          type: EXPLORE_V2_FILTER_TYPES.IN,
+          values: props.productVersionIds
+        }]
+      : [])
+  ]
+}))
 
 </script>
 

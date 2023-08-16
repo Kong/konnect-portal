@@ -64,7 +64,7 @@
             v-if="!vitalsLoading"
             class="mb-6"
             data-testid="analytics-metric-cards"
-            :application-id="appId"
+            :application-id="(appId as string)"
             :timeframe="selectedTimeframe"
             :product-version-ids="selectedProductVersionIds"
           />
@@ -73,7 +73,7 @@
           </h2>
           <ChartPanel
             v-model="chartFilters"
-            :app-id="appId"
+            :app-id="(appId as string)"
           />
         </div>
       </div>
@@ -120,7 +120,8 @@ import {
   TimePeriods,
   timeframeToDatepickerSelection
 } from '@kong-ui-public/analytics-utilities'
-import { ProductVersionData, ProductVersionsResult } from '@/types/productVersion'
+import type { ProductVersionData, ProductVersionsResult } from '@/types/productVersion'
+import type { ChartFilters } from '@/types/vitals'
 import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
 import ChartPanel from '@/components/vitals/ChartPanel.vue'
 import { useRoute } from 'vue-router'
@@ -196,12 +197,12 @@ const selectedProductVersions = ref([])
 const hasProductVersions = computed(() => allProductVersions.value.length || false)
 const filterMultiselectLoading = ref(true)
 
-// We dynamically query for new chart data when these values are changed
-const chartFilters = computed(() => {
+// Query for new chart data when any of these values are changed
+const chartFilters = computed<ChartFilters>(() => {
   return {
     timeframe: selectedTimeframe,
     apiVersions: selectedProductVersions
-  }
+  } as ChartFilters
 })
 
 const selectedProductVersionIds = computed<string[]>(() => selectedProductVersions.value.map(v => v.value))

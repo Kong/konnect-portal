@@ -1,11 +1,5 @@
 import cloneDeep from 'lodash.clonedeep'
-
-interface ProductVersion {
-  label: string
-  key: string
-  selected: boolean
-  value: string
-}
+import type { ProductVersion } from '@/types/vitals'
 
 export default function useChartQueryBuilder (baseQuery, appId: string, productVersions: Array<ProductVersion>) {
   const query = cloneDeep(baseQuery)

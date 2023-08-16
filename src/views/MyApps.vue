@@ -32,11 +32,11 @@
       </template>
     </PageTitle>
     <div
-      v-if="contextualAnalytics && !vitalsLoading && additionalFilter.length > 0"
+      v-if="contextualAnalytics && !vitalsLoading && myAppsReady"
     >
       <MetricsProvider
         v-slot="{ timeframe }"
-        :additional-filter="additionalFilter"
+        v-bind="metricProviderProps"
       >
         <h2 class="summary-tier-based mb-4">
           {{ analyticsCardTitle(timeframe) }}
@@ -321,20 +321,18 @@ export default defineComponent({
       return helpTextVitals.summary
     }
 
-    const additionalFilter = computed(() => {
-      // Wait for datatable fetcher to populate the App Id array
-      if (!appIds.value?.length) {
-        return []
-      }
+    const myAppsReady = computed(() => Boolean(appIds.value && appIds.value?.length))
 
-      return [
+    const metricProviderProps = computed(() => ({
+      queryReady: myAppsReady.value,
+      additionalFilter: [
         {
           type: EXPLORE_V2_FILTER_TYPES.IN,
           dimension: EXPLORE_V2_DIMENSIONS.APPLICATION,
           values: appIds.value
         }
       ]
-    })
+    }))
 
     onMounted(() => {
       vitalsLoading.value = false
@@ -360,7 +358,8 @@ export default defineComponent({
       analyticsCardTitle,
       contextualAnalytics,
       vitalsLoading,
-      additionalFilter
+      metricProviderProps,
+      myAppsReady
     }
   }
 })

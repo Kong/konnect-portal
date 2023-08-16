@@ -1,5 +1,4 @@
 import { computed } from 'vue'
-import { TimeseriesQueryTime } from '@kong-ui-public/analytics-utilities'
 import {
   ApplicationAnalyticsApiQueryApplicationAnalyticsRequest,
   QueryApplicationAnalytics200Response
@@ -8,11 +7,10 @@ import usePortalApi from '@/hooks/usePortalApi'
 import { snakeToCamelCase } from '@/helpers/snakeToCamelCase'
 const { portalApiV2 } = usePortalApi()
 
-export default async function useChartRequest (query, timeframe): Promise<QueryApplicationAnalytics200Response> {
-  const timeseriesQueryTime = computed(() => new TimeseriesQueryTime(timeframe))
-  const startMs = computed(() => timeseriesQueryTime.value.startMs())
-  const endMs = computed(() => timeseriesQueryTime.value.endMs())
-  const granularity = computed(() => timeseriesQueryTime.value.granularityMs())
+export default async function useChartRequest (query, timeseriesQueryTime): Promise<QueryApplicationAnalytics200Response> {
+  const startMs = computed(() => timeseriesQueryTime.startMs())
+  const endMs = computed(() => timeseriesQueryTime.endMs())
+  const granularity = computed(() => timeseriesQueryTime.granularityMs())
 
   const vitalsRequest: ApplicationAnalyticsApiQueryApplicationAnalyticsRequest = {
     queryApplicationAnalytics: {
