@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // Import commands.js using ES2015 syntax:
-import { GetApplicationResponse, GetRegistrationResponse, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
+import { GetApplicationResponse, GetRegistrationResponse, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
 import { SinonStub } from 'cypress/types/sinon'
 
@@ -25,6 +25,7 @@ declare global {
       mockProductApiDocument(productId?: string, options?: Partial<TypeOptions> & {body: any}): Chainable<JQuery<HTMLElement>>
       mockProduct(productId?: string, mockProduct?: Product, mockVersions?: ProductVersion[]): Chainable<JQuery<HTMLElement>>
       mockApplications(searchResults?: Array<GetApplicationResponse>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
+      mockApplicationWithCredAndReg(data: GetApplicationResponse, credentials?: ListCredentialsResponseDataInner[], registrations?: Array<GetRegistrationResponse>): Chainable<JQuery<HTMLElement>>,
       mockContextualAnalytics(): Chainable<JQuery<HTMLElement>>
       mockRegistrations(applicationId?: string, registrations?: Array<GetRegistrationResponse>, totalCount?: number): Chainable<JQuery<HTMLElement>>
       mockProductVersionApplicationRegistration(value:any): Chainable<JQuery<HTMLElement>>
