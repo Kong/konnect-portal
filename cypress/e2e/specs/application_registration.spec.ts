@@ -121,6 +121,7 @@ describe('Application Registration', () => {
     cy.mockAppearance()
     cy.mockStylesheetCss()
     cy.mockStylesheetFont()
+    cy.mockContextualAnalytics()
   })
 
   it('displays empty dashboard for my apps', () => {
@@ -229,8 +230,8 @@ describe('Application Registration', () => {
     mockApplicationWithCredAndReg(apps[0])
     // go to application details
     cy.get('[data-testid="applications-table"] tbody tr')
-    .contains(apps[0].name)
-    .click()
+      .contains(apps[0].name)
+      .click()
 
     // use breadcrumb to navigate back to My Apps
     cy.get('.k-breadcrumbs .k-breadcrumbs-item a').contains('My Apps').click()
@@ -370,7 +371,6 @@ describe('Application Registration', () => {
     })
   })
   it('credential\'s display name is visible and editable, id is displayed', () => {
-    cy.mockContextualAnalytics()
     cy.mockApplications(apps, 4)
     mockApplicationWithCredAndReg(apps[0], credentials)
 
@@ -418,7 +418,6 @@ describe('Application Registration', () => {
   })
 
   it('can create and delete credentials for application', () => {
-    cy.mockContextualAnalytics()
     cy.mockApplications(apps, 4)
     cy.visit('/my-apps')
 
@@ -597,7 +596,6 @@ describe('Application Registration', () => {
   })
 
   it("can't refresh token of existing application without dcr", () => {
-    cy.mockContextualAnalytics()
     cy.mockApplications([apps[0]], 1)
     cy.visit('/my-apps')
 
@@ -635,7 +633,6 @@ describe('Application Registration', () => {
 
   describe('Credential management with DCR', () => {
     it('can refresh token of existing application with dcr', () => {
-      cy.mockContextualAnalytics()
       cy.mockDcrPortal()
       cy.mockApplications([{ ...apps[0] }], 1)
       cy.visit('/my-apps')
