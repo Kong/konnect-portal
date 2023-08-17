@@ -90,4 +90,8 @@ const defaultContext: PortalContext = {
   allowed_time_period: '2022-03-25T13:15:02.104Z'
 }
 
-export { versions, product, productVersion, productRegistration, apps, defaultContext }
+const productRegistrations: GetRegistrationResponse[] = [
+  productRegistration
+]
+
+export { versions, product, productVersion, productRegistration, productRegistrations, apps, defaultContext }
