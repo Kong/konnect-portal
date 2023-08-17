@@ -121,6 +121,7 @@ describe('Application Registration', () => {
     cy.mockAppearance()
     cy.mockStylesheetCss()
     cy.mockStylesheetFont()
+    cy.mockContextualAnalytics()
   })
 
   it('displays empty dashboard for my apps', () => {
@@ -229,8 +230,8 @@ describe('Application Registration', () => {
     mockApplicationWithCredAndReg(apps[0])
     // go to application details
     cy.get('[data-testid="applications-table"] tbody tr')
-    .contains(apps[0].name)
-    .click()
+      .contains(apps[0].name)
+      .click()
 
     // use breadcrumb to navigate back to My Apps
     cy.get('.k-breadcrumbs .k-breadcrumbs-item a').contains('My Apps').click()

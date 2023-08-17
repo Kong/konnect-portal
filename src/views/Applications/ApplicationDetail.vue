@@ -25,7 +25,7 @@
               :is-rounded="false"
               :to="{ name: 'update-application' }"
             >
-              {{ helpText.edit }}
+              {{ helpText.application.edit }}
             </KButton>
           </template>
         </PageTitle>
@@ -35,7 +35,7 @@
             class="flex-1"
           >
             <p class="mb-2">
-              {{ helpText.description }}
+              {{ helpText.application.description }}
             </p>
             <p class="color-text_colors-secondary">
               {{ application.description }}
@@ -46,18 +46,45 @@
               v-if="application.redirect_uri"
               class="color-text_colors-secondary"
             >
-              {{ helpText.redirectUri(application.redirect_uri) }}
+              {{ helpText.application.redirectUri(application.redirect_uri) }}
             </div>
             <div
               v-if="application.reference_id"
               class="color-text_colors-secondary"
             >
-              {{ helpText.referenceId(application.reference_id) }}
+              {{ helpText.application.referenceId(application.reference_id) }}
             </div>
           </div>
         </div>
       </div>
       <hr class="my-6">
+      <div
+        v-if="!vitalsLoading"
+      >
+        <PageTitle class="mb-5">
+          <h2 class="font-normal type-lg m-0">
+            {{ analyticsCardTitle }}
+          </h2>
+          <template #right>
+            <KButton
+              data-testid="application-dashboard-button"
+              :is-rounded="false"
+              appearance="secondary"
+              @click="$router.push({ name: 'application-dashboard', params: { application_id: id }})"
+            >
+              {{ helpText.analytics.viewAnalytics }}
+            </KButton>
+          </template>
+        </PageTitle>
+        <AnalyticsMetricsCard
+          class="mb-4"
+          data-testid="analytics-metric-cards"
+          hide-title
+          :application-id="application.id"
+          :timeframe="fixedTimeframe"
+        />
+        <hr class="my-6">
+      </div>
       <DcrAuthenticationTable
         v-if="isDcr"
         :application="application"
@@ -86,29 +113,39 @@ import PageTitle from '@/components/PageTitle.vue'
 import CredentialsList from './CredentialsList.vue'
 import ProductList from './ProductList.vue'
 import DcrAuthenticationTable from './DcrAuthenticationTable.vue'
+import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
+
 import { useI18nStore, useAppStore } from '@/stores'
+import { PortalTimeframeKeys } from '@/types/vitals'
+import {
+  TimeframeKeys,
+  TimePeriods
+} from '@kong-ui-public/analytics-utilities'
 
 export default defineComponent({
   name: 'ApplicationDetail',
-  components: { PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
+  components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
 
   setup () {
     const errorMessage = ref('')
     const application = ref(null)
 
-    const helpText = useI18nStore().state.helpText.application
+    const helpText = useI18nStore().state.helpText
     const $route = useRoute()
     const id = computed(() => $route.params.application_id as string)
     const breadcrumbs = computed(() => ([{
       key: 'my-apps',
       to: { name: 'my-apps' },
-      text: helpText.breadcrumbMyApps
+      text: helpText.application.breadcrumbMyApps
     }]))
 
     const { portalApiV2 } = usePortalApi()
-
     const appStore = useAppStore()
-    const { isDcr } = storeToRefs(appStore)
+    const { isDcr, allowedTimePeriod } = storeToRefs(appStore)
+    const vitalsLoading = ref(false)
+    const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
+      ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY))
+      : ref(TimePeriods.get(TimeframeKeys.ONE_DAY))
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,
@@ -121,6 +158,10 @@ export default defineComponent({
         error: { on: { FETCH: 'pending' } }
       }
     }))
+
+    const analyticsCardTitle = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
+      ? `${helpText.analytics.summary30Days} ${helpText.analytics.summary}`
+      : `${helpText.analytics.summary24Hours} ${helpText.analytics.summary}`
 
     const fetchApplication = () => {
       send('FETCH')
@@ -141,13 +182,16 @@ export default defineComponent({
     })
 
     return {
+      analyticsCardTitle,
       currentState,
       errorMessage,
       application,
       helpText,
       id,
       breadcrumbs,
-      isDcr
+      isDcr,
+      fixedTimeframe,
+      vitalsLoading
     }
   }
 })

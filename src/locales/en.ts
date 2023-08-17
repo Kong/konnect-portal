@@ -35,7 +35,10 @@ export const en = {
   },
   productVersion: {
     deprecatedWarningProduct: 'This product version is now deprecated. The endpoints will remain fully usable until this version is sunsetted.',
-    unableToRetrieveDoc: 'Unable to retrieve documentation'
+    unableToRetrieveDoc: 'Unable to retrieve documentation',
+    noProductVersionsDetail: 'This App is not registered for any Product Versions',
+    noProductVersionsTitle: 'No Product Versions',
+    registerProductVersion: 'Register Product version'
   },
   userDropdown: {
     myApps: 'My Apps',
@@ -118,6 +121,32 @@ export const en = {
     headerDescription2: '. The client secret will ',
     headerDescription3: 'only be shown once.',
     headerDescription4: 'Please copy this value and keep for your records.'
+  },
+  analytics: {
+    filterLabelProductVersions: 'Product Versions',
+    chartOverview: 'Chart Overview',
+    chartTitleRequests: 'Requests by Product Version',
+    chartTitleLatency: 'P99 Latency by Product Version',
+    chartTitle4xxProductVersion: '4xx by Product Version',
+    chartTitle5xxProductVersion: '5xx by Product Version',
+    chartTitle4xxStatusCode: '4xx by Status Code',
+    chartTitle5xxStatusCode: '5xx by Status Code',
+    dashboard: 'Dashboard',
+    resultsLimited: 'Not all results shown. Refine your search for more related results.',
+    notAvailable: 'Not available',
+    sectionCurrent: 'Current',
+    sectionLast: 'Last',
+    sectionPrevious: 'Previous',
+    selectDateRange: 'Please select a date range',
+    selectProductVersions: 'Select Product Versions',
+    summary: 'Summary',
+    summary24Hours: '24 Hours',
+    summary30Days: '30 Days',
+    summaryTooltip: (timespan: string) => `Showing ${timespan} summary of analytics for all apps`,
+    timeRange: 'Time Range',
+    totalRequests: 'Total Requests',
+    unableToFetch: (itemName: string) => `Unable to fetch ${itemName}`,
+    viewAnalytics: 'View analytics'
   },
   productList: {
     titleProducts: 'Products',

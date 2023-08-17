@@ -36,6 +36,9 @@ export interface I18nType {
   productVersion: {
     deprecatedWarningProduct: string;
     unableToRetrieveDoc: string;
+    noProductVersionsDetail: string;
+    noProductVersionsTitle: string;
+    registerProductVersion: string;
   };
   userDropdown: {
     myApps: string;
@@ -119,6 +122,32 @@ export interface I18nType {
     headerDescription3: string;
     headerDescription4: string;
   };
+  analytics: {
+    filterLabelProductVersions: string,
+    chartOverview: string,
+    chartTitleRequests: string,
+    chartTitleLatency: string,
+    chartTitle4xxProductVersion: string,
+    chartTitle5xxProductVersion: string,
+    chartTitle4xxStatusCode: string,
+    chartTitle5xxStatusCode: string,
+    dashboard: string,
+    resultsLimited: string,
+    notAvailable: string,
+    sectionCurrent: string,
+    sectionLast: string,
+    sectionPrevious: string,
+    selectDateRange: string,
+    selectProductVersions: string,
+    summary: string,
+    summary24Hours: string,
+    summary30Days: string,
+    summaryTooltip: (timespan: string) => string,
+    timeRange: string,
+    totalRequests: string,
+    unableToFetch: (itemName: string) => string,
+    viewAnalytics: string,
+  },
   productList: {
     titleProducts: string;
     actions: {

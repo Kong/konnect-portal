@@ -37,7 +37,10 @@ export const de: I18nType = {
   },
   productVersion: {
     deprecatedWarningProduct: 'Diese Produktversion ist veraltet. Die Endpunkte bleiben voll funktionsfähig, bis diese Version eingestellt wird.',
-    unableToRetrieveDoc: 'Keine Dokumentation verfügbar'
+    unableToRetrieveDoc: 'Keine Dokumentation verfügbar',
+    noProductVersionsDetail: 'This has not been translated',
+    noProductVersionsTitle: 'This has not been translated',
+    registerProductVersion: 'This has not been translated'
   },
   userDropdown: {
     myApps: 'Meine Applikationen',
@@ -120,6 +123,32 @@ export const de: I18nType = {
     headerDescription2: '. Das Client Secret wird ',
     headerDescription3: 'nur einmal angezeigt.',
     headerDescription4: 'Bitte kopieren und an einem sicheren Ort speichern.'
+  },
+  analytics: {
+    filterLabelProductVersions: 'This has not been translated',
+    chartOverview: 'This has not been translated',
+    chartTitleRequests: 'This has not been translated',
+    chartTitleLatency: 'This has not been translated',
+    chartTitle4xxProductVersion: 'This has not been translated',
+    chartTitle5xxProductVersion: 'This has not been translated',
+    chartTitle4xxStatusCode: 'This has not been translated',
+    chartTitle5xxStatusCode: 'This has not been translated',
+    dashboard: 'This has not been translated',
+    resultsLimited: 'This has not been translated',
+    notAvailable: 'This has not been translated',
+    sectionCurrent: 'This has not been translated',
+    sectionLast: 'This has not been translated',
+    sectionPrevious: 'This has not been translated',
+    selectDateRange: 'This has not been translated',
+    selectProductVersions: 'This has not been translated',
+    summary: 'This has not been translated',
+    summary24Hours: 'This has not been translated',
+    summary30Days: 'This has not been translated',
+    summaryTooltip: (timespan: string) => `This ${timespan} has not been translated`,
+    timeRange: 'This has not been translated',
+    totalRequests: 'This has not been translated',
+    unableToFetch: (itemName: string) => `This has not been translaed ${itemName}`,
+    viewAnalytics: 'This has not been translateds'
   },
   productList: {
     titleProducts: 'Produkte',

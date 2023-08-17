@@ -331,6 +331,15 @@ Cypress.Commands.add('mockRegistrations', (applicationId = '*', registrations = 
   }).as('getRegistrations')
 })
 
+Cypress.Commands.add('mockContextualAnalytics', () => {
+  return cy.intercept(
+    'POST', '**/api/v2/stats', {
+      statusCode: 200,
+      body: { records: [] },
+      delay: 0
+    }).as('getContextualAnalytics')
+})
+
 Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, config = {}) => {
   return cy.intercept(
     'GET',

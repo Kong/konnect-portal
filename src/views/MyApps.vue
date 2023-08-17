@@ -31,6 +31,26 @@
         </KButton>
       </template>
     </PageTitle>
+    <div
+      v-if="contextualAnalytics && !vitalsLoading && myAppsReady"
+    >
+      <MetricsProvider
+        v-slot="{ timeframe }"
+        v-bind="metricProviderProps"
+      >
+        <h2 class="summary-tier-based mb-4">
+          {{ analyticsCardTitle(timeframe) }}
+        </h2>
+        <KCard
+          class="mb-4 analytics-my-apps"
+          data-testid="analytics-metric-cards"
+        >
+          <template #body>
+            <MetricsConsumer />
+          </template>
+        </KCard>
+      </MetricsProvider>
+    </div>
     <div>
       <KCard>
         <template #body>
@@ -55,6 +75,14 @@
             <template #actions="{ row }">
               <ActionsDropdown :key="row.id">
                 <template #content>
+                  <div
+                    v-if="contextualAnalytics"
+                    data-testid="dropdown-analytics-dashboard"
+                    class="py-2 px-3 type-md cursor-pointer"
+                    @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
+                  >
+                    {{ helpTextVitals.viewAnalytics }}
+                  </div>
                   <div
                     v-if="isDcr"
                     data-testid="dropdown-refresh-application-dcr-token"
@@ -151,21 +179,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue'
+import { defineComponent, computed, ref, onMounted } from 'vue'
 import { useMachine } from '@xstate/vue'
 import { createMachine } from 'xstate'
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import RefreshTokenModal from '@/components/RefreshTokenModal.vue'
 import PageTitle from '@/components/PageTitle.vue'
 import ActionsDropdown from '@/components/ActionsDropdown.vue'
+import MetricsProvider from '@/components/vitals/MetricsProvider.vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import useToaster from '@/composables/useToaster'
 import { useI18nStore, useAppStore } from '@/stores'
+import { Timeframe, TimeframeKeys } from '@kong-ui-public/analytics-utilities'
+import '@kong-ui-public/analytics-metric-provider/dist/style.css'
+import { EXPLORE_V2_DIMENSIONS, EXPLORE_V2_FILTER_TYPES, MetricsConsumer } from '@kong-ui-public/analytics-metric-provider'
+
 import { storeToRefs } from 'pinia'
 
 export default defineComponent({
   name: 'MyApps',
-  components: { PageTitle, ActionsDropdown, RefreshTokenModal },
+  components: { PageTitle, ActionsDropdown, RefreshTokenModal, MetricsProvider, MetricsConsumer },
 
   setup () {
     const { notify } = useToaster()
@@ -181,6 +216,11 @@ export default defineComponent({
     const appStore = useAppStore()
     const { isDcr } = storeToRefs(appStore)
     const helpText = useI18nStore().state.helpText.myApp
+    const helpTextVitals = useI18nStore().state.helpText.analytics
+    const vitalsLoading = ref(true)
+
+    // @ts-ignore: Dev Portal doesn't have TS for feature flags.
+    const contextualAnalytics = useLDFeatureFlag(FeatureFlags.PortalContextualAnalytics, false)
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
@@ -188,6 +228,7 @@ export default defineComponent({
     })
 
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
+    const appIds = ref([])
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,
@@ -215,6 +256,8 @@ export default defineComponent({
         .listApplications(reqPayload)
         .then((res) => {
           send('RESOLVE')
+
+          appIds.value = res.data.data.map((item) => item.id)
 
           return {
             data: res.data.data,
@@ -276,6 +319,33 @@ export default defineComponent({
       { hideLabel: true, key: 'actions' }
     ]
 
+    const analyticsCardTitle = (timeframe: Timeframe) => {
+      if (timeframe.key === TimeframeKeys.ONE_DAY) {
+        return `${helpTextVitals.summary24Hours} ${helpTextVitals.summary}`
+      } else if (timeframe.key === TimeframeKeys.THIRTY_DAY) {
+        return `${helpTextVitals.summary30Days} ${helpTextVitals.summary}`
+      }
+
+      return helpTextVitals.summary
+    }
+
+    const myAppsReady = computed(() => Boolean(appIds.value && appIds.value?.length))
+
+    const metricProviderProps = computed(() => ({
+      queryReady: myAppsReady.value,
+      additionalFilter: [
+        {
+          type: EXPLORE_V2_FILTER_TYPES.IN,
+          dimension: EXPLORE_V2_DIMENSIONS.APPLICATION,
+          values: appIds.value
+        }
+      ]
+    }))
+
+    onMounted(() => {
+      vitalsLoading.value = false
+    })
+
     return {
       modalTitle,
       errorMessage,
@@ -292,7 +362,13 @@ export default defineComponent({
       fetcherCacheKey,
       fetcher,
       paginationConfig,
-      helpText
+      helpText,
+      helpTextVitals,
+      analyticsCardTitle,
+      contextualAnalytics,
+      vitalsLoading,
+      metricProviderProps,
+      myAppsReady
     }
   }
 })

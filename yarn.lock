@@ -844,10 +844,51 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
+"@kong-ui-public/analytics-chart@0.8.25":
+  version "0.8.25"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-0.8.25.tgz#ad045b5f0397aef175c6a5e31183ca1a396f9ac7"
+  integrity sha512-cFKM7ifx5zyKK/qKB35nOpGiSvcnXKzP8b+Nbpecm85XKPsexOiIPuH8KRsuhnKXgyC3JTWualhk4SbYjs773g==
+  dependencies:
+    "@kong-ui-public/analytics-utilities" "^0.5.3"
+    approximate-number "^2.1.1"
+    chart.js "^4.3.3"
+    chartjs-adapter-date-fns "^3.0.0"
+    chartjs-plugin-annotation "^3.0.1"
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    pretty-bytes "^6.1.1"
+    uuid "^9.0.0"
+    vue-chartjs "^5.2.0"
+
+"@kong-ui-public/analytics-metric-provider@1.1.17":
+  version "1.1.17"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.17.tgz#6952bd736e1e0817b2e82546b4b052914ccfa31a"
+  integrity sha512-XndaSJGKnVQyz6y2s8kPaRvmv5rzNdMlNv8jhxgb44HXWwLj8vE4Xqf2OqWgkbL62/5yIEFW1kt3VB8y0cQKMw==
+  dependencies:
+    "@kong-ui-public/analytics-utilities" "^0.5.3"
+    "@kong-ui-public/core" "1.1.0"
+    "@kong-ui-public/metric-cards" "0.2.14"
+    axios "^1.4.0"
+    swrv "^1.0.4"
+
+"@kong-ui-public/analytics-utilities@0.5.3", "@kong-ui-public/analytics-utilities@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.5.3.tgz#e47ed1c02fb0d9041e15d35eb866ab24efce73d7"
+  integrity sha512-etXGp/DrVxmnmko5Cx308oZ2lBOxq/zsAbmfzkPVDL9xOcJ0De3ni6TVpsX3JUtrSv05rnwZpyTLxpU66nuGQg==
+  dependencies:
+    date-fns "^2.30.0"
+
 "@kong-ui-public/copy-uuid@1.1.5":
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/copy-uuid/-/copy-uuid-1.1.5.tgz#2d5928fdc83d5d840ad376201cec1cde048a877d"
   integrity sha512-60ZdTW273biRyqlewUmQR5Y+VwrQEfCU9/HhSEk+8vdx9NPc6I60tQaINF663nzjNJQzDWU1Nkdk1IGHC0P1GA==
+
+"@kong-ui-public/core@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@kong-ui-public/core/-/core-1.1.0.tgz#882542f6b128e6754c962840b2f312266dc630b5"
+  integrity sha512-j1kK07/zDyxwePi1EX1rZ+3iL955VdhZiodzeT5ift7iVQTiPt9VNUFu9+IXJ/AxHfuYu/gaL+gily9TsJTX3w==
+  dependencies:
+    date-fns "^2.30.0"
 
 "@kong-ui-public/document-viewer@0.10.5":
   version "0.10.5"
@@ -865,6 +906,13 @@
     "@formatjs/intl" "^2.9.0"
     flat "^5.0.2"
     intl-messageformat "^10.5.0"
+
+"@kong-ui-public/metric-cards@0.2.14":
+  version "0.2.14"
+  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.2.14.tgz#97c80f80f862d311072a5e3239bc9e666e6aaf55"
+  integrity sha512-3z7aKeRox1VgxjQG6a0g1W+ME8u+62n+VvIb1HUH00rdacIBIKXGPBJTdIAFbodNtDa+s9oeV/OdjEUS5j+YbQ==
+  dependencies:
+    approximate-number "^2.1.0"
 
 "@kong-ui-public/spec-renderer@0.11.6":
   version "0.11.6"
@@ -941,6 +989,11 @@
     swagger2har "1.0.3"
     tachyons-sass "^4.9.5"
     util "^0.12.5"
+
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
 
 "@kyleshockey/xml@^1.0.2":
   version "1.0.2"
@@ -2605,6 +2658,16 @@ app-module-path@^2.2.0:
   resolved "https://registry.yarnpkg.com/app-module-path/-/app-module-path-2.2.0.tgz#641aa55dfb7d6a6f0a8141c4b9c0aa50b6c24dd5"
   integrity sha512-gkco+qxENJV+8vFcDiiFhuoSvRXb2a/QPqpSoWhVz829VNJfOTnELbBmPmNKFxf3xdNnw4DWCkzkDaavcX/1YQ==
 
+approximate-number@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/approximate-number/-/approximate-number-2.1.0.tgz#8dbb27957f4f230e386b57258f8f0c75f32313c8"
+  integrity sha512-EioK6nto/hEnwaJ7d/TG1WOZ9o0zTyIFVP4Lk7zzR/3I4O7ivkBNo7EvLC2Xh2j2HD/cb9sUqXHdexfGXCXYDA==
+
+approximate-number@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/approximate-number/-/approximate-number-2.1.1.tgz#4a8e570c393728679c0d5965b2fbb8de290998c3"
+  integrity sha512-JAP0WOktu68l1TQoBq9SvwSPOJBLVnlEOchHcPg/brZKiswxGtTbZcd5vXQLjIb1xxD3Q+AOtwNyBU4zt4RP2A==
+
 aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -3234,6 +3297,23 @@ chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
+
+chart.js@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.3.3.tgz#dcd98afadf9fcfa5219e72ace5912092ea48fd36"
+  integrity sha512-aTk7pBw+x6sQYhon/NR3ikfUJuym/LdgpTlgZRe2PaEhjUMKBKyNaFCMVRAyTEWYFNO7qRu7iQVqOw/OqzxZxQ==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
+
+chartjs-adapter-date-fns@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/chartjs-adapter-date-fns/-/chartjs-adapter-date-fns-3.0.0.tgz#c25f63c7f317c1f96f9a7c44bd45eeedb8a478e5"
+  integrity sha512-Rs3iEB3Q5pJ973J93OBTpnP7qoGwvq3nUnoMdtxO+9aoJof7UFcRbWcIDteXuYd1fgAvct/32T9qaLyLuZVwCg==
+
+chartjs-plugin-annotation@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/chartjs-plugin-annotation/-/chartjs-plugin-annotation-3.0.1.tgz#4cf51d9797bf3202788ca0beae8694404621ad19"
+  integrity sha512-hlIrXXKqSDgb+ZjVYHefmlZUXK8KbkCPiynSVrTb/HjTMkT62cOInaT1NTQCKtxKKOm9oHp958DY3RTAFKtkHg==
 
 check-more-types@^2.24.0:
   version "2.24.0"
@@ -3874,6 +3954,11 @@ date-fns-tz@^1.0.12, date-fns-tz@^1.3.7:
   resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.3.8.tgz#083e3a4e1f19b7857fa0c18deea6c2bc46ded7b9"
   integrity sha512-qwNXUFtMHTTU6CFSFjoJ80W8Fzzp24LntbjFFBgL/faqds4e5mo9mftoRLgr3Vi1trISsg4awSpYVsOQCRnapQ==
 
+date-fns-tz@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-2.0.0.tgz#1b14c386cb8bc16fc56fe333d4fc34ae1d1099d5"
+  integrity sha512-OAtcLdB9vxSXTWHdT8b398ARImVwQMyjfYGkKD2zaGpHseG2UPHbHjXELReErZFxWdSLph3c2zOaaTyHfOhERQ==
+
 date-fns@2.30.0, date-fns@^2.16.1, date-fns@^2.29.3, date-fns@^2.30.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
@@ -4197,6 +4282,11 @@ drange@^1.0.2:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/drange/-/drange-1.1.1.tgz#b2aecec2aab82fcef11dbbd7b9e32b83f8f6c0b8"
   integrity sha512-pYxfDYpued//QpnLIm4Avk7rsNtAtQkUES2cwAYSvD/wd2pKD71gN2Ebj3e7klzXwjocvE8c5vx/1fxwpqmSxA==
+
+druid.d.ts@0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/druid.d.ts/-/druid.d.ts-0.12.2.tgz#ff494fb76ea0fed64254ab91ca8e257c5c20b2d1"
+  integrity sha512-hpt6yu61+WSDC6vPp7IVW1O/G7r/fNDpQ6cQbVh1g7KnjUdnAEs4mZqhl/UgYaqI9/uueoBh01Me7Ka8Zk/32w==
 
 duplexer2@~0.1.0:
   version "0.1.4"
@@ -8590,6 +8680,11 @@ pretty-bytes@^5.6.0:
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
   integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
 
+pretty-bytes@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-6.1.1.tgz#38cd6bb46f47afbf667c202cfc754bffd2016a3b"
+  integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
+
 prismjs@^1.27.0, prismjs@^1.29.0:
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
@@ -10150,6 +10245,11 @@ swrv@^1.0.0:
   resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.3.tgz#b1af4f55a77d74336d29956924cb1b61f564490f"
   integrity sha512-sl+eLEE+aPPjhP1E8gQ75q3RPRyw5Gd/kROnrTFo3+LkCeLskv7F+uAl5W97wgJkzitobL6FLsRPVm0DgIgN8A==
 
+swrv@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.4.tgz#278b4811ed4acbb1ae46654972a482fd1847e480"
+  integrity sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==
+
 tabbable@^6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.1.2.tgz#b0d3ca81d582d48a80f71b267d1434b1469a3703"
@@ -10857,6 +10957,11 @@ vite@4.4:
     rollup "^3.25.2"
   optionalDependencies:
     fsevents "~2.3.2"
+
+vue-chartjs@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/vue-chartjs/-/vue-chartjs-5.2.0.tgz#3d0076ccf8016d1bf8fab5ccd837e7fb81005ded"
+  integrity sha512-d3zpKmGZr2OWHQ1xmxBcAn5ShTG917+/UCLaSpaCDDqT0U7DBsvFzTs69ZnHCgKoXT55GZDW8YEj9Av+dlONLA==
 
 vue-demi@>=0.14.5:
   version "0.14.5"

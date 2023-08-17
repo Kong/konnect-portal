@@ -37,7 +37,10 @@ export const ca_ES: I18nType = {
   },
   productVersion: {
     deprecatedWarningProduct: "Aquesta versió del producte ja no està vigent. Els punts d'interacció seguiran sent totalment funcionals fins que aquesta versió sigui retirada.",
-    unableToRetrieveDoc: 'No es pot recuperar la documentació'
+    unableToRetrieveDoc: 'No es pot recuperar la documentació',
+    noProductVersionsDetail: 'This has not been translated',
+    noProductVersionsTitle: 'This has not been translated',
+    registerProductVersion: 'This has not been translated'
   },
   userDropdown: {
     myApps: 'Les meves aplicacions',
@@ -120,6 +123,32 @@ export const ca_ES: I18nType = {
     headerDescription2: '. La clau secreta de client només es mostrarà ',
     headerDescription3: 'una vegada.',
     headerDescription4: 'Copieu aquest valor i guardeu-lo per a les vostres referències.'
+  },
+  analytics: {
+    filterLabelProductVersions: 'This has not been translated',
+    chartOverview: 'This has not been translated',
+    chartTitleRequests: 'This has not been translated',
+    chartTitleLatency: 'This has not been translated',
+    chartTitle4xxProductVersion: 'This has not been translated',
+    chartTitle5xxProductVersion: 'This has not been translated',
+    chartTitle4xxStatusCode: 'This has not been translated',
+    chartTitle5xxStatusCode: 'This has not been translated',
+    dashboard: 'This has not been translated',
+    resultsLimited: 'This has not been translated',
+    notAvailable: 'This has not been translated',
+    sectionCurrent: 'This has not been translated',
+    sectionLast: 'This has not been translated',
+    sectionPrevious: 'This has not been translated',
+    selectDateRange: 'This has not been translated',
+    selectProductVersions: 'This has not been translated',
+    summary: 'This has not been translated',
+    summary24Hours: 'This has not been translated',
+    summary30Days: 'This has not been translated',
+    summaryTooltip: (timespan: string) => `This ${timespan} has not been translated`,
+    timeRange: 'This has not been translated',
+    totalRequests: 'This has not been translated',
+    unableToFetch: (itemName: string) => `This has not been translaed ${itemName}`,
+    viewAnalytics: 'This has not been translateds'
   },
   productList: {
     titleProducts: 'Productes',
