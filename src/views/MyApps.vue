@@ -76,6 +76,14 @@
               <ActionsDropdown :key="row.id">
                 <template #content>
                   <div
+                    v-if="contextualAnalytics"
+                    data-testid="dropdown-analytics-dashboard"
+                    class="py-2 px-3 type-md cursor-pointer"
+                    @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
+                  >
+                    {{ helpTextVitals.viewAnalytics }}
+                  </div>
+                  <div
                     v-if="isDcr"
                     data-testid="dropdown-refresh-application-dcr-token"
                     class="py-2 px-3 type-md cursor-pointer"
@@ -355,6 +363,7 @@ export default defineComponent({
       fetcher,
       paginationConfig,
       helpText,
+      helpTextVitals,
       analyticsCardTitle,
       contextualAnalytics,
       vitalsLoading,
