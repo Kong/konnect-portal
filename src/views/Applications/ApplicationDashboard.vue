@@ -17,7 +17,7 @@
         class="mb-5"
         :title="helpText.analytics.dashboard"
       />
-      <div v-if="hasProductVersions">
+      <div v-if="contextualAnalytics && hasProductVersions">
         <div
           class="analytics-filters d-flex flex-grow-1 justify-content-between align-items-baseline mb-6"
         >
@@ -112,6 +112,8 @@ import getMessageFromError from '@/helpers/getMessageFromError'
 import usePortalApi from '@/hooks/usePortalApi'
 import useToaster from '@/composables/useToaster'
 import useAllowedTimeframes from '@/composables/useAllowedTimeframes'
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import {
   datePickerSelectionToTimeframe,
   TimeframeKeys,
@@ -127,6 +129,10 @@ import PageTitle from '@/components/PageTitle.vue'
 import { useAppStore, useI18nStore } from '@/stores'
 import cloneDeep from 'lodash.clonedeep'
 import { PortalTimeframeKeys } from '@/types/vitals'
+
+// @ts-ignore
+const contextualAnalytics = useLDFeatureFlag(FeatureFlags.PortalContextualAnalytics, false)
+
 const { notify } = useToaster()
 const errorMessage = ref('')
 const application = ref(null)
