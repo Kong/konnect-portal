@@ -946,10 +946,10 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.38.2"
 
-"@kong/kongponents@8.116.2", "@kong/kongponents@^8.32.0":
-  version "8.116.2"
-  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.116.2.tgz#9e50e402ef2012b22c47857f126ce448f0a56ea5"
-  integrity sha512-p+08/xu8PA8P/+eaaXKH+lBVG0irNCFH2BF24gXagyi/VKqNsVy1z+YYUe065MYnalsUgifCFp/xTW2XTLi6Lg==
+"@kong/kongponents@8.122.4", "@kong/kongponents@^8.32.0":
+  version "8.122.4"
+  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.122.4.tgz#5e78f09ef1f8dcdf7e16126072ef09e6c27ea7ad"
+  integrity sha512-g1XovO3jG8bqKEp0m0K0xODxNhEDNbN1CDOv8ij10g15EgDvQCL0Q2xvDhgobOW5SSnbaj4qe/oUU34HWZPP5w==
   dependencies:
     axios "^0.27.2"
     date-fns "^2.29.3"
@@ -10240,12 +10240,7 @@ swagger2har@1.0.3:
     json-schema-instantiator "0.4.4"
     rollup-plugin-babel "^4.4.0"
 
-swrv@^1.0.0:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.3.tgz#b1af4f55a77d74336d29956924cb1b61f564490f"
-  integrity sha512-sl+eLEE+aPPjhP1E8gQ75q3RPRyw5Gd/kROnrTFo3+LkCeLskv7F+uAl5W97wgJkzitobL6FLsRPVm0DgIgN8A==
-
-swrv@^1.0.4:
+swrv@^1.0.0, swrv@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.4.tgz#278b4811ed4acbb1ae46654972a482fd1847e480"
   integrity sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==
