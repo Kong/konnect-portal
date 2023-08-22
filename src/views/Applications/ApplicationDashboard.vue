@@ -201,7 +201,7 @@ const filterMultiselectLoading = ref(true)
 // Query for new chart data when any of these values are changed
 const chartFilters = computed<ChartFilters>(() => {
   return {
-    timeframe: selectedTimeframe as any,
+    timeframe: selectedTimeframe,
     apiVersions: selectedProductVersions
   } as ChartFilters
 })
