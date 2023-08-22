@@ -81,7 +81,7 @@
           data-testid="analytics-metric-cards"
           hide-title
           :application-id="application.id"
-          :timeframe="fixedTimeframe"
+          :timeframe="(fixedTimeframe as Timeframe)"
         />
         <hr class="my-6">
       </div>
@@ -117,6 +117,7 @@ import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
 
 import { useI18nStore, useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
+import type { Timeframe } from '@kong-ui-public/analytics-utilities'
 import {
   TimeframeKeys,
   TimePeriods
@@ -144,8 +145,8 @@ export default defineComponent({
     const { isDcr, allowedTimePeriod } = storeToRefs(appStore)
     const vitalsLoading = ref(false)
     const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
-      ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY))
-      : ref(TimePeriods.get(TimeframeKeys.ONE_DAY))
+      ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY) as Timeframe)
+      : ref(TimePeriods.get(TimeframeKeys.ONE_DAY) as Timeframe)
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,

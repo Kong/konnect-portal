@@ -844,7 +844,7 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/analytics-chart@^0.8.31":
+"@kong-ui-public/analytics-chart@0.8.31":
   version "0.8.31"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-chart/-/analytics-chart-0.8.31.tgz#12af0382e8284ecbcb16ea080dd7bfa938edb86c"
   integrity sha512-QS28POgoCNdt7r946/KucPNAaa7NNQd6ugWNKcAYZqQthUgY72uOCw+MYaFnFraRX46KQEWjXsebcF+5007BDA==
@@ -860,26 +860,18 @@
     uuid "^9.0.0"
     vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-metric-provider@1.1.23-pr.730.b1016fd2.0":
-  version "1.1.23-pr.730.b1016fd2.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.23-pr.730.b1016fd2.0.tgz#77bd16f9944bf3cb321da6bf534ab5f11f06b005"
-  integrity sha512-hCCDuZ/Flbo8GU/tp85f1Klchhx0c32qwXyz8RsIf0uLzcqL2LdE226/+w8VxjhETfhl3Bl3AkHP4Lo87REjaA==
+"@kong-ui-public/analytics-metric-provider@1.1.22":
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.22.tgz#08a9829d99e34cece68b4958f7a584afaa6be5d5"
+  integrity sha512-avI6PEg004zUzpmHAZU8hQh8QbwJoza+HXEyRLuo2XUysqfDJWe0IAcans51Ons5bFGI7DoMWo7WuiIS40FY1Q==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.7.2-pr.730.b1016fd2.0"
+    "@kong-ui-public/analytics-utilities" "^0.7.1"
     "@kong-ui-public/core" "1.1.0"
     "@kong-ui-public/metric-cards" "0.2.14"
     axios "^1.4.0"
     swrv "^1.0.4"
 
-"@kong-ui-public/analytics-utilities@0.7.2-pr.730.b1016fd2.0", "@kong-ui-public/analytics-utilities@^0.7.2-pr.730.b1016fd2.0":
-  version "0.7.2-pr.730.b1016fd2.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.7.2-pr.730.b1016fd2.0.tgz#a19c36268804d841b97be1f7b83c28eab9ba260c"
-  integrity sha512-Gh3gpV38fBvcjRKEvgNqpqFK8S4sb6ULAsrt138UfAzAsTeo57BysDdz4jbtLCHd2w6kh3+nYCc/yDzeBqU/ew==
-  dependencies:
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-
-"@kong-ui-public/analytics-utilities@^0.7.1":
+"@kong-ui-public/analytics-utilities@0.7.1", "@kong-ui-public/analytics-utilities@^0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.7.1.tgz#c351396b85244a9d6445348d5f58da3c25e2d20c"
   integrity sha512-XYdRAdyvai+yAQuRiJgosJIzYXtFfwTfx+8Ew0zdr1hnAwkaLiFB6mH8KQWSDjjOIqD5FqxN3CiNcrIVkZU8yQ==

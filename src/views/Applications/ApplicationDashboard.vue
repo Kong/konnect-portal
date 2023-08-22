@@ -65,7 +65,7 @@
             class="mb-6"
             data-testid="analytics-metric-cards"
             :application-id="(appId as string)"
-            :timeframe="selectedTimeframe"
+            :timeframe="(selectedTimeframe as Timeframe)"
             :product-version-ids="selectedProductVersionIds"
           />
           <h2 class="font-normal type-lg mb-4">
@@ -116,6 +116,7 @@ import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import {
   datePickerSelectionToTimeframe,
+  Timeframe,
   TimeframeKeys,
   TimePeriods,
   timeframeToDatepickerSelection
@@ -185,7 +186,7 @@ const FILTER_SEARCH_DEBOUNCE = 350
 const FILTER_SELECTION_DEBOUNCE = 900
 
 const selectedTimeframe = ref(TimePeriods.get(TimeframeKeys.ONE_DAY))
-const timeframe = ref(timeframeToDatepickerSelection(selectedTimeframe.value))
+const timeframe = ref(timeframeToDatepickerSelection(selectedTimeframe.value as Timeframe))
 const vitalsLoading = ref(true)
 
 const allProductVersions = ref<ProductVersionData[]>([])
@@ -200,7 +201,7 @@ const filterMultiselectLoading = ref(true)
 // Query for new chart data when any of these values are changed
 const chartFilters = computed<ChartFilters>(() => {
   return {
-    timeframe: selectedTimeframe,
+    timeframe: selectedTimeframe as any,
     apiVersions: selectedProductVersions
   } as ChartFilters
 })
