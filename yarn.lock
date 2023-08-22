@@ -844,12 +844,12 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/analytics-chart@0.8.25":
-  version "0.8.25"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-0.8.25.tgz#ad045b5f0397aef175c6a5e31183ca1a396f9ac7"
-  integrity sha512-cFKM7ifx5zyKK/qKB35nOpGiSvcnXKzP8b+Nbpecm85XKPsexOiIPuH8KRsuhnKXgyC3JTWualhk4SbYjs773g==
+"@kong-ui-public/analytics-chart@0.8.31":
+  version "0.8.31"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-chart/-/analytics-chart-0.8.31.tgz#12af0382e8284ecbcb16ea080dd7bfa938edb86c"
+  integrity sha512-QS28POgoCNdt7r946/KucPNAaa7NNQd6ugWNKcAYZqQthUgY72uOCw+MYaFnFraRX46KQEWjXsebcF+5007BDA==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.5.3"
+    "@kong-ui-public/analytics-utilities" "^0.7.1"
     approximate-number "^2.1.1"
     chart.js "^4.3.3"
     chartjs-adapter-date-fns "^3.0.0"
@@ -860,23 +860,24 @@
     uuid "^9.0.0"
     vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-metric-provider@1.1.17":
-  version "1.1.17"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.17.tgz#6952bd736e1e0817b2e82546b4b052914ccfa31a"
-  integrity sha512-XndaSJGKnVQyz6y2s8kPaRvmv5rzNdMlNv8jhxgb44HXWwLj8vE4Xqf2OqWgkbL62/5yIEFW1kt3VB8y0cQKMw==
+"@kong-ui-public/analytics-metric-provider@1.1.22":
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.22.tgz#08a9829d99e34cece68b4958f7a584afaa6be5d5"
+  integrity sha512-avI6PEg004zUzpmHAZU8hQh8QbwJoza+HXEyRLuo2XUysqfDJWe0IAcans51Ons5bFGI7DoMWo7WuiIS40FY1Q==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.5.3"
+    "@kong-ui-public/analytics-utilities" "^0.7.1"
     "@kong-ui-public/core" "1.1.0"
     "@kong-ui-public/metric-cards" "0.2.14"
     axios "^1.4.0"
     swrv "^1.0.4"
 
-"@kong-ui-public/analytics-utilities@0.5.3", "@kong-ui-public/analytics-utilities@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.5.3.tgz#e47ed1c02fb0d9041e15d35eb866ab24efce73d7"
-  integrity sha512-etXGp/DrVxmnmko5Cx308oZ2lBOxq/zsAbmfzkPVDL9xOcJ0De3ni6TVpsX3JUtrSv05rnwZpyTLxpU66nuGQg==
+"@kong-ui-public/analytics-utilities@0.7.1", "@kong-ui-public/analytics-utilities@^0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.7.1.tgz#c351396b85244a9d6445348d5f58da3c25e2d20c"
+  integrity sha512-XYdRAdyvai+yAQuRiJgosJIzYXtFfwTfx+8Ew0zdr1hnAwkaLiFB6mH8KQWSDjjOIqD5FqxN3CiNcrIVkZU8yQ==
   dependencies:
     date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
 
 "@kong-ui-public/copy-uuid@1.1.5":
   version "1.1.5"
