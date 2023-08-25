@@ -149,6 +149,8 @@ Please follow the following branch naming scheme when creating your branch:
 
 This repo uses [Semantic Release](https://github.com/semantic-release/semantic-release) for automated releases once per week. The release is triggered by a GitHub Action on the `main` branch. The release is based on the commit messages, so please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
+## [Translations guidelines](./src/locales/README.md)
+
 ## Join the Community
 
 * Join the Kong discussions at the Kong Nation forum: [https://discuss.konghq.com/](https://discuss.konghq.com/)

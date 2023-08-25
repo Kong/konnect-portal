@@ -21,3 +21,5 @@ export const locales: Record<DefinedLocales, I18nType> = {
   es_ES,
   fr
 }
+
+export function translationNeeded (str: string) { return str }

@@ -1,4 +1,6 @@
 import { I18nType } from './i18n-type'
+import { translationNeeded } from '@/locales/index'
+import { en } from '@/locales/en'
 
 export const ca_ES: I18nType = {
   login: {
@@ -38,9 +40,9 @@ export const ca_ES: I18nType = {
   productVersion: {
     deprecatedWarningProduct: "Aquesta versió del producte ja no està vigent. Els punts d'interacció seguiran sent totalment funcionals fins que aquesta versió sigui retirada.",
     unableToRetrieveDoc: 'No es pot recuperar la documentació',
-    noProductVersionsDetail: 'This has not been translated',
-    noProductVersionsTitle: 'This has not been translated',
-    registerProductVersion: 'This has not been translated'
+    noProductVersionsDetail: translationNeeded(en.productVersion.noProductVersionsDetail),
+    noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
+    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
   },
   userDropdown: {
     myApps: 'Les meves aplicacions',
@@ -125,30 +127,30 @@ export const ca_ES: I18nType = {
     headerDescription4: 'Copieu aquest valor i guardeu-lo per a les vostres referències.'
   },
   analytics: {
-    filterLabelProductVersions: 'This has not been translated',
-    chartOverview: 'This has not been translated',
-    chartTitleRequests: 'This has not been translated',
-    chartTitleLatency: 'This has not been translated',
-    chartTitle4xxProductVersion: 'This has not been translated',
-    chartTitle5xxProductVersion: 'This has not been translated',
-    chartTitle4xxStatusCode: 'This has not been translated',
-    chartTitle5xxStatusCode: 'This has not been translated',
-    dashboard: 'This has not been translated',
-    resultsLimited: 'This has not been translated',
-    notAvailable: 'This has not been translated',
-    sectionCurrent: 'This has not been translated',
-    sectionLast: 'This has not been translated',
-    sectionPrevious: 'This has not been translated',
-    selectDateRange: 'This has not been translated',
-    selectProductVersions: 'This has not been translated',
-    summary: 'This has not been translated',
-    summary24Hours: 'This has not been translated',
-    summary30Days: 'This has not been translated',
-    summaryTooltip: (timespan: string) => `This ${timespan} has not been translated`,
-    timeRange: 'This has not been translated',
-    totalRequests: 'This has not been translated',
-    unableToFetch: (itemName: string) => `This has not been translaed ${itemName}`,
-    viewAnalytics: 'This has not been translateds'
+    filterLabelProductVersions: translationNeeded(en.analytics.filterLabelProductVersions),
+    chartOverview: translationNeeded(en.analytics.chartOverview),
+    chartTitleRequests: translationNeeded(en.analytics.chartTitleRequests),
+    chartTitleLatency: translationNeeded(en.analytics.chartTitleLatency),
+    chartTitle4xxProductVersion: translationNeeded(en.analytics.chartTitle4xxProductVersion),
+    chartTitle5xxProductVersion: translationNeeded(en.analytics.chartTitle5xxProductVersion),
+    chartTitle4xxStatusCode: translationNeeded(en.analytics.chartTitle4xxStatusCode),
+    chartTitle5xxStatusCode: translationNeeded(en.analytics.chartTitle5xxStatusCode),
+    dashboard: translationNeeded(en.analytics.dashboard),
+    resultsLimited: translationNeeded(en.analytics.resultsLimited),
+    notAvailable: translationNeeded(en.analytics.notAvailable),
+    sectionCurrent: translationNeeded(en.analytics.sectionCurrent),
+    sectionLast: translationNeeded(en.analytics.sectionLast),
+    sectionPrevious: translationNeeded(en.analytics.sectionPrevious),
+    selectDateRange: translationNeeded(en.analytics.selectDateRange),
+    selectProductVersions: translationNeeded(en.analytics.selectProductVersions),
+    summary: translationNeeded(en.analytics.summary),
+    summary24Hours: translationNeeded(en.analytics.summary24Hours),
+    summary30Days: translationNeeded(en.analytics.summary30Days),
+    summaryTooltip: (timespan: string) => translationNeeded(en.analytics.summaryTooltip(timespan)),
+    timeRange: translationNeeded(en.analytics.timeRange),
+    totalRequests: translationNeeded(en.analytics.totalRequests),
+    unableToFetch: (itemName: string) => translationNeeded(en.analytics.unableToFetch(itemName)),
+    viewAnalytics: translationNeeded(en.analytics.viewAnalytics)
   },
   productList: {
     titleProducts: 'Productes',
@@ -204,8 +206,8 @@ export const ca_ES: I18nType = {
     isEmail: "L'adreça de correu electrònic ha de ser una adreça vàlida"
   },
   apiDocumentation: {
-    emptyTitle: 'This has not been translated',
-    emptyMessage: 'This has not been translated',
+    emptyTitle: translationNeeded(en.apiDocumentation.emptyTitle),
+    emptyMessage: translationNeeded(en.apiDocumentation.emptyMessage),
     error: {
       description: "S'ha produït un error inesperat en carregar el document sol·licitat.Si us plau, torneu- ho a provar més tard",
       linkText: 'Tornar a la pàgina inicial →'
@@ -218,7 +220,7 @@ export const ca_ES: I18nType = {
     linkText: 'Tornar a la pàgina inicial →'
   },
   sidebar: {
-    noVersions: 'This has not been translated',
+    noVersions: translationNeeded(en.sidebar.noVersions),
     deprecated: ' (Desactivat)',
     noResultsProduct: 'Sense versions de producte'
   },
