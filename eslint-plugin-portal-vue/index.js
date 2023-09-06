@@ -15,14 +15,14 @@ const configs = {
     rules: Object.fromEntries(
       ruleFiles.map(file => [
         `${projectName}/${path.basename(file, '.js')}`,
-        'error',
-      ]),
-    ),
-  },
+        'error'
+      ])
+    )
+  }
 }
 
 const rules = Object.fromEntries(
-  ruleFiles.map(file => [path.basename(file, '.js'), require('./' + file)]),
+  ruleFiles.map(file => [path.basename(file, '.js'), require('./' + file)])
 )
 
 module.exports = { configs, rules }
