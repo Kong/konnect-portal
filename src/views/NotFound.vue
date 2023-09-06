@@ -6,9 +6,9 @@
     >
       <div>
         <img
+          :alt="helpText.logoAlt"
           class="logo"
           :src="logoSrc"
-          :alt="helpText.logoAlt"
         >
       </div>
 
@@ -41,7 +41,7 @@ import { useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'NotFound',
-  setup () {
+  setup() {
     const { portalApiV2 } = usePortalApi()
 
     const logoSrc = portalApiV2.value.getApiLink('/api/v2/portal/logo')
@@ -49,9 +49,9 @@ export default defineComponent({
 
     return {
       logoSrc,
-      helpText
+      helpText,
     }
-  }
+  },
 })
 </script>
 

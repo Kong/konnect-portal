@@ -16,8 +16,8 @@
         }"
       >
         <a
-          :href="`#${item.slug}`"
           class="noZensmooth"
+          :href="`#${item.slug}`"
           @click="handleClick"
         >
           {{ item.title }}
@@ -32,9 +32,9 @@ import { useI18nStore } from '@/stores'
 import { PropType, defineComponent, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 type ItemType = {
-    level: number;
-    slug: string;
-    title: string;
+  level: number;
+  slug: string;
+  title: string;
 }[]
 
 export default defineComponent({
@@ -42,10 +42,10 @@ export default defineComponent({
   props: {
     items: {
       type: Array as PropType<ItemType>,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup () {
+  setup() {
     const helpText = useI18nStore().state.helpText.apiDocumentation.sections
     const route = useRoute()
     const router = useRouter()
@@ -53,7 +53,7 @@ export default defineComponent({
     const activeHeading = ref(route.hash.slice(1))
 
     // this click handler updates the active styling of the header in the sidebar
-    function handleClick (e) {
+    function handleClick(e) {
       if (e.target instanceof HTMLAnchorElement) {
         e.preventDefault()
         const targetHash = `#${e.target.href.split('#')[1]}`
@@ -84,9 +84,9 @@ export default defineComponent({
     return {
       helpText,
       activeHeading,
-      handleClick
+      handleClick,
     }
-  }
+  },
 })
 </script>
 

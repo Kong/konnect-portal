@@ -1,14 +1,14 @@
 <template>
   <div class="max-w-screen-2xl mx-auto">
     <KTable
+      disable-pagination
       :fetcher="fetcher"
       :fetcher-cache-key="fetcherCacheKey"
       has-side-border
       :headers="tableHeaders"
-      is-small
-      :is-loading="loading"
       is-clickable
-      disable-pagination
+      :is-loading="loading"
+      is-small
       @row:click="handleRowClick"
     >
       <template #title="{ rowValue }">
@@ -18,9 +18,9 @@
         <div>
           <KBadge
             v-if="row.latestVersion"
-            color="var(--text_colors-secondary)"
             background-color="var(--section_colors-accent)"
             class="product-version"
+            color="var(--text_colors-secondary)"
           >
             {{ row.latestVersion.name }}
           </KBadge>
@@ -28,15 +28,15 @@
       </template>
       <template #links="{ row }">
         <router-link
-          :to="{ name: 'spec', params: { product: row.id } }"
           class="link"
+          :to="{ name: 'spec', params: { product: row.id } }"
         >
           {{ helpText.specificationLink }}
         </router-link>
         <router-link
           v-if="row.documentCount"
-          :to="{ name: 'api-documentation-page', params: { product: row.id } }"
           class="link"
+          :to="{ name: 'api-documentation-page', params: { product: row.id } }"
         >
           {{ helpText.documentationLink }}
         </router-link>
@@ -55,14 +55,14 @@ export default defineComponent({
   props: {
     products: {
       type: Array as PropType<CatalogItemModel[]>,
-      default: () => []
+      default: () => [],
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  setup (props) {
+  setup(props) {
     const $router = useRouter()
     const helpText = useI18nStore().state.helpText.catalogTable
     const key = ref(0)
@@ -71,14 +71,14 @@ export default defineComponent({
       key.value += 1
     }
 
-    function handleRowClick (e, row) {
+    function handleRowClick(e, row) {
       $router.push({ path: `/spec/${row.id}` })
     }
 
-    function fetcher () {
+    function fetcher() {
       return {
         total: props.products.length,
-        data: props.products
+        data: props.products,
       }
     }
 
@@ -90,19 +90,19 @@ export default defineComponent({
       handleRowClick,
       fetcher,
       fetcherCacheKey,
-      helpText
+      helpText,
     }
   },
-  data () {
+  data() {
     return {
       tableHeaders: [
         { label: 'Title', key: 'title' },
         { label: 'Description', key: 'description' },
         { label: 'Latest Version', key: 'latestVersion' },
-        { label: 'Details', key: 'links' }
-      ]
+        { label: 'Details', key: 'links' },
+      ],
     }
-  }
+  },
 })
 </script>
 

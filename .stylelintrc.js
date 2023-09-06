@@ -1,5 +1,6 @@
+// Add allowed CSS custom property prefixes here as needed from the Appearance API
 const allowedCssCustomPropertyPattern = '^(kui-|kong-ui-|text_colors|button_colors|section_colors).+$'
-const allowedCssCustomPropertyMessage = "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-' or to have one of the following prefixes '--kong-ui-', '--text_colors', '--button_colors', '--section_colors'"
+const allowedCssCustomPropertyMessage = "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-' or to have one of the following prefixes: '--kong-ui-', '--text_colors', '--button_colors', '--section_colors'"
 
 module.exports = {
   extends: [

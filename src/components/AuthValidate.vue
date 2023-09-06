@@ -37,10 +37,10 @@ export default defineComponent({
         }
 
         return requestedKrnDictionaryIsValid
-      }
-    }
+      },
+    },
   },
-  setup (props, { slots }) {
+  setup(props, { slots }) {
     const { canUserAccess } = usePermissionsStore()
     const accessDictionary = ref({})
 
@@ -52,11 +52,11 @@ export default defineComponent({
       if (objectIsKrnArg(props.krnArgs)) {
         if (krnArgIsValid(props.krnArgs)) {
           tempAccessDictionary = {
-            isAllowed: await canUserAccess(props.krnArgs)
+            isAllowed: await canUserAccess(props.krnArgs),
           }
         } else {
           tempAccessDictionary = {
-            isAllowed: false
+            isAllowed: false,
           }
         }
       } else {
@@ -83,9 +83,9 @@ export default defineComponent({
     })
 
     return () => slots && slots.default({
-      ...accessDictionary.value
+      ...accessDictionary.value,
     })
-  }
+  },
 
 })
 </script>

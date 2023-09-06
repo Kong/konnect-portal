@@ -18,14 +18,14 @@ export const chartQueryTrafficRequests: DruidQuery = {
   dimensions: ['TIME', 'API_PRODUCT_VERSION'],
   metrics: ['REQUEST_COUNT'],
   meta: { query_id: 'portal-chart-traffic' },
-  filter: []
+  filter: [],
 }
 
 export const chartQueryTrafficLatency: DruidQuery = {
   dimensions: ['TIME', 'API_PRODUCT_VERSION'],
   metrics: ['RESPONSE_LATENCY_P99'],
   meta: { query_id: 'portal-chart-latency' },
-  filter: []
+  filter: [],
 }
 
 export const chartQueryProductVersions4xx: DruidQuery = {
@@ -35,8 +35,8 @@ export const chartQueryProductVersions4xx: DruidQuery = {
   filter: [{
     type: 'IN',
     dimension: 'STATUS_CODE_GROUPED',
-    values: ['4XX']
-  }]
+    values: ['4XX'],
+  }],
 }
 
 export const chartQueryProductVersions5xx: DruidQuery = {
@@ -46,8 +46,8 @@ export const chartQueryProductVersions5xx: DruidQuery = {
   filter: [{
     type: 'IN',
     dimension: 'STATUS_CODE_GROUPED',
-    values: ['5XX']
-  }]
+    values: ['5XX'],
+  }],
 }
 
 export const chartQueryStatusCode4xx: DruidQuery = {
@@ -57,8 +57,8 @@ export const chartQueryStatusCode4xx: DruidQuery = {
   filter: [{
     type: 'IN',
     dimension: 'STATUS_CODE_GROUPED',
-    values: ['4XX']
-  }]
+    values: ['4XX'],
+  }],
 }
 
 export const chartQueryStatusCode5xx: DruidQuery = {
@@ -68,6 +68,6 @@ export const chartQueryStatusCode5xx: DruidQuery = {
   filter: [{
     type: 'IN',
     dimension: 'STATUS_CODE_GROUPED',
-    values: ['5XX']
-  }]
+    values: ['5XX'],
+  }],
 }

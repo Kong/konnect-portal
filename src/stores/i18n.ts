@@ -16,6 +16,6 @@ if (!locales[locale]) {
 
 export const useI18nStore = defineStore('i18n', {
   state: () => ({
-    state: { helpText: locales[locale] || locales[defaultLocale] }
-  })
+    state: { helpText: locales[locale] || locales[defaultLocale] },
+  }),
 })

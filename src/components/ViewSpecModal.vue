@@ -19,8 +19,8 @@
             -->
             <textarea
               id="spec-area"
-              :value="specContents"
               disabled
+              :value="specContents"
             />
           </code>
         </span>
@@ -28,31 +28,31 @@
       <template #footer-content>
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <KButton
-            class="copy"
             appearance="primary"
-            :is-rounded="false"
+            class="copy"
             data-testid="copy-btn"
+            :is-rounded="false"
             @click="copySpec(copyToClipboard)"
           >
             {{ helpText.copy }}
           </KButton>
         </KClipboardProvider>
         <KButton
-          class="ml-2"
           appearance="secondary"
-          :is-rounded="false"
+          class="ml-2"
           data-testid="download-btn"
+          :is-rounded="false"
           type="submit"
           @click="downloadCallback"
         >
           {{ helpText.download }}
         </KButton>
         <KButton
-          data-testid="close-btn"
+          appearance="secondary"
           class="close"
+          data-testid="close-btn"
           :is-rounded="false"
           style="margin-left: auto;"
-          appearance="secondary"
           @click="closeModal"
         >
           {{ helpText.close }}
@@ -72,20 +72,20 @@ const helpText = useI18nStore().state.helpText.viewSpecModal
 const props = defineProps({
   specName: {
     type: String,
-    default: ''
+    default: '',
   },
   specContents: {
     type: String,
-    default: ''
+    default: '',
   },
   isVisible: {
     type: Boolean,
-    default: false
+    default: false,
   },
   downloadCallback: {
     type: Function as PropType<() => void>,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const emit = defineEmits(['close'])
@@ -100,12 +100,12 @@ const copySpec = (executeCopy) => {
   if (!executeCopy(props.specContents)) {
     notify({
       appearance: 'danger',
-      message: helpText.copyError
+      message: helpText.copyError,
     })
   }
 
   notify({
-    message: helpText.copySuccess
+    message: helpText.copySuccess,
   })
 }
 </script>

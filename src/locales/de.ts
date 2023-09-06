@@ -9,7 +9,7 @@ export const de: I18nType = {
     successButton: 'OK',
     missingCredentials: 'Bitte Ihre Zugangsdaten eingeben',
     missingAccount: 'Noch kein Konto?',
-    signUp: 'Registrieren'
+    signUp: 'Registrieren',
   },
   forgotPassword: {
     successText: 'Bitte überprüfen Sie Ihre E-Mails auf einen Link zum Zurücksetzen Ihres Passworts. Wenn er nicht innerhalb weniger Minuten angezeigt wird, überprüfen Sie bitte Ihren Spam-Ordner.',
@@ -19,7 +19,7 @@ export const de: I18nType = {
     placeholderEmail: 'E-Mail',
     buttonIdle: 'E-Mail zum Zurücksetzen des Passworts senden',
     buttonSubmitting: 'Absenden',
-    missingEmail: 'Bitte geben Sie Ihre E-Mail-Adresse ein'
+    missingEmail: 'Bitte geben Sie Ihre E-Mail-Adresse ein',
   },
   resetPassword: {
     successText: 'Ihr Passwort wurde erfolgreich zurückgesetzt.',
@@ -30,26 +30,26 @@ export const de: I18nType = {
     buttonIdle: 'Passwort ändern',
     buttonSubmitting: 'Absenden',
     confirmPasswordFail: 'Die Passwörter müssen übereinstimmen',
-    missingPassword: 'Passwort darf nicht leer sein'
+    missingPassword: 'Passwort darf nicht leer sein',
   },
   registration: {
     successText: 'Bitte überprüfen Sie Ihre E-Mails, um Ihre Adresse zu bestätigen.',
     alreadyCreated: 'Besitzen Sie bereits ein Konto?',
-    login: 'Hier anmelden'
+    login: 'Hier anmelden',
   },
   productVersion: {
     deprecatedWarningProduct: 'Diese Produktversion ist veraltet. Die Endpunkte bleiben voll funktionsfähig, bis diese Version eingestellt wird.',
     unableToRetrieveDoc: 'Keine Dokumentation verfügbar',
     noProductVersionsDetail: translationNeeded(en.productVersion.noProductVersionsDetail),
     noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
-    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
+    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion),
   },
   userDropdown: {
     myApps: 'Meine Applikationen',
-    logout: 'Abmelden'
+    logout: 'Abmelden',
   },
   sectionOverview: {
-    title: 'Übersicht'
+    title: 'Übersicht',
   },
   viewSpecModal: {
     viewSpec: 'Spezifikation ansehen',
@@ -57,7 +57,7 @@ export const de: I18nType = {
     download: 'Herunterladen',
     close: 'Schließen',
     copySuccess: 'In die Zwischenablage kopiert',
-    copyError: 'ID konnte nicht in die Zwischenablage kopiert werden'
+    copyError: 'ID konnte nicht in die Zwischenablage kopiert werden',
   },
   credentials: {
     noCredentialsText: 'Keine Zugangsdaten',
@@ -69,16 +69,16 @@ export const de: I18nType = {
       continueButton: 'Generieren',
       inputLabel: 'Name',
       inputPlaceholder: 'Bitte Namen für die Zugangsdaten angeben',
-      cancelButton: 'Abbruch'
+      cancelButton: 'Abbruch',
     },
     revokeModal: {
       title: 'Zugangsdaten widerrufen',
       description: {
         start: 'Schlüssel',
-        end: ' wird widerrufen, diese Aktion kann nicht rückgängig gemacht werden.'
+        end: ' wird widerrufen, diese Aktion kann nicht rückgängig gemacht werden.',
       },
       revokeButton: 'Widerrufen',
-      cancelButton: 'Abbruch'
+      cancelButton: 'Abbruch',
     },
     renameModal: {
       actionLabel: 'Bearbeiten',
@@ -86,15 +86,15 @@ export const de: I18nType = {
       continueButton: 'Speichern',
       inputLabel: 'Name',
       inputPlaceholder: 'Neuer Name für die Zugangsdaten',
-      cancelButton: 'Abbruch'
+      cancelButton: 'Abbruch',
     },
     copyModal: {
       title: 'Zugangsdaten kopieren',
       continueButton: 'Bestätigen und kopieren',
       copyButtonLabel: 'Zugangsdaten: ',
       cancelButton: 'Abbruch',
-      hiddenCredentialsText: 'Die Zugangsdaten werden nur einmal angezeigt. Bitte kopieren und an einem sicheren Ort speichern.'
-    }
+      hiddenCredentialsText: 'Die Zugangsdaten werden nur einmal angezeigt. Bitte kopieren und an einem sicheren Ort speichern.',
+    },
   },
   application: {
     breadcrumbMyApps: 'Meine Applikationen',
@@ -118,13 +118,13 @@ export const de: I18nType = {
         label: 'Reference ID',
         help: 'Die Reference ID muss mit der Client ID der Applikation übereinstimmen, wenn Sie OpenID verwenden',
         placeholder: 'ID eingeben oder generieren',
-        generate: 'Generieren'
-      }
+        generate: 'Generieren',
+      },
     },
     headerDescription1: 'Client-Infimationen für Ihre Applikation ',
     headerDescription2: '. Das Client Secret wird ',
     headerDescription3: 'nur einmal angezeigt.',
-    headerDescription4: 'Bitte kopieren und an einem sicheren Ort speichern.'
+    headerDescription4: 'Bitte kopieren und an einem sicheren Ort speichern.',
   },
   analytics: {
     filterLabelProductVersions: translationNeeded(en.analytics.filterLabelProductVersions),
@@ -150,28 +150,28 @@ export const de: I18nType = {
     timeRange: translationNeeded(en.analytics.timeRange),
     totalRequests: translationNeeded(en.analytics.totalRequests),
     unableToFetch: (itemName: string) => translationNeeded(en.analytics.unableToFetch(itemName)),
-    viewAnalytics: translationNeeded(en.analytics.viewAnalytics)
+    viewAnalytics: translationNeeded(en.analytics.viewAnalytics),
   },
   productList: {
     titleProducts: 'Produkte',
     actions: {
-      unregister: 'Registrierung aufheben'
+      unregister: 'Registrierung aufheben',
     },
     emptyState: {
       titleProducts: 'Keine Produkte',
       viewCatalog1: 'Katalog ansehen, um sich für ein',
-      viewCatalog2Product: ' Produkt zu registrieren.'
+      viewCatalog2Product: ' Produkt zu registrieren.',
     },
     labels: {
       nameProduct: 'Produkt',
       version: 'Version',
       status: 'Status',
-      actions: 'Aktionen'
-    }
+      actions: 'Aktionen',
+    },
   },
   dcrAuthentication: {
     authentication: 'Authentifizierung',
-    refreshToken: 'Token erneuern'
+    refreshToken: 'Token erneuern',
   },
   refreshTokenModal: {
     title: 'Secret der Applikation',
@@ -179,7 +179,7 @@ export const de: I18nType = {
     description1: 'Hier ist das neue Secret für Ihre Applikation. Das Client Secret wird ',
     description2: 'nur einmal angezeigt. ',
     description3: 'Bitte kopieren und an einem sicheren Ort speichern.',
-    secret: 'Secret: '
+    secret: 'Secret: ',
   },
   applicationRegistration: {
     noAvailableApplications: 'Aktuell haben Sie noch keine Applikationen registriert.',
@@ -191,55 +191,55 @@ export const de: I18nType = {
     registeredApplicationsProduct: 'Die folgenden Applikationen sind bereits für dieses Produkt registriert:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Für ${serviceName} - ${productVersion} registrieren`,
-      buttonText: 'Zugriff anfragen'
+      buttonText: 'Zugriff anfragen',
     },
     modalApplicationRegistrationStatusIsPending: {
       title: 'Anfrage zur Registrierung für diesen Service wird geprüft',
       body: 'Sie werden benachrichtigt, sobald die Anfrage genehmigt wurde.',
-      buttonText: 'Schließen'
-    }
+      buttonText: 'Schließen',
+    },
   },
   defaultForm: {
-    missingFields: 'Bitte alle Pflichtfelder ausfüllen'
+    missingFields: 'Bitte alle Pflichtfelder ausfüllen',
   },
   validationErrors: {
-    isEmail: 'E-Mail ist ungültig'
+    isEmail: 'E-Mail ist ungültig',
   },
   apiDocumentation: {
     emptyTitle: translationNeeded(en.apiDocumentation.emptyTitle),
     emptyMessage: translationNeeded(en.apiDocumentation.emptyMessage),
     error: {
       description: 'Ein unerwarteter Fehler ist aufgetreten, als versucht wurde, das angeforderte Dokument zu laden. Bitte versuchen Sie es später noch einmal',
-      linkText: 'Zurück zum Start →'
+      linkText: 'Zurück zum Start →',
     },
     sections: {
-      onThisPage: 'Auf dieser Seite'
-    }
+      onThisPage: 'Auf dieser Seite',
+    },
   },
   errorWrapper: {
-    linkText: 'Zurück zum Start →'
+    linkText: 'Zurück zum Start →',
   },
   sidebar: {
     noVersions: translationNeeded(en.sidebar.noVersions),
     deprecated: ' (Veraltet)',
-    noResultsProduct: 'Keine Produktversionen'
+    noResultsProduct: 'Keine Produktversionen',
   },
   catalog: {
     entityTypeProduct: 'Produkt',
-    noResultsProduct: 'Keine Produkte gefunden'
+    noResultsProduct: 'Keine Produkte gefunden',
   },
   catalogItem: {
     latestVersion: 'Aktuelle Version:',
     specificationLink: 'Spezifikation',
-    documentationLink: 'Dokumentation'
+    documentationLink: 'Dokumentation',
   },
   catalogTable: {
     specificationLink: 'Spezifikation',
-    documentationLink: 'Dokumentation'
+    documentationLink: 'Dokumentation',
   },
   products: {
     search: 'Suche',
-    searching: 'Suchen...'
+    searching: 'Suchen...',
   },
   copyButton: {
     clickToCopy: 'Zum Kopieren klicken',
@@ -247,35 +247,35 @@ export const de: I18nType = {
     ariaLabel: 'Inhalt in die Zwischenablage kopieren',
     copyFailed: {
       start: 'Kopiervorgang fehlgeschlagen:',
-      end: ''
+      end: '',
     },
     copySucceeded: {
       start: '"',
-      end: '" in die Zwischenablage kopiert'
-    }
+      end: '" in die Zwischenablage kopiert',
+    },
   },
   nav: {
     catalog: 'Katalog',
     breadcrumbProduct: 'Produkt',
     breadcrumbDocumentation: 'Dokumentation',
-    logoAlt: 'Logo'
+    logoAlt: 'Logo',
   },
   authCard: {
-    logoAlt: 'Logo'
+    logoAlt: 'Logo',
   },
   forbidden: {
     logoAlt: 'Logo',
     http403: '403',
     goBack: 'Zurück',
     sorryMessage: 'Sie sind nicht berechtigt, diese Seite anzuzeigen.',
-    home: 'Startseite'
+    home: 'Startseite',
   },
   notFound: {
     http404: '404',
     goBack: 'Zurück',
     sorryMessage: 'Die Seite, die Sie suchen, wurde nicht gefunden.',
     home: 'Startseite',
-    logoAlt: 'Logo'
+    logoAlt: 'Logo',
   },
   myApp: {
     newApp: 'Neue Applikation',
@@ -287,7 +287,7 @@ export const de: I18nType = {
     noApp: 'Keine Applikationen',
     create: 'Neue Applikation anlegen',
     getStarted: ' um loszulegen',
-    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`
+    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`,
   },
   router: {
     portalTitle: 'Entwicklerportal',
@@ -305,6 +305,6 @@ export const de: I18nType = {
     updateAppTitle: 'Applikation bearbeiten',
     notFoundTitle: 'Nicht gefunden',
     forbiddenTitle: 'Zugriff verweigert',
-    errorTitle: 'Fehler'
-  }
+    errorTitle: 'Fehler',
+  },
 }

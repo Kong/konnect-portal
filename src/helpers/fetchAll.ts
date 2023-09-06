@@ -1,7 +1,7 @@
-export async function fetchAll (fn: (meta: { pageNumber: number, pageSize: number}) => any) {
+export async function fetchAll(fn: (meta: { pageNumber: number, pageSize: number}) => any) {
   const meta = {
     pageSize: 100,
-    pageNumber: 1
+    pageNumber: 1,
   }
 
   const { data } = await fn(meta)

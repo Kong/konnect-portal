@@ -9,7 +9,7 @@ export const es_ES: I18nType = {
     successButton: 'OK',
     missingCredentials: 'Por favor, introduce tus credenciales de inicio de sesión',
     missingAccount: '¿No estás registrado?',
-    signUp: 'Regístrate'
+    signUp: 'Regístrate',
   },
   forgotPassword: {
     successText: 'Revisa tu correo electrónico para obtener un enlace que te permita restablecer tu contraseña. Si no aparece en unos minutos, revisa tu carpeta de correo no deseado.',
@@ -19,7 +19,7 @@ export const es_ES: I18nType = {
     placeholderEmail: 'Email',
     buttonIdle: 'Enviar correo electrónico para restablecer la contraseña',
     buttonSubmitting: 'Enviando',
-    missingEmail: 'Por favor, introduce tu dirección de correo electrónico'
+    missingEmail: 'Por favor, introduce tu dirección de correo electrónico',
   },
   resetPassword: {
     successText: 'Contraseña restablecida correctamente.',
@@ -30,26 +30,26 @@ export const es_ES: I18nType = {
     buttonIdle: 'Cambiar contraseña',
     buttonSubmitting: 'Enviando',
     confirmPasswordFail: 'Las contraseñas deben coincidir',
-    missingPassword: 'Las contraseñas son obligatorias'
+    missingPassword: 'Las contraseñas son obligatorias',
   },
   registration: {
     successText: 'Por favor, revisa tu correo electrónico para confirmar tu dirección.',
     alreadyCreated: '¿Ya tienes una cuenta?',
-    login: 'Inicia sesión aquí'
+    login: 'Inicia sesión aquí',
   },
   productVersion: {
     deprecatedWarningProduct: 'Esta versión del producto está obsoleta. La interfaz seguirá siendo totalmente utilizable hasta que esta versión se elimine.',
     unableToRetrieveDoc: 'No se puede recuperar la documentación',
     noProductVersionsDetail: translationNeeded(en.productVersion.noProductVersionsDetail),
     noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
-    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
+    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion),
   },
   userDropdown: {
     myApps: 'Mis aplicaciones',
-    logout: 'Cerrar sesión'
+    logout: 'Cerrar sesión',
   },
   sectionOverview: {
-    title: 'Descripción general'
+    title: 'Descripción general',
   },
   viewSpecModal: {
     viewSpec: 'Ver especificación',
@@ -57,7 +57,7 @@ export const es_ES: I18nType = {
     download: 'Descargar',
     close: 'Cerrar',
     copySuccess: 'Copiado al portapapeles',
-    copyError: 'Error al copiar el ID al portapapeles'
+    copyError: 'Error al copiar el ID al portapapeles',
   },
   credentials: {
     noCredentialsText: 'Sin credenciales',
@@ -69,16 +69,16 @@ export const es_ES: I18nType = {
       continueButton: 'Generar',
       inputLabel: 'Nombre',
       inputPlaceholder: 'Proporciona un nombre para esta credencial',
-      cancelButton: 'Cancelar'
+      cancelButton: 'Cancelar',
     },
     revokeModal: {
       title: 'Revocar la credencial',
       description: {
         start: 'Credencial ',
-        end: ' será revocada. Esta acción no puede deshacerse.'
+        end: ' será revocada. Esta acción no puede deshacerse.',
       },
       revokeButton: 'Revocar',
-      cancelButton: 'Cancelar'
+      cancelButton: 'Cancelar',
     },
     renameModal: {
       actionLabel: 'Editar',
@@ -86,15 +86,15 @@ export const es_ES: I18nType = {
       continueButton: 'Guardar',
       inputLabel: 'Nombre',
       inputPlaceholder: 'Proporciona un nuevo nombre para esta credencial',
-      cancelButton: 'Cancelar'
+      cancelButton: 'Cancelar',
     },
     copyModal: {
       title: 'Copiar credencial',
       continueButton: 'Confirmar y copiar',
       copyButtonLabel: 'Credencial: ',
       cancelButton: 'Cancelar',
-      hiddenCredentialsText: 'Solo podrás copiar esta credencial una vez. Cópiala y guárdala en un lugar seguro.'
-    }
+      hiddenCredentialsText: 'Solo podrás copiar esta credencial una vez. Cópiala y guárdala en un lugar seguro.',
+    },
   },
   application: {
     breadcrumbMyApps: 'Mis aplicaciones',
@@ -118,13 +118,13 @@ export const es_ES: I18nType = {
         label: 'ID de referencia',
         help: 'Al usar OpenID, debe coincidir con el ID de cliente de la entidad que representa a la aplicación en tu proveedor de identidad.',
         placeholder: 'Proporciona o genera un ID',
-        generate: 'Generar'
-      }
+        generate: 'Generar',
+      },
     },
     headerDescription1: 'Aquí está la información del cliente para tu aplicación llamada ',
     headerDescription2: '. La clave secreta del cliente será ',
     headerDescription3: 'mostrada solamente una vez.',
-    headerDescription4: 'Por favor, asegúrate de copiar este valor y guardarlo en un lugar seguro.'
+    headerDescription4: 'Por favor, asegúrate de copiar este valor y guardarlo en un lugar seguro.',
   },
   analytics: {
     filterLabelProductVersions: translationNeeded(en.analytics.filterLabelProductVersions),
@@ -150,28 +150,28 @@ export const es_ES: I18nType = {
     timeRange: translationNeeded(en.analytics.timeRange),
     totalRequests: translationNeeded(en.analytics.totalRequests),
     unableToFetch: (itemName: string) => translationNeeded(en.analytics.unableToFetch(itemName)),
-    viewAnalytics: translationNeeded(en.analytics.viewAnalytics)
+    viewAnalytics: translationNeeded(en.analytics.viewAnalytics),
   },
   productList: {
     titleProducts: 'Productos',
     actions: {
-      unregister: 'Cancelar registro'
+      unregister: 'Cancelar registro',
     },
     emptyState: {
       titleProducts: 'Sin productos',
       viewCatalog1: 'Ver el catálogo',
-      viewCatalog2Product: 'para registrarte a un producto.'
+      viewCatalog2Product: 'para registrarte a un producto.',
     },
     labels: {
       nameProduct: 'Producto',
       version: 'Versión',
       status: 'Estado',
-      actions: 'Acciones'
-    }
+      actions: 'Acciones',
+    },
   },
   dcrAuthentication: {
     authentication: 'Autenticación',
-    refreshToken: 'Token de actualización'
+    refreshToken: 'Token de actualización',
   },
   refreshTokenModal: {
     title: 'Clave secreta de la aplicación',
@@ -179,7 +179,7 @@ export const es_ES: I18nType = {
     description1: 'Esta es la nueva clave secreta para tu aplicación. La clave secreta del cliente ',
     description2: 'será mostrada una vez solamente. ',
     description3: 'Por favor, asegúrate de copiar este valor y guardarlo en un lugar seguro.',
-    secret: 'Clave secreta: '
+    secret: 'Clave secreta: ',
   },
   applicationRegistration: {
     noAvailableApplications: 'Actualmente no hay aplicaciones disponibles para registrarse.',
@@ -191,55 +191,55 @@ export const es_ES: I18nType = {
     registeredApplicationsProduct: 'Las siguientes aplicaciones ya están registradas para este producto:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Registro para ${serviceName} - ${productVersion}`,
-      buttonText: 'Soliciar acceso'
+      buttonText: 'Soliciar acceso',
     },
     modalApplicationRegistrationStatusIsPending: {
       title: 'Solicitud de acceso pendiente de revisión',
       body: 'Recibirás un correo electrónico en caso de que tu solicitud sea aprobada.',
-      buttonText: 'Cerrar'
-    }
+      buttonText: 'Cerrar',
+    },
   },
   defaultForm: {
-    missingFields: 'Por favor, rellena todos los campos obligatorios.'
+    missingFields: 'Por favor, rellena todos los campos obligatorios.',
   },
   validationErrors: {
-    isEmail: 'El correo electrónico debe ser una dirección de correo electrónico válida'
+    isEmail: 'El correo electrónico debe ser una dirección de correo electrónico válida',
   },
   apiDocumentation: {
     emptyTitle: translationNeeded(en.apiDocumentation.emptyTitle),
     emptyMessage: translationNeeded(en.apiDocumentation.emptyMessage),
     error: {
       description: 'Ocurrió un error inesperado al intentar cargar el documento. Por favor, inténtalo de nuevo más tarde',
-      linkText: 'Regresar al inicio →'
+      linkText: 'Regresar al inicio →',
     },
     sections: {
-      onThisPage: 'En esta página'
-    }
+      onThisPage: 'En esta página',
+    },
   },
   errorWrapper: {
-    linkText: 'Regresar al inicio →'
+    linkText: 'Regresar al inicio →',
   },
   sidebar: {
     noVersions: translationNeeded(en.sidebar.noVersions),
     deprecated: ' (Obsoleto)',
-    noResultsProduct: 'No hay versiones del producto'
+    noResultsProduct: 'No hay versiones del producto',
   },
   catalog: {
     entityTypeProduct: 'Producto',
-    noResultsProduct: 'No hay productos disponibles'
+    noResultsProduct: 'No hay productos disponibles',
   },
   catalogItem: {
     latestVersion: 'Última versión: ',
     specificationLink: 'Especificación',
-    documentationLink: 'Documentación'
+    documentationLink: 'Documentación',
   },
   catalogTable: {
     specificationLink: 'Especificación',
-    documentationLink: 'Documentación'
+    documentationLink: 'Documentación',
   },
   products: {
     search: 'Buscar',
-    searching: 'Buscando...'
+    searching: 'Buscando...',
   },
   copyButton: {
     clickToCopy: 'Haz clic para copiar',
@@ -247,35 +247,35 @@ export const es_ES: I18nType = {
     ariaLabel: 'Copiar el contenido del botón al portapapeles',
     copyFailed: {
       start: 'Error al copiar',
-      end: 'al portapapeles'
+      end: 'al portapapeles',
     },
     copySucceeded: {
       start: '"',
-      end: '" copiado al portapapeles'
-    }
+      end: '" copiado al portapapeles',
+    },
   },
   nav: {
     catalog: 'Catálogo',
     breadcrumbProduct: 'Producto',
     breadcrumbDocumentation: 'Documentación',
-    logoAlt: 'logo'
+    logoAlt: 'logo',
   },
   authCard: {
-    logoAlt: 'logo'
+    logoAlt: 'logo',
   },
   forbidden: {
     logoAlt: 'logo',
     http403: '403',
     goBack: 'Volver',
     sorryMessage: 'Lo sentimos. No estás autorizado para ver esta página.',
-    home: 'inicio'
+    home: 'inicio',
   },
   notFound: {
     http404: '404',
     goBack: 'Volver',
     sorryMessage: 'Lo sentimos. No podemos encontrar la página que estás buscando.',
     home: 'inicio',
-    logoAlt: 'logo'
+    logoAlt: 'logo',
   },
   myApp: {
     newApp: 'Nueva aplicación',
@@ -287,7 +287,7 @@ export const es_ES: I18nType = {
     noApp: 'No hay aplicaciones',
     create: 'Crear una nueva aplicación',
     getStarted: '  para empezar',
-    deleteDialog: (name: string) => `¿Estas seguro que quieres borrar ${name}? Esta acción no se puede deshacer.`
+    deleteDialog: (name: string) => `¿Estas seguro que quieres borrar ${name}? Esta acción no se puede deshacer.`,
   },
   router: {
     portalTitle: 'Portal de desarrolladores',
@@ -305,6 +305,6 @@ export const es_ES: I18nType = {
     updateAppTitle: 'Actualizar aplicación',
     notFoundTitle: 'No encontrado',
     forbiddenTitle: 'Prohibido',
-    errorTitle: 'Error'
-  }
+    errorTitle: 'Error',
+  },
 }

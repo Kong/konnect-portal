@@ -15,17 +15,17 @@ export const generateProducts = (count: number, options: Partial<ProductCatalogI
         document_count: 0,
         latest_version: generateLatestVersion(i),
         version_count: 1,
-        ...options[i] || {}
-      }
+        ...options[i] || {},
+      },
     })
   }
 
   return productsList
 }
 
-function generateLatestVersion (i: number): ProductCatalogIndexSourceLatestVersion {
+function generateLatestVersion(i: number): ProductCatalogIndexSourceLatestVersion {
   return {
     id: crypto.randomUUID(),
-    name: `v${i}`
+    name: `v${i}`,
   }
 }

@@ -57,7 +57,7 @@ export const objectIsKrnArg = (potentialKrnArgs) => {
   const values = Object.values(potentialKrnArgs)
 
   return keys.every(
-    (key) => key === 'service' || key === 'action' || key === 'resourcePath'
+    (key) => key === 'service' || key === 'action' || key === 'resourcePath',
   ) &&
   values.every(value => !!value)
 }

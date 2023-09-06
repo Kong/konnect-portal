@@ -1,4 +1,4 @@
-function cleanupEmptyFields (dataToTransform: Record<string, any>) {
+function cleanupEmptyFields(dataToTransform: Record<string, any>) {
   const data = {}
 
   Object.entries(dataToTransform).forEach(([key, value]) => {

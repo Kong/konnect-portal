@@ -1,6 +1,6 @@
 const absoluteUrlRegex = /^(?:[a-z+]+:)?\/\//i
 
-export function isExternalUrl (url: string) {
+export function isExternalUrl(url: string) {
   if (!absoluteUrlRegex.test(url)) {
     return false
   }

@@ -29,13 +29,13 @@ module.exports = {
     type: 'problem',
     docs: {
       description: `The setup root context is deprecated and not available in Vue 3. Do not extract the following properties from the root context: "${setupContextBlockList.join(',')}"`,
-      url: 'https://github.com/Kong/konnect-portal/blob/main/eslint-plugin-portal-vue/README.md#rules'
+      url: 'https://github.com/Kong/konnect-portal/blob/main/eslint-plugin-portal-vue/README.md#rules',
     },
-    fixable: null
+    fixable: null,
   },
-  create (context) {
+  create(context) {
     return {
-      Property (node) {
+      Property(node) {
         if (Object.hasOwn(node, 'key') && node.key.type === 'Identifier' && node.key.name.toLowerCase() === 'root') {
           if (Object.hasOwn(node, 'value') && node.value.type === 'ObjectPattern') {
             node.value.properties.forEach((property) => {
@@ -45,9 +45,9 @@ module.exports = {
                   loc: property.value.loc,
                   data: {
                     propertyName: property.key.name,
-                    usageExample: getUsageExample(property.key.name)
+                    usageExample: getUsageExample(property.key.name),
                   },
-                  message: 'Do not extract "{{ propertyName }}" from the setup root context as it is not available as of Vue 2.7. {{ usageExample }}'
+                  message: 'Do not extract "{{ propertyName }}" from the setup root context as it is not available as of Vue 2.7. {{ usageExample }}',
                 })
               }
             })
@@ -55,7 +55,7 @@ module.exports = {
         }
 
         return null
-      }
+      },
     }
-  }
+  },
 }

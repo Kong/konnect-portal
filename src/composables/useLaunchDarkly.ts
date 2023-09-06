@@ -7,7 +7,7 @@ const enableLD = import.meta.env.VITE_ENABLE_LAUNCH_DARKLY === 'true'
 
 let ldModule: any
 
-async function loadDeps () {
+async function loadDeps() {
   if (enableLD) {
     try {
       const modules = import.meta.glob('/node_modules/launchdarkly-js-client-sdk/dist/*es.js')
@@ -24,7 +24,7 @@ loadDeps()
 
 let ldClient: LDClient | undefined
 
-export default function useLaunchDarkly () {
+export default function useLaunchDarkly() {
   const appStore = useAppStore()
   const { featuresetId, portalId, orgId, featureSet } = storeToRefs(appStore)
 
@@ -37,7 +37,7 @@ export default function useLaunchDarkly () {
       ldClient = ldModule.initialize(
         featuresetId.value,
         getContext(),
-        { bootstrap: 'localStorage' }
+        { bootstrap: 'localStorage' },
       )
 
       await ldClient.waitUntilReady()
@@ -58,7 +58,7 @@ export default function useLaunchDarkly () {
         anonymous: false,
         featureSet: featureSet.value,
         portalId: portalId.value,
-        orgId: orgId.value
+        orgId: orgId.value,
       }
     } else {
       ldUser = {
@@ -66,7 +66,7 @@ export default function useLaunchDarkly () {
         // https://docs.launchdarkly.com/home/users/anonymous-users/?q=anonymous#tracking-anonymous-users-with-a-shared-key
         key: 'ANONYMOUS_USER',
         orgId: orgId.value,
-        portalId: portalId.value
+        portalId: portalId.value,
       }
     }
 
@@ -75,6 +75,6 @@ export default function useLaunchDarkly () {
 
   return {
     initialize,
-    ldClient
+    ldClient,
   }
 }

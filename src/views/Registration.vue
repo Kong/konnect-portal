@@ -3,10 +3,10 @@
     <!-- Kong Auth Element requires the wrapper with corresponding id attribute -->
     <div id="kong-auth-register-wrapper">
       <kong-auth-register
-        wrapper-id="kong-auth-register-wrapper"
+        register-button-text="Create Account"
         :register-request-endpoint="registerEndpoint"
         :wrap-request="wrapRegisterRequest"
-        register-button-text="Create Account"
+        wrapper-id="kong-auth-register-wrapper"
         @register-success="onRegisterSuccess"
       />
     </div>
@@ -45,9 +45,9 @@ import { useI18nStore, useAppStore } from '@/stores'
 export default defineComponent({
   name: 'Registration',
   components: {
-    AuthCard
+    AuthCard,
   },
-  setup () {
+  setup() {
     const helpText = useI18nStore().state.helpText
     const $router = useRouter()
 
@@ -56,12 +56,12 @@ export default defineComponent({
     const isBasicAuthEnabled = computed(() => authClientConfig.value.basicAuthEnabled)
     const { portalApiV2 } = usePortalApi()
 
-    function onRegisterSuccess () {
+    function onRegisterSuccess() {
       // Need to cast this type as boolean isn't accepted
       $router.push({ path: '/login', query: { registered: true as unknown as LocationQueryValueRaw } })
     }
 
-    function wrapRegisterRequest (formData) {
+    function wrapRegisterRequest(formData) {
       // This transforms the object as the new api expects full_name
       formData.full_name = formData.fullName
       delete formData.fullName
@@ -80,9 +80,9 @@ export default defineComponent({
       onRegisterSuccess,
       isBasicAuthEnabled,
       wrapRegisterRequest,
-      helpText
+      helpText,
     }
-  }
+  },
 })
 </script>
 

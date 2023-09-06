@@ -1,4 +1,4 @@
-import { apps, productRegistration, productRegistrations, versions } from '../fixtures/consts'
+import { apps, productRegistrations } from '../fixtures/consts'
 
 describe('Contextual Developer Analytics', () => {
   beforeEach(() => {
@@ -7,9 +7,9 @@ describe('Contextual Developer Analytics', () => {
     cy.intercept('POST', '**/api/v2/stats*', {
       statusCode: 200,
       body: {
-        records: []
+        records: [],
       },
-      delay: 0
+      delay: 0,
     })
   })
 
@@ -18,7 +18,7 @@ describe('Contextual Developer Analytics', () => {
     dashboardDropdownLink: '[data-testid="dropdown-analytics-dashboard"]',
     dateTimePicker: '[data-testid="analytics-timepicker"]',
     metricCardsParent: '[data-testid="analytics-metric-cards"]',
-    viewAnalyticsButton: '[data-testid="application-dashboard-button"]'
+    viewAnalyticsButton: '[data-testid="application-dashboard-button"]',
   }
 
   it('My Apps – displays displays metric cards if the feature flag is on', () => {
@@ -55,8 +55,8 @@ describe('Contextual Developer Analytics', () => {
       'GET',
       `**/api/v2/applications/${apps[0].id}`, {
         statusCode: 200,
-        body: { ...apps[0] }
-      }
+        body: { ...apps[0] },
+      },
     ).as('getSingleApplication')
 
     cy.mockApplicationWithCredAndReg(apps[0])
@@ -73,7 +73,7 @@ describe('Contextual Developer Analytics', () => {
     cy.intercept('GET', `**/api/v2/applications/${apps[0].id}`, {
       statusCode: 200,
       body: apps[0],
-      delay: 0
+      delay: 0,
     }).as('getSingleApplication')
 
     cy.intercept(
@@ -86,12 +86,12 @@ describe('Contextual Developer Analytics', () => {
             page: {
               total: 1,
               number: 1,
-              size: 1
-            }
-          }
+              size: 1,
+            },
+          },
         },
-        delay: 0
-      }
+        delay: 0,
+      },
     ).as('getApplicationRegistration')
 
     cy.visit('/my-apps')

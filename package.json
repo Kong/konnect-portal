@@ -9,7 +9,7 @@
     "serve": "vite preview",
     "build": "vite build --mode production",
     "build:analyze": "BUILD_VISUALIZER=true vite build --mode production",
-    "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore src",
+    "lint": "eslint '**/*.{js,jsx,ts,tsx,vue}' --ignore-path .eslintignore",
     "lint:fix": "yarn lint --fix",
     "stylelint": "stylelint --allow-empty-input './src/**/*.{css,scss,sass,less,styl,vue}'",
     "stylelint:fix": "yarn stylelint --fix",

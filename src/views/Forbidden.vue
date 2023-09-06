@@ -6,9 +6,9 @@
     >
       <div>
         <img
+          :alt="helpText.logoAlt"
           class="logo"
           :src="logoSrc"
-          :alt="helpText.logoAlt"
         >
       </div>
 
@@ -41,16 +41,16 @@ import { useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'Forbidden',
-  setup () {
+  setup() {
     const { portalApiV2 } = usePortalApi()
     const logoSrc = portalApiV2.value.getApiLink('/api/v2/portal/logo')
     const helpText = useI18nStore().state.helpText.forbidden
 
     return {
       logoSrc,
-      helpText
+      helpText,
     }
-  }
+  },
 })
 </script>
 

@@ -1,14 +1,14 @@
 <template>
   <KPop
     ref="popRef"
-    :popover-timeout="0"
-    popover-classes="mt-1 action-dropdown"
     class="float-right"
-    placement="bottomEnd"
-    width="150"
     hide-caret
-    @opened="isOpened = true"
+    placement="bottomEnd"
+    popover-classes="mt-1 action-dropdown"
+    :popover-timeout="0"
+    width="150"
     @closed="isOpened = false"
+    @opened="isOpened = true"
   >
     <slot>
       <KButton
@@ -16,15 +16,15 @@
         class="action-dropdown-button"
       >
         <KBadge
-          data-testid="action-badge"
           :class="[
             'cursor-pointer actions-badge',
             { opened: isOpened }
           ]"
+          data-testid="action-badge"
         >
           <KIcon
-            icon="gearFilled"
             color="var(--steel-300)"
+            icon="gearFilled"
             size="16"
             view-box="0 0 16 16"
           />
@@ -43,23 +43,23 @@
 import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'ActionsDropdown',
-  setup () {
+  setup() {
     const isOpened = ref(false)
     const popRef = ref()
 
     return {
       isOpened,
       popRef,
-      async onClickContent () {
+      async onClickContent() {
         isOpened.value = false
 
         // hide KPop content using ref - this isn't perfect but toggling hidePopover prop back and forth
         // doesn't work in this scenario. setTimeout instead of nextTick is used to prevent KPop from reopening
         // when isOpened value change is propagated to the renderer.
         setTimeout(popRef.value.hidePopper, 0)
-      }
+      },
     }
-  }
+  },
 })
 </script>
 

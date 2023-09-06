@@ -92,13 +92,13 @@ describe('custom Catalog', () => {
           catalog: {
             cover: b,
             primary_header: {
-              text: "where you goin' with that gun in your hand?"
+              text: "where you goin' with that gun in your hand?",
             },
             welcome_message: {
-              text: 'Hey Joe'
-            }
-          }
-        }
+              text: 'Hey Joe',
+            },
+          },
+        },
       })
       cy.visit('/')
       cy.wait('@getAppearance')

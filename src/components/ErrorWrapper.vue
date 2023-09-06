@@ -37,21 +37,21 @@ export default defineComponent({
   props: {
     errorCode: {
       type: Number,
-      default: null
+      default: null,
     },
     description: {
       type: String,
-      default: ''
+      default: '',
     },
     linkText: {
       type: String,
-      default: helpText.linkText
+      default: helpText.linkText,
     },
     to: {
       type: String,
-      default: '/'
-    }
-  }
+      default: '/',
+    },
+  },
 })
 </script>
 

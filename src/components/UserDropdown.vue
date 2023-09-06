@@ -1,8 +1,8 @@
 <template>
   <KToggle v-slot="{toggle, isToggled}">
     <div
-      data-testid="user-dropdown"
       class="inline user-dropdown relative"
+      data-testid="user-dropdown"
     >
       <div
         v-if="isToggled.value"
@@ -10,9 +10,9 @@
         @click="toggle"
       />
       <KButton
-        show-caret
-        :is-rounded="false"
         appearance="btn-link"
+        :is-rounded="false"
+        show-caret
         @click="toggle"
       >
         {{ email }}
@@ -22,20 +22,20 @@
         class="list-none m-0 p-0 absolute w-40 shadow bg-white"
       >
         <li
-          data-testid="my-apps-item"
           class="type-md block"
+          data-testid="my-apps-item"
         >
           <router-link
-            :to="{ name: 'my-apps' }"
             class="color-text_colors-primary block py-3 px-4"
+            :to="{ name: 'my-apps' }"
             @click="toggle"
           >
             {{ helpText.myApps }}
           </router-link>
         </li>
         <li
-          data-testid="logout-item"
           class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
+          data-testid="logout-item"
           @click="$emit('logout')"
         >
           {{ helpText.logout }}
@@ -54,13 +54,13 @@ export default defineComponent({
   props: {
     email: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   emits: ['logout'],
   data: () => ({
-    helpText: useI18nStore().state.helpText.userDropdown
-  })
+    helpText: useI18nStore().state.helpText.userDropdown,
+  }),
 })
 </script>
 

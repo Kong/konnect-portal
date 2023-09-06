@@ -285,5 +285,5 @@ module.exports = [
   'h-auto',
   'h-screen',
   'non-visual-button',
-  'k-visually-hidden'
+  'k-visually-hidden',
 ]

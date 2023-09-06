@@ -1,6 +1,6 @@
 import { BaseNode, TextNode } from '@kong-ui-public/document-viewer'
 
-export function findAllNodesOfType<NodeType extends BaseNode<string>> (node: NodeType, nodeType: string): NodeType[] {
+export function findAllNodesOfType<NodeType extends BaseNode<string>>(node: NodeType, nodeType: string): NodeType[] {
   const returnNodes: NodeType[] = []
   if (node.type === nodeType) {
     returnNodes.push(node)
@@ -13,11 +13,11 @@ export function findAllNodesOfType<NodeType extends BaseNode<string>> (node: Nod
   return returnNodes
 }
 
-export function getNodeTextContent (node) {
+export function getNodeTextContent(node) {
   return findAllNodesOfType<TextNode>(node, 'text').map(node => node.text).join('')
 }
 
-export function hasDocumentInTree (documentChildren, documentId) {
+export function hasDocumentInTree(documentChildren, documentId) {
   return documentChildren.some((document) => {
     return document.id === documentId ||
       (document.children && hasDocumentInTree(document.children, documentId))

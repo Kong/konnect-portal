@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
-import {defineConfig, loadEnv, createLogger} from 'vite'
+import { defineConfig, loadEnv, createLogger } from 'vite'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import {visualizer} from 'rollup-plugin-visualizer'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const path = require('path')
 
 function mutateCookieAttributes(proxy) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   proxy.on('proxyRes', function(proxyRes, req, res) {
     if (proxyRes.headers['set-cookie']) {
       proxyRes.headers['set-cookie'] = (proxyRes.headers['set-cookie']).map(h => {
@@ -34,7 +35,7 @@ function createCustomLogger() {
   const loggerWarn = logger.warn
   // Create array of partial message strings to ignore
   const ignoredWarnings = [
-    'end value has mixed support'
+    'end value has mixed support',
   ]
 
   logger.warn = (msg, options) => {
@@ -46,15 +47,15 @@ function createCustomLogger() {
   return logger
 }
 
-export default ({command, mode}) => {
-  process.env = {...process.env, ...loadEnv(mode, process.cwd())}
+export default ({ command, mode }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
   const buildVisualizerPlugin = process.env.BUILD_VISUALIZER === 'true' && visualizer({
     filename: path.resolve(__dirname, 'bundle-analyzer/stats-treemap.html'),
     template: 'treemap', // sunburst|treemap|network
     sourcemap: true,
-    gzipSize: true
+    gzipSize: true,
   })
 
   // Sets VITE_INDEX_API_URL which is templated in index.html
@@ -68,7 +69,7 @@ export default ({command, mode}) => {
     portalApiUrl += '/'
   }
 
-  const subdomainR = new RegExp(/http:\/\/(.*)localhost/)
+  const subdomainR = /http:\/\/(.*)localhost/
   if (subdomainR.test(portalApiUrl)) {
     portalApiUrl = 'http://localhost' + portalApiUrl.replace(subdomainR, '')
   }
@@ -84,10 +85,10 @@ export default ({command, mode}) => {
           // Import the SCSS variables and mixins here so that they are globally available within component files
           additionalData: `
             @import "@kong/design-tokens/tokens/scss/variables";
-          `
-        }
+          `,
+        },
       },
-      devSourcemap: true
+      devSourcemap: true,
     },
     build: {
       rollupOptions: {
@@ -96,30 +97,30 @@ export default ({command, mode}) => {
             vue: ['vue', 'vue-router'],
             kongponents: ['@kong/kongponents'],
             kongAuthelements: ['@kong/kong-auth-elements'],
-            specRenderer: ['@kong-ui-public/spec-renderer']
-          }
+            specRenderer: ['@kong-ui-public/spec-renderer'],
+          },
         },
         plugins: [
-          buildVisualizerPlugin
-        ]
-      }
+          buildVisualizerPlugin,
+        ],
+      },
     },
     plugins: [
       vue(
         {
           template: {
             transformAssetUrls: {
-              includeAbsolute: false
-            }
-          }
-        }
+              includeAbsolute: false,
+            },
+          },
+        },
       ),
       vueJsx(),
-      svgLoader()
+      svgLoader(),
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
+        '@': path.resolve(__dirname, './src'),
       },
       preserveSymlinks: true,
       /**
@@ -127,20 +128,21 @@ export default ({command, mode}) => {
        * TODO: This is a crutch as we need to add `.vue` to all component imports.
        * https://vitejs.dev/config/#resolve-extensions
        */
-      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     server: {
       proxy: {
         '^/api': {
           target: portalApiUrl,
           changeOrigin: true,
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           configure: (proxy, options) => {
             mutateCookieAttributes(proxy)
             setHostHeader(proxy)
-          }
-        }
-      }
+          },
+        },
+      },
     },
-    customLogger: createCustomLogger()
+    customLogger: createCustomLogger(),
   })
 }

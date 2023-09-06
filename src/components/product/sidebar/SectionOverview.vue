@@ -4,9 +4,9 @@
     :title="helpText.title"
   >
     <DocumentTree
+      :active-document-id="activeDocumentId"
       :documents="documentTree"
       :product-id="props.product.id"
-      :active-document-id="activeDocumentId"
     />
   </Section>
 </template>
@@ -22,8 +22,8 @@ const helpText = useI18nStore().state.helpText.sectionOverview
 const props = defineProps({
   product: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const productStore = useProductStore()

@@ -1,4 +1,4 @@
-export function idFromPathMethod (pathName: string, method: string) {
+export function idFromPathMethod(pathName: string, method: string) {
   return `${toLower(method)}${escapeString(pathName)}`
 }
 

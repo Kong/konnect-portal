@@ -7,18 +7,18 @@
     >
       <KClipboardProvider v-slot="{ copyToClipboard }">
         <KButton
-          :is-rounded="false"
+          appearance="secondary"
           :aria-label="helpText.ariaLabel"
           class="clipboard-button w-100 justify-content-between"
           data-testid="copy-button"
-          appearance="secondary"
+          :is-rounded="false"
           @click="copyTokenToClipboard(copyToClipboard)"
         >
           <span class="truncate">{{ label }} {{ textToCopy }}</span>
           <KIcon
-            :title="helpText.copyToClipboard"
-            icon="copy"
             color="var(--steel-300)"
+            icon="copy"
+            :title="helpText.copyToClipboard"
           />
         </KButton>
       </KClipboardProvider>
@@ -36,14 +36,14 @@ export default defineComponent({
   props: {
     textToCopy: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  setup (props) {
+  setup(props) {
     const { notify } = useToaster()
     const helpText = useI18nStore().state.helpText.copyButton
 
@@ -51,20 +51,20 @@ export default defineComponent({
       if (!executeCopy(props.textToCopy)) {
         notify({
           appearance: 'danger',
-          message: helpText.copyFailed.start + (props.textToCopy) + helpText.copyFailed.end
+          message: helpText.copyFailed.start + (props.textToCopy) + helpText.copyFailed.end,
         })
       }
 
       notify({
-        message: helpText.copySucceeded.start + (props.textToCopy) + helpText.copySucceeded.end
+        message: helpText.copySucceeded.start + (props.textToCopy) + helpText.copySucceeded.end,
       })
     }
 
     return {
       copyTokenToClipboard,
-      helpText
+      helpText,
     }
-  }
+  },
 })
 </script>
 

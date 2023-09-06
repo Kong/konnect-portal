@@ -8,7 +8,7 @@ const KRN_STRUCT = {
   regionBlockPrefix: 'reg/',
   orgBlockPrefix: 'org/',
   blockDelimeter: ':',
-  pathDelimeter: '/'
+  pathDelimeter: '/',
 }
 
 export const usePermissionsStore = defineStore('permissions', () => {
@@ -29,7 +29,7 @@ export const usePermissionsStore = defineStore('permissions', () => {
       service: null,
       region: null,
       organization: null,
-      resourcePath: null
+      resourcePath: null,
     }
 
     // If not a valid krn, exit early
@@ -129,6 +129,6 @@ export const usePermissionsStore = defineStore('permissions', () => {
 
   return {
     addKrns,
-    canUserAccess
+    canUserAccess,
   }
 })

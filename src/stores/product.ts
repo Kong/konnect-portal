@@ -71,6 +71,6 @@ export const useProductStore = defineStore('product', () => {
     setActiveDocumentId,
     setActiveProductVersionId,
     setSidebarActiveOperation,
-    setSidebarOperations
+    setSidebarOperations,
   }
 })

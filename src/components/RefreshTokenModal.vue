@@ -1,9 +1,9 @@
 <template>
   <KModal
-    :title="helpText.title"
-    :is-visible="isVisible"
-    data-testid="application-secret-token-modal"
     class="refresh-secret-modal"
+    data-testid="application-secret-token-modal"
+    :is-visible="isVisible"
+    :title="helpText.title"
     @canceled="$emit('closed')"
   >
     <template #header-content>
@@ -18,9 +18,9 @@
     </template>
     <template #footer-content>
       <KButton
-        :is-rounded="false"
-        data-testid="close-btn"
         appearance="primary"
+        data-testid="close-btn"
+        :is-rounded="false"
         @click="$emit('closed')"
       >
         {{ helpText.proceed }}
@@ -40,23 +40,23 @@ export default defineComponent({
   props: {
     isVisible: {
       type: Boolean,
-      required: true
+      required: true,
     },
     token: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
 
   emits: ['closed'],
 
-  setup () {
+  setup() {
     const helpText = useI18nStore().state.helpText.refreshTokenModal
 
     return {
-      helpText
+      helpText,
     }
-  }
+  },
 
 })
 </script>

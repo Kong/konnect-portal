@@ -9,15 +9,15 @@
       <template #body>
         <KTable
           data-testid="products-list"
-          :fetcher-cache-key="fetcherCacheKey"
           :fetcher="fetcher"
+          :fetcher-cache-key="fetcherCacheKey"
           has-side-border
-          :is-loading="currentState.matches('pending')"
           :headers="tableHeaders"
+          :initial-fetcher-params="{ pageSize: paginationConfig.initialPageSize }"
           is-clickable
+          :is-loading="currentState.matches('pending')"
           is-small
           :pagination-page-sizes="paginationConfig.paginationPageSizes"
-          :initial-fetcher-params="{ pageSize: paginationConfig.initialPageSize }"
           @row:click="(_, row) => $router.push(row.specLink)"
         >
           <template #name="{ row }">
@@ -79,10 +79,10 @@ export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup (props) {
+  setup(props) {
     const helpText = useI18nStore().state.helpText.productList
 
     const nameLabel = helpText.labels.nameProduct
@@ -95,7 +95,7 @@ export default defineComponent({
       { label: nameLabel, key: 'name' },
       { label: helpText.labels.version, key: 'version' },
       { label: helpText.labels.status, key: 'status' },
-      { label: helpText.labels.actions, key: 'actions', hideLabel: true }
+      { label: helpText.labels.actions, key: 'actions', hideLabel: true },
     ]
 
     const { portalApiV2 } = usePortalApi()
@@ -108,9 +108,9 @@ export default defineComponent({
         states: {
           idle: { on: { FETCH: 'pending' } },
           pending: { on: { RESOLVE: 'success' } },
-          success: { on: { FETCH: 'pending' } }
-        }
-      })
+          success: { on: { FETCH: 'pending' } },
+        },
+      }),
     )
 
     const key = ref(0)
@@ -118,7 +118,7 @@ export default defineComponent({
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
-      initialPageSize: 25
+      initialPageSize: 25,
     })
 
     const revalidate = () => {
@@ -143,10 +143,10 @@ export default defineComponent({
                 id: registration.product_version_id,
                 specLink: `/spec/${registration.product_id}/${registration.product_version_id}`,
                 status: registration.status,
-                registrationId: registration.id
+                registrationId: registration.id,
               }
             }),
-            total: data.meta.page.total
+            total: data.meta.page.total,
           }
         }).catch((e) => {
           handleError(e)
@@ -156,7 +156,7 @@ export default defineComponent({
     const handleDeleteRegistration = (registrationId: string) => {
       portalApiV2.value.service.registrationsApi.deleteApplicationRegistration({
         applicationId: props.id,
-        registrationId
+        registrationId,
       })
         .then(() => {
           handleSuccess('unregistered')
@@ -167,14 +167,14 @@ export default defineComponent({
 
     const handleSuccess = (action: string) => {
       notify({
-        message: `Successfully ${action}`
+        message: `Successfully ${action}`,
       })
     }
 
     const handleError = (error: object) => {
       notify({
         appearance: 'danger',
-        message: getMessageFromError(error)
+        message: getMessageFromError(error),
       })
     }
 
@@ -188,8 +188,8 @@ export default defineComponent({
       paginationConfig,
       emptyStateTitle,
       title,
-      viewCatalog2
+      viewCatalog2,
     }
-  }
+  },
 })
 </script>

@@ -12,13 +12,13 @@ import {
   RegistrationsApi,
   DocumentationApi,
   VersionsApi,
-  ApplicationAnalyticsApi
+  ApplicationAnalyticsApi,
 } from '@kong/sdk-portal-js'
 
 export const ApiServiceAuthErrorReason = {
   NO_SESSION: 'NO_SESSION',
   SESSION_EXPIRED: 'SESSION_EXPIRED',
-  RESPONSE_FORBIDDEN: 'RESPONSE_FORBIDDEN'
+  RESPONSE_FORBIDDEN: 'RESPONSE_FORBIDDEN',
 }
 
 export default class PortalV2ApiService {
@@ -45,11 +45,11 @@ export default class PortalV2ApiService {
     applicationAnalyticsApi: ApplicationAnalyticsApi
   }
 
-  setAuthErrorCallback (authErrorCallback) {
+  setAuthErrorCallback(authErrorCallback) {
     this.authErrorCallback = authErrorCallback
   }
 
-  constructor (baseURL) {
+  constructor(baseURL) {
     if (baseURL.endsWith('/')) {
       baseURL = baseURL.slice(0, -1)
     }
@@ -62,13 +62,13 @@ export default class PortalV2ApiService {
       baseURL: this.baseURL,
       withCredentials: false,
       headers: {
-        accept: 'application/json'
-      }
+        accept: 'application/json',
+      },
     })
 
     const baseConfig = new Configuration({
       basePath: '',
-      accessToken: this.session?.getAccessToken()
+      accessToken: this.session?.getAccessToken(),
     })
 
     this.service = {
@@ -81,7 +81,7 @@ export default class PortalV2ApiService {
       registrationsApi: new RegistrationsApi(baseConfig, this.baseURL, this.client),
       documentationApi: new DocumentationApi(baseConfig, this.baseURL, this.client),
       versionsApi: new VersionsApi(baseConfig, this.baseURL, this.client),
-      applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client)
+      applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client),
     }
 
     this.client.interceptors.response.use(res => res, (originalErr) => {
@@ -99,7 +99,7 @@ export default class PortalV2ApiService {
               this.failedQueue.push({ resolve, reject })
             }).then(
               // Refresh success, so retry requests
-              () => this.client(originalRequest)
+              () => this.client(originalRequest),
             ).catch(() => {
               // Refresh failed, do not retry requests
               return Promise.reject(originalErr)
@@ -154,11 +154,11 @@ export default class PortalV2ApiService {
     })
   }
 
-  updateClientWithCredentials () {
+  updateClientWithCredentials() {
     this.client.defaults.withCredentials = true
   }
 
-  processQueue (shouldProceed = true) {
+  processQueue(shouldProceed = true) {
     this.failedQueue.forEach(promise => {
       if (shouldProceed) {
         promise.resolve()
@@ -170,11 +170,11 @@ export default class PortalV2ApiService {
     this.failedQueue = []
   }
 
-  setSession (session) {
+  setSession(session) {
     this.session = session
   }
 
-  getApiLink (path) {
+  getApiLink(path) {
     if (this.baseURL === '') {
       return path
     } else {

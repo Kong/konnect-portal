@@ -2,14 +2,14 @@ import { computed } from 'vue'
 import {
   TimeframeKeys,
   TimePeriods,
-  timeframeToDatepickerTimeperiod
+  timeframeToDatepickerTimeperiod,
 } from '@kong-ui-public/analytics-utilities'
 import { PortalTimeframeKeys } from '@/types/vitals'
 import { useI18nStore } from '@/stores'
 
 const helpText = useI18nStore().state.helpText
 
-export default function useAllowedTimeframes (allowedTimePeriod) {
+export default function useAllowedTimeframes(allowedTimePeriod) {
   const now = computed(() => new Date().getTime())
   const dateOffset = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
     ? TimePeriods.get(TimeframeKeys.THIRTY_DAY).timeframeLengthMs() * 3 // 90 days
@@ -27,8 +27,8 @@ export default function useAllowedTimeframes (allowedTimePeriod) {
           TimePeriods.get(TimeframeKeys.TWELVE_HOUR),
           TimePeriods.get(TimeframeKeys.ONE_DAY),
           TimePeriods.get(TimeframeKeys.SEVEN_DAY),
-          TimePeriods.get(TimeframeKeys.THIRTY_DAY)
-        ].filter((val) => val.timeframeLengthMs() <= dateOffset).map(timeframeToDatepickerTimeperiod)
+          TimePeriods.get(TimeframeKeys.THIRTY_DAY),
+        ].filter((val) => val.timeframeLengthMs() <= dateOffset).map(timeframeToDatepickerTimeperiod),
       },
 
       // For "Current" and "Previous" sections, we check for less than because we want to ensure neither of these
@@ -37,16 +37,16 @@ export default function useAllowedTimeframes (allowedTimePeriod) {
         section: helpText.analytics.sectionCurrent,
         values: [
           TimePeriods.get(TimeframeKeys.CURRENT_WEEK),
-          TimePeriods.get(TimeframeKeys.CURRENT_MONTH)
-        ].filter((val) => val.timeframeLengthMs() < dateOffset).map(timeframeToDatepickerTimeperiod)
+          TimePeriods.get(TimeframeKeys.CURRENT_MONTH),
+        ].filter((val) => val.timeframeLengthMs() < dateOffset).map(timeframeToDatepickerTimeperiod),
       },
       {
         section: helpText.analytics.sectionPrevious,
         values: [
           TimePeriods.get(TimeframeKeys.PREVIOUS_WEEK),
-          TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH)
-        ].filter((val) => val.timeframeLengthMs() < dateOffset).map(timeframeToDatepickerTimeperiod)
-      }
+          TimePeriods.get(TimeframeKeys.PREVIOUS_MONTH),
+        ].filter((val) => val.timeframeLengthMs() < dateOffset).map(timeframeToDatepickerTimeperiod),
+      },
     ]
 
     // Strip out Sections that do not contain at least one Timeframe
@@ -55,6 +55,6 @@ export default function useAllowedTimeframes (allowedTimePeriod) {
 
   return {
     timePeriods: allowedTimePeriods,
-    minDateCalendar: new Date(now.value - dateOffset)
+    minDateCalendar: new Date(now.value - dateOffset),
   }
 }

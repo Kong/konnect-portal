@@ -12,7 +12,7 @@ import {
   isLoginOrRegistrationRoute,
   isPrivateRoute,
   shouldDeveloperAccessRoute,
-  shouldRedirectToLogin
+  shouldRedirectToLogin,
 } from '@/router/route-utils'
 
 const ProductCatalogWrapper = () => import('../views/ProductCatalogWrapper.vue')
@@ -39,41 +39,41 @@ export const portalRouter = () => {
             path: '/login/:sso?',
             name: 'login',
             meta: {
-              title: helpText.loginTitle
+              title: helpText.loginTitle,
             },
-            component: Login
+            component: Login,
           },
           {
             path: '/register',
             name: 'registration',
             meta: {
-              title: helpText.registrationTitle
+              title: helpText.registrationTitle,
             },
-            component: Registration
+            component: Registration,
           },
           {
             path: '/forgot-password',
             name: 'forgot-password',
             meta: {
-              title: helpText.forgotPasswordTitle
+              title: helpText.forgotPasswordTitle,
             },
-            component: ForgotPassword
+            component: ForgotPassword,
           },
           {
             path: '/reset-password',
             name: 'reset-password',
             meta: {
-              title: helpText.resetPasswordTitle
+              title: helpText.resetPasswordTitle,
             },
-            component: ResetPassword
+            component: ResetPassword,
           },
           {
             path: '',
             name: 'catalog',
             meta: {
-              title: helpText.catalogTitleProduct
+              title: helpText.catalogTitleProduct,
             },
-            component: ProductCatalogWrapper
+            component: ProductCatalogWrapper,
           },
           {
             // Nest Service-related routes, so they can use a unified shell component
@@ -90,10 +90,10 @@ export const portalRouter = () => {
                   isAuthorized: (route, { portalId }) => canUserAccess({
                     service: 'konnect',
                     action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.product}`
-                  })
+                    resourcePath: `portals/${portalId}/services/${route.params.product}`,
+                  }),
                 },
-                component: () => import('../views/Spec.vue')
+                component: () => import('../views/Spec.vue'),
               },
               {
                 path: '/docs/:product/:slug*',
@@ -103,20 +103,20 @@ export const portalRouter = () => {
                   isAuthorized: (route, { portalId }) => canUserAccess({
                     service: 'konnect',
                     action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.product}`
-                  })
+                    resourcePath: `portals/${portalId}/services/${route.params.product}`,
+                  }),
                 },
-                component: () => import('../views/ApiDocumentationPage.vue')
-              }
-            ]
+                component: () => import('../views/ApiDocumentationPage.vue'),
+              },
+            ],
           },
           {
             path: '/my-apps',
             name: 'my-apps',
             meta: {
-              title: helpText.appsTitle
+              title: helpText.appsTitle,
             },
-            component: () => import('../views/MyApps.vue')
+            component: () => import('../views/MyApps.vue'),
           },
           {
             path: 'application',
@@ -128,9 +128,9 @@ export const portalRouter = () => {
                 path: 'create',
                 name: 'create-application',
                 meta: {
-                  title: helpText.createAppTitle
+                  title: helpText.createAppTitle,
                 },
-                component: () => import('../views/Applications/ApplicationForm.vue')
+                component: () => import('../views/Applications/ApplicationForm.vue'),
               },
               {
                 path: ':application_id',
@@ -142,53 +142,53 @@ export const portalRouter = () => {
                     path: '',
                     name: 'show-application',
                     meta: { title: helpText.viewAppTitle },
-                    component: () => import('../views/Applications/ApplicationDetail.vue')
+                    component: () => import('../views/Applications/ApplicationDetail.vue'),
                   },
                   {
                     path: 'update',
                     name: 'update-application',
                     meta: { title: helpText.updateAppTitle },
-                    component: () => import('../views/Applications/ApplicationForm.vue')
+                    component: () => import('../views/Applications/ApplicationForm.vue'),
                   },
                   {
                     path: 'application-dashboard',
                     name: 'application-dashboard',
                     meta: { title: 'Application Dashboard' },
-                    component: () => import('../views/Applications/ApplicationDashboard.vue')
-                  }
-                ]
-              }
-            ]
+                    component: () => import('../views/Applications/ApplicationDashboard.vue'),
+                  },
+                ],
+              },
+            ],
           },
           {
             path: '/404',
             name: 'not-found',
             meta: {
-              name: helpText.notFoundTitle
+              name: helpText.notFoundTitle,
             },
-            component: () => import('../views/NotFound.vue')
+            component: () => import('../views/NotFound.vue'),
           },
           {
             path: '/403',
             name: 'forbidden',
             meta: {
-              name: helpText.forbiddenTitle
+              name: helpText.forbiddenTitle,
             },
-            component: () => import('../views/Forbidden.vue')
+            component: () => import('../views/Forbidden.vue'),
           },
           {
             path: '/:pathMatch(.*)*',
             name: 'not-found-redirect',
             meta: {
-              title: helpText.notFoundTitle
+              title: helpText.notFoundTitle,
             },
             component: () => {
               window.location.href = '/404'
-            }
-          }
-        ]
-      }
-    ]
+            },
+          },
+        ],
+      },
+    ],
   })
 
   const portalTitle = helpText.portalTitle
@@ -215,7 +215,7 @@ export const portalRouter = () => {
       shouldRedirectUserToPreviouslyAccessedRoute({
         isPublic: isPublic.value,
         to,
-        previousRoute: session.data?.to
+        previousRoute: session.data?.to,
       })
     ) {
       return next(getRedirectRouteBasedOnPath(session.data.to, from.fullPath))
@@ -248,10 +248,10 @@ export const portalRouter = () => {
   return router
 }
 
-export function shouldRedirectUserToPreviouslyAccessedRoute ({
+export function shouldRedirectUserToPreviouslyAccessedRoute({
   isPublic,
   to,
-  previousRoute
+  previousRoute,
 }) {
   const urlSearchParams = window && new URL(window.location.href)?.searchParams
 

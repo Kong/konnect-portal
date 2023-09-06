@@ -16,9 +16,9 @@
         <template #visible-content>
           <div class="expandable-node-container">
             <router-link
-              :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
-              :style="{ paddingLeft: `${level - 1}rem` }"
               :class="{ title: true }"
+              :style="{ paddingLeft: `${level - 1}rem` }"
+              :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
             >
               {{ document.title }}
             </router-link>
@@ -41,20 +41,20 @@
             tabindex="-1"
           >
             <DocumentTree
-              :documents="document.children"
               :active-document-id="activeDocumentId"
-              :product-id="productId"
+              :documents="document.children"
               :level="level + 1"
               :parent-document-slug="document.slug"
+              :product-id="productId"
             />
           </div>
         </div>
       </KCollapse>
       <router-link
         v-else
-        :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
         :class="{ title: true }"
         :style="{ paddingLeft: `${level - 1}rem` }"
+        :to="{ name: 'api-documentation-page', params: { product: productId, slug: [parentDocumentSlug, document.slug].filter(Boolean) } }"
       >
         {{ document.title }}
       </router-link>
@@ -71,29 +71,29 @@ export default defineComponent({
   props: {
     documents: {
       type: Array as PropType<DocumentTree[]>,
-      required: true
+      required: true,
     },
     productId: {
       type: String,
-      required: true
+      required: true,
     },
     activeDocumentId: {
       type: String,
-      default: null
+      default: null,
     },
     level: {
       type: Number,
-      default: 1
+      default: 1,
     },
     parentDocumentSlug: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup: (props) => {
     const isNodeCollapsedMap = ref({})
 
-    function updateNodeCollapsedMap (activeDocumentId, documents) {
+    function updateNodeCollapsedMap(activeDocumentId, documents) {
       const collapsedMap = documents.reduce((obj, document) => {
         obj[document.id] = true
 
@@ -118,7 +118,7 @@ export default defineComponent({
 
     watch([
       () => props.activeDocumentId,
-      () => props.documents
+      () => props.documents,
     ], ([activeDocumentId, documents]) => {
       updateNodeCollapsedMap(activeDocumentId, documents)
     })
@@ -128,9 +128,9 @@ export default defineComponent({
     })
 
     return {
-      isNodeCollapsedMap
+      isNodeCollapsedMap,
     }
-  }
+  },
 })
 </script>
 <style lang="scss" scoped>

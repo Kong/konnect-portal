@@ -10,7 +10,7 @@ describe('Register Page', () => {
       cy.intercept('POST', '**/api/v2/developer', {
         statusCode: 201,
         body: {},
-        delay: 300
+        delay: 300,
       }).as('registerDeveloper')
 
       cy.visit('/register', { useOriginalFn: true })
@@ -35,14 +35,14 @@ describe('Register Page', () => {
                   property: 'email',
                   children: [],
                   constraints: {
-                    isEmail: 'email must be an email'
-                  }
-                }
-              ]
-            }
-          ]
+                    isEmail: 'email must be an email',
+                  },
+                },
+              ],
+            },
+          ],
         },
-        delay: 300
+        delay: 300,
       }).as('registerDeveloper')
 
       cy.visit('/register', { useOriginalFn: true })

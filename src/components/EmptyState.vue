@@ -1,7 +1,7 @@
 <template>
   <KEmptyState
-    data-testid="empty-state-card"
     cta-is-hidden
+    data-testid="empty-state-card"
     :is-error="isError"
   >
     <template
@@ -28,24 +28,24 @@ export default defineComponent({
   props: {
     isError: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     message: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   computed: {
-    displayMessage () {
+    displayMessage() {
       return this.isError
         ? 'Error ' + this.message
         : this.message
-    }
-  }
+    },
+  },
 })
 </script>
 

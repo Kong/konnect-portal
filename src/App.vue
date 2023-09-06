@@ -5,9 +5,9 @@
       class="loading-container"
     >
       <KIcon
+        color="var(--steel-300)"
         icon="spinner"
         size="96"
-        color="var(--steel-300)"
       />
     </div>
     <template v-else>
@@ -39,23 +39,23 @@ const initialLoadingId = 'initial-fullscreen-loading-container'
 export default defineComponent({
   name: 'App',
   components: {
-    Nav
+    Nav,
   },
-  setup () {
+  setup() {
     removeElementFromDOMById(initialLoadingId)
   },
   computed: {
     ...mapState(useAppStore, ['globalLoading']),
-    isFullScreen () {
+    isFullScreen() {
       return !isAuthRoute(this.$route.name) && this.$route.name !== 'not-found-redirect'
-    }
+    },
   },
-  beforeMount () {
+  beforeMount() {
     this.initializeApiClients()
   },
   methods: {
     ...mapActions(useAppStore, ['logout']),
-    initializeApiClients () {
+    initializeApiClients() {
       // Konnect API Client
       portalApiV2.setAuthErrorCallback(async (err, reason) => {
         // redirect to 403 page if portal api returns HTTP 403 but the session is correct
@@ -69,8 +69,8 @@ export default defineComponent({
           await createRedirectHandler(this.$router, this.logout)()
         }
       })
-    }
-  }
+    },
+  },
 })
 </script>
 

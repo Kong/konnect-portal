@@ -24,9 +24,9 @@
           <KMultiselect
             v-model="versionMultiSelectModel"
             autosuggest
+            class="analytics-service-filter flex-grow-1"
             collapsed-context
             data-testid="analytics-service-filter"
-            class="analytics-service-filter flex-grow-1"
             :dropdown-footer-text="multiselectFooter"
             dropdown-footer-text-position="static"
             :items="multiselectItems"
@@ -43,14 +43,14 @@
             <KDateTimePicker
               id="analytics-timepicker"
               v-model="timeframe"
-              data-test-id="analytics-timepicker"
               class="analytics-timepicker"
-              :min-date="minDateCalendar"
+              data-test-id="analytics-timepicker"
               :max-date="new Date()"
+              :min-date="minDateCalendar"
               :mode="hideCalendar ? 'relative': 'date'"
               :placeholder="helpText.analytics.selectDateRange"
-              :time-periods="timePeriods"
               :range="true"
+              :time-periods="timePeriods"
               width="100%"
               @change="changeTimeframe"
             />
@@ -62,11 +62,11 @@
           </h2>
           <AnalyticsMetricsCard
             v-if="!vitalsLoading"
+            :application-id="(appId as string)"
             class="mb-6"
             data-testid="analytics-metric-cards"
-            :application-id="(appId as string)"
-            :timeframe="(selectedTimeframe as Timeframe)"
             :product-version-ids="selectedProductVersionIds"
+            :timeframe="(selectedTimeframe as Timeframe)"
           />
           <h2 class="font-normal type-lg mb-4">
             {{ helpText.analytics.chartOverview }}
@@ -81,8 +81,8 @@
         v-else-if="!filterMultiselectLoading"
         icon="stateNoData"
         icon-size="96"
-        :title="helpText.analytics.selectProductVersions"
         :message="helpText.analytics.selectProductVersions"
+        :title="helpText.analytics.selectProductVersions"
       >
         <template #message>
           <p class="mb-4">
@@ -90,9 +90,9 @@
           </p>
           <KButton
             appearance="primary"
-            :is-rounded="false"
             data-testid="copy-btn"
             icon="plus"
+            :is-rounded="false"
             :to="{ name: 'catalog' }"
           >
             {{ helpText.productVersion.registerProductVersion }}
@@ -119,7 +119,7 @@ import {
   Timeframe,
   TimeframeKeys,
   TimePeriods,
-  timeframeToDatepickerSelection
+  timeframeToDatepickerSelection,
 } from '@kong-ui-public/analytics-utilities'
 import type { ProductVersionData, ProductVersionsResult } from '@/types/productVersion'
 import type { ChartFilters } from '@/types/vitals'
@@ -148,16 +148,16 @@ const breadcrumbs = computed(() => (
     {
       key: 'my-apps',
       to: { name: 'my-apps' },
-      text: 'My Apps'
+      text: 'My Apps',
     },
     {
       key: 'show-application',
       to: { name: 'show-application' },
       text: appName.value,
       params: {
-        application_id: appId
-      }
-    }
+        application_id: appId,
+      },
+    },
   ]
 ))
 
@@ -177,8 +177,8 @@ const { state: currentState, send } = useMachine(createMachine({
     idle: { on: { FETCH: 'pending', REJECT: 'error' } },
     pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
     success: { type: 'final' },
-    error: { on: { FETCH: 'pending' } }
-  }
+    error: { on: { FETCH: 'pending' } },
+  },
 }))
 
 const MAX_FILTER_ITEMS = 20
@@ -202,7 +202,7 @@ const filterMultiselectLoading = ref(true)
 const chartFilters = computed<ChartFilters>(() => {
   return {
     timeframe: selectedTimeframe,
-    apiVersions: selectedProductVersions
+    apiVersions: selectedProductVersions,
   } as ChartFilters
 })
 
@@ -260,7 +260,7 @@ const searchProductVersions = (query: string) => {
 
     searchResultFilter.value = {
       results: results.slice(0, MAX_FILTER_ITEMS),
-      hasMoreResults: results.length > MAX_FILTER_ITEMS
+      hasMoreResults: results.length > MAX_FILTER_ITEMS,
     }
   }
 }
@@ -274,7 +274,7 @@ const fetchProductVersions = async () => {
         allProductVersions.value = data.data.map(svc => {
           return {
             label: `${svc.product_name} - ${svc.product_version_name}`,
-            value: svc.product_version_id
+            value: svc.product_version_id,
           }
         })
 
@@ -283,7 +283,7 @@ const fetchProductVersions = async () => {
         // Set the original state of our Product Versions filter
         searchResultFilter.value = {
           results: results.slice(0, MAX_FILTER_ITEMS),
-          hasMoreResults: data.meta.page.total > MAX_FILTER_ITEMS
+          hasMoreResults: data.meta.page.total > MAX_FILTER_ITEMS,
         }
       }
     }).catch((error) => handleError(error))
@@ -307,7 +307,7 @@ const fetchApplication = () => {
 const handleError = (error) => {
   notify({
     appearance: 'danger',
-    message: getMessageFromError(error)
+    message: getMessageFromError(error),
   })
 }
 

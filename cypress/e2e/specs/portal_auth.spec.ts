@@ -11,14 +11,14 @@ const matrix = {
         '/application/create',
         '/my-apps',
         '/spec/:productId',
-        '/spec/:productId/:productVersionId'
+        '/spec/:productId/:productVersionId',
       ],
       viewable: [
         '/forgot-password',
         '/login',
         '/register',
-        '/reset-password'
-      ]
+        '/reset-password',
+      ],
     },
     authenticated: {
       viewable: [
@@ -29,20 +29,20 @@ const matrix = {
         '/forgot-password',
         '/reset-password',
         '/spec/:productId',
-        '/spec/:productId/:productVersionId'
+        '/spec/:productId/:productVersionId',
       ],
       redirectToSlash: [
         '/login',
-        '/register'
-      ]
-    }
+        '/register',
+      ],
+    },
   },
   isPublic: {
     authenticated: {
       viewable: [
         '/',
         '/spec/:productId',
-        '/spec/:productId/:productVersionId'
+        '/spec/:productId/:productVersionId',
       ],
       redirectToSlash: [
         '/application/:applicationId',
@@ -51,14 +51,14 @@ const matrix = {
         '/forgot-password',
         '/login',
         '/register',
-        '/reset-password'
-      ]
+        '/reset-password',
+      ],
     },
     unauthenticated: {
       viewable: [
         '/',
         '/spec/:productId',
-        '/spec/:productId/:productVersionId'
+        '/spec/:productId/:productVersionId',
       ],
       redirectToSlash: [
         '/application/:applicationId',
@@ -67,10 +67,10 @@ const matrix = {
         '/forgot-password',
         '/login',
         '/register',
-        '/reset-password'
-      ]
-    }
-  }
+        '/reset-password',
+      ],
+    },
+  },
 }
 
 const replaceRouteValues = route => route

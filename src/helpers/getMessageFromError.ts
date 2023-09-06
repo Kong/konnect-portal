@@ -3,7 +3,7 @@
  * @param {string|Error|object} error - error string
  * @returns string
  */
-function getMessageFromError (error: Record<string, any>) {
+function getMessageFromError(error: Record<string, any>) {
   if (!error) {
     return error
   }

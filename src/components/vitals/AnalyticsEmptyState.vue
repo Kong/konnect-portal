@@ -1,7 +1,7 @@
 <template>
   <KEmptyState
-    data-testid="analytics-empty-state"
     cta-is-hidden
+    data-testid="analytics-empty-state"
     icon="stateNoData"
     icon-size="96"
   >
@@ -22,7 +22,7 @@ withDefaults(defineProps<{
   message?: string
 }>(), {
   title: '',
-  message: ''
+  message: '',
 })
 </script>
 

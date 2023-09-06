@@ -43,9 +43,9 @@
             <template v-else>
               <span class="mr-2">{{ helpText.latestVersion }}</span>
               <KBadge
-                color="var(--text_colors-secondary)"
                 background-color="var(--section_colors-accent)"
                 class="product-version"
+                color="var(--text_colors-secondary)"
               >
                 {{ version.name }}
               </KBadge>
@@ -59,15 +59,15 @@
             </template>
             <template v-else>
               <router-link
-                :to="{ name: 'spec', params: { product: product.id } }"
                 class="link"
+                :to="{ name: 'spec', params: { product: product.id } }"
               >
                 {{ helpText.specificationLink }}
                 <KIcon
+                  class="link-icon"
+                  color="var(--text_colors-link)"
                   icon="arrowRight"
                   size="16"
-                  color="var(--text_colors-link)"
-                  class="link-icon"
                 />
               </router-link>
             </template>
@@ -81,15 +81,15 @@
             </template>
             <template v-else>
               <router-link
-                :to="{ name: 'api-documentation-page', params: { product: product.id } }"
                 class="link"
+                :to="{ name: 'api-documentation-page', params: { product: product.id } }"
               >
                 {{ helpText.documentationLink }}
                 <KIcon
+                  class="link-icon"
+                  color="var(--text_colors-link)"
                   icon="arrowRight"
                   size="16"
-                  color="var(--text_colors-link)"
-                  class="link-icon"
                 />
               </router-link>
             </template>
@@ -109,28 +109,28 @@ export default {
   props: {
     product: {
       type: Object as PropType<CatalogItemModel>,
-      default: () => {}
+      default: () => {},
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     const helpText = useI18nStore().state.helpText.catalogItem
 
     return {
-      helpText
+      helpText,
     }
   },
   computed: {
-    version () {
+    version() {
       return this.product.latestVersion
     },
-    versionLabel () {
+    versionLabel() {
       return this.product.versionCount === 1 ? 'Version: ' : 'Versions: '
-    }
-  }
+    },
+  },
 }
 </script>
 

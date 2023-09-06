@@ -9,7 +9,7 @@ export const ca_ES: I18nType = {
     successButton: "D'acord",
     missingCredentials: "Introduïu les vostres credencials d'inici de sessió",
     missingAccount: 'No teniu un compte?',
-    signUp: 'Registrar-se'
+    signUp: 'Registrar-se',
   },
   forgotPassword: {
     successText: 'Comproveu el vostre correu electrònic per obtenir un enllaç per restablir la contrasenya. Si no apareix en uns minuts, comproveu la carpeta de correu brossa (spam).',
@@ -19,7 +19,7 @@ export const ca_ES: I18nType = {
     placeholderEmail: 'Correu electrònic',
     buttonIdle: 'Enviar correu electrònic de restabliment de contrasenya',
     buttonSubmitting: 'Enviant',
-    missingEmail: 'Introduïu la vostra adreça de correu electrònic'
+    missingEmail: 'Introduïu la vostra adreça de correu electrònic',
   },
   resetPassword: {
     successText: 'Restabliment de contrasenya amb èxit.',
@@ -30,26 +30,26 @@ export const ca_ES: I18nType = {
     buttonIdle: 'Canviar contrasenya',
     buttonSubmitting: 'Enviant',
     confirmPasswordFail: 'Les contrasenyes han de coincidir',
-    missingPassword: 'Cal introduir les contrasenyes'
+    missingPassword: 'Cal introduir les contrasenyes',
   },
   registration: {
     successText: 'Comproveu el vostre correu electrònic per confirmar la vostra adreça.',
     alreadyCreated: 'Ja teniu un compte?',
-    login: 'Inicieu sessió aquí'
+    login: 'Inicieu sessió aquí',
   },
   productVersion: {
     deprecatedWarningProduct: "Aquesta versió del producte ja no està vigent. Els punts d'interacció seguiran sent totalment funcionals fins que aquesta versió sigui retirada.",
     unableToRetrieveDoc: 'No es pot recuperar la documentació',
     noProductVersionsDetail: translationNeeded(en.productVersion.noProductVersionsDetail),
     noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
-    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
+    registerProductVersion: translationNeeded(en.productVersion.registerProductVersion),
   },
   userDropdown: {
     myApps: 'Les meves aplicacions',
-    logout: 'Tancar sessió'
+    logout: 'Tancar sessió',
   },
   sectionOverview: {
-    title: 'Visió general'
+    title: 'Visió general',
   },
   viewSpecModal: {
     viewSpec: 'Veure especificació',
@@ -57,7 +57,7 @@ export const ca_ES: I18nType = {
     download: 'Descarregar',
     close: 'Tancar',
     copySuccess: "S'ha copiat al porta- retalls",
-    copyError: "No s'ha pogut copiar l'identificador al porta-retalls"
+    copyError: "No s'ha pogut copiar l'identificador al porta-retalls",
   },
   credentials: {
     noCredentialsText: 'Sense credencials',
@@ -69,16 +69,16 @@ export const ca_ES: I18nType = {
       continueButton: 'Generar',
       inputLabel: 'Nom',
       inputPlaceholder: 'Proporcioneu un nom per a aquesta credencial',
-      cancelButton: 'Cancel·lar'
+      cancelButton: 'Cancel·lar',
     },
     revokeModal: {
       title: 'Revocar la credencial',
       description: {
         start: 'La clau ',
-        end: ' serà revocada, aquesta acció no es pot desfer.'
+        end: ' serà revocada, aquesta acció no es pot desfer.',
       },
       revokeButton: 'Revocar',
-      cancelButton: 'Cancel·lar'
+      cancelButton: 'Cancel·lar',
     },
     renameModal: {
       actionLabel: 'Editar',
@@ -86,15 +86,15 @@ export const ca_ES: I18nType = {
       continueButton: 'Guardar',
       inputLabel: 'Nom',
       inputPlaceholder: 'Proporcioneu un nou nom per a aquesta credencial',
-      cancelButton: 'Cancel·lar'
+      cancelButton: 'Cancel·lar',
     },
     copyModal: {
       title: 'Copiar la credencial',
       continueButton: 'Confirmar i copiar',
       copyButtonLabel: 'Credencial: ',
       cancelButton: 'Cancel·lar',
-      hiddenCredentialsText: 'Només podreu copiar aquesta credencial una vegada. Copieu-la i emmagatzemeu-la en algun lloc segur.'
-    }
+      hiddenCredentialsText: 'Només podreu copiar aquesta credencial una vegada. Copieu-la i emmagatzemeu-la en algun lloc segur.',
+    },
   },
   application: {
     breadcrumbMyApps: 'Les meves aplicacions',
@@ -118,13 +118,13 @@ export const ca_ES: I18nType = {
         label: 'ID de referència',
         help: "Ha de coincidir amb l'ID de client de l'entitat d'aplicació del vostre proveïdor d'identitat en cas d'ús de OpenID",
         placeholder: 'Introduïu o genereu un ID',
-        generate: 'Generar'
-      }
+        generate: 'Generar',
+      },
     },
     headerDescription1: 'Aquí teniu la informació de client de la vostra aplicació anomenada ',
     headerDescription2: '. La clau secreta de client només es mostrarà ',
     headerDescription3: 'una vegada.',
-    headerDescription4: 'Copieu aquest valor i guardeu-lo per a les vostres referències.'
+    headerDescription4: 'Copieu aquest valor i guardeu-lo per a les vostres referències.',
   },
   analytics: {
     filterLabelProductVersions: translationNeeded(en.analytics.filterLabelProductVersions),
@@ -150,28 +150,28 @@ export const ca_ES: I18nType = {
     timeRange: translationNeeded(en.analytics.timeRange),
     totalRequests: translationNeeded(en.analytics.totalRequests),
     unableToFetch: (itemName: string) => translationNeeded(en.analytics.unableToFetch(itemName)),
-    viewAnalytics: translationNeeded(en.analytics.viewAnalytics)
+    viewAnalytics: translationNeeded(en.analytics.viewAnalytics),
   },
   productList: {
     titleProducts: 'Productes',
     actions: {
-      unregister: 'Anul·lar el registre'
+      unregister: 'Anul·lar el registre',
     },
     emptyState: {
       titleProducts: 'Sense productes',
       viewCatalog1: 'Vegeu el catàleg',
-      viewCatalog2Product: 'per registrar-vos en un producte.'
+      viewCatalog2Product: 'per registrar-vos en un producte.',
     },
     labels: {
       nameProduct: 'Producte',
       version: 'Versió',
       status: 'Estat',
-      actions: 'Accions'
-    }
+      actions: 'Accions',
+    },
   },
   dcrAuthentication: {
     authentication: 'Autenticació',
-    refreshToken: 'Actualitzar token'
+    refreshToken: 'Actualitzar token',
   },
   refreshTokenModal: {
     title: "Clau secreta de l'aplicació",
@@ -179,7 +179,7 @@ export const ca_ES: I18nType = {
     description1: 'Aquí teniu una nova clau secreta per a la vostra aplicació. La clau secreta de client només es mostrarà ',
     description2: 'una vegada. ',
     description3: 'Copieu aquest valor i guardeu-lo per a les vostres referències.',
-    secret: 'Clau secreta: '
+    secret: 'Clau secreta: ',
   },
   applicationRegistration: {
     noAvailableApplications: 'Actualment no teniu cap aplicació per registrar.',
@@ -191,55 +191,55 @@ export const ca_ES: I18nType = {
     registeredApplicationsProduct: 'Les següents aplicacions ja estan registrades en aquest producte:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Registrar - se per a ${serviceName} - ${productVersion}`,
-      buttonText: 'Sol·licitar accés'
+      buttonText: 'Sol·licitar accés',
     },
     modalApplicationRegistrationStatusIsPending: {
       title: 'Registre en procés de revisió',
       body: "Rebreu una notificació un cop s'aprovi.",
-      buttonText: 'Tancar'
-    }
+      buttonText: 'Tancar',
+    },
   },
   defaultForm: {
-    missingFields: 'Si us plau, ompliu tots els camps obligatoris'
+    missingFields: 'Si us plau, ompliu tots els camps obligatoris',
   },
   validationErrors: {
-    isEmail: "L'adreça de correu electrònic ha de ser una adreça vàlida"
+    isEmail: "L'adreça de correu electrònic ha de ser una adreça vàlida",
   },
   apiDocumentation: {
     emptyTitle: translationNeeded(en.apiDocumentation.emptyTitle),
     emptyMessage: translationNeeded(en.apiDocumentation.emptyMessage),
     error: {
       description: "S'ha produït un error inesperat en carregar el document sol·licitat.Si us plau, torneu- ho a provar més tard",
-      linkText: 'Tornar a la pàgina inicial →'
+      linkText: 'Tornar a la pàgina inicial →',
     },
     sections: {
-      onThisPage: 'En aquesta pàgina'
-    }
+      onThisPage: 'En aquesta pàgina',
+    },
   },
   errorWrapper: {
-    linkText: 'Tornar a la pàgina inicial →'
+    linkText: 'Tornar a la pàgina inicial →',
   },
   sidebar: {
     noVersions: translationNeeded(en.sidebar.noVersions),
     deprecated: ' (Desactivat)',
-    noResultsProduct: 'Sense versions de producte'
+    noResultsProduct: 'Sense versions de producte',
   },
   catalog: {
     entityTypeProduct: 'Producte',
-    noResultsProduct: 'No hi ha productes disponibles'
+    noResultsProduct: 'No hi ha productes disponibles',
   },
   catalogItem: {
     latestVersion: 'Última versió:',
     specificationLink: 'Especificació',
-    documentationLink: 'Documentació'
+    documentationLink: 'Documentació',
   },
   catalogTable: {
     specificationLink: 'Especificació',
-    documentationLink: 'Documentació'
+    documentationLink: 'Documentació',
   },
   products: {
     search: 'Cerca',
-    searching: 'Cercant...'
+    searching: 'Cercant...',
   },
   copyButton: {
     clickToCopy: 'Feu clic per copiar',
@@ -247,35 +247,35 @@ export const ca_ES: I18nType = {
     ariaLabel: 'Contingut del botó de còpia al porta-retalls',
     copyFailed: {
       start: "No s'ha pogut copiar",
-      end: 'al porta-retalls'
+      end: 'al porta-retalls',
     },
     copySucceeded: {
       start: 'S\'ha copiat "',
-      end: '" al porta-retalls'
-    }
+      end: '" al porta-retalls',
+    },
   },
   nav: {
     catalog: 'Catàleg',
     breadcrumbProduct: 'Producte',
     breadcrumbDocumentation: 'Documentació',
-    logoAlt: 'logotip'
+    logoAlt: 'logotip',
   },
   authCard: {
-    logoAlt: 'logotip'
+    logoAlt: 'logotip',
   },
   forbidden: {
     logoAlt: 'logotip',
     http403: '403',
     goBack: 'Tornar',
     sorryMessage: 'Ho sentim. No teniu autorització per veure aquesta pàgina.',
-    home: 'inici'
+    home: 'inici',
   },
   notFound: {
     http404: '404',
     goBack: 'Tornar',
     sorryMessage: 'Ho sentim. No podem trobar la pàgina que busqueu.',
     home: 'inici',
-    logoAlt: 'logotip'
+    logoAlt: 'logotip',
   },
   myApp: {
     newApp: 'Nova aplicació',
@@ -287,7 +287,7 @@ export const ca_ES: I18nType = {
     noApp: 'Sense aplicacions',
     create: 'Crear una nova aplicació',
     getStarted: ' per començar',
-    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`
+    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`,
   },
   router: {
     portalTitle: 'Portal del desenvolupador',
@@ -305,6 +305,6 @@ export const ca_ES: I18nType = {
     updateAppTitle: 'Actualitzar aplicació',
     notFoundTitle: 'No trobat',
     forbiddenTitle: 'Prohibit',
-    errorTitle: 'Error'
-  }
+    errorTitle: 'Error',
+  },
 }

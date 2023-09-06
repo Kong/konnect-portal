@@ -1,6 +1,6 @@
 import { useI18nStore } from '@/stores'
 
-function parseValidationErrors (error: Record<string, any>) {
+function parseValidationErrors(error: Record<string, any>) {
   if (error.response && error.response.data && Array.isArray(error.response.data.message)) {
     return error.response.data.message.reduce((messages, errorNode) => {
       messages.push(...parseValidationErrorNode(errorNode))
@@ -12,7 +12,7 @@ function parseValidationErrors (error: Record<string, any>) {
   return []
 }
 
-function parseValidationErrorNode (errorNode: Record<string, any>) {
+function parseValidationErrorNode(errorNode: Record<string, any>) {
   const helpText = useI18nStore().state.helpText
 
   const messages: any[] = []
@@ -40,7 +40,7 @@ function parseValidationErrorNode (errorNode: Record<string, any>) {
 }
 
 // extract errors from kong-auth-elements response
-function handleKongAuthElementsError ({ error }) {
+function handleKongAuthElementsError({ error }) {
   if (!error) {
     return null
   } else {

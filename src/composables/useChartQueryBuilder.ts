@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep'
 import type { ProductVersion } from '@/types/vitals'
 
-export default function useChartQueryBuilder (baseQuery, appId: string, productVersions: Array<ProductVersion>) {
+export default function useChartQueryBuilder(baseQuery, appId: string, productVersions: Array<ProductVersion>) {
   const query = cloneDeep(baseQuery)
 
   // Append as single Application ID to filter
@@ -9,7 +9,7 @@ export default function useChartQueryBuilder (baseQuery, appId: string, productV
     query.filter = [...query.filter, {
       type: 'IN',
       dimension: 'APPLICATION',
-      values: [appId]
+      values: [appId],
     }]
   }
 
@@ -18,7 +18,7 @@ export default function useChartQueryBuilder (baseQuery, appId: string, productV
     query.filter = [...query.filter, {
       type: 'IN',
       dimension: 'API_PRODUCT_VERSION',
-      values: productVersions.map(entry => entry.value)
+      values: productVersions.map(entry => entry.value),
     }]
   }
 

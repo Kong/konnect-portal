@@ -6,16 +6,16 @@
     <div class="w-100 container max-w-screen-2xl mx-auto flex justify-between items-center px-5 md:px-0">
       <router-link to="/">
         <img
+          :alt="helpText.logoAlt"
           class="logo"
           :src="logoSrc"
-          :alt="helpText.logoAlt"
         >
       </router-link>
       <nav class="flex items-center links">
         <router-link
+          class="mr-2 p-2 catalog-link"
           data-testid="catalog-link"
           :to="{ name: 'catalog' }"
-          class="mr-2 p-2 catalog-link"
         >
           <div class="background-color-wrapper" />
           {{ helpText.catalog }}
@@ -41,7 +41,7 @@ import usePortalApi from '@/hooks/usePortalApi'
 export default defineComponent({
   name: 'Nav',
   components: { UserDropdown },
-  setup () {
+  setup() {
     const appStore = useAppStore()
     const { globalLoading } = storeToRefs(appStore)
     const helpText = useI18nStore().state.helpText.nav
@@ -59,16 +59,16 @@ export default defineComponent({
     return {
       logout,
       logoSrc,
-      helpText
+      helpText,
     }
   },
 
   computed: {
     ...mapState(useAppStore, {
       developer: store => store.developerSession.data?.developer,
-      isPublic: 'isPublic'
-    })
-  }
+      isPublic: 'isPublic',
+    }),
+  },
 
 })
 </script>

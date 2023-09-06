@@ -21,9 +21,9 @@ export default defineComponent({
   props: {
     title: {
       type: String,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 })
 </script>
 
