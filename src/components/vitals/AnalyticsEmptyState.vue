@@ -1,7 +1,7 @@
 <template>
   <KEmptyState
-    cta-is-hidden
     data-testid="analytics-empty-state"
+    cta-is-hidden
     icon="stateNoData"
     icon-size="96"
   >
@@ -22,17 +22,17 @@ withDefaults(defineProps<{
   message?: string
 }>(), {
   title: '',
-  message: '',
+  message: ''
 })
 </script>
 
 <style lang="scss">
 // !important required because kemptystate has no theming options
 .empty-state-wrapper {
-  background-color: var(--section_colors-body, #fff) !important;
+  color: var(--text_colors-primary) !important;
   border-color: var(--section_colors-stroke, #E7E7EC) !important;
   border-width: 1px;
-  color: var(--text_colors-primary) !important;
+  background-color: var(--section_colors-body, #fff) !important;
 
   .k-empty-state-message {
     color: var(--text_colors-primary) !important;
@@ -44,9 +44,9 @@ withDefaults(defineProps<{
 
   .k-button {
     background-color: var(--button_colors-primary-fill, #000) !important;
-    border-radius: 100px;
     color: var(--text_colors-primary, #fff) !important;
     font-weight: 600 !important;
+    border-radius: 100px;
   }
 
   svg {

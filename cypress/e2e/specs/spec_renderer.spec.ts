@@ -51,7 +51,7 @@ describe('Spec Renderer Page', () => {
         .click()
         .get('.toaster-container-outer .message').should(
           'contain',
-          'Copied to clipboard',
+          'Copied to clipboard'
         )
         // closes spec modal when close button clicked View Raw
         .get('.view-spec-modal .modal-footer button')
@@ -100,7 +100,7 @@ describe('Spec Renderer Page', () => {
         .click()
         .get('.toaster-container-outer .message').should(
           'contain',
-          'Copied to clipboard',
+          'Copied to clipboard'
         )
         // closes spec modal when close button clicked
         .get('.view-spec-modal .modal-footer button')
@@ -154,7 +154,7 @@ describe('Spec Renderer Page', () => {
       name: 'v2-beta',
       publish_status: 'published',
       registration_configs: [],
-      deprecated: false,
+      deprecated: false
     }
 
     const weirdVersion = {
@@ -164,16 +164,16 @@ describe('Spec Renderer Page', () => {
       name: weirdVersionName,
       publish_status: 'published',
       registration_configs: [],
-      deprecated: false,
+      deprecated: false
     }
     const productBody = {
-      ...product,
+      ...product
     }
 
     const mockedVersions = [
       ...versions,
       weirdVersion,
-      v2BetaVersion,
+      v2BetaVersion
     ]
 
     const productDocumentPetttstorrreeeBody = {
@@ -181,16 +181,16 @@ describe('Spec Renderer Page', () => {
       info: {
         ...petstoreJson.info,
         title: 'Petttstorrreee',
-        description: 'This is petstore json, not to be confused with petstore yaml',
-      },
+        description: 'This is petstore json, not to be confused with petstore yaml'
+      }
     }
     const productDocumentWeirdPetStoreBody = {
       ...petstoreJson,
       info: {
         ...petstoreJson.info,
         title: 'weird petstore',
-        description: 'This is petstore weird, not to be confused with petstore yaml',
-      },
+        description: 'This is petstore weird, not to be confused with petstore yaml'
+      }
     }
 
     beforeEach(() => {
@@ -204,7 +204,7 @@ describe('Spec Renderer Page', () => {
     it('loads a new spec when selected from the dropdown', () => {
       cy.mockProduct(product.id, productBody, mockedVersions)
       cy.mockProductDocument(product.id, v2BetaVersion.id, {
-        body: productDocumentPetttstorrreeeBody,
+        body: productDocumentPetttstorrreeeBody
       })
       cy.visit(`/spec/${product.id}`)
         .get('[data-testid="kong-public-ui-spec-details-swagger"]', { timeout: 12000 })
@@ -327,16 +327,16 @@ describe('Spec Renderer Page', () => {
 
     it('redirects to 403 page when developer does not have permissions to see the spec', () => {
       cy.intercept('GET', '**/api/v2/portal', {
-        rbac_enabled: true,
+        rbac_enabled: true
       }).as('getPortalContext')
 
       cy.intercept('GET', 'api/v2/portals/*/developers/me/permissions', {
         statusCode: 200,
         body: [{
           resource: 'krn:konnect:reg/*:org/*:portals/*/services/*',
-          actions: [],
+          actions: []
         }],
-        delay: 300,
+        delay: 300
       }).as('getPermissions')
 
       cy.visit(`/spec/${product.id}`)
@@ -348,7 +348,7 @@ describe('Spec Renderer Page', () => {
 
     it('allow to register and see spec when rbac enabled and permission granted', () => {
       cy.intercept('GET', '**/api/v2/portal', {
-        rbac_enabled: true,
+        rbac_enabled: true
       }).as('getPortalContext')
 
       cy.intercept('GET', 'api/v2/portals/*/developers/me/permissions', {
@@ -357,10 +357,10 @@ describe('Spec Renderer Page', () => {
           resource: 'krn:konnect:reg/*:org/*:portals/*/services/*',
           actions: [
             '#view',
-            '#consume',
-          ],
+            '#consume'
+          ]
         }],
-        delay: 300,
+        delay: 300
       }).as('getPermissions')
 
       cy.visit(`/spec/${product.id}`)
@@ -375,7 +375,7 @@ describe('Spec Renderer Page', () => {
 
     it('does not call developers/me/permissions if rbac not enabled', () => {
       cy.intercept('GET', '**/api/v2/portal', {
-        rbac_enabled: false,
+        rbac_enabled: false
       }).as('getPortalContext')
 
       cy.intercept('get', 'api/v2/portals/*/developers/me/permissions', cy.spy().as('apiNotCalled'))
@@ -407,7 +407,7 @@ describe('Spec Renderer Page', () => {
 
     it('allows seeing spec when portal is public and rbac enabled, does not call developers/me/permissions', () => {
       cy.intercept('GET', '**/portal_api/portal/portal_context', {
-        rbac_enabled: true,
+        rbac_enabled: true
       }).as('getPortalContext')
 
       cy.intercept('get', 'api/v2/portals/*/developers/me/permissions', cy.spy().as('apiNotCalled'))

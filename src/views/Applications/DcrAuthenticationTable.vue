@@ -9,24 +9,24 @@
       <template #body>
         <KTable
           data-testid="client-secret-table"
-          disable-pagination
-          :fetcher="fetcher"
+          :is-loading="!application"
           :fetcher-cache-key="fetcherCacheKey"
+          :fetcher="fetcher"
+          disable-pagination
+          is-small
           has-side-border
           :headers="tableHeaders"
-          :is-loading="!application"
-          is-small
         >
           <template #created_at="{ row }">
             {{ formatDate(row.created_at) }}
           </template>
           <template #actions="{ row }">
             <KButton
-              appearance="secondary"
               data-testid="refresh-secret-button"
-              :disabled="isLoading"
               :icon="isLoading ? 'spinner' : 'redo'"
               :is-rounded="false"
+              :disabled="isLoading"
+              appearance="secondary"
               @click="handleRefreshSecret(row.id)"
             >
               <span>{{ helpText.refreshToken }}</span>
@@ -59,18 +59,18 @@ export default defineComponent({
   props: {
     application: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
 
-  setup(props) {
+  setup (props) {
     const { notify } = useToaster()
     const helpText = useI18nStore().state.helpText.dcrAuthentication
     const isLoading = ref(null)
     const tableHeaders = [
       { label: 'Client ID', key: 'reference_id' },
       { label: 'Created Date', key: 'created_at' },
-      { key: 'actions', hideLabel: true },
+      { key: 'actions', hideLabel: true }
     ]
     const refreshSecretModalVisible = ref(false)
     const token = ref(null)
@@ -82,17 +82,17 @@ export default defineComponent({
       key.value += 1
     }
 
-    function fetcher() {
+    function fetcher () {
       if (props.application) {
         return {
           data: [props.application],
-          total: 1,
+          total: 1
         }
       }
 
       return {
         data: [],
-        total: 0,
+        total: 0
       }
     }
 
@@ -104,12 +104,12 @@ export default defineComponent({
     const handleRefreshSecret = (id: string) => {
       isLoading.value = true
       portalApiV2.value.service.credentialsApi.refreshApplicationToken({
-        applicationId: id,
+        applicationId: id
       })
         .then((res) => {
           isLoading.value = null
           notify({
-            message: 'Successfully refreshed secret',
+            message: 'Successfully refreshed secret'
           })
           refreshSecretModalVisible.value = true
           token.value = res.data.client_secret
@@ -118,7 +118,7 @@ export default defineComponent({
           isLoading.value = null
           notify({
             appearance: 'danger',
-            message: getMessageFromError(error),
+            message: getMessageFromError(error)
           })
         })
     }
@@ -142,9 +142,9 @@ export default defineComponent({
       handleRefreshSecret,
       refreshSecretModalVisible,
       fetcher,
-      fetcherCacheKey,
+      fetcherCacheKey
     }
-  },
+  }
 
 })
 </script>

@@ -6,9 +6,9 @@
       </h2>
       <template #right>
         <KButton
-          appearance="secondary"
           data-testid="generate-credential-button"
           :is-rounded="false"
+          appearance="secondary"
           @click="handleCreateCredential"
         >
           + {{ helpText.newButtonText }}
@@ -19,22 +19,22 @@
     <KCard>
       <template #body>
         <KTable
-          data-testid="credentials-list"
-          :fetcher="fetcher"
-          :fetcher-cache-key="fetcherCacheKey"
-          has-side-border
-          :headers="tableHeaders"
-          :initial-fetcher-params="{ pageSize: ktablePaginationConfig.initialPageSize }"
           :is-loading="currentState.matches('pending')"
+          data-testid="credentials-list"
+          :fetcher-cache-key="fetcherCacheKey"
+          :fetcher="fetcher"
+          has-side-border
           is-small
+          :headers="tableHeaders"
           :pagination-page-sizes="ktablePaginationConfig.paginationPageSizes"
+          :initial-fetcher-params="{ pageSize: ktablePaginationConfig.initialPageSize }"
         >
           <template #id="{ row }">
             <CopyUuid
               class="flex"
               :icon-color="'var(--text_colors-primary)'"
-              :truncated="false"
               :uuid="row.id"
+              :truncated="false"
             />
           </template>
           <template #actions="{ row }">
@@ -65,10 +65,10 @@
       </template>
     </KCard>
     <KModal
-      class="revoke-credential-modal"
-      data-testid="revoke-credential-modal"
       :is-visible="deleteCredentialModalVisible"
       :title="helpText.revokeModal.title"
+      data-testid="revoke-credential-modal"
+      class="revoke-credential-modal"
       @canceled="handleCloseDeleteCredentialModal"
     >
       <template #body-content>
@@ -78,18 +78,18 @@
       </template>
       <template #footer-content>
         <KButton
+          :is-rounded="false"
           appearance="danger"
           class="mr-3"
           data-testid="revoke-credential-modal-button"
-          :is-rounded="false"
           @click="handleDeleteCredentialSubmit"
         >
           {{ helpText.revokeModal.revokeButton }}
         </KButton>
         <KButton
           appearance="secondary"
-          data-testid="revoke-credential-close-modal-button"
           :is-rounded="false"
+          data-testid="revoke-credential-close-modal-button"
           @click="handleCloseDeleteCredentialModal"
         >
           {{ helpText.revokeModal.cancelButton }}
@@ -99,15 +99,15 @@
     <DisplayNameModal
       :is-visible="displayNameModalVisible"
       :rename-key-row="renameKeyRow"
-      @close-display-name-modal="handleCloseDisplayNameModal"
-      @create-new-credential="handleCredentialSubmit"
       @rename-credential="handleRenameCredentialSubmit"
+      @create-new-credential="handleCredentialSubmit"
+      @close-display-name-modal="handleCloseDisplayNameModal"
     />
     <KModal
-      class="copy-credential-modal"
-      data-testid="copy-new-credential-modal"
       :is-visible="copyCredentialModalVisible"
       :title="helpText.copyModal.title"
+      data-testid="copy-new-credential-modal"
+      class="copy-credential-modal"
       @canceled="handleCloseCopyCredentialModal"
     >
       <template #header-content>
@@ -130,19 +130,19 @@
       <template #footer-content>
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <KButton
+            :is-rounded="false"
             appearance="primary"
             class="mr-3"
             data-testid="copy-credentials-confirm-modal-button"
-            :is-rounded="false"
             @click="copyTokenToClipboard(copyToClipboard)"
           >
             {{ helpText.copyModal.continueButton }}
           </KButton>
         </KClipboardProvider>
         <KButton
+          :is-rounded="false"
           appearance="secondary"
           data-testid="copy-credentials-close-modal-button"
-          :is-rounded="false"
           @click="handleCloseCopyCredentialModal"
         >
           {{ helpText.copyModal.cancelButton }}
@@ -173,18 +173,18 @@ export default defineComponent({
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
-  setup(props) {
+  setup (props) {
     const { notify } = useToaster()
     const helpText = useI18nStore().state.helpText.credentials
 
     const tableHeaders = [
       { label: 'Name', key: 'display_name' },
       { label: 'ID', key: 'id' },
-      { key: 'actions', hideLabel: true },
+      { key: 'actions', hideLabel: true }
     ]
 
     const copyCredentialModalVisible = ref(false)
@@ -198,7 +198,7 @@ export default defineComponent({
 
     const ktablePaginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
-      initialPageSize: 25,
+      initialPageSize: 25
     })
 
     const { portalApiV2 } = usePortalApi()
@@ -211,9 +211,9 @@ export default defineComponent({
         states: {
           idle: { on: { FETCH: 'pending' } },
           pending: { on: { RESOLVE: 'success' } },
-          success: { on: { FETCH: 'pending' } },
-        },
-      }),
+          success: { on: { FETCH: 'pending' } }
+        }
+      })
     )
 
     const key = ref(0)
@@ -234,7 +234,7 @@ export default defineComponent({
 
         return {
           data: res.data.data,
-          total: res.data.meta.page.total,
+          total: res.data.meta.page.total
         }
       }).catch((e) => {
         return handleError(e)
@@ -254,8 +254,8 @@ export default defineComponent({
       portalApiV2.value.service.credentialsApi.createCredential({
         applicationId: props.id,
         createCredentialPayload: {
-          display_name: displayName.value,
-        },
+          display_name: displayName.value
+        }
       })
         .then((res) => {
           displayNameModalVisible.value = false
@@ -285,8 +285,8 @@ export default defineComponent({
         applicationId: props.id,
         credentialId: renameKeyRow.value?.id,
         updateCredentialPayload: {
-          display_name: updatedDisplayName.value,
-        },
+          display_name: updatedDisplayName.value
+        }
       })
         .then(() => {
           displayNameModalVisible.value = false
@@ -303,7 +303,7 @@ export default defineComponent({
     const handleDeleteCredentialSubmit = () => {
       portalApiV2.value.service.credentialsApi.deleteCredential({
         applicationId: props.id,
-        credentialId: deletedKeyRow.value?.id,
+        credentialId: deletedKeyRow.value?.id
       })
         .then(() => {
           handleSuccess('revoked')
@@ -346,12 +346,12 @@ export default defineComponent({
       if (!executeCopy(credentialKey.value)) {
         notify({
           appearance: 'danger',
-          message: `Failed to copy key: "${credentialKey.value}" to clipboard`,
+          message: `Failed to copy key: "${credentialKey.value}" to clipboard`
         })
       }
 
       notify({
-        message: `Key "${credentialKey.value}" copied to clipboard`,
+        message: `Key "${credentialKey.value}" copied to clipboard`
       })
 
       copyCredentialModalVisible.value = false
@@ -361,11 +361,11 @@ export default defineComponent({
     const handleSuccess = (action: string, name = null) => {
       if (name) {
         notify({
-          message: `Credential "${name}" successfully ${action}`,
+          message: `Credential "${name}" successfully ${action}`
         })
       } else {
         notify({
-          message: `Credential successfully ${action}`,
+          message: `Credential successfully ${action}`
         })
       }
     }
@@ -373,7 +373,7 @@ export default defineComponent({
     const handleError = (error: any) => {
       notify({
         appearance: 'danger',
-        message: getMessageFromError(error),
+        message: getMessageFromError(error)
       })
       displayNameModalVisible.value = false
     }
@@ -405,9 +405,9 @@ export default defineComponent({
       handleDeleteCredentialSubmit,
       fetcherCacheKey,
       fetcher,
-      ktablePaginationConfig,
+      ktablePaginationConfig
     }
-  },
+  }
 
 })
 </script>
@@ -429,8 +429,8 @@ export default defineComponent({
 
     .k-input-label {
       display: block;
-      font-size: var(--type-md, 16px);
       text-align: left;
+      font-size: var(--type-md, 16px);
     }
 
     .display-name-input {
@@ -445,9 +445,9 @@ export default defineComponent({
       margin-top: 0.5rem !important;
 
       .clipboard-button {
-        font-size: var(--type-md, 16px);
         padding: 10px 16px;
         padding-right: 8px;
+        font-size: var(--type-md, 16px);
       }
     }
   }
@@ -458,8 +458,8 @@ export default defineComponent({
     --KModalHeaderColor: var(--text_colors-headings);
     --KModalColor: var(--text_colors-primary);
     .copy-text {
-      font-size: var(--type-md, 16px);
       text-align: left;
+      font-size: var(--type-md, 16px);
 
       &.copy-label {
         font-weight: 500;

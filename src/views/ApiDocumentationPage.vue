@@ -33,14 +33,14 @@
 
         <ErrorWrapper
           v-if="errorCode"
-          :description="helpText.apiDocumentation.error.description"
           :error-code="errorCode"
+          :description="helpText.apiDocumentation.error.description"
           :link-text="helpText.apiDocumentation.error.linkText"
         />
         <DocumentViewer
           v-else-if="content"
-          class="portal-document-viewer"
           data-testid="portal-document-viewer"
+          class="portal-document-viewer"
           :document="content"
         />
       </template>
@@ -79,15 +79,15 @@ export default defineComponent({
   components: {
     DocumentViewer,
     DocumentSections,
-    ErrorWrapper,
+    ErrorWrapper
   },
   props: {
     product: {
       type: Object as PropType<ProductWithVersions>,
-      required: true,
-    },
+      required: true
+    }
   },
-  setup(props) {
+  setup (props) {
     const helpText = useI18nStore().state.helpText
     const productStore = useProductStore()
     const { activeDocumentSlug } = storeToRefs(productStore)
@@ -101,32 +101,32 @@ export default defineComponent({
       {
         key: 'product-catalog',
         to: { name: 'catalog' },
-        text: helpText.nav.catalog,
+        text: helpText.nav.catalog
       },
       {
         key: 'product',
         to: props.product
           ? {
-            name: 'spec',
-            params: {
-              product: props.product.id,
-            },
-          }
+              name: 'spec',
+              params: {
+                product: props.product.id
+              }
+            }
           : undefined,
-        text: props.product?.name || (helpText.nav.breadcrumbProduct),
+        text: props.product?.name || (helpText.nav.breadcrumbProduct)
       },
       {
         key: 'documentation',
         text: helpText.nav.breadcrumbDocumentation,
         to: props.product
           ? {
-            name: 'api-documentation-page',
-            params: {
-              product: props.product.id,
-            },
-          }
-          : undefined,
-      },
+              name: 'api-documentation-page',
+              params: {
+                product: props.product.id
+              }
+            }
+          : undefined
+      }
     ]))
 
     const title = ref<string>(null)
@@ -152,26 +152,26 @@ export default defineComponent({
           return {
             level,
             slug,
-            title: text,
+            title: text
           }
 
-          function getMaxHeaderLevel(maxHeadingLevel) {
+          function getMaxHeaderLevel (maxHeadingLevel) {
             return Math.min(node.level, maxHeadingLevel)
           }
         })
     })
 
-    async function fetchDocument(productId: string, slug: string) {
+    async function fetchDocument (productId: string, slug: string) {
       errorCode.value = null
       isDocumentLoading.value = true
 
       await portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
-        documentId: slug,
+        documentId: slug
       }, {
         headers: {
-          accept: 'application/vnd.konnect.document-nodes+json',
-        },
+          accept: 'application/vnd.konnect.document-nodes+json'
+        }
       })
         .then((res) => {
           const data = res.data as unknown as ProductDocument // override
@@ -188,7 +188,7 @@ export default defineComponent({
     const handleError = (error) => {
       notify({
         appearance: 'danger',
-        message: getMessageFromError(error),
+        message: getMessageFromError(error)
       })
 
       const statusCode = error?.response?.status || 400
@@ -197,7 +197,7 @@ export default defineComponent({
         errorCode.value = statusCode
       } else {
         router.replace({
-          name: 'not-found',
+          name: 'not-found'
         })
       }
     }
@@ -221,9 +221,9 @@ export default defineComponent({
       breadcrumbs,
       document,
       errorCode,
-      slug: activeDocumentSlug.value,
+      slug: activeDocumentSlug.value
     }
-  },
+  }
 })
 </script>
 
@@ -283,11 +283,11 @@ export default defineComponent({
 }
 
 .documents-title {
-  color: var(--text_colors-headings);
   display: block;
-  font-family: var(--font-family-headings);
   font-size: 1.25rem;
   margin: 0 0 0.75rem;
+  color: var(--text_colors-headings);
+  font-family: var(--font-family-headings);
 }
 
 .portal-document-viewer {
@@ -301,6 +301,8 @@ export default defineComponent({
 
   // This is going to solve some contrast issues with blockquotes
   // and their text colors.
+
+  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
   :deep(blockquote) {
     color: var(--steel-700, #0a2b66);
 

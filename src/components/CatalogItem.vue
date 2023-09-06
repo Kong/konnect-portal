@@ -43,9 +43,9 @@
             <template v-else>
               <span class="mr-2">{{ helpText.latestVersion }}</span>
               <KBadge
+                color="var(--text_colors-secondary)"
                 background-color="var(--section_colors-accent)"
                 class="product-version"
-                color="var(--text_colors-secondary)"
               >
                 {{ version.name }}
               </KBadge>
@@ -59,15 +59,15 @@
             </template>
             <template v-else>
               <router-link
-                class="link"
                 :to="{ name: 'spec', params: { product: product.id } }"
+                class="link"
               >
                 {{ helpText.specificationLink }}
                 <KIcon
-                  class="link-icon"
-                  color="var(--text_colors-link)"
                   icon="arrowRight"
                   size="16"
+                  color="var(--text_colors-link)"
+                  class="link-icon"
                 />
               </router-link>
             </template>
@@ -81,15 +81,15 @@
             </template>
             <template v-else>
               <router-link
-                class="link"
                 :to="{ name: 'api-documentation-page', params: { product: product.id } }"
+                class="link"
               >
                 {{ helpText.documentationLink }}
                 <KIcon
-                  class="link-icon"
-                  color="var(--text_colors-link)"
                   icon="arrowRight"
                   size="16"
+                  color="var(--text_colors-link)"
+                  class="link-icon"
                 />
               </router-link>
             </template>
@@ -109,50 +109,50 @@ export default {
   props: {
     product: {
       type: Object as PropType<CatalogItemModel>,
-      default: () => {},
+      default: () => {}
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
-  data() {
+  data () {
     const helpText = useI18nStore().state.helpText.catalogItem
 
     return {
-      helpText,
+      helpText
     }
   },
   computed: {
-    version() {
+    version () {
       return this.product.latestVersion
     },
-    versionLabel() {
+    versionLabel () {
       return this.product.versionCount === 1 ? 'Version: ' : 'Versions: '
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
   .products-card-title {
-    border-bottom: 1px solid var(--section_colors-stroke);
     color: var(--text_colors-accent);
     font-weight: 600;
     padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--section_colors-stroke);
     width: 100%;
   }
 
   .description {
-    -webkit-box-orient: vertical;
-    color: var(--text_colors-primary);
     display: -webkit-box;
+    -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     line-height: 1.4rem;
+    text-overflow: ellipsis;
     max-height: 5.6rem;
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: pre-line;
+    color: var(--text_colors-primary);
   }
 
   .details-item {
@@ -160,8 +160,8 @@ export default {
   }
 
   .link {
-    align-items: center;
     display: inline-flex;
+    align-items: center;
   }
 
   .link-icon {
@@ -179,9 +179,9 @@ export default {
     --KCardBorder: 1px solid var(--section_colors-stroke);
 
     .kong-card {
+      height: 19rem;
       display: flex;
       flex-direction: column;
-      height: 19rem;
     }
 
     .show-docs.kong-card {
@@ -197,9 +197,9 @@ export default {
     }
 
     .k-card-body {
+      padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
-      padding: 1.5rem 1rem;
     }
 
     .k-card-title,
@@ -210,8 +210,8 @@ export default {
     .docs-links {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
       justify-content: space-between;
+      flex-wrap: wrap;
     }
   }
 </style>

@@ -19,21 +19,21 @@ import { LocationQueryValueRaw, useRouter } from 'vue-router'
 export default defineComponent({
   name: 'ResetPassword',
   components: {
-    AuthCard,
+    AuthCard
   },
-  setup() {
+  setup () {
     const $router = useRouter()
 
-    function onResetPasswordSuccess(event: {email?: string} = {}) {
+    function onResetPasswordSuccess (event: {email?: string} = {}) {
       const { email } = event
 
       $router.push({ path: '/login', query: { passwordReset: true as unknown as LocationQueryValueRaw, email } })
     }
 
     return {
-      onResetPasswordSuccess,
+      onResetPasswordSuccess
     }
-  },
+  }
 
 })
 </script>

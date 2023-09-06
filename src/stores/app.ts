@@ -96,6 +96,6 @@ export const useAppStore = defineStore('app', () => {
 
     logout,
     setPortalData,
-    setSession,
+    setSession
   }
 })

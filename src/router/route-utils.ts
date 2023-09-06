@@ -5,7 +5,7 @@ export const AUTH_ROUTES = {
   login: true,
   registration: true,
   'forgot-password': true,
-  'reset-password': true,
+  'reset-password': true
 }
 
 export const PRIVATE_ROUTES = {
@@ -15,43 +15,43 @@ export const PRIVATE_ROUTES = {
   'create-application': true,
   'show-application': true,
   'update-application': true,
-  ...AUTH_ROUTES,
+  ...AUTH_ROUTES
 }
 
-export function canUserAccess(krnArgs) {
+export function canUserAccess (krnArgs) {
   const { canUserAccess } = usePermissionsStore()
 
   return canUserAccess(krnArgs)
 }
 
-export function shouldRedirectToLogin({ isPublic, isSessionInvalid, to }) {
+export function shouldRedirectToLogin ({ isPublic, isSessionInvalid, to }) {
   // If there is private portal and session is invalid (user not logged in)
   // and route is only available to logged users
 
   return !isPublic && isSessionInvalid && !isAuthRoute(to.name)
 }
 
-export function isAuthRoute(routeName) {
+export function isAuthRoute (routeName) {
   return !!AUTH_ROUTES[routeName]
 }
 
-export function isPrivateRoute(routeName) {
+export function isPrivateRoute (routeName) {
   return !!PRIVATE_ROUTES[routeName]
 }
 
-export function isLoginOrRegistrationRoute(routeName) {
+export function isLoginOrRegistrationRoute (routeName) {
   return routeName === 'login' || routeName === 'registration'
 }
 
-export function getRedirectRoute(redirectName, fromName) {
+export function getRedirectRoute (redirectName, fromName) {
   return redirectName !== fromName && { name: redirectName }
 }
 
-export function getRedirectRouteBasedOnPath(redirectToPath, fromPath) {
+export function getRedirectRouteBasedOnPath (redirectToPath, fromPath) {
   return redirectToPath !== fromPath && { path: redirectToPath }
 }
 
-export function removeQueryParam(queryParam) {
+export function removeQueryParam (queryParam) {
   const url = window.location.href
   const r = new URL(url)
 
@@ -66,7 +66,7 @@ export function removeQueryParam(queryParam) {
 // Common case look like we might want to chceck for only KRN there like
 // isAuthorized: route => canUserAccess({ service: 'accounts', action: '#consume', resourcePath: 'somePath }),
 
-export async function verifyDeveloperIsAuthorizedForRoute(to, data) {
+export async function verifyDeveloperIsAuthorizedForRoute (to, data) {
   // Set to true if the meta.isAuthorized is not set on the route
   // or if meta.isAuthrized evaluates to true (via boolean or calling the function)
   return to.meta?.isAuthorized === undefined ||
@@ -78,7 +78,7 @@ export async function verifyDeveloperIsAuthorizedForRoute(to, data) {
 // except for KRN permissions.
 // For now it's only realted to LD feature flag, in future we might extend it as it's done in Konnect
 
-export function verifyDeveloperFulfillMetaForRoute(to) {
+export function verifyDeveloperFulfillMetaForRoute (to) {
   if (to?.matched?.length > 0) {
     const matchedEvery = to.matched.every((match) => {
       if (!Object.prototype.hasOwnProperty.call(match.meta, 'featureFlagsLD')) {
@@ -106,6 +106,6 @@ export function verifyDeveloperFulfillMetaForRoute(to) {
 
 // Combine both checks and should be used as default one to check developer permissions
 
-export async function shouldDeveloperAccessRoute(to, data) {
+export async function shouldDeveloperAccessRoute (to, data) {
   return verifyDeveloperFulfillMetaForRoute(to) && await verifyDeveloperIsAuthorizedForRoute(to, data)
 }

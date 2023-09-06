@@ -5,7 +5,7 @@ describe('Login Page', () => {
     cy.intercept('POST', '**/developer/logout', {
       statusCode: 204,
       body: {},
-      delay: 300,
+      delay: 300
     }).as('userLogout')
   })
 
@@ -61,9 +61,9 @@ describe('Login Page', () => {
         count: 0,
         limit: 12,
         offset: 0,
-        data: [],
+        data: []
       },
-      delay: 300,
+      delay: 300
     }).as('getProducts')
 
     cy.mockGetUserInfo()
@@ -90,9 +90,9 @@ describe('Login Page', () => {
         count: 0,
         limit: 12,
         offset: 0,
-        data: [],
+        data: []
       },
-      delay: 300,
+      delay: 300
     }).as('getProducts')
 
     cy.visit('/', { useOriginalFn: true })
@@ -116,9 +116,9 @@ describe('Login Page', () => {
       body: {
         status: 404,
         title: 'Not Found',
-        detail: 'The requested developer was not found',
+        detail: 'The requested developer was not found'
       },
-      delay: 300,
+      delay: 300
     }).as('userAuthenticate')
     cy.visit('/login', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
@@ -138,10 +138,10 @@ describe('Login Page', () => {
       statusCode: 401,
       body: {
         status: 401,
-        title: 'Developer is disabled',
-        detail: 'Your account is disabled.',
+        title: "Developer is disabled",
+        detail: "Your account is disabled."
       },
-      delay: 300,
+      delay: 300
     }).as('userAuthenticate')
     cy.visit('/login', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
@@ -161,14 +161,14 @@ describe('Login Page', () => {
       statusCode: 202,
       body: {
         email: 'email',
-        resetToken: 'token',
+        resetToken: 'token'
       },
-      delay: 300,
+      delay: 300
     }).as('verifyEmailToken')
 
     cy.intercept('POST', '**/developer/reset-password', {
       statusCode: 204,
-      delay: 300,
+      delay: 300
     }).as('passwordReset')
     cy.visit('/login?email=testing12302%40gmail.com&token=123', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
@@ -196,12 +196,12 @@ describe('Login Page', () => {
     cy.intercept('POST', '**/developer/verify-email', {
       statusCode: 500,
       body: {
-        status: 500,
-        title: 'Internal',
-        instance: 'konnect:trace:1158228726469534496',
-        detail: 'An internal failure occurred',
+        "status": 500,
+        "title": "Internal",
+        "instance": "konnect:trace:1158228726469534496",
+        "detail": "An internal failure occurred"
       },
-      delay: 300,
+      delay: 300
     }).as('verifyEmailToken')
     cy.visit('/login?email=testing123%40gmail.com&token=123', { useOriginalFn: true })
 
@@ -259,7 +259,7 @@ describe('Login Page', () => {
       statusCode: 401,
       body: {
       },
-      delay: 300,
+      delay: 300
     }).as('getUserInfo')
 
     cy.visit('/?loginSuccess=true', { useOriginalFn: true })

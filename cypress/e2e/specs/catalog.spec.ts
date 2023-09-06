@@ -7,10 +7,10 @@ const mockProductSearchQuery = (searchQuery: string) => {
     ['fooApi', ['v1']],
     ['sampleapi', ['v1']],
     ['testapi', ['v1']],
-    ['xapi', ['v1']],
+    ['xapi', ['v1']]
   ] as [string, string[]][])
     .filter((data) =>
-      searchQuery !== '' ? JSON.stringify(data).includes(searchQuery) : true,
+      searchQuery !== '' ? JSON.stringify(data).includes(searchQuery) : true
     )
     .map(([name, versions]) => ({
       index: 'product-catalog',
@@ -24,9 +24,9 @@ const mockProductSearchQuery = (searchQuery: string) => {
         version_count: versions.length,
         latest_version: {
           name: versions[0],
-          id: crypto.randomUUID(),
-        },
-      },
+          id: crypto.randomUUID()
+        }
+      }
     }))
 
   const responseBody: SearchResults = {
@@ -35,16 +35,16 @@ const mockProductSearchQuery = (searchQuery: string) => {
       page: {
         number: 1,
         size: searchResults.length,
-        total: searchResults.length,
-      },
-    },
+        total: searchResults.length
+      }
+    }
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
     times: 1,
     statusCode: 200,
     body: responseBody,
-    delay: 0,
+    delay: 0
   }).as('productSearch')
 }
 
@@ -55,15 +55,15 @@ const mockProductSearchResults = (searchResults:SearchResultsDataInner[], pageNu
       page: {
         number: pageNumber,
         size: searchResults.length,
-        total: totalCount,
-      },
-    },
+        total: totalCount
+      }
+    }
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
     delay: 0,
     statusCode: 200,
-    body: responseBody,
+    body: responseBody
   }).as('productSearch')
 }
 
@@ -187,8 +187,8 @@ describe('Catalog', () => {
         version_count: 2,
         latest_version: {
           id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-          name: 'v4',
-        },
+          name: 'v4'
+        }
       }])
 
       cy.visit('/')
@@ -206,8 +206,8 @@ describe('Catalog', () => {
         version_count: 2,
         latest_version: {
           id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-          name: 'v4',
-        },
+          name: 'v4'
+        }
       }])
       cy.visit('/')
       cy.get('[data-testid="view-switcher"]:not(:disabled)')
@@ -331,7 +331,7 @@ describe('Catalog', () => {
         mockProductSearchResults(
           productsData.filter((s) => s.source.name === searchQuery),
           1,
-          1,
+          1
         )
         cy.get('[data-testid=catalog-search]').type(searchQuery + '{enter}')
 

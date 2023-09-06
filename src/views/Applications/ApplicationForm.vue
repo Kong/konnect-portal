@@ -2,14 +2,14 @@
   <Content>
     <div class="w-1/2 mx-auto">
       <PageTitle
-        class="mb-5"
         :title="($route.meta.title as string)"
+        class="mb-5"
       />
       <KAlert
         v-if="currentState.matches('error')"
-        :alert-message="errorMessage"
         appearance="danger"
         class="mb-5"
+        :alert-message="errorMessage"
       />
       <div>
         <p class="text-sm mb-5">
@@ -23,9 +23,9 @@
             <KInput
               id="applicationName"
               v-model.trim="formData.name"
-              class="k-input--full"
               data-testid="application-name-input"
               type="text"
+              class="k-input--full"
             />
           </div>
           <div
@@ -38,8 +38,8 @@
             <KInput
               id="redirectUri"
               v-model="formData.redirect_uri"
-              class="w-100 k-input--full"
               type="text"
+              class="w-100 k-input--full"
             />
           </div>
           <div
@@ -53,17 +53,17 @@
               <KInput
                 id="referenceId"
                 v-model="formData.reference_id"
-                class="k-input--full"
                 data-testid="reference-id-input"
-                :help="helpText.application.form.referenceId.help"
-                :placeholder="helpText.application.form.referenceId.placeholder"
                 type="text"
+                class="k-input--full"
+                :placeholder="helpText.application.form.referenceId.placeholder"
+                :help="helpText.application.form.referenceId.help"
               />
               <KButton
-                appearance="secondary"
                 class="generate-reference-id-button"
                 data-testid="generate-reference-id"
                 :is-rounded="false"
+                appearance="secondary"
                 size="small"
                 @click="generateReferenceId"
               >
@@ -79,24 +79,24 @@
             <KTextArea
               id="description"
               v-model.trim="formData.description"
-              class="k-input--full"
               :rows="5"
+              class="k-input--full"
             />
           </div>
           <div class="flex">
             <div class="flex-1">
               <KButton
+                :is-rounded="false"
+                type="submit"
                 appearance="primary"
                 class="mr-4"
                 :disabled="isEnabled ? null : true"
-                :is-rounded="false"
-                type="submit"
               >
                 {{ buttonText }}
               </KButton>
               <KButton
-                appearance="secondary"
                 :is-rounded="false"
+                appearance="secondary"
                 @click="handleCancel"
               >
                 {{ helpText.application.cancel }}
@@ -104,8 +104,8 @@
             </div>
             <div v-if="formMode === 'edit'">
               <KButton
-                appearance="danger"
                 data-testid="application-delete-button"
+                appearance="danger"
                 :is-rounded="false"
                 @click="send('CLICKED_DELETE')"
               >
@@ -118,12 +118,12 @@
     </div>
 
     <KModal
-      action-button-appearance="danger"
-      :action-button-text="helpText.application.delete"
-      class="delete-modal"
-      data-testid="application-delete-modal"
-      :is-visible="currentState.matches('confirm_delete')"
       :title="modalTitle"
+      :is-visible="currentState.matches('confirm_delete')"
+      data-testid="application-delete-modal"
+      :action-button-text="helpText.application.delete"
+      action-button-appearance="danger"
+      class="delete-modal"
       @canceled="send('CLICKED_CANCEL')"
     >
       <template #header-content>
@@ -134,18 +134,18 @@
       </template>
       <template #footer-content>
         <KButton
-          appearance="danger"
-          class="mr-3"
-          data-testid="application-delete-confirm-button"
           :is-rounded="false"
+          appearance="danger"
+          data-testid="application-delete-confirm-button"
+          class="mr-3"
           @click="handleDelete"
         >
           {{ helpText.application.delete }}
         </KButton>
         <KButton
           appearance="secondary"
-          data-testid="application-delete-cancel-button"
           :is-rounded="false"
+          data-testid="application-delete-cancel-button"
           @click="send('CLICKED_CANCEL')"
         >
           {{ helpText.application.cancel }}
@@ -153,12 +153,12 @@
       </template>
     </KModal>
     <KModal
-      action-button-appearance="danger"
-      :action-button-text="helpText.application.delete"
-      class="application-secret-modal"
-      data-testid="copy-secret-modal"
-      :is-visible="secretModalIsVisible"
       :title="helpText.application.applicationCredentials"
+      :is-visible="secretModalIsVisible"
+      data-testid="copy-secret-modal"
+      :action-button-text="helpText.application.delete"
+      action-button-appearance="danger"
+      class="application-secret-modal"
       @canceled="send('CLICKED_CANCEL')"
     >
       <template #header-content>
@@ -181,9 +181,9 @@
       </template>
       <template #footer-content>
         <KButton
+          :is-rounded="false"
           appearance="primary"
           data-testid="close-application-secret-modal"
-          :is-rounded="false"
           @click="handleAcknowledgeSecret"
         >
           {{ helpText.application.proceed }}
@@ -212,13 +212,13 @@ export default defineComponent({
   name: 'ApplicationForm',
   components: { PageTitle, CopyButton },
 
-  setup() {
-    function makeDefaultFormData(isDcr:boolean): UpdateApplicationPayload {
+  setup () {
+    function makeDefaultFormData (isDcr:boolean): UpdateApplicationPayload {
       const returnObject = {
         name: '',
         description: '',
         redirect_uri: '',
-        reference_id: '',
+        reference_id: ''
       }
       if (isDcr) {
         delete returnObject.reference_id
@@ -255,25 +255,25 @@ export default defineComponent({
             on: {
               CLICKED_SUBMIT: 'pending',
               FETCH: 'pending',
-              CLICKED_DELETE: 'confirm_delete',
-            },
+              CLICKED_DELETE: 'confirm_delete'
+            }
           },
           pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
           success: {
-            on: { CLICKED_SUBMIT: 'pending', CLICKED_DELETE: 'confirm_delete' },
+            on: { CLICKED_SUBMIT: 'pending', CLICKED_DELETE: 'confirm_delete' }
           },
           error: { on: { CLICKED_SUBMIT: 'pending' } },
           confirm_delete: {
-            on: { CLICKED_DELETE: 'pending', CLICKED_CANCEL: 'idle' },
-          },
-        },
-      }),
+            on: { CLICKED_DELETE: 'pending', CLICKED_CANCEL: 'idle' }
+          }
+        }
+      })
     )
     const isEnabled = computed(
       () =>
         !currentState.value.matches('pending') &&
         formData.value.name.length &&
-        (isDcr.value ? true : formData.value.reference_id?.length),
+        (isDcr.value ? true : formData.value.reference_id?.length)
     )
     const modalTitle = computed(() => `Delete ${formData.value?.name}`)
     const id = computed(() => $route.params.application_id as string)
@@ -283,8 +283,8 @@ export default defineComponent({
       () =>
         ({
           edit: currentState.value.matches('pending') ? 'Submitting' : 'Update',
-          create: currentState.value.matches('pending') ? 'Submitting' : 'Create',
-        })[formMode.value],
+          create: currentState.value.matches('pending') ? 'Submitting' : 'Create'
+        })[formMode.value]
 
     )
 
@@ -300,12 +300,12 @@ export default defineComponent({
       if (!executeCopy(copyItem)) {
         notify({
           appearance: 'danger',
-          message: helpText.copyButton.copyFailed.start + 'id' + helpText.copyButton.copyFailed.end,
+          message: helpText.copyButton.copyFailed.start + 'id' + helpText.copyButton.copyFailed.end
         })
       }
 
       notify({
-        message: helpText.copyButton.copySucceeded.start + (copyItem) + helpText.copyButton.copySucceeded.end,
+        message: helpText.copyButton.copySucceeded.start + (copyItem) + helpText.copyButton.copySucceeded.end
       })
     }
 
@@ -315,7 +315,7 @@ export default defineComponent({
 
       portalApiV2.value.service.applicationsApi
         .createApplication({
-          createApplicationPayload: cleanupEmptyFields(formData.value) as CreateApplicationPayload,
+          createApplicationPayload: cleanupEmptyFields(formData.value) as CreateApplicationPayload
         })
         .then((res) => {
           if (isDcr.value) {
@@ -337,7 +337,7 @@ export default defineComponent({
       portalApiV2.value.service.applicationsApi
         .updateApplication({
           applicationId: id.value,
-          updateApplicationPayload: cleanupEmptyFields(formData.value) as { name: string, [x: string]: any },
+          updateApplicationPayload: cleanupEmptyFields(formData.value) as { name: string, [x: string]: any }
         })
         .then((res) => handleSuccess(res.data.id, 'updated'))
         .catch((error) => handleError(error))
@@ -363,7 +363,7 @@ export default defineComponent({
             name: res.data.name,
             description: res.data.description || '',
             redirect_uri: res.data.redirect_uri,
-            reference_id: res.data.reference_id,
+            reference_id: res.data.reference_id
           }
           if (isDcr.value) {
             delete newFormData.reference_id
@@ -397,11 +397,11 @@ export default defineComponent({
           name: 'spec',
           params: {
             product: $route.query.product,
-            product_version: $route.query.product_version,
+            product_version: $route.query.product_version
           },
           query: {
-            application: id,
-          },
+            application: id
+          }
         }
       }
 
@@ -412,7 +412,7 @@ export default defineComponent({
     const handleSuccess = (id: string, action: string): void => {
       send('RESOLVE')
       notify({
-        message: `Application successfully ${action}`,
+        message: `Application successfully ${action}`
       })
 
       $router.push(getRedirectRoute(id))
@@ -464,9 +464,9 @@ export default defineComponent({
       handleDelete,
       handleCancel,
       generateReferenceId,
-      helpText,
+      helpText
     }
-  },
+  }
 })
 </script>
 
@@ -483,9 +483,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .generate-reference-id-button {
-  height: 36px;
-  margin-left: 16px;
   position: relative;
+  height: 36px;
   top: 4px;
+  margin-left: 16px;
 }
 </style>

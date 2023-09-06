@@ -32,8 +32,8 @@ describe('Api Documentation Page', () => {
       `**/api/v2/products/${product.id}/documents/foo`,
       {
         statusCode: 400,
-        body: {},
-      },
+        body: {}
+      }
     ).as('fetchProductDocument')
 
     cy.visit(`/docs/${product.id}/foo`)
@@ -50,8 +50,8 @@ describe('Api Documentation Page', () => {
       `**/api/v2/products/${product.id}/documents/foo`,
       {
         statusCode: 404,
-        body: {},
-      },
+        body: {}
+      }
     ).as('fetchProductDocument')
 
     cy.visit(`/docs/${product.id}/foo`)
@@ -131,11 +131,11 @@ describe('Api Documentation Page', () => {
     cy.mockProductDocumentTree()
     // mock parent
     cy.mockProductApiDocument(product.id, {
-      body: documentTreeJSON[0],
+      body: documentTreeJSON[0]
     })
     // mock child
     cy.mockProductApiDocument(product.id, {
-      body: childrenApiDocumentationJSON,
+      body: childrenApiDocumentationJSON
     })
 
     cy.visit(CHILD_DOCUMENT_URL)

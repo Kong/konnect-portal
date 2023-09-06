@@ -1,11 +1,11 @@
 <template>
   <KModal
-    class="application-registration-modal"
     data-testid="application-registration-modal"
+    class="application-registration-modal"
     :is-visible="isVisible"
     :title="applications.length ? modalText.title : helpText.applicationRegistration.noApplications"
-    @canceled="closeModal"
     @proceed="submitSelection"
+    @canceled="closeModal"
   >
     <template #header-content>
       <span class="color-text_colors-primary">
@@ -20,8 +20,8 @@
       <div v-else-if="!currentState.matches('success_application_status_is_pending')">
         <KAlert
           v-if="currentState.matches('error') "
-          :alert-message="errorMessage"
           appearance="danger"
+          :alert-message="errorMessage"
           class="mb-4"
         />
         <div v-if="!availableApplications.length">
@@ -38,11 +38,11 @@
                 :key="app.id"
               >
                 <router-link
-                  class="color-blue-500"
                   :to="{
                     name: 'show-application',
                     params: { 'application_id': app.id }
                   }"
+                  class="color-blue-500"
                 >
                   {{ app.name }}
                 </router-link>
@@ -68,9 +68,9 @@
               </option>
             </select>
             <router-link
-              class="color-blue-500"
               data-testid="create-application-2"
               :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
+              class="color-blue-500"
             >
               {{ helpText.applicationRegistration.createNewApplication }}
             </router-link>
@@ -86,22 +86,22 @@
     <template #footer-content>
       <KButton
         v-if="!availableApplications.length"
-        appearance="primary"
-        class="mr-3"
         data-testid="create-application"
-        :disabled="currentState.matches('pending')"
         :is-rounded="false"
+        appearance="primary"
+        :disabled="currentState.matches('pending')"
+        class="mr-3"
         :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
       >
         {{ helpText.applicationRegistration.createApplication }}
       </KButton>
       <KButton
         v-else
-        appearance="primary"
-        class="mr-3"
         data-testid="submit-registration"
-        :disabled="currentState.matches('pending')"
         :is-rounded="false"
+        appearance="primary"
+        :disabled="currentState.matches('pending')"
+        class="mr-3"
         @click="currentState.matches('success_application_status_is_pending') ? closeModal() : submitSelection()"
       >
         {{ modalText.buttonText }}
@@ -134,25 +134,25 @@ export default defineComponent({
   props: {
     initialSelectedApplication: {
       type: String,
-      default: '',
+      default: ''
     },
     isVisible: {
       type: Boolean,
-      default: false,
+      default: false
     },
     product: {
       type: Object,
-      default: () => {},
+      default: () => {}
     },
     version: {
       type: Object,
-      default: () => {},
-    },
+      default: () => {}
+    }
   },
 
   emits: ['close'],
 
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     const $router = useRouter()
     const $route = useRoute()
     const { notify } = useToaster()
@@ -176,15 +176,15 @@ export default defineComponent({
               RESOLVE: 'loaded',
               REGISTERED_PENDING: 'success_application_status_is_pending',
               REGISTERED_APPROVED: 'success_application_status_is_approved',
-              REJECT: 'error',
-            },
+              REJECT: 'error'
+            }
           },
           loaded: { on: { CLICK_SUBMIT: 'pending', CLOSED: 'idle' } },
           success_application_status_is_approved: { on: { CLOSED: 'idle' } },
           success_application_status_is_pending: { on: { CLOSED: 'idle' } },
-          error: { on: { CLOSED: 'idle' } },
-        },
-      }),
+          error: { on: { CLOSED: 'idle' } }
+        }
+      })
     )
 
     const modalText = computed(() => {
@@ -194,13 +194,13 @@ export default defineComponent({
       return {
         default: {
           title: defaultModal.title(props.product?.name, props.version?.name),
-          buttonText: defaultModal.buttonText,
+          buttonText: defaultModal.buttonText
         },
         success: {
           title: successModal.title,
           body: successModal.body,
-          buttonText: successModal.buttonText,
-        },
+          buttonText: successModal.buttonText
+        }
       }[currentState.value.matches('success_application_status_is_pending') ? 'success' : 'default']
     })
 
@@ -260,7 +260,7 @@ export default defineComponent({
         .catch(error => {
           console.error(error)
           send('REJECT', {
-            errorMessage: getMessageFromError(error),
+            errorMessage: getMessageFromError(error)
           })
         })
     }
@@ -270,8 +270,8 @@ export default defineComponent({
       portalApiV2.value.service.registrationsApi.createApplicationRegistration({
         applicationId: selectedApplication.value,
         createRegistrationPayload: {
-          product_version_id: props.version.id,
-        },
+          product_version_id: props.version.id
+        }
       })
         .then(
           /** @param {import('axios').AxiosResponse<{status: 'approved'|'pending'}>} res */
@@ -312,8 +312,8 @@ export default defineComponent({
         $router.replace({
           query: {
             ...$route.query,
-            application: newSelectedApplication,
-          },
+            application: newSelectedApplication
+          }
         })
       }
     })
@@ -331,19 +331,19 @@ export default defineComponent({
       alreadyRegisteredMessage,
       registeredApplications,
       submitSelection,
-      closeModal,
+      closeModal
     }
-  },
+  }
 })
 </script>
 
 <style lang="scss" scoped>
 
  .registered-apps-list {
-   list-style: none;
    margin-top: 1rem;
-   padding-left: var(--spacing-xl, 32px);
+   list-style: none;
    text-align: left;
+   padding-left: var(--spacing-xl, 32px);
  }
 </style>
 

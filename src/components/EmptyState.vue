@@ -1,7 +1,7 @@
 <template>
   <KEmptyState
-    cta-is-hidden
     data-testid="empty-state-card"
+    cta-is-hidden
     :is-error="isError"
   >
     <template
@@ -28,33 +28,33 @@ export default defineComponent({
   props: {
     isError: {
       type: Boolean,
-      default: false,
+      default: false
     },
     title: {
       type: String,
-      default: '',
+      default: ''
     },
     message: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
   computed: {
-    displayMessage() {
+    displayMessage () {
       return this.isError
         ? 'Error ' + this.message
         : this.message
-    },
-  },
+    }
+  }
 })
 </script>
 
 <style lang="scss">
 // !important required because kemptystate has no theming options
 .empty-state-wrapper {
-  background-color: var(--section_colors-hero) !important;
-  border-color: var(--section_colors-stroke) !important;
   color: var(--text_colors-primary) !important;
+  border-color: var(--section_colors-stroke) !important;
+  background-color: var(--section_colors-hero) !important;
 
   .k-empty-state-message {
     color: var(--text_colors-primary) !important;

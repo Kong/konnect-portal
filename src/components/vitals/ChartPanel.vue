@@ -1,7 +1,7 @@
 <template>
   <div
-    class="chart-grid"
     data-testid="analytics-charts"
+    class="chart-grid"
   >
     <!-- Requests by Product Versions -->
     <KSkeleton
@@ -14,10 +14,10 @@
       :chart-data="trafficRequestsChartData"
       :chart-options="trafficByProductVersionsOptions"
       :chart-title="helpText.chartTitleRequests"
-      data-testid="chart-traffic"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-traffic"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-traffic"
+      synthetics-data-key="chart-traffic"
     />
     <KSkeleton
       v-if="!trafficLatencyChartData"
@@ -29,10 +29,10 @@
       :chart-data="trafficLatencyChartData"
       :chart-options="trafficByProductVersionsOptions"
       :chart-title="helpText.chartTitleLatency"
-      data-testid="chart-latency"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-latency"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-latency"
+      synthetics-data-key="chart-latency"
     />
 
     <!-- 4xx and 5xx by Product Versions -->
@@ -46,10 +46,10 @@
       :chart-data="productVersion4xxChartData"
       :chart-options="errorsByProductVersionsOptions"
       :chart-title="helpText.chartTitle4xxProductVersion"
-      data-testid="chart-productversion-4xx"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-productversion-4xx"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-productversion-4xx"
+      synthetics-data-key="chart-productversion-4xx"
     />
     <KSkeleton
       v-if="!productVersion5xxChartData"
@@ -61,10 +61,10 @@
       :chart-data="productVersion5xxChartData"
       :chart-options="errorsByProductVersionsOptions"
       :chart-title="helpText.chartTitle5xxProductVersion"
-      data-testid="chart-productversion-5xx"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-productversion-5xx"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-productversion-5xx"
+      synthetics-data-key="chart-productversion-5xx"
     />
 
     <!-- 4xx and 5xx by Status Code -->
@@ -78,10 +78,10 @@
       :chart-data="statusCode4xxChartData"
       :chart-options="errors4xxStatusCodeOptions as AnalyticsChartOptions"
       :chart-title="helpText.chartTitle4xxStatusCode"
-      data-testid="chart-statuscode-4xx"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-statuscode-4xx"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-statuscode-4xx"
+      synthetics-data-key="chart-statuscode-4xx"
     />
     <KSkeleton
       v-if="!statusCode5xxChartData"
@@ -93,10 +93,10 @@
       :chart-data="statusCode5xxChartData"
       :chart-options="errors5xxStatusCodeOptions as AnalyticsChartOptions"
       :chart-title="helpText.chartTitle5xxStatusCode"
-      data-testid="chart-statuscode-5xx"
       :legend-position="'bottom'"
-      synthetics-data-key="chart-statuscode-5xx"
       :tooltip-title="helpText.totalRequests"
+      data-testid="chart-statuscode-5xx"
+      synthetics-data-key="chart-statuscode-5xx"
     />
   </div>
 </template>
@@ -118,7 +118,7 @@ import {
   chartQueryProductVersions4xx,
   chartQueryProductVersions5xx,
   chartQueryStatusCode4xx,
-  chartQueryStatusCode5xx,
+  chartQueryStatusCode5xx
 } from '@/constants/chartQueries'
 
 const helpText = useI18nStore().state.helpText.analytics
@@ -138,13 +138,13 @@ const appCacheKey = computed(() => `${productVersionsCacheKey.value}-${timeserie
 const lineChartCommon = {
   stacked: false,
   fill: false,
-  granularity: selectedTimeframe.value.defaultResponseGranularity,
+  granularity: selectedTimeframe.value.defaultResponseGranularity
 }
 
 const barChartCommon = {
   stacked: true,
   fill: false,
-  granularity: selectedTimeframe.value.defaultResponseGranularity,
+  granularity: selectedTimeframe.value.defaultResponseGranularity
 }
 
 // Set up a custom Status Code color palette
@@ -166,7 +166,7 @@ const errors4xxStatusCodeOptions = computed(() => {
   return {
     ...barChartCommon,
     type: ChartTypes.DOUGHNUT,
-    ...(chartColors ? { chartDatasetColors: chartColors } : null),
+    ...(chartColors ? { chartDatasetColors: chartColors } : null)
   }
 })
 
@@ -176,7 +176,7 @@ const errors5xxStatusCodeOptions = computed(() => {
   return {
     ...barChartCommon,
     type: ChartTypes.DOUGHNUT,
-    ...(chartColors ? { chartDatasetColors: chartColors } : null),
+    ...(chartColors ? { chartDatasetColors: chartColors } : null)
   }
 })
 
@@ -194,7 +194,7 @@ const productVersion5xxChartData = ref(null)
 const statusCode4xxChartData = ref(null)
 const statusCode5xxChartData = ref(null)
 
-async function getAllChartData() {
+async function getAllChartData () {
   // Batch all chart requests
   [
     trafficRequestsChartData.value,
@@ -202,7 +202,7 @@ async function getAllChartData() {
     productVersion4xxChartData.value,
     productVersion5xxChartData.value,
     statusCode4xxChartData.value,
-    statusCode5xxChartData.value,
+    statusCode5xxChartData.value
 
   ] = await Promise.all([
     useChartRequest(trafficRequestsQuery.value, timeseriesQueryTime.value),
@@ -210,7 +210,7 @@ async function getAllChartData() {
     useChartRequest(productVersions4xxQuery.value, timeseriesQueryTime.value),
     useChartRequest(productVersions5xxQuery.value, timeseriesQueryTime.value),
     useChartRequest(statusCode4xxQuery.value, timeseriesQueryTime.value),
-    useChartRequest(statusCode5xxQuery.value, timeseriesQueryTime.value),
+    useChartRequest(statusCode5xxQuery.value, timeseriesQueryTime.value)
   ])
 }
 
@@ -224,12 +224,13 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/mixins';
+@import '../../assets/mixins.scss';
+@import '../../assets/variables.scss';
 
 .chart-grid {
   @include grid-columns(1);
 
-  @media (min-width: $kui-breakpoint-phablet) {
+  @media (min-width: $viewport-md) {
     @include grid-columns(2);
   }
 
@@ -241,11 +242,11 @@ onMounted(() => {
 
   // Tooltip overrides
   .analytics-chart-parent {
+    // More padding on the right, to balance out space taken up by Y-Axis label
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
     background-color: var(--white, #fff);
     margin: 0;
     min-width: 400px !important;
-    // More padding on the right, to balance out space taken up by Y-Axis label
-    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
     position: relative;
 
     &:deep(.legend-container) {
@@ -255,13 +256,13 @@ onMounted(() => {
 
     &:deep(.chart-title) {
       color: #3c4557; // override --text_colors-primary until full portal customization
-      padding-bottom: var(--spacing-md);
       padding-top: 0;
+      padding-bottom: var(--spacing-md);
     }
 
     &:deep(ul.tooltip) {
       max-width: 320px;
-      @media (min-width: $kui-breakpoint-phablet) {
+      @media (min-width: $viewport-md) {
         max-width: 440px;
       }
       .display-value, .display-label  {

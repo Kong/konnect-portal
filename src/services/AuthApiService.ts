@@ -19,11 +19,11 @@ export default class KongAuthApi {
     refresh(): Promise<AxiosResponse<void>>
   }
 
-  public setAuthErrorCallback(authErrorCallback?: (error: AxiosError) => void) {
+  public setAuthErrorCallback (authErrorCallback?: (error: AxiosError) => void) {
     this.authErrorCallback = authErrorCallback
   }
 
-  constructor(baseUrl?: string) {
+  constructor (baseUrl?: string) {
     this.baseUrl = baseUrl
 
     this.authErrorCallback = () => false
@@ -32,8 +32,8 @@ export default class KongAuthApi {
       baseURL: baseUrl,
       withCredentials: true,
       headers: {
-        accept: 'application/json',
-      },
+        accept: 'application/json'
+      }
     })
 
     this.client.interceptors.response.use(res => res, (originalErr) => {
@@ -65,7 +65,7 @@ export default class KongAuthApi {
               this.failedQueue.push({ resolve, reject })
             }).then(
               // Refresh success, so retry requests
-              () => this.client(originalRequest),
+              () => this.client(originalRequest)
             ).catch(() => {
               // Refresh failed, do not retry requests
               return Promise.reject(originalErr)
@@ -119,11 +119,11 @@ export default class KongAuthApi {
 
     this.authenticationV2 = {
       logout: async () => this.client.post(this.baseUrl + '/api/v2/developer/logout'),
-      refresh: async () => this.client.post(this.baseUrl + '/api/v2/developer/refresh'),
+      refresh: async () => this.client.post(this.baseUrl + '/api/v2/developer/refresh')
     }
   }
 
-  processQueue(shouldProceed = true) {
+  processQueue (shouldProceed = true) {
     this.failedQueue.forEach(promise => {
       if (shouldProceed) {
         promise.resolve()
@@ -136,7 +136,7 @@ export default class KongAuthApi {
   }
 
   // Allow passing in the session inside /client/src/main.ts once created
-  setSession(session) {
+  setSession (session) {
     this.session = session
   }
 }

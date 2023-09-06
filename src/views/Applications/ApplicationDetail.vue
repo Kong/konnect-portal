@@ -20,8 +20,8 @@
         >
           <template #right>
             <KButton
-              appearance="primary"
               data-testid="application-update-button"
+              appearance="primary"
               :is-rounded="false"
               :to="{ name: 'update-application' }"
             >
@@ -67,9 +67,9 @@
           </h2>
           <template #right>
             <KButton
-              appearance="secondary"
               data-testid="application-dashboard-button"
               :is-rounded="false"
+              appearance="secondary"
               @click="$router.push({ name: 'application-dashboard', params: { application_id: id }})"
             >
               {{ helpText.analytics.viewAnalytics }}
@@ -77,10 +77,10 @@
           </template>
         </PageTitle>
         <AnalyticsMetricsCard
-          :application-id="application.id"
           class="mb-4"
           data-testid="analytics-metric-cards"
           hide-title
+          :application-id="application.id"
           :timeframe="(fixedTimeframe as Timeframe)"
         />
         <hr class="my-6">
@@ -120,14 +120,14 @@ import { PortalTimeframeKeys } from '@/types/vitals'
 import type { Timeframe } from '@kong-ui-public/analytics-utilities'
 import {
   TimeframeKeys,
-  TimePeriods,
+  TimePeriods
 } from '@kong-ui-public/analytics-utilities'
 
 export default defineComponent({
   name: 'ApplicationDetail',
   components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
 
-  setup() {
+  setup () {
     const errorMessage = ref('')
     const application = ref(null)
 
@@ -137,7 +137,7 @@ export default defineComponent({
     const breadcrumbs = computed(() => ([{
       key: 'my-apps',
       to: { name: 'my-apps' },
-      text: helpText.application.breadcrumbMyApps,
+      text: helpText.application.breadcrumbMyApps
     }]))
 
     const { portalApiV2 } = usePortalApi()
@@ -156,8 +156,8 @@ export default defineComponent({
         idle: { on: { FETCH: 'pending', REJECT: 'error' } },
         pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
         success: { type: 'final' },
-        error: { on: { FETCH: 'pending' } },
-      },
+        error: { on: { FETCH: 'pending' } }
+      }
     }))
 
     const analyticsCardTitle = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
@@ -192,8 +192,8 @@ export default defineComponent({
       breadcrumbs,
       isDcr,
       fixedTimeframe,
-      vitalsLoading,
+      vitalsLoading
     }
-  },
+  }
 })
 </script>

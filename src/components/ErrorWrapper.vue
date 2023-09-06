@@ -37,21 +37,21 @@ export default defineComponent({
   props: {
     errorCode: {
       type: Number,
-      default: null,
+      default: null
     },
     description: {
       type: String,
-      default: '',
+      default: ''
     },
     linkText: {
       type: String,
-      default: helpText.linkText,
+      default: helpText.linkText
     },
     to: {
       type: String,
-      default: '/',
-    },
-  },
+      default: '/'
+    }
+  }
 })
 </script>
 
@@ -62,9 +62,9 @@ export default defineComponent({
   border-top: 3px solid var(--text_colors-accent);
 
   &__code {
+    -webkit-text-stroke: 2px var(--text_colors-accent);
     color: white;
     font-size: 5rem;
-    -webkit-text-stroke: 2px var(--text_colors-accent);
   }
 }
 </style>

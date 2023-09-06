@@ -5,16 +5,16 @@
         v-for="(product, index) in products"
         :key="product.id + index"
         class="catalog-item"
+        :product="product"
         :has-documentation="product.documentCount > 0"
         :loading="loading"
-        :product="product"
       />
     </div>
     <PaginationBar
       class="catalog-pagination mt-4"
       :page-size="pageSize"
-      :search-triggered="searchTriggered"
       :total-count="totalCount"
+      :search-triggered="searchTriggered"
       @pageChanged="onPageChanged"
     />
   </div>
@@ -30,35 +30,35 @@ export default {
   name: 'CatalogCardList',
   components: {
     CatalogItem,
-    PaginationBar,
+    PaginationBar
   },
   props: {
     products: {
       type: Array as PropType<CatalogItemModel[]>,
-      default: () => [],
+      default: () => []
     },
     pageSize: {
       type: Number,
-      default: 12,
+      default: 12
     },
     totalCount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     searchTriggered: {
       type: Boolean,
-      default: false,
+      default: false
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   emits: ['page-changed'],
   methods: {
-    onPageChanged(page) {
+    onPageChanged (page) {
       this.$emit('page-changed', page)
-    },
-  },
+    }
+  }
 }
 </script>

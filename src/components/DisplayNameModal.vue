@@ -1,9 +1,9 @@
 <template>
   <KModal
-    class="display-name-modal"
-    data-testid="display-name-modal"
     :is-visible="isVisible"
     :title="isEditModal ? helpText.renameModal.title : helpText.creationModal.title"
+    data-testid="display-name-modal"
+    class="display-name-modal"
     @canceled="handleCloseModal"
   >
     <template #header-content>
@@ -19,10 +19,10 @@
       <KInput
         id="updatedDisplayName"
         v-model="updatedDisplayName"
-        class="w-100 k-input--full display-name-input"
-        data-testid="rename-display-name-input"
         :placeholder="helpText.renameModal.inputPlaceholder"
+        data-testid="rename-display-name-input"
         type="text"
+        class="w-100 k-input--full display-name-input"
         @keyup.enter="submitHandler"
       />
     </template>
@@ -36,10 +36,10 @@
       <KInput
         id="displayName"
         v-model="displayName"
-        class="w-100 k-input--full display-name-input"
-        data-testid="display-name-input"
         :placeholder="helpText.creationModal.inputPlaceholder"
+        data-testid="display-name-input"
         type="text"
+        class="w-100 k-input--full display-name-input"
         @keyup.enter="submitHandler"
       />
     </template>
@@ -48,11 +48,11 @@
       #footer-content
     >
       <KButton
+        :is-rounded="false"
+        :disabled="updatedDisplayName ? null : true"
         appearance="primary"
         class="mr-3"
         data-testid="rename-credential-modal-button"
-        :disabled="updatedDisplayName ? null : true"
-        :is-rounded="false"
         @click="submitHandler"
       >
         {{ helpText.renameModal.continueButton }}
@@ -70,11 +70,11 @@
       #footer-content
     >
       <KButton
+        :is-rounded="false"
+        :disabled="displayName ? null : true"
         appearance="primary"
         class="mr-3"
         data-testid="create-credential-modal-button"
-        :disabled="displayName ? null : true"
-        :is-rounded="false"
         @click="submitHandler"
       >
         {{ helpText.creationModal.continueButton }}
@@ -99,16 +99,16 @@ export default defineComponent({
   props: {
     isVisible: {
       type: Boolean,
-      required: true,
+      required: true
     },
     renameKeyRow: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   emits: ['create-new-credential', 'rename-credential', 'close-display-name-modal'],
 
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     const helpText = useI18nStore().state.helpText.credentials
     const isEditModal = computed(() => props.renameKeyRow?.id)
     const displayName = ref('')
@@ -135,9 +135,9 @@ export default defineComponent({
       isEditModal,
       updatedDisplayName,
       handleCloseModal,
-      submitHandler,
+      submitHandler
     }
-  },
+  }
 
 })
 </script>

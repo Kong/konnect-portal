@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<{
   additionalFilter: undefined,
   filterValue: undefined,
   queryReady: undefined,
-  longCardTitles: undefined,
+  longCardTitles: undefined
 })
 
 const { portalApiV2 } = usePortalApi()
@@ -49,8 +49,8 @@ const dataFetcher: any = async (queryTime: QueryTime, query: ExploreV2Query) => 
       ...query,
       granularity_ms: query.granularityMs,
       start_ms: queryTime.startMs(),
-      end_ms: queryTime.endMs(),
-    },
+      end_ms: queryTime.endMs()
+    }
   }
 
   // Drop unneeded `granularityMs`
@@ -76,7 +76,7 @@ const internalProps = computed(() => ({
   ...props,
   dataFetcher,
   hasTrendAccess: hasTrendAccess.value,
-  refreshInterval: 0, // Don't refresh metric cards on the dev portal by default.
+  refreshInterval: 0 // Don't refresh metric cards on the dev portal by default.
 }))
 
 </script>

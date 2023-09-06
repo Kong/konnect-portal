@@ -7,7 +7,7 @@ import document from '../fixtures/dochub_mocks/document.json'
 import documentTreeJson from '../fixtures/dochub_mocks/documentTree.json'
 import apiDocumentationJson from '../fixtures/dochub_mocks/parentApiDocumentation.json'
 import petstoreOperationsV2 from '../fixtures/v2/petstoreOperations.json'
-import {
+import { 
   GetApplicationResponse,
   ListApplicationsResponse,
   ListCredentialsResponse,
@@ -22,22 +22,22 @@ import {
   ProductVersionSpecDocument,
   ProductVersionSpecOperations,
   ProductVersionSpecOperationsOperationsInner,
-  SearchResults,
+  SearchResults 
 } from '@kong/sdk-portal-js'
 import { THEMES } from '../fixtures/theme.constant'
 
 Cypress.Commands.add('mockStylesheetCss', (theme = 'mint_rocket', fonts = {
   base: 'Roboto',
   headings: 'Lato',
-  code: 'Roboto Mono',
+  code: 'Roboto Mono'
 }) => {
   return cy.readFile(`cypress/e2e/fixtures/theme_stylesheets/${theme}.css`).then(css => {
     return cy.intercept('GET', '/api/v2/portal/stylesheet.css', {
       status: 200,
       body: css.replace(/{{baseFont}}/g, fonts.base).replace(/{{headingsFont}}/g, fonts.headings).replace(/{{codeFont}}/g, fonts.code),
       headers: {
-        'content-type': 'text/css',
-      },
+        'content-type': 'text/css'
+      }
     }).as('mockStylesheet')
   })
 })
@@ -47,28 +47,27 @@ Cypress.Commands.add('mockAppearance', (appearance = {}) => {
     variables: {
       catalog: {
         cover: {
-          url: '',
+          url: ''
         },
         logo: {
-          url: '',
+          url: ''
         },
         primary_header: {
-          text: '',
+          text: ''
         },
         welcome_message: {
-          text: '',
-        },
-      },
+          text: ''
+        }
+      }
     },
     stylesheets: {
       global: {
         main: {
-          data: THEMES.mint_rocket,
-        },
-      },
-    },
+          data: THEMES.mint_rocket
+        }
+      }
+    }
   }
-
   cy.mockLogo()
   cy.mockCatalogCover()
 
@@ -76,104 +75,104 @@ Cypress.Commands.add('mockAppearance', (appearance = {}) => {
     statusCode: 200,
     body: {
       ...defaultAppearance,
-      ...appearance,
-    },
+      ...appearance
+    }
   }).as('getAppearance')
 })
 
 Cypress.Commands.add('mockCatalogCover', () => {
   cy.intercept('GET', '**/api/v2/portal/catalog-cover', {
-    fixture: 'images/kong-logo.png',
+    fixture: 'images/kong-logo.png'
   }).as('getCatalogCover')
 })
 
 Cypress.Commands.add('mockLogo', () => {
   cy.intercept('GET', '**/api/v2/portal/logo', {
-    fixture: 'images/kong-logo.png',
+    fixture: 'images/kong-logo.png'
   }).as('getLogo')
 })
 
 Cypress.Commands.add('mockStylesheetFont', (fonts = {
   base: 'Roboto',
   headings: 'Lato',
-  code: 'Roboto Mono',
+  code: 'Roboto Mono'
 }) => {
   cy.intercept('GET', `https://fonts.googleapis.com/css?family=${fonts.base}*`, {
     statusCode: 200,
     body: `@font-face {font-family: '${fonts.base}';font-style: italic;font-weight: 300;font-display: swap;src: url(https://fonts.gstatic.com/s/lato/v24/S6u_w4BMUTPHjxsI9w2_FQftx9897sxZ.woff2) format('woff2');unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}`,
     headers: {
-      'content-type': 'text/css',
-    },
+      'content-type': 'text/css'
+    }
   })
   cy.intercept('GET', `https://fonts.googleapis.com/css?family=${fonts.headings}*`, {
     statusCode: 200,
     body: `@font-face {font-family: '${fonts.headings}';font-style: italic;font-weight: 300;font-display: swap;src: url(https://fonts.gstatic.com/s/lato/v24/S6u_w4BMUTPHjxsI9w2_FQftx9897sxZ.woff2) format('woff2');unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}`,
     headers: {
-      'content-type': 'text/css',
-    },
+      'content-type': 'text/css'
+    }
   })
   cy.intercept('GET', `https://fonts.googleapis.com/css?family=${fonts.code}*`, {
     statusCode: 200,
     body: `@font-face {font-family: '${fonts.code}';font-style: italic;font-weight: 300;font-display: swap;src: url(https://fonts.gstatic.com/s/lato/v24/S6u_w4BMUTPHjxsI9w2_FQftx9897sxZ.woff2) format('woff2');unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}`,
     headers: {
-      'content-type': 'text/css',
-    },
+      'content-type': 'text/css'
+    }
   })
 
   return cy.intercept('GET', '/api/v2/portal/stylesheet/font.css', {
     status: 200,
     body: `@import url('https://fonts.googleapis.com/css?family=${fonts.base}:300,300i,400,400i,500,500i,700,700i&display=swap');@import url('https://fonts.googleapis.com/css?family=${fonts.headings}:300,300i,400,400i,500,500i,700,700i&display=swap');@import url('https://fonts.googleapis.com/css?family=${fonts.code}:300,300i,400,400i,500,500i,700,700i&display=swap');`,
     headers: {
-      'content-type': 'text/css',
-    },
+      'content-type': 'text/css'
+    }
   }).as('mockStylesheetFont')
 })
 
 Cypress.Commands.add('mockPrivatePortal', (overrideContext = {}) => {
   // handles things like stylesheet and favicon requests
   cy.intercept('GET', '**/api/v2/portal/*', {
-    statusCode: 200,
+    statusCode: 200
   })
 
   const portalContextResponse: PortalContext = {
     ...defaultContext,
-    ...overrideContext,
+    ...overrideContext
   }
 
   return cy.intercept('GET', '**/api/v2/portal', {
     statusCode: 200,
     body: portalContextResponse,
-    delay: 300,
+    delay: 300
   }).as('isPublicPortal')
 })
 
 Cypress.Commands.add('mockDcrPortal', () => {
   cy.intercept('GET', '**/api/v2/portal/*', {
-    statusCode: 200,
+    statusCode: 200
   })
 
   const portalContextResponse: PortalContext = {
     ...defaultContext,
-    dcr_provider_ids: [crypto.randomUUID()],
+    dcr_provider_ids: [crypto.randomUUID()]
   }
 
   return cy.intercept('GET', '**/api/v2/portal', {
     statusCode: 200,
     body: portalContextResponse,
-    delay: 300,
+    delay: 300
   }).as('isDcrPortal')
 })
 
 Cypress.Commands.add('mockPublicPortal', () => {
   const portalContextResponse: PortalContext = {
     ...defaultContext,
-    is_public: true,
+    is_public: true
   }
 
   return cy.intercept('GET', '**/api/v2/portal', {
     statusCode: 200,
     body: portalContextResponse,
-    delay: 300,
+    delay: 300
   }).as('isMockedPublicPortal')
 })
 
@@ -181,28 +180,28 @@ Cypress.Commands.add('mockSuccessfulDeveloperAuth', () => {
   return cy.intercept('POST', '**/developer/authenticate', {
     statusCode: 204,
     body: {},
-    delay: 300,
+    delay: 300
   }).as('userAuthenticate')
 })
 Cypress.Commands.add('mockDeveloperRefresh', () => {
   return cy.intercept('POST', '**/developer/refresh', {
     statusCode: 204,
     body: {},
-    delay: 300,
+    delay: 300
   }).as('developerRefresh')
 })
 
 Cypress.Commands.add('mockSuccessfulPasswordReset', () => {
   return cy.intercept('POST', '**/api/v2/developer/forgot-password', {
     statusCode: 200,
-    delay: 300,
+    delay: 300
   }).as('sendPasswordReset')
 })
 
 Cypress.Commands.add('mockDeveloperLogout', () => {
   return cy.intercept('POST', '**/api/v2/developer/logout', {
     statusCode: 200,
-    delay: 300,
+    delay: 300
   }).as('developerLogout')
 })
 
@@ -214,9 +213,9 @@ Cypress.Commands.add('mockGetUserInfo', () => {
       full_name: 'test-name',
       id: '967ca69f-e098-46d1-a572-2e8c73aeb807',
       email: 'test-email@email.com',
-      updated_at: '2023-04-13T15:05:02Z',
+      updated_at: '2023-04-13T15:05:02Z'
     },
-    delay: 300,
+    delay: 300
   }).as('getUserInfo')
 })
 
@@ -226,13 +225,13 @@ Cypress.Commands.add('mockProductDocument', (productId = '*', documentId = '*', 
     id: documentId,
     slug: 'petstore',
     title: 'Petstore',
-    parent_document_id: null,
+    parent_document_id: null
   }
 
   return cy.intercept('GET', `**/api/v2/products/${productId}/documents/${documentId}`, {
     statusCode: 200,
     delay: 100,
-    body: documentTreeResponse,
+    body: documentTreeResponse
   }).as('getMockedServiceDocument')
 })
 
@@ -243,15 +242,15 @@ Cypress.Commands.add('mockProductDocumentTree', (productId = '*', options = { bo
       page: {
         number: 1,
         size: 10,
-        total: 1,
-      },
-    },
+        total: 1
+      }
+    }
   }
 
   return cy.intercept('GET', `**/api/v2/products/${productId}/documents`, {
     statusCode: 200,
     delay: 100,
-    body: documentTreeResponse,
+    body: documentTreeResponse
   }).as('getMockProductDocumentTree')
 })
 
@@ -261,7 +260,7 @@ Cypress.Commands.add('mockProductApiDocument', (productId = '*', options = { bod
   return cy.intercept('GET', `**/api/v2/products/${productId}/documents/${productDocumentResponse.slug}`, {
     statusCode: 200,
     delay: 100,
-    body: productDocumentResponse,
+    body: productDocumentResponse
   }).as('getMockProductApiDocument')
 })
 
@@ -270,25 +269,25 @@ Cypress.Commands.add('mockProduct', (productId = '*', mockProduct = product, moc
     data: mockVersions,
     meta: {
       page: {
-        total: 1, number: 1, size: 10,
-      },
-    },
+        total: 1, number: 1, size: 10
+      }
+    }
   }
 
   cy.intercept('GET', `**/api/v2/products/${productId}/versions*`, {
     statusCode: 200,
     delay: 100,
-    body: versionsResponse,
+    body: versionsResponse
   })
 
   const productResponse: Product = {
-    ...mockProduct,
+    ...mockProduct
   }
 
   return cy.intercept('GET', `**/api/v2/products/${productId}`, {
     statusCode: 200,
     delay: 100,
-    body: productResponse,
+    body: productResponse
   }).as('getProduct')
 })
 
@@ -298,12 +297,12 @@ Cypress.Commands.overwrite('visit', (originalFn, ...options) => {
   } else {
     const developer = {
       id: '9ee6f0ef-35c2-495c-bb7b-836af45e1a6d',
-      email: '62cd14@email.com',
+      email: '62cd14@email.com'
     }
 
     window.localStorage.setItem(
       'konnect_portal_session',
-      btoa(encodeURIComponent(JSON.stringify({ developer }))),
+      btoa(encodeURIComponent(JSON.stringify({ developer })))
     )
 
     cy.setCookie('CYPRESS_USER_SESSION_EXISTS', 'CYPRESS_USER_SESSION_EXISTS')
@@ -321,14 +320,14 @@ Cypress.Commands.add('mockApplications', (applications, totalCount, pageSize = 1
       page: {
         total: totalCount,
         number: pageNumber,
-        size: pageSize,
+        size: pageSize
 
-      },
-    },
+      }
+    }
   }
 
   return cy.intercept('GET', '**/api/v2/applications*', {
-    body: responseBody,
+    body: responseBody
   }).as('getApplications')
 })
 
@@ -340,24 +339,24 @@ Cypress.Commands.add('mockRegistrations', (applicationId = '*', registrations = 
         page: {
           total: totalCount,
           number: pageNumber,
-          size: pageSize,
-        },
-      },
+          size: pageSize
+        }
+      }
     },
-    status: 200,
+    status: 200
   }).as('getRegistrations')
 })
 
 Cypress.Commands.add('mockApplicationWithCredAndReg', (
   data: GetApplicationResponse,
   credentials = [],
-  registrations = [],
+  registrations = []
 ) => {
   const applicationResponse: GetApplicationResponse = data
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}`, {
     statusCode: 200,
-    body: applicationResponse,
+    body: applicationResponse
   }).as('getApplication')
 
   const credsResponse: ListCredentialsResponse = {
@@ -366,14 +365,14 @@ Cypress.Commands.add('mockApplicationWithCredAndReg', (
       page: {
         total: credentials.length,
         size: 10,
-        number: 1,
-      },
-    },
+        number: 1
+      }
+    }
   }
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}/credentials*`, {
     statusCode: 200,
-    body: credsResponse,
+    body: credsResponse
   }).as('getApplicationCredentials')
 
   const registrationsResponse: ListRegistrationsResponse = {
@@ -382,14 +381,14 @@ Cypress.Commands.add('mockApplicationWithCredAndReg', (
       page: {
         total: registrations.length,
         size: 10,
-        number: 1,
-      },
-    },
+        number: 1
+      }
+    }
   }
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}/registrations*`, {
     statusCode: 200,
-    body: registrationsResponse,
+    body: registrationsResponse
   }).as('getApplicationRegistrations')
 })
 
@@ -398,7 +397,7 @@ Cypress.Commands.add('mockContextualAnalytics', () => {
     'POST', '**/api/v2/stats', {
       statusCode: 200,
       body: { records: [] },
-      delay: 0,
+      delay: 0
     }).as('getContextualAnalytics')
 })
 
@@ -415,8 +414,8 @@ Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, conf
         product_version: version,
         status: 'enabled',
         updated_at: '2022-03-25T10:56:27.268Z',
-        ...config,
-      },
+        ...config
+      }
     }).as('getProductVersionApplicationRegistration')
 })
 
@@ -428,15 +427,15 @@ Cypress.Commands.add('mockProductsCatalog', (count = 1, overrides = [], pageNum 
       page: {
         number: pageNum,
         size: pageSize,
-        total: products.length,
-      },
-    },
+        total: products.length
+      }
+    }
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
     statusCode: 200,
     body: response,
-    delay: 0,
+    delay: 0
   }).as('productSearch')
 })
 
@@ -452,9 +451,9 @@ Cypress.Commands.add('mockGetProductDocumentBySlug', (productId, slug, options =
       createdAt: time,
       modifiedAt: time,
       portalId: '08a7c50e-c9cb-4ab6-a683-16406a30cf91',
-      slug,
+      slug: slug,
       status: 'published',
-      ...options.document || {},
+      ...options.document || {}
     },
     revision: {
       content: document,
@@ -463,14 +462,14 @@ Cypress.Commands.add('mockGetProductDocumentBySlug', (productId, slug, options =
       meta: {},
       revisionId: revId,
       title: 'Document title mock',
-      ...options.revision || {},
-    },
+      ...options.revision || {}
+    }
   }
 
   return cy.intercept(
     'GET',
     `**/api/v2/products/${productId}/documents/${slug}`,
-    resp,
+    resp
   ).as('productDocument')
 })
 
@@ -483,15 +482,15 @@ Cypress.Commands.add('mockGetProductDocuments', (productId) => {
       page: {
         number: 1,
         size: 10,
-        total: 1,
-      },
-    },
+        total: 1
+      }
+    }
   }
 
   return cy.intercept(
     'GET',
     `**/api/v2/products/${productId}/documents`,
-    resp,
+    resp
   ).as('productDocuments')
 })
 
@@ -501,30 +500,30 @@ Cypress.Commands.add('mockGetProductDocumentTree', (productId) => {
     `**/api/v2/products/${productId}/document_tree`,
     {
       statusCode: 304,
-      body: {},
-    },
+      body: {}
+    }
   ).as('ProductDocumentTree')
 })
 
 Cypress.Commands.add('mockProductVersionSpec', (productId = '*', versionId = '*', content = JSON.stringify(petstoreJson30)) => {
   const specResponse: ProductVersionSpecDocument = {
     api_type: 'openapi',
-    content,
+    content
   }
 
   cy.intercept('get', `**/api/v2/products/${productId}/versions/${versionId}/spec`, {
-    body: specResponse,
+    body: specResponse
   }).as('spec')
 })
 
 Cypress.Commands.add('mockProductOperations', (productId = '*', versionId = '*', operations = petstoreOperationsV2.operations as ProductVersionSpecOperationsOperationsInner[]) => {
   const operationsResponse: ProductVersionSpecOperations = {
     api_type: 'openapi',
-    operations,
+    operations: operations
   }
 
   cy.intercept('get', `**/api/v2/products/${productId}/versions/${versionId}/spec/operations`, {
-    body: operationsResponse,
+    body: operationsResponse
   }).as('operations')
 })
 
@@ -543,6 +542,6 @@ Cypress.Commands.add('mockLaunchDarklyFlags', (flags) => {
           res.body[flag.name].value = flag.value
         }
       })
-    },
+    }
   ).as('mockLaunchDarklyFlags')
 })

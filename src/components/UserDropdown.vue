@@ -1,8 +1,8 @@
 <template>
   <KToggle v-slot="{toggle, isToggled}">
     <div
-      class="inline user-dropdown relative"
       data-testid="user-dropdown"
+      class="inline user-dropdown relative"
     >
       <div
         v-if="isToggled.value"
@@ -10,9 +10,9 @@
         @click="toggle"
       />
       <KButton
-        appearance="btn-link"
-        :is-rounded="false"
         show-caret
+        :is-rounded="false"
+        appearance="btn-link"
         @click="toggle"
       >
         {{ email }}
@@ -22,20 +22,20 @@
         class="list-none m-0 p-0 absolute w-40 shadow bg-white"
       >
         <li
-          class="type-md block"
           data-testid="my-apps-item"
+          class="type-md block"
         >
           <router-link
-            class="color-text_colors-primary block py-3 px-4"
             :to="{ name: 'my-apps' }"
+            class="color-text_colors-primary block py-3 px-4"
             @click="toggle"
           >
             {{ helpText.myApps }}
           </router-link>
         </li>
         <li
-          class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
           data-testid="logout-item"
+          class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
           @click="$emit('logout')"
         >
           {{ helpText.logout }}
@@ -54,13 +54,13 @@ export default defineComponent({
   props: {
     email: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   emits: ['logout'],
   data: () => ({
-    helpText: useI18nStore().state.helpText.userDropdown,
-  }),
+    helpText: useI18nStore().state.helpText.userDropdown
+  })
 })
 </script>
 
@@ -77,17 +77,17 @@ export default defineComponent({
   .k-button:focus,
   .k-button:hover,
   .k-button.is-active {
-    backdrop-filter: brightness(1.35);
-    box-shadow: none !important;
     text-decoration: none !important;
+    box-shadow: none !important;
+    backdrop-filter: brightness(1.35);
   }
 
   ul {
-    background-color: var(--section_colors-tertiary);
     border: 1px solid var(--section_colors-stroke);
     border-radius: 3px;
     left: 50%;
     transform: translateX(-50%);
+    background-color: var(--section_colors-tertiary);
     li {
       &:last-child { border-top: 1px solid var(--section_colors-stroke); }
       &:hover { background-color: var(--section_colors-accent); }

@@ -16,8 +16,8 @@
         }"
       >
         <a
-          class="noZensmooth"
           :href="`#${item.slug}`"
+          class="noZensmooth"
           @click="handleClick"
         >
           {{ item.title }}
@@ -32,9 +32,9 @@ import { useI18nStore } from '@/stores'
 import { PropType, defineComponent, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 type ItemType = {
-  level: number;
-  slug: string;
-  title: string;
+    level: number;
+    slug: string;
+    title: string;
 }[]
 
 export default defineComponent({
@@ -42,10 +42,10 @@ export default defineComponent({
   props: {
     items: {
       type: Array as PropType<ItemType>,
-      required: true,
-    },
+      required: true
+    }
   },
-  setup() {
+  setup () {
     const helpText = useI18nStore().state.helpText.apiDocumentation.sections
     const route = useRoute()
     const router = useRouter()
@@ -53,7 +53,7 @@ export default defineComponent({
     const activeHeading = ref(route.hash.slice(1))
 
     // this click handler updates the active styling of the header in the sidebar
-    function handleClick(e) {
+    function handleClick (e) {
       if (e.target instanceof HTMLAnchorElement) {
         e.preventDefault()
         const targetHash = `#${e.target.href.split('#')[1]}`
@@ -84,19 +84,19 @@ export default defineComponent({
     return {
       helpText,
       activeHeading,
-      handleClick,
+      handleClick
     }
-  },
+  }
 })
 </script>
 
 <style lang="scss" scoped>
   .wrapper {
-    max-height: calc(100vh - var(--headerHeight));
-    overflow-x: auto;
-    padding: 2rem 0;
     position: sticky;
     top: 0;
+    max-height: calc(100vh - var(--headerHeight));
+    padding: 2rem 0;
+    overflow-x: auto;
   }
 
   p {
@@ -106,17 +106,17 @@ export default defineComponent({
   }
 
   ul {
-    list-style: none;
     margin: 0;
     padding: 0;
     padding-right: 2rem;
+    list-style: none;
   }
 
   li {
-    border-left: 2px solid rgba(0,0,0,0);
     font-size: 0.875rem;
     margin: 0.25rem 0;
     position: relative;
+    border-left: 2px solid rgba(0,0,0,0);
   }
 
   li.active {

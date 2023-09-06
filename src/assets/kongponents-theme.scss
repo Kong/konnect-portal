@@ -61,8 +61,8 @@
   &:hover,
   &:active,
   &:hover:not(:disabled) {
-    background-color: var(--KButtonSecondaryBase) !important;
     border-color: var(--KButtonSecondaryHoverBorder, var(--black-45, rgba(0, 0, 0, .45))) !important;
+    background-color: var(--KButtonSecondaryBase) !important;
   }
 
   &:focus {
@@ -71,8 +71,8 @@
 }
 
 .k-button.primary {
-  background-color: var(--button_colors-primary-fill) !important;
   color: var(--button_colors-primary-text) !important;
+  background-color: var(--button_colors-primary-fill) !important;
 }
 
 .k-button.primary:hover {
@@ -92,8 +92,8 @@
 }
 
 .toaster-item .k-alert {
-  background-color: var(--section_colors-tertiary) !important;
   color: var(--text_colors-primary) !important;
+  background-color: var(--section_colors-tertiary) !important;
 
   svg path {
     fill: var(--text_colors-primary) !important;
@@ -109,10 +109,10 @@
 
   &:disabled,
   &[disabled] {
-    background-color: var(--button_colors-primary-fill) !important;
-    color: var(--button_colors-primary-text) !important;
-    cursor: not-allowed;
     opacity: .3;
+    cursor: not-allowed;
+    color: var(--button_colors-primary-text) !important;
+    background-color: var(--button_colors-primary-fill) !important;
 
     &:hover {
       opacity: .3;
@@ -121,9 +121,9 @@
 }
 
 .kong-card .k-card-content div.k-card-body {
-  color: inherit;
   font-size: 16px;
   line-height: 24px;
+  color: inherit;
 }
 
 .k-breadcrumbs li.k-breadcrumbs-item a span.k-breadcrumb-text {
@@ -142,8 +142,8 @@
   }
 
   .k-input[type="search"] {
-    padding-left: 36px !important;
     width: 100%;
+    padding-left: 36px !important;
   }
 
   textarea.k-input {

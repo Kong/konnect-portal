@@ -3,10 +3,10 @@
     <KSkeleton v-if="isLoading" />
     <SpecOperationsList
       v-else-if="operations"
-      class="operations-list"
-      :deselect="deselectOperation"
       :operations="operations"
+      :deselect="deselectOperation"
       width="100%"
+      class="operations-list"
       @selected="emit('operationSelected', $event)"
     />
   </Section>
@@ -26,23 +26,23 @@ const isLoading = ref(true)
 const props = defineProps({
   product: {
     type: Object,
-    required: true,
+    required: true
   },
   activeProductVersionId: {
     type: String,
-    required: true,
+    required: true
   },
   deselectOperation: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 
 const emit = defineEmits(['operationSelected'])
 
 const productStore = useProductStore()
 
-async function fetchOperations() {
+async function fetchOperations () {
   const productId = props.product?.id
   const productVersionId = props.activeProductVersionId
 
@@ -55,12 +55,12 @@ async function fetchOperations() {
   try {
     const res = await portalApiV2.service.versionsApi.getProductVersionSpecOperations({
       productId,
-      versionId: productVersionId,
+      versionId: productVersionId
     })
 
     operations.value = res.data.operations?.map(operation => ({
       ...operation,
-      operationId: operation.operation_id,
+      operationId: operation.operation_id
     }))
 
     productStore.setSidebarOperations(operations.value)

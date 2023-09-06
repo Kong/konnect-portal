@@ -1,8 +1,8 @@
 <template>
   <KBadge
+    data-testid="status-badge"
     v-bind="badgeAppearance"
     class="status-badge"
-    data-testid="status-badge"
   >
     {{ status }}
   </KBadge>
@@ -16,28 +16,28 @@ const APPEARANCES = {
   approved: {
     appearance: 'success',
     color: '',
-    'background-color': '',
+    'background-color': ''
   },
   pending: {
     appearance: 'custom',
     color: 'var(--steel-600)',
-    'background-color': 'var(--steel-200)',
+    'background-color': 'var(--steel-200)'
   },
   rejected: {
     appearance: 'danger',
     color: '',
-    'background-color': '',
+    'background-color': ''
   },
   revoked: {
     appearance: 'danger',
     color: '',
-    'background-color': '',
+    'background-color': ''
   },
   unregistered: {
     appearance: 'custom',
     color: 'var(--black-70)',
-    'background-color': 'var(--black-10)',
-  },
+    'background-color': 'var(--black-10)'
+  }
 }
 
 export default defineComponent({
@@ -46,15 +46,15 @@ export default defineComponent({
     status: {
       type: String,
       required: true,
-      validator: (val: string) => Object.values(STATUSES).includes(val),
-    },
+      validator: (val: string) => Object.values(STATUSES).includes(val)
+    }
   },
 
   computed: {
-    badgeAppearance() {
+    badgeAppearance () {
       return APPEARANCES[this.status]
-    },
-  },
+    }
+  }
 })
 </script>
 
@@ -64,9 +64,9 @@ export default defineComponent({
   --KBadgePaddingY: 0.1rem;
   --KBadgePaddingX: var(--spacing-xs);
   --KBadgeFontSize: var(--type-xs);
-  height: 100%;
-  text-transform: uppercase;
-  vertical-align: middle;
   width: auto;
+  height: 100%;
+  vertical-align: middle;
+  text-transform: uppercase;
 }
 </style>

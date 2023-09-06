@@ -7,55 +7,55 @@
     <div>
       <button
         class="pagination-button"
-        :class="buttonDisabled === 'pageBack' ? 'disabled' : ''"
         data-testid="pagination-first"
+        :class="buttonDisabled === 'pageBack' ? 'disabled' : ''"
         @click="returnToFirstPage"
       >
         <KIcon
-          height="16"
-          icon="collapseExpand"
-          view-box="0 0 16 16"
           width="16"
+          height="16"
+          view-box="0 0 16 16"
+          icon="collapseExpand"
         />
       </button>
       <button
         class="pagination-button"
-        :class="buttonDisabled === 'pageBack' ? 'disabled' : ''"
         data-testid="pagination-backwards"
+        :class="buttonDisabled === 'pageBack' ? 'disabled' : ''"
         @click="pageBack"
       >
         <KIcon
-          height="16"
-          icon="back"
-          view-box="0 0 16 8"
           width="16"
+          height="16"
+          view-box="0 0 16 8"
+          icon="back"
         />
       </button>
       <button
         class="pagination-button"
-        :class="buttonDisabled === 'pageForward' ? 'disabled' : ''"
         data-testid="pagination-forwards"
+        :class="buttonDisabled === 'pageForward' ? 'disabled' : ''"
         @click="pageForward"
       >
         <KIcon
-          height="16"
-          icon="forward"
-          view-box="0 0 16 8"
           width="16"
+          height="16"
+          view-box="0 0 16 8"
+          icon="forward"
         />
       </button>
       <button
         class="pagination-button"
-        :class="buttonDisabled === 'pageForward' ? 'disabled' : ''"
         data-testid="pagination-last"
+        :class="buttonDisabled === 'pageForward' ? 'disabled' : ''"
         @click="goToLastPage"
       >
         <KIcon
-          class="kong-pag-last"
-          height="16"
           icon="collapseExpand"
-          view-box="0 0 16 16"
+          class="kong-pag-last"
           width="16"
+          height="16"
+          view-box="0 0 16 16"
         />
       </button>
     </div>
@@ -70,30 +70,30 @@ export default defineComponent({
   props: {
     totalCount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     pageSize: {
       type: Number,
-      default: 12,
+      default: 12
     },
-    searchTriggered: Boolean,
+    searchTriggered: Boolean
   },
   emits: ['pageChanged'],
-  data() {
+  data () {
     return {
       currentPage: 1,
-      buttonDisabled: 'pageBack',
+      buttonDisabled: 'pageBack'
     }
   },
   watch: {
-    searchTriggered(newval) {
+    searchTriggered (newval) {
       if (newval === true) {
         this.returnToFirstPage()
       }
-    },
+    }
   },
   methods: {
-    getPaginationString() {
+    getPaginationString () {
       let startCount = (this.currentPage - 1) * this.pageSize
       let endCount = startCount + this.pageSize
 
@@ -105,7 +105,7 @@ export default defineComponent({
 
       return startCount + ' - ' + endCount + ' of ' + this.totalCount
     },
-    pageForward() {
+    pageForward () {
       if (this.buttonDisabled === 'pageForward') {
         return
       }
@@ -120,7 +120,7 @@ export default defineComponent({
 
       this.$emit('pageChanged', this.currentPage)
     },
-    pageBack() {
+    pageBack () {
       if (this.buttonDisabled === 'pageBack') {
         return
       }
@@ -134,34 +134,34 @@ export default defineComponent({
 
       this.$emit('pageChanged', this.currentPage)
     },
-    returnToFirstPage() {
+    returnToFirstPage () {
       this.buttonDisabled = 'pageBack'
       this.currentPage = 1
       this.$emit('pageChanged', this.currentPage)
     },
-    goToLastPage() {
+    goToLastPage () {
       this.buttonDisabled = 'pageForward'
       this.currentPage = Math.ceil(this.totalCount / this.pageSize)
       this.$emit('pageChanged', this.currentPage)
-    },
-  },
+    }
+  }
 })
 </script>
 
 <style lang="scss" scoped>
 .pagination-button {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--section_colors-stroke);
   border-radius: 50%;
-  cursor: pointer;
-  display: inline-flex;
-  height: 44px;
-  justify-content: center;
   margin-left: 5px;
-  width: 44px;
+  cursor: pointer;
   &:focus {
-    border-color: var(--button_colors-primary-fill);
     outline: none;
+    border-color: var(--button_colors-primary-fill);
   }
 }
 </style>

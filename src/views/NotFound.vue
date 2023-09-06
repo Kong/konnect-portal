@@ -6,9 +6,9 @@
     >
       <div>
         <img
-          :alt="helpText.logoAlt"
           class="logo"
           :src="logoSrc"
+          :alt="helpText.logoAlt"
         >
       </div>
 
@@ -41,7 +41,7 @@ import { useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'NotFound',
-  setup() {
+  setup () {
     const { portalApiV2 } = usePortalApi()
 
     const logoSrc = portalApiV2.value.getApiLink('/api/v2/portal/logo')
@@ -49,9 +49,9 @@ export default defineComponent({
 
     return {
       logoSrc,
-      helpText,
+      helpText
     }
-  },
+  }
 })
 </script>
 
@@ -62,19 +62,19 @@ export default defineComponent({
 
   h1,
   .circle {
-    animation: .75s var(--timingFunction) forwards fadeIn;
     opacity: 0;
+    animation: .75s var(--timingFunction) forwards fadeIn;
   }
 
   h1 { animation-delay: 1.25s; }
+  .circle { animation-delay: 1s; }
 
   .circle {
-    animation-delay: 1s;
-    border: 1px solid var(--section_colors-stroke);
-    border-radius: 50%;
-    font-size: 2.5rem;
-    margin: 4rem 0;
     padding: 3rem;
+    margin: 4rem 0;
+    font-size: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--section_colors-stroke);
   }
 
   .logo {

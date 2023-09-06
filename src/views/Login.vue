@@ -14,14 +14,14 @@
         id="kong-auth-login-wrapper"
       >
         <kong-auth-login
+          wrapper-id="kong-auth-login-wrapper"
+          show-forgot-password-link
+          :register-success-text="helpText.registration.successText"
+          :idp-login-return-to="redirectTo"
           :basic-auth-login-enabled="authClientConfig.basicAuthEnabled"
           :idp-login-enabled="authClientConfig.oidcAuthEnabled"
-          :idp-login-return-to="redirectTo"
-          :register-success-text="helpText.registration.successText"
-          show-forgot-password-link
-          wrapper-id="kong-auth-login-wrapper"
-          @click-forgot-password-link="onUserClickForgotPassword"
           @login-success="onLoginSuccess"
+          @click-forgot-password-link="onUserClickForgotPassword"
           @verify-email-success="onVerifyEmailSuccess"
         />
       </div>
@@ -32,8 +32,8 @@
     >
       <span
         id="sign-up-encouragement-message"
-        class="mt-6 text-center"
         data-testid="sign-up-encouragement-message"
+        class="mt-6 text-center"
       >
         <p class="color-text_colors-primary">
           {{ helpText.login.missingAccount }}
@@ -64,16 +64,16 @@ import { useI18nStore, useAppStore } from '@/stores'
 export default defineComponent({
   name: 'Login',
   components: {
-    AuthCard,
+    AuthCard
   },
-  setup() {
+  setup () {
     const errorMessage = ref('')
     const { portalApiV2 } = usePortalApi()
     const helpText = useI18nStore().state.helpText
     const appStore = useAppStore()
     const {
       developerSession: session,
-      authClientConfig,
+      authClientConfig
     } = storeToRefs(appStore)
 
     const isBasicAuthEnabled = computed(() => authClientConfig.value.basicAuthEnabled)
@@ -101,13 +101,13 @@ export default defineComponent({
       states: {
         idle: {
           on: {
-            KAUTH_SUCCESS: 'user_fetch',
-          },
+            KAUTH_SUCCESS: 'user_fetch'
+          }
         },
         success_login: { type: 'final' },
         user_fetch: { on: { USER_FETCH_SUCCESS: 'success_login', USER_FETCH_FAIL: 'error' } },
-        error: { on: { KAUTH_SUCCESS: 'user_fetch' } },
-      },
+        error: { on: { KAUTH_SUCCESS: 'user_fetch' } }
+      }
     }))
 
     const getError = (data, error) => {
@@ -129,7 +129,7 @@ export default defineComponent({
       try {
         [me, context] = await Promise.all([
           portalApiV2.value.service.developerApi.getDeveloperMe(),
-          portalApiV2.value.service.portalApi.getPortalContext(),
+          portalApiV2.value.service.portalApi.getPortalContext()
         ])
       } catch (error) {
         send('USER_FETCH_FAIL')
@@ -152,7 +152,7 @@ export default defineComponent({
 
       session.value.saveData({
         ...session.value.data,
-        developer: me.data,
+        developer: me.data
       })
 
       let fullPath = '/'
@@ -187,9 +187,9 @@ export default defineComponent({
       session,
       authClientConfig,
       redirectTo,
-      helpText,
+      helpText
     }
-  },
+  }
 })
 </script>
 
@@ -204,8 +204,8 @@ export default defineComponent({
 
 #kong-auth-login-wrapper {
   [data-testid="kong-auth-login-sso"] {
-    background-color: var(--button_colors-primary-fill) !important;
     color: var(--button_colors-primary-text) !important;
+    background-color: var(--button_colors-primary-fill) !important;
 
     svg {
       path {

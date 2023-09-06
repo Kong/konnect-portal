@@ -11,7 +11,7 @@ export enum SortType {
   STRING = 'string'
 }
 
-export function sortBy(key: string, order = SortOrder.ASC, type = SortType.NUMBER) {
+export function sortBy (key: string, order = SortOrder.ASC, type = SortType.NUMBER) {
   return (a: object, b: object) => {
     if (type === 'number') {
       return sortByNumber(key, order)(a, b)
@@ -23,7 +23,7 @@ export function sortBy(key: string, order = SortOrder.ASC, type = SortType.NUMBE
   }
 }
 
-export function sortByString(key: string, order = 'asc') {
+export function sortByString (key: string, order = 'asc') {
   return (a: object, b: object) => {
     const aValue = a[key].toLowerCase()
     const bValue = b[key].toLowerCase()
@@ -40,7 +40,7 @@ export function sortByString(key: string, order = 'asc') {
   }
 }
 
-export function sortByNumber(key: string, order = 'asc') {
+export function sortByNumber (key: string, order = 'asc') {
   return (a: object, b: object) => {
     const aValue = a[key]
     const bValue = b[key]
@@ -57,7 +57,7 @@ export function sortByNumber(key: string, order = 'asc') {
   }
 }
 
-export function sortByDate(key: string, order = 'asc') {
+export function sortByDate (key: string, order = 'asc') {
   return (a: object, b: object) => {
     const aValue = new Date(a[key]).getTime()
     const bValue = new Date(b[key]).getTime()

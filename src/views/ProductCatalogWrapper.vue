@@ -13,27 +13,27 @@
       <div class="w-full max-w-lg mx-auto inline-flex">
         <form
           id="searchProductsForm"
-          @reset.prevent="searchProducts"
           @submit.prevent="searchProducts"
+          @reset.prevent="searchProducts"
         >
           <KInput
             v-model="searchString"
             class="k-input--full"
-            data-testid="catalog-search"
-            form="searchProductsForm"
-            :placeholder="helpText.search"
             size="small"
             type="search"
+            :placeholder="helpText.search"
+            data-testid="catalog-search"
+            form="searchProductsForm"
             @input="searchProducts"
           />
           <KButton
+            form="searchProductsForm"
             appearance="primary"
             data-testid="catalog-search-button"
-            :disabled="loading"
-            form="searchProductsForm"
-            :is-rounded="false"
-            size="small"
             type="submit"
+            size="small"
+            :disabled="loading"
+            :is-rounded="false"
           >
             {{ searchString !== '' && loading ? helpText.searching : helpText.search }}
           </KButton>
@@ -41,11 +41,11 @@
       </div>
     </div>
     <Catalog
-      :cards-per-page="cardsPerPage"
       :catalog-items="catalogItems"
-      :loading="loading"
-      :search-triggered="searchTriggered"
+      :cards-per-page="cardsPerPage"
       :total-count="totalCount"
+      :search-triggered="searchTriggered"
+      :loading="loading"
       @active-view-changed="catalogViewChanged"
       @cards-page-changed="catalogPageChanged"
     />
@@ -63,7 +63,7 @@ export default defineComponent({
   name: 'ProductCatalogWrapper',
   components: { Catalog },
 
-  setup() {
+  setup () {
     const catalog_cover_style = ref<{backgroundImage:string}>({ backgroundImage: '' })
     const welcome_message = ref('')
     const primary_header = ref('')
@@ -130,7 +130,7 @@ export default defineComponent({
             q: searchString.value,
             pageNumber: catalogPageNumber.value,
             pageSize: cardsPerPage.value,
-            join: 'versions',
+            join: 'versions'
           })
           const { data: sources, meta } = portalEntities
 
@@ -141,7 +141,7 @@ export default defineComponent({
               latestVersion: source.latest_version,
               description: source.description,
               documentCount: source.document_count,
-              versionCount: source.version_count,
+              versionCount: source.version_count
             }
           })
           totalCount.value = meta.page.total
@@ -167,7 +167,7 @@ export default defineComponent({
     onBeforeMount(async () => {
       await Promise.all([
         loadAppearance(),
-        fetchProducts(),
+        fetchProducts()
       ])
     })
 
@@ -186,9 +186,9 @@ export default defineComponent({
       helpText,
       searchProducts,
       catalogViewChanged,
-      catalogPageChanged,
+      catalogPageChanged
     }
-  },
+  }
 })
 </script>
 
@@ -202,8 +202,8 @@ export default defineComponent({
     border-bottom: 1px solid var(--section_colors-stroke);
 
     .k-input {
-      border-radius: 3px 0 0 3px !important;
       fill: var(--text_colors-accent);
+      border-radius: 3px 0 0 3px !important;
       &::-webkit-input-placeholder { color:var(--text_colors-secondary) !important; }
       &::-moz-placeholder { color:var(--text_colors-secondary) !important; }
       &::-ms-placeholder { color:var(--text_colors-secondary) !important; }

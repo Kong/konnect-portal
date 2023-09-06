@@ -11,8 +11,8 @@
     <div class="container mx-auto max-w-screen-2xl px-5 md:px-0">
       <EmptyState
         v-if="hasProductError"
-        class="mt-6"
         is-error
+        class="mt-6"
         :message="hasProductError"
       />
     </div>
@@ -28,30 +28,30 @@
     >
       <div>
         <KIcon
-          color="var(--steel-300)"
           icon="spinner"
           size="96"
+          color="var(--steel-300)"
         />
       </div>
     </div>
 
     <SpecDetails
       v-else-if="spec"
-      :active-operation="sidebarActiveOperationListItem"
-      :application-registration-enabled="applicationRegistrationEnabled"
       class="w-100"
-      :current-version="currentVersion?.name"
       :document="spec"
       :has-sidebar="false"
-      @clicked-register="triggerViewSpecRegistrationModal"
+      :application-registration-enabled="applicationRegistrationEnabled"
+      :active-operation="sidebarActiveOperationListItem"
+      :current-version="currentVersion?.name"
       @clicked-view-spec="triggerViewSpecModal"
+      @clicked-register="triggerViewSpecRegistrationModal"
     />
 
     <ViewSpecModal
-      :download-callback="downloadSpecContents"
       :is-visible="viewSpecModalIsVisible"
       :spec-contents="specContents"
       :spec-name="specName"
+      :download-callback="downloadSpecContents"
       @close="closeModal"
     />
     <ViewSpecRegistrationModal
@@ -85,15 +85,15 @@ export default defineComponent({
   components: {
     SpecDetails,
     ViewSpecModal,
-    ViewSpecRegistrationModal,
+    ViewSpecRegistrationModal
   },
   props: {
     product: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
-  setup(props) {
+  setup (props) {
     const loading = ref(false)
     const spec = ref(null)
     const currentVersion = ref(null)
@@ -111,7 +111,7 @@ export default defineComponent({
 
     const objectParsers = [
       (x: string) => JSON.parse(x),
-      (x: string) => jsyaml.load(x),
+      (x: string) => jsyaml.load(x)
     ]
 
     const applicationRegistrationEnabled = computed(() => {
@@ -131,7 +131,7 @@ export default defineComponent({
 
         return {
           ...props,
-          tag,
+          tag
         }
       } else {
         return null
@@ -142,7 +142,7 @@ export default defineComponent({
     const breadcrumbs = [{
       key: 'product-catalog',
       to: { name: 'catalog' },
-      text: helpText.nav.catalog,
+      text: helpText.nav.catalog
     }]
 
     const $router = useRouter()
@@ -165,7 +165,7 @@ export default defineComponent({
       isAllowedToRegister.value = await canUserAccess({
         service: 'konnect',
         action: '#consume',
-        resourcePath: `services/${$route.params.product}`,
+        resourcePath: `services/${$route.params.product}`
       })
 
       await processProduct()
@@ -191,7 +191,7 @@ export default defineComponent({
         isAllowedToRegister.value = await canUserAccess({
           service: 'konnect',
           action: '#consume',
-          resourcePath: `services/${$route.params.product}`,
+          resourcePath: `services/${$route.params.product}`
         })
 
         // this is not called on page load, but will be called when back button clicked and on select
@@ -204,7 +204,7 @@ export default defineComponent({
       isAllowedToRegister.value = await canUserAccess({
         service: 'konnect',
         action: '#consume',
-        resourcePath: `services/${$route.params.product}`,
+        resourcePath: `services/${$route.params.product}`
       })
 
       await processProduct()
@@ -216,21 +216,21 @@ export default defineComponent({
       }
     })
 
-    function triggerViewSpecModal() {
+    function triggerViewSpecModal () {
       viewSpecModalIsVisible.value = true
       specContents.value = getSpecContents()
     }
 
-    function triggerViewSpecRegistrationModal() {
+    function triggerViewSpecRegistrationModal () {
       viewSpecRegistrationModalIsVisible.value = true
     }
 
-    function closeModal() {
+    function closeModal () {
       viewSpecModalIsVisible.value = false
       viewSpecRegistrationModalIsVisible.value = false
     }
 
-    function scrollToHash(routeHash: string) {
+    function scrollToHash (routeHash: string) {
       // split and find the operation id which should be the last item
       // if it is a valid, tagged operation
       const tag = routeHash.split('/').slice(-2)[0]
@@ -257,7 +257,7 @@ export default defineComponent({
       }
     }
 
-    function downloadSpecContents(): void {
+    function downloadSpecContents (): void {
       let extension: string
       let fileName: string
       const content = specContents.value
@@ -286,11 +286,11 @@ export default defineComponent({
       document.body.removeChild(element)
     }
 
-    function getSpecContents() {
+    function getSpecContents () {
       return JSON.stringify(spec.value, null, 2)
     }
 
-    function setTitle(versionName: string) {
+    function setTitle (versionName: string) {
       const versionText = versionName ? `- ${versionName} ` : ''
 
       if (props.product) {
@@ -300,7 +300,7 @@ export default defineComponent({
       }
     }
 
-    async function processProduct() {
+    async function processProduct () {
       if (!props.product) {
         return
       }
@@ -308,22 +308,22 @@ export default defineComponent({
       props.product.versions
         .slice()
         .sort(
-          (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+          (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
         )
         .forEach(version => {
           productVersions.value.set(version.id, {
             ...version,
-            dropdownLabel: `${version.name}${version.deprecated ? ' (Deprecated)' : ''}`,
+            dropdownLabel: `${version.name}${version.deprecated ? ' (Deprecated)' : ''}`
           })
         })
     }
 
-    async function fetchSpec(version: string) {
+    async function fetchSpec (version: string) {
       loading.value = true
 
       return await portalApiV2.value.service.versionsApi.getProductVersionSpec({
         productId: $route.params.product as string,
-        versionId: version,
+        versionId: version
       })
         .then(async res => {
           // no content
@@ -367,7 +367,7 @@ export default defineComponent({
         })
     }
 
-    async function loadSwagger() {
+    async function loadSwagger () {
       if (!props.product) {
         return
       }
@@ -394,8 +394,8 @@ export default defineComponent({
           name: 'spec',
           params: {
             product_version: encodeURIComponent(id),
-            product,
-          },
+            product
+          }
         })
 
         return // return because the route change will trigger load swagger again
@@ -416,8 +416,8 @@ export default defineComponent({
           name: 'spec',
           params: {
             product_version: productVersion?.id && encodeURIComponent(productVersion?.id),
-            product,
-          },
+            product
+          }
         })
 
         return // return because the route change will trigger load swagger again
@@ -471,27 +471,27 @@ export default defineComponent({
       specDetails,
       applicationRegistrationEnabled,
       triggerViewSpecModal,
-      triggerViewSpecRegistrationModal,
+      triggerViewSpecRegistrationModal
     }
-  },
+  }
 })
 </script>
 
 <style lang="scss">
 .spec {
   .deprecated-alert {
-    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
-    border-radius: 4px;
-    color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+    padding: 14px;
     font-family: inherit;
     font-size: 1rem;
-    padding: 14px;
+    border-radius: 4px;
+    color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
+    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
+    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
 
   .container .breadcrumbs {
-    left: var(--spacing-xs);
-    position: relative
+    position: relative;
+    left: var(--spacing-xs)
   }
 
   .swagger-ui .version-pragma {
@@ -502,9 +502,9 @@ export default defineComponent({
     position: relative;
 
     svg {
-      bottom: 0;
-      left: -1.5rem;
       position: absolute;
+      left: -1.5rem;
+      bottom: 0;
     }
   }
 }

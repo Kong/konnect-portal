@@ -31,17 +31,17 @@
     <div v-else>
       <CatalogCardList
         v-if="activeView == 'grid'"
-        :loading="loading"
-        :page-size="cardsPerPage"
         :products="catalogItems"
-        :search-triggered="searchTriggered"
+        :page-size="cardsPerPage"
         :total-count="totalCount"
+        :search-triggered="searchTriggered"
+        :loading="loading"
         @page-changed="$emit('cards-page-changed', $event)"
       />
       <CatalogTableList
         v-else
-        :loading="loading"
         :products="catalogItems"
+        :loading="loading"
       />
     </div>
   </div>
@@ -59,32 +59,32 @@ export default defineComponent({
   components: {
     CatalogCardList,
     CatalogTableList,
-    EmptyState,
+    EmptyState
   },
   props: {
     catalogItems: {
       type: Array as PropType<CatalogItemModel[]>,
-      default: () => [],
+      default: () => []
     },
     cardsPerPage: {
       type: Number,
-      default: 12,
+      default: 12
     },
     totalCount: {
       type: Number,
-      default: 0,
+      default: 0
     },
     searchTriggered: {
       type: Boolean,
-      default: false,
+      default: false
     },
     loading: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   emits: ['cards-page-changed', 'active-view-changed'],
-  setup() {
+  setup () {
     const helpText = useI18nStore().state.helpText.catalog
     const catalogTitle = helpText.entityTypeProduct
     const noResultsMessage = helpText.noResultsProduct
@@ -92,31 +92,31 @@ export default defineComponent({
     return {
       helpText,
       catalogTitle,
-      noResultsMessage,
+      noResultsMessage
     }
   },
-  data(): { activeView: 'grid' | 'table'} {
+  data (): { activeView: 'grid' | 'table'} {
     return {
-      activeView: 'grid',
+      activeView: 'grid'
     }
   },
   computed: {
-    disabled() {
+    disabled () {
       return this.catalogItems.length === 0 ? true : null
-    },
+    }
   },
-  mounted() {
+  mounted () {
     const activeView = localStorage.getItem('portal-catalog-view') || 'grid'
 
     this.setActiveView(activeView)
   },
   methods: {
-    setActiveView(val: 'grid' | 'table') {
+    setActiveView (val: 'grid' | 'table') {
       this.activeView = val
       localStorage.setItem('portal-catalog-view', val)
       this.$emit('active-view-changed', val)
-    },
-  },
+    }
+  }
 })
 </script>
 
@@ -143,18 +143,18 @@ export default defineComponent({
 }
 
 .product-catalog-empty-state {
-  display: block;
   margin: auto;
   width: 20rem;
+  display: block;
 }
 
 .product-catalog-loading-spinner {
-  display: flex;
   width: 100%;
+  display: flex;
 }
 
 .product-catalog-no-products {
-  padding: 20px var(--spacing-xs);
   text-align: center;
+  padding: 20px var(--spacing-xs);
 }
 </style>

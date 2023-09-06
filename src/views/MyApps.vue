@@ -1,30 +1,30 @@
 <template>
   <Content>
     <PageTitle
-      class="mb-6"
       :title="helpText.myApps"
+      class="mb-6"
     >
       <template #right>
         <KButton
-          appearance="primary"
           data-testid="create-application-button"
+          appearance="primary"
           :is-rounded="false"
           :to="{ name: 'create-application' }"
         >
           <svg
-            class="mr-2"
-            fill="none"
-            height="16"
             width="16"
+            height="16"
+            fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            class="mr-2"
           >
             <title>{{ helpText.plus }}</title>
             <path
+              fill-rule="evenodd"
               clip-rule="evenodd"
               d="M16 8A8 8 0 110 8a8 8 0 0116 0zM7 5a1 1 0 012 0v2h2a1 1 0 110 2H9v2a1 1 0 11-2 0V9H5a1 1 0 110-2h2V5z"
               fill="#fff"
               fill-opacity=".75"
-              fill-rule="evenodd"
             />
           </svg>
           {{ helpText.newApp }}
@@ -55,18 +55,18 @@
       <KCard>
         <template #body>
           <KTable
-            class="applications-table"
             data-testid="applications-table"
-            :fetcher="fetcher"
             :fetcher-cache-key="fetcherCacheKey"
-            :has-error="currentState.matches('error')"
+            :fetcher="fetcher"
             has-side-border
-            :headers="tableHeaders"
-            :initial-fetcher-params="{ pageSize: paginationConfig.initialPageSize }"
-            is-clickable
+            :has-error="currentState.matches('error')"
             :is-loading="currentState.matches('pending')"
+            :headers="tableHeaders"
+            is-clickable
             is-small
+            class="applications-table"
             :pagination-page-sizes="paginationConfig.paginationPageSizes"
+            :initial-fetcher-params="{ pageSize: paginationConfig.initialPageSize }"
             @row:click="(_, row) => $router.push({ name: 'show-application', params: { application_id: row.id }})"
           >
             <template #name="{ row }">
@@ -77,23 +77,23 @@
                 <template #content>
                   <div
                     v-if="contextualAnalytics"
-                    class="py-2 px-3 type-md cursor-pointer"
                     data-testid="dropdown-analytics-dashboard"
+                    class="py-2 px-3 type-md cursor-pointer"
                     @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
                   >
                     {{ helpTextVitals.viewAnalytics }}
                   </div>
                   <div
                     v-if="isDcr"
-                    class="py-2 px-3 type-md cursor-pointer"
                     data-testid="dropdown-refresh-application-dcr-token"
+                    class="py-2 px-3 type-md cursor-pointer"
                     @click="handleRefreshSecret(row.id)"
                   >
                     {{ helpText.refreshSecret }}
                   </div>
                   <div
-                    class="py-2 px-3 type-md cursor-pointer delete-item"
                     data-testid="dropdown-delete-application"
+                    class="py-2 px-3 type-md cursor-pointer delete-item"
                     @click="deleteItem = row"
                   >
                     {{ helpText.delete }}
@@ -138,11 +138,11 @@
     </div>
 
     <KModal
-      action-button-appearance="danger"
-      :action-button-text="helpText.delete"
-      class="delete-modal"
-      :is-visible="!!deleteItem"
       :title="modalTitle"
+      :is-visible="!!deleteItem"
+      :action-button-text="helpText.delete"
+      action-button-appearance="danger"
+      class="delete-modal"
       @canceled="deleteItem = null"
     >
       <template #header-content>
@@ -154,8 +154,8 @@
       <template #footer-content>
         <KButton
           appearance="danger"
-          class="mr-3"
           :is-rounded="false"
+          class="mr-3"
           @click="handleDelete"
         >
           {{ helpText.delete }}
@@ -202,7 +202,7 @@ export default defineComponent({
   name: 'MyApps',
   components: { PageTitle, ActionsDropdown, RefreshTokenModal, MetricsProvider, MetricsConsumer },
 
-  setup() {
+  setup () {
     const { notify } = useToaster()
     const errorMessage = ref('')
     const applications = ref([])
@@ -224,7 +224,7 @@ export default defineComponent({
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
-      initialPageSize: 25,
+      initialPageSize: 25
     })
 
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
@@ -238,8 +238,8 @@ export default defineComponent({
         idle: { on: { FETCH: 'pending', REJECT: 'error' } },
         pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
         success: { type: 'final' },
-        error: { on: { FETCH: 'pending' } },
-      },
+        error: { on: { FETCH: 'pending' } }
+      }
     }))
 
     const revalidate = () => {
@@ -261,7 +261,7 @@ export default defineComponent({
 
           return {
             data: res.data.data,
-            total: res.data.meta.page.total,
+            total: res.data.meta.page.total
           }
         }).catch((e) => {
           send('REJECT')
@@ -273,20 +273,20 @@ export default defineComponent({
     const handleDelete = () => {
       portalApiV2.value.service.applicationsApi
         .deleteApplication({
-          applicationId: deleteItem.value.id,
+          applicationId: deleteItem.value.id
         })
         .then(() => {
           deleteItem.value = null
           revalidate() // refetch applications
           notify({
-            message: 'Application deleted',
+            message: 'Application deleted'
           })
         })
         .catch(error => {
           deleteItem.value = null
           notify({
             appearance: 'danger',
-            message: `Error: ${getMessageFromError(error)}`,
+            message: `Error: ${getMessageFromError(error)}`
           })
         })
     }
@@ -295,7 +295,7 @@ export default defineComponent({
       portalApiV2.value.service.credentialsApi.refreshApplicationToken({ applicationId: id })
         .then((res) => {
           notify({
-            message: 'Successfully refreshed secret',
+            message: 'Successfully refreshed secret'
           })
           showSecretModal.value = true
           token.value = res.data.client_secret
@@ -303,7 +303,7 @@ export default defineComponent({
         .catch(error => {
           notify({
             appearance: 'danger',
-            message: getMessageFromError(error),
+            message: getMessageFromError(error)
           })
         })
     }
@@ -316,7 +316,7 @@ export default defineComponent({
     const tableHeaders = [
       { label: 'Name', key: 'name' },
       { label: 'Description', key: 'description' },
-      { hideLabel: true, key: 'actions' },
+      { hideLabel: true, key: 'actions' }
     ]
 
     const analyticsCardTitle = (timeframe: Timeframe) => {
@@ -337,9 +337,9 @@ export default defineComponent({
         {
           type: EXPLORE_V2_FILTER_TYPES.IN,
           dimension: EXPLORE_V2_DIMENSIONS.APPLICATION,
-          values: appIds.value,
-        },
-      ],
+          values: appIds.value
+        }
+      ]
     }))
 
     onMounted(() => {
@@ -368,9 +368,9 @@ export default defineComponent({
       contextualAnalytics,
       vitalsLoading,
       metricProviderProps,
-      myAppsReady,
+      myAppsReady
     }
-  },
+  }
 })
 </script>
 

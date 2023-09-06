@@ -35,12 +35,12 @@ export default class SessionCookie {
   // Only for e2e tests. This should never be set/used for an actual user.
   CYPRESS_USER_SESSION_EXISTS = 'CYPRESS_USER_SESSION_EXISTS'
 
-  constructor(sessionName: string) {
+  constructor (sessionName: string) {
     this.data = {}
     this.sessionName = sessionName || this.SESSION_NAME_COOKIE
   }
 
-  encode(data: Record<string, any>) {
+  encode (data: Record<string, any>) {
     try {
       return window.btoa(encodeURIComponent(JSON.stringify(data)))
     } catch (e) {
@@ -55,11 +55,11 @@ export default class SessionCookie {
     }
   }
 
-  decode(encodedJson: string) {
+  decode (encodedJson: string) {
     return JSON.parse(decodeURIComponent(window.atob(encodedJson)))
   }
 
-  checkLocalDataForUser() {
+  checkLocalDataForUser () {
     const sessionDataRaw = localStorage.getItem(this.sessionName) || this.encode(this.data)
 
     try {
@@ -75,7 +75,7 @@ export default class SessionCookie {
     return {}
   }
 
-  async saveData(data: Record<string, any>, force = true) {
+  async saveData (data: Record<string, any>, force = true) {
     const appStore = useAppStore()
     const permissionsStore = usePermissionsStore()
     const { portalId, isRbacEnabled, isPublic } = storeToRefs(appStore)
@@ -99,7 +99,7 @@ export default class SessionCookie {
           // Add permission krns to the store
           await permissionsStore.addKrns({
             krns: developerPermissions,
-            replaceAll: true,
+            replaceAll: true
           })
         }
       } catch (e) {
@@ -109,16 +109,16 @@ export default class SessionCookie {
     }
   }
 
-  getUser() {
+  getUser () {
     const { developer } = this.checkLocalDataForUser()
 
     return {
       email: developer?.email,
-      id: developer?.id,
+      id: developer?.id
     }
   }
 
-  async destroy(to?: string) {
+  async destroy (to?: string) {
     if (this.isLoggingOut) {
       return
     }
@@ -151,7 +151,7 @@ export default class SessionCookie {
     }
   }
 
-  authenticatedWithIdp() {
+  authenticatedWithIdp () {
     let devAuthenticatedWithIdp = false
 
     try {
@@ -167,7 +167,7 @@ export default class SessionCookie {
     return devAuthenticatedWithIdp
   }
 
-  exists() {
+  exists () {
     // Return true if the session.data.developer.id has a value
     //
     // We also return true here for a cookie value so that Cypress tests do not automatically get logged out. This should never be set for an actual user.
@@ -175,7 +175,7 @@ export default class SessionCookie {
     return !!this.data.developer?.id || this.authenticatedWithIdp() || !!this.getCookieValue(this.CYPRESS_USER_SESSION_EXISTS)
   }
 
-  async refreshToken() {
+  async refreshToken () {
     // Trigger auth refresh
     try {
       // Trigger auth refresh

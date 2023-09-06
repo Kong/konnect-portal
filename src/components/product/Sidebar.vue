@@ -7,17 +7,17 @@
         </span>
         <KAlert
           v-if="product && !versionSelectItems.length"
-          :alert-message="helpText.noVersions"
           appearance="warning"
+          :alert-message="helpText.noVersions"
           class="mb-4"
         />
         <KSelect
           appearance="select"
           class="version-select-dropdown"
+          width="100%"
           data-testid="version-select-dropdown"
           :enable-filtering="false"
           :items="versionSelectItems"
-          width="100%"
           @change="onChangeVersion"
         >
           <template #empty>
@@ -28,8 +28,8 @@
       <SectionOverview :product="product" />
       <SectionReference
         :active-product-version-id="activeProductVersionId"
-        :deselect-operation="deselectOperation"
         :product="product"
+        :deselect-operation="deselectOperation"
         @operation-selected="emit('operationSelected', $event)"
       />
     </div>
@@ -53,24 +53,24 @@ const emit = defineEmits(['operationSelected'])
 defineProps({
   deselectOperation: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 })
 
 const versionSelectItems = ref([])
 
-function updateVersionSelectItems() {
+function updateVersionSelectItems () {
   versionSelectItems.value = product.value?.versions
     .slice() // clone before sorting
     .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
     .map((productVersion) => ({
       value: productVersion.id,
       label: `${productVersion.name}${productVersion.deprecated ? helpText.deprecated : ''}`,
-      selected: productVersion.id === activeProductVersionId.value,
+      selected: productVersion.id === activeProductVersionId.value
     })) || []
 }
 
-function onChangeVersion(event) {
+function onChangeVersion (event) {
   const version = product.value?.versions.find((productVersion) => productVersion.id === event.value)
   if (!version) {
     return
@@ -85,7 +85,7 @@ onMounted(() => {
 
 watch([
   () => product.value,
-  () => activeProductVersionId.value,
+  () => activeProductVersionId.value
 ], () => {
   updateVersionSelectItems()
 })
@@ -94,15 +94,15 @@ watch([
 
 <style scoped>
   aside {
-    max-width: 260px;
     width: 100%;
+    max-width: 260px;
   }
 
   .title {
-    color: var(--text_colors-primary);
-    display: block;
-    font-size: 20px;
     font-weight: 500;
+    font-size: 20px;
+    display: block;
+    color: var(--text_colors-primary);
   }
 
   .version-select-dropdown :deep(div.k-select-input.select-input-container) {

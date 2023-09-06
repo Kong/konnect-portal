@@ -7,8 +7,8 @@ const versions: ProductVersion[] = [
     id: '1afac832-5b2a-474c-a56d-c241364f41cf',
     name: 'v1-beta',
     deprecated: false,
-    registration_configs: [{ name: 'key-auth' }],
-  },
+    registration_configs: [{ name: 'key-auth' }]
+  }
 ]
 
 const product: Product = {
@@ -20,14 +20,14 @@ const product: Product = {
   document_count: 0,
   latest_version: {
     id: versions[0].id,
-    name: versions[0].name,
+    name: versions[0].name
   },
-  version_count: 1,
+  version_count: 1
 }
 
 const productVersion: ProductVersion = {
   ...versions[0],
-  registration_configs: [],
+  registration_configs: []
 }
 
 const apps: GetApplicationResponse[] = [
@@ -37,7 +37,7 @@ const apps: GetApplicationResponse[] = [
     reference_id: '1',
     id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
-    updated_at: '2022-03-25T13:15:02.104Z',
+    updated_at: '2022-03-25T13:15:02.104Z'
   },
   {
     name: 'My Other App',
@@ -45,7 +45,7 @@ const apps: GetApplicationResponse[] = [
     id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
     updated_at: '2022-03-25T13:15:02.104Z',
-    description: 'My Other App has a cool description',
+    description: 'My Other App has a cool description'
   },
   {
     name: 'My Other Other App',
@@ -53,7 +53,7 @@ const apps: GetApplicationResponse[] = [
     reference_id: '3',
     id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
-    updated_at: '2022-03-25T13:15:02.104Z',
+    updated_at: '2022-03-25T13:15:02.104Z'
   },
   {
     name: 'My DCR App',
@@ -62,8 +62,8 @@ const apps: GetApplicationResponse[] = [
     redirect_uri: 'http://google.com',
     id: crypto.randomUUID(),
     created_at: '2022-03-25T13:15:02.104Z',
-    updated_at: '2022-03-25T13:15:02.104Z',
-  },
+    updated_at: '2022-03-25T13:15:02.104Z'
+  }
 ]
 
 const productRegistration: GetRegistrationResponse = {
@@ -75,7 +75,7 @@ const productRegistration: GetRegistrationResponse = {
   product_id: product.id,
   product_name: product.name,
   product_version_id: productVersion.id,
-  product_version_name: productVersion.name,
+  product_version_name: productVersion.name
 }
 
 const defaultContext: PortalContext = {
@@ -87,11 +87,11 @@ const defaultContext: PortalContext = {
   oidc_auth_enabled: false,
   featureset_id: '6202956f054d96149719eed0',
   rbac_enabled: false,
-  allowed_time_period: '2022-03-25T13:15:02.104Z',
+  allowed_time_period: '2022-03-25T13:15:02.104Z'
 }
 
 const productRegistrations: GetRegistrationResponse[] = [
-  productRegistration,
+  productRegistration
 ]
 
 export { versions, product, productVersion, productRegistration, productRegistrations, apps, defaultContext }

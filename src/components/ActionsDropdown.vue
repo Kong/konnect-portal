@@ -1,14 +1,14 @@
 <template>
   <KPop
     ref="popRef"
-    class="float-right"
-    hide-caret
-    placement="bottomEnd"
-    popover-classes="mt-1 action-dropdown"
     :popover-timeout="0"
+    popover-classes="mt-1 action-dropdown"
+    class="float-right"
+    placement="bottomEnd"
     width="150"
-    @closed="isOpened = false"
+    hide-caret
     @opened="isOpened = true"
+    @closed="isOpened = false"
   >
     <slot>
       <KButton
@@ -16,15 +16,15 @@
         class="action-dropdown-button"
       >
         <KBadge
+          data-testid="action-badge"
           :class="[
             'cursor-pointer actions-badge',
             { opened: isOpened }
           ]"
-          data-testid="action-badge"
         >
           <KIcon
-            color="var(--steel-300)"
             icon="gearFilled"
+            color="var(--steel-300)"
             size="16"
             view-box="0 0 16 16"
           />
@@ -43,23 +43,23 @@
 import { defineComponent, ref } from 'vue'
 export default defineComponent({
   name: 'ActionsDropdown',
-  setup() {
+  setup () {
     const isOpened = ref(false)
     const popRef = ref()
 
     return {
       isOpened,
       popRef,
-      async onClickContent() {
+      async onClickContent () {
         isOpened.value = false
 
         // hide KPop content using ref - this isn't perfect but toggling hidePopover prop back and forth
         // doesn't work in this scenario. setTimeout instead of nextTick is used to prevent KPop from reopening
         // when isOpened value change is propagated to the renderer.
         setTimeout(popRef.value.hidePopper, 0)
-      },
+      }
     }
-  },
+  }
 })
 </script>
 
@@ -72,17 +72,17 @@ export default defineComponent({
   --KBadgePaddingX: var(--spacing-sm);
   --KBadgeBackground: var(--blue-200);
   --KBadgeLighterBackground: var(--white-100);
-  align-items: center;
   border: 1px solid var(--section_colors-stroke);
-  display: flex;
   height: auto;
+  display: flex;
+  align-items: center;
 }
 
 .action-dropdown-button {
   --KButtonOutlineBorder: var(--section_colors-stroke);
   border: none;
-  margin: 0;
   padding: 0 !important;
+  margin: 0;
 }
 </style>
 
@@ -99,8 +99,8 @@ export default defineComponent({
   --KPopPaddingX: 0;
   --KPopBorder: var(--section_colors-stroke);
   div {
-    background-color: var(--section_colors-tertiary);
     color: var(--text_colors-secondary);
+    background-color: var(--section_colors-tertiary);
     &:hover {
       background-color: var(--section_colors-accent);
     }

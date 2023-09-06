@@ -1,13 +1,13 @@
 import { computed } from 'vue'
 import {
   ApplicationAnalyticsApiQueryApplicationAnalyticsRequest,
-  QueryApplicationAnalytics200Response,
+  QueryApplicationAnalytics200Response
 } from '@kong/sdk-portal-js'
 import usePortalApi from '@/hooks/usePortalApi'
 import { snakeToCamelCase } from '@/helpers/snakeToCamelCase'
 const { portalApiV2 } = usePortalApi()
 
-export default async function useChartRequest(query, timeseriesQueryTime): Promise<QueryApplicationAnalytics200Response> {
+export default async function useChartRequest (query, timeseriesQueryTime): Promise<QueryApplicationAnalytics200Response> {
   const startMs = computed(() => timeseriesQueryTime.startMs())
   const endMs = computed(() => timeseriesQueryTime.endMs())
   const granularity = computed(() => timeseriesQueryTime.granularityMs())
@@ -18,8 +18,8 @@ export default async function useChartRequest(query, timeseriesQueryTime): Promi
       end_ms: Number(endMs.value),
       granularity_ms: granularity.value,
       // Append `dimensions`, `metrics`, `filter`, and `meta`
-      ...query,
-    },
+      ...query
+    }
   }
 
   if (!query.filter || !query.filter.length) {
@@ -31,7 +31,7 @@ export default async function useChartRequest(query, timeseriesQueryTime): Promi
 
     const result = {
       meta: snakeToCamelCase(res?.data?.meta),
-      records: res?.data?.records,
+      records: res?.data?.records
     } as QueryApplicationAnalytics200Response
 
     return result
@@ -43,10 +43,10 @@ export default async function useChartRequest(query, timeseriesQueryTime): Promi
         records: [],
         meta: {
           start_ms: startMs,
-          end_ms: endMs,
-        },
+          end_ms: endMs
+        }
       },
-      status: '500',
+      status: '500'
     } as QueryApplicationAnalytics200Response
   }
 }

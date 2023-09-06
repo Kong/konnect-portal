@@ -19,7 +19,7 @@ export const locales: Record<DefinedLocales, I18nType> = {
   de,
   en,
   es_ES,
-  fr,
+  fr
 }
 
-export function translationNeeded(str: string) { return str }
+export function translationNeeded (str: string) { return str }

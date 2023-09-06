@@ -19,7 +19,7 @@ describe('Forgot Password Page', () => {
   it('Shows success on password send', () => {
     cy.intercept('POST', '**/api/v2/developer/forgot-password', {
       statusCode: 200,
-      delay: 300,
+      delay: 300
     }).as('sendPasswordReset')
     cy.visit('/forgot-password', { useOriginalFn: true })
     cy.get('#email.k-input').type('email@example.com{enter}')
@@ -40,14 +40,14 @@ describe('Forgot Password Page', () => {
                 property: 'email',
                 children: [],
                 constraints: {
-                  isEmail: 'email must be an email',
-                },
-              },
-            ],
-          },
-        ],
+                  isEmail: 'email must be an email'
+                }
+              }
+            ]
+          }
+        ]
       },
-      delay: 300,
+      delay: 300
     }).as('sendPasswordReset')
     cy.visit('/forgot-password', { useOriginalFn: true })
     cy.get('#email.k-input').type('notAnEmail.com{enter}')

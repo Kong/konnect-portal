@@ -9,10 +9,10 @@
     <!-- Kong Auth Element requires the wrapper with corresponding id attribute -->
     <div id="kong-auth-forgot-password-wrapper">
       <kong-auth-forgot-password
-        :reset-password-request-endpoint="forgotPasswordEndpoint"
-        :success-text="helpText.successText"
-        :wrap-request="wrapForgotPasswordRequest"
         wrapper-id="kong-auth-forgot-password-wrapper"
+        :reset-password-request-endpoint="forgotPasswordEndpoint"
+        :wrap-request="wrapForgotPasswordRequest"
+        :success-text="helpText.successText"
         @click-login-link="onUserClickLogin"
       />
     </div>
@@ -29,18 +29,18 @@ import { useI18nStore } from '@/stores'
 export default defineComponent({
   name: 'ForgotPassword',
   components: {
-    AuthCard,
+    AuthCard
   },
 
-  setup() {
+  setup () {
     const $router = useRouter()
     const helpText = useI18nStore().state.helpText.forgotPassword
 
-    function onUserClickLogin() {
+    function onUserClickLogin () {
       $router.push({ path: '/login' })
     }
 
-    function wrapForgotPasswordRequest(formData) {
+    function wrapForgotPasswordRequest (formData) {
       return formData
     }
 
@@ -48,9 +48,9 @@ export default defineComponent({
       helpText,
       wrapForgotPasswordRequest,
       onUserClickLogin,
-      forgotPasswordEndpoint: 'api/v2/developer/forgot-password',
+      forgotPasswordEndpoint: 'api/v2/developer/forgot-password'
     }
-  },
+  }
 
 })
 </script>

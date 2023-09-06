@@ -1,17 +1,17 @@
 <template>
   <div class="auth h-screen d-flex align-items-center justify-content-center flex-column">
     <KCard
-      class="auth-card col-10 col-md-6"
-      data-testid="auth-form"
       has-shadow
+      data-testid="auth-form"
+      class="auth-card col-10 col-md-6"
     >
       <template #body>
         <div class="d-flex flex-column justify-content-center align-items-center mb-5 card-header">
           <router-link :to="headerRouteLink">
             <img
-              :alt="helpText.logoAlt"
               class="logo"
               :src="logoSrc"
+              :alt="helpText.logoAlt"
             >
           </router-link>
         </div>
@@ -29,7 +29,7 @@ import { useAppStore, useI18nStore } from '@/stores'
 
 export default defineComponent({
   name: 'AuthCard',
-  setup() {
+  setup () {
     const { portalApiV2 } = usePortalApi()
     const { isPublic } = useAppStore()
     const helpText = useI18nStore().state.helpText.authCard
@@ -38,9 +38,9 @@ export default defineComponent({
     return {
       helpText,
       logoSrc,
-      headerRouteLink: isPublic ? '/' : '/login',
+      headerRouteLink: isPublic ? '/' : '/login'
     }
-  },
+  }
 })
 
 </script>
@@ -63,11 +63,11 @@ export default defineComponent({
       width: 320px
     }
     .card-header {
-      background-color: var(--section_colors-hero);
-      border-radius: 3px 3px 0 0;
       height: 6rem;
       margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) 0;
       padding: 2rem;
+      border-radius: 3px 3px 0 0;
+      background-color: var(--section_colors-hero);
     }
   }
 }

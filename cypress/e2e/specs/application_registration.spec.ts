@@ -4,13 +4,13 @@ import { product, versions, productRegistration, apps } from '../fixtures/consts
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
   credentials: ListCredentialsResponseDataInner[] = [],
-  registrations = [],
+  registrations = []
 ) => {
   const applicationResponse: GetApplicationResponse = data
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}`, {
     statusCode: 200,
-    body: applicationResponse,
+    body: applicationResponse
   }).as('getApplication')
 
   const credsResponse: ListCredentialsResponse = {
@@ -19,14 +19,14 @@ const mockApplicationWithCredAndReg = (
       page: {
         total: credentials.length,
         size: 10,
-        number: 1,
-      },
-    },
+        number: 1
+      }
+    }
   }
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}/credentials*`, {
     statusCode: 200,
-    body: credsResponse,
+    body: credsResponse
   }).as('getApplicationCredentials')
 
   const registrationsResponse: ListRegistrationsResponse = {
@@ -35,20 +35,20 @@ const mockApplicationWithCredAndReg = (
       page: {
         total: registrations.length,
         size: 10,
-        number: 1,
-      },
-    },
+        number: 1
+      }
+    }
   }
 
   cy.intercept('GET', `**/api/v2/applications/${data.id}/registrations*`, {
     statusCode: 200,
-    body: registrationsResponse,
+    body: registrationsResponse
   }).as('getApplicationRegistrations')
 }
 
 Cypress.Commands.add('createNewApplication', (app, productId, versions) => {
   const selectors = {
-    appRegModal: '[data-testid="application-registration-modal"]',
+    appRegModal: '[data-testid="application-registration-modal"]'
   }
 
   const submitButton = 'button[type="submit"]'
@@ -67,8 +67,8 @@ Cypress.Commands.add('createNewApplication', (app, productId, versions) => {
 
   cy.intercept('POST', '**/api/v2/applications', {
     body: {
-      id: '1',
-    },
+      id: '1'
+    }
   }).as('postApplicationRegistration')
 
   cy.mockPrivatePortal()
@@ -104,14 +104,14 @@ Cypress.Commands.add('createNewApplication', (app, productId, versions) => {
 
 describe('Application Registration', () => {
   const selectors = {
-    appRegModal: '[data-testid="application-registration-modal"]',
+    appRegModal: '[data-testid="application-registration-modal"]'
   }
 
   const credentials: ListCredentialsResponseDataInner[] = [
     {
       id: '2433d1ba-1ba4-46d9-9c55-dde7cbcd8bd6',
-      display_name: '4hloijU1YDWzeY003FKKZCeFUBNBXaxo',
-    },
+      display_name: '4hloijU1YDWzeY003FKKZCeFUBNBXaxo'
+    }
   ]
 
   const submitButton = 'button[type="submit"]'
@@ -162,14 +162,16 @@ describe('Application Registration', () => {
           id: apps[0].id,
           credentials: {
             client_id: 'your-client-id',
-            client_secret: 'your-client-secret',
-          },
-        },
+            client_secret: 'your-client-secret'
+          }
+        }
       }).as('postApplicationRegistration')
       mockApplicationWithCredAndReg(apps[3])
       mockApplicationWithCredAndReg(apps[0])
 
       cy.get(submitButton).click()
+
+
 
       cy.wait('@postApplicationRegistration').then(() => {
         cy.get('[data-testid="copy-secret-modal"]').should('exist')
@@ -195,8 +197,8 @@ describe('Application Registration', () => {
 
       cy.intercept('POST', '**/api/v2/applications', {
         body: {
-          id: apps[0].id,
-        },
+          id: apps[0].id
+        }
       }).as('postApplicationRegistration')
       mockApplicationWithCredAndReg(apps[0])
 
@@ -252,12 +254,12 @@ describe('Application Registration', () => {
 
     cy.intercept('PATCH', `api/v2/applications/${apps[0].id}`, {
       statusCode: 200,
-      body: { ...apps[0], name: apps[0].name + 'z' },
+      body: { ...apps[0], name: apps[0].name + 'z' }
     }).as('getApplicationPatch')
 
     cy.intercept('GET', `api/v2/applications/${apps[0].id}`, {
       statusCode: 200,
-      body: { ...apps[0], name: apps[0].name + 'z' },
+      body: { ...apps[0], name: apps[0].name + 'z' }
     }).as('getApplication')
 
     cy.get(submitButton).click()
@@ -284,7 +286,7 @@ describe('Application Registration', () => {
     cy.get('[data-testid="application-delete-modal"]').should('not.exist')
 
     cy.intercept('DELETE', `api/v2/applications/${apps[0].id}`, {
-      statusCode: 200,
+      statusCode: 200
     }).as('deleteApplication')
 
     cy.mockApplications([...apps.slice(1)], 2)
@@ -296,7 +298,7 @@ describe('Application Registration', () => {
 
     cy.get('.toaster-container-outer .message').should(
       'contain',
-      'Application successfully deleted',
+      'Application successfully deleted'
     )
 
     cy.get('[data-testid="applications-table"] tbody tr')
@@ -329,25 +331,25 @@ describe('Application Registration', () => {
 
       cy.get('.credentials-list .empty-state-wrapper').should(
         'contain',
-        'No Credentials',
+        'No Credentials'
       )
 
       const createCredResponseBody: CredentialCreationResponse = {
         credential: 'credentialKey',
         id: 'id',
-        display_name: 'display-name',
+        display_name: 'display-name'
       }
 
       cy.intercept('POST', `api/v2/applications/${apps[0].id}/credentials*`, {
         statusCode: 201,
-        body: createCredResponseBody,
+        body: createCredResponseBody
       }).as('createApplicationCredentials')
 
       const credentialsResonse: ListCredentialsResponse = { data: [credentials[0]], meta: { page: { total: 1, size: 10, number: 1 } } }
 
       cy.intercept('GET', `api/v2/applications/${apps[0].id}/credentials*`, {
         statusCode: 200,
-        body: credentialsResonse,
+        body: credentialsResonse
       }).as('getApplicationCredentials')
 
       cy.get('[data-testid="generate-credential-button"]').click()
@@ -358,7 +360,7 @@ describe('Application Registration', () => {
           cy.get('[data-testid="copy-credentials-confirm-modal-button"]').should('exist').click()
           cy.get('.toaster-container-outer .message').should(
             'contain',
-            'copied to clipboard',
+            'copied to clipboard'
           )
 
           cy.get('[data-testid="credentials-list"] tbody tr')
@@ -379,7 +381,7 @@ describe('Application Registration', () => {
 
     cy.intercept('PUT', `api/v2/applications/${apps[0].id}/credentials/${credentials[0].id}`, {
       statusCode: 200,
-      body: {},
+      body: {}
     }).as('updateApplicationCredential')
 
     cy.wait('@getApplicationCredentials').then(() => {
@@ -390,16 +392,16 @@ describe('Application Registration', () => {
           data: [{
             id: credentials[0].id,
             key: credentials[0].display_name,
-            display_name: 'new-display-name',
+            display_name: 'new-display-name'
           }],
           meta: {
             page: {
               total: 1,
               size: 10,
-              number: 1,
-            },
-          },
-        },
+              number: 1
+            }
+          }
+        }
       })
       cy.get('[data-testid="credentials-list"] tbody tr')
         .should('exist')
@@ -427,7 +429,7 @@ describe('Application Registration', () => {
 
     cy.get('.credentials-list .empty-state-wrapper').should(
       'contain',
-      'No Credentials',
+      'No Credentials'
     )
 
     cy.intercept('POST', `api/v2/applications/${apps[0].id}/credentials*`, {
@@ -435,13 +437,13 @@ describe('Application Registration', () => {
       body: {
         credential: 'credentialKey',
         id: 'id',
-        display_name: 'display-name',
-      },
+        display_name: 'display-name'
+      }
     }).as('createApplicationCredentials')
 
     cy.intercept('GET', `api/v2/applications/${apps[0].id}/credentials*`, {
       statusCode: 200,
-      body: { data: [credentials[0]], meta: { page: { total: 1, size: 10, number: 1 } } },
+      body: { data: [credentials[0]], meta: { page: { total: 1, size: 10, number: 1 } } }
     }).as('getApplicationCredentials')
 
     cy.get('[data-testid="generate-credential-button"]').click()
@@ -452,7 +454,7 @@ describe('Application Registration', () => {
         cy.get('[data-testid="copy-credentials-confirm-modal-button"]').should('exist').click()
         cy.get('.toaster-container-outer .message').should(
           'contain',
-          'copied to clipboard',
+          'copied to clipboard'
         )
 
         cy.get('[data-testid="credentials-list"] tbody tr')
@@ -464,13 +466,13 @@ describe('Application Registration', () => {
         'DELETE',
         `api/v2/applications/${apps[0].id}/credentials/${credentials[0].id}`,
         {
-          statusCode: 200,
-        },
+          statusCode: 200
+        }
       ).as('deleteApplicationCredentials')
 
       cy.intercept('GET', `api/v2/applications/${apps[0].id}/credentials*`, {
         statusCode: 200,
-        body: { data: [], meta: { page: { total: 0, size: 10, number: 1 } } },
+        body: { data: [], meta: { page: { total: 0, size: 10, number: 1 } } }
       }).as('getApplicationCredentials')
 
       cy.get('[data-testid="action-badge"]').click()
@@ -479,7 +481,7 @@ describe('Application Registration', () => {
       cy.get('[data-testid="revoke-credential-modal-button"]').should('exist').click()
       cy.get('.credentials-list .empty-state-wrapper').should(
         'contain',
-        'No Credentials',
+        'No Credentials'
       )
     })
   })
@@ -507,21 +509,21 @@ describe('Application Registration', () => {
       const mockCreateRegResponse = {
         ...productRegistration,
         status: 'pending',
-        application: apps[0],
+        application: apps[0]
       }
 
       cy.intercept(
         'POST',
         `/api/v2/applications/${apps[0].id}/registrations*`,
         {
-          body: mockCreateRegResponse,
-        },
+          body: mockCreateRegResponse
+        }
       ).as('postApplicationRegistration')
 
       cy.get('[data-testid="submit-registration"]').click()
       cy.get(selectors.appRegModal).should(
         'contain',
-        'You will be notified upon approval',
+        'You will be notified upon approval'
       )
     })
 
@@ -547,8 +549,8 @@ describe('Application Registration', () => {
         'POST',
         `/api/v2/applications/${apps[0].id}/registrations*`,
         {
-          body: productRegistration,
-        },
+          body: productRegistration
+        }
       ).as('postApplicationRegistration')
 
       mockApplicationWithCredAndReg(apps[1], [], [productRegistration])
@@ -566,7 +568,7 @@ describe('Application Registration', () => {
 
       cy.mockProductDocument()
       cy.visit(`/spec/${product.id}`).get('.swagger-ui', {
-        timeout: 12000,
+        timeout: 12000
       })
       cy.get('[data-testid="register-button"]', { timeout: 12000 })
       cy.mockRegistrations(apps[0].id, [productRegistration])
@@ -576,9 +578,9 @@ describe('Application Registration', () => {
         [
           { ...apps[0] },
           { ...apps[1] },
-          apps[2],
+          apps[2]
         ],
-        3,
+        3
       )
 
       cy.get('[data-testid="register-button"]').click()
@@ -610,7 +612,7 @@ describe('Application Registration', () => {
     mockApplicationWithCredAndReg({ ...apps[0] })
 
     cy.intercept('GET', '**/api/v2/portal', {
-      dcr_provider_ids: [],
+      dcr_provider_ids: []
     }).as('getPortalContext')
 
     cy.visit('/my-apps')
@@ -621,7 +623,7 @@ describe('Application Registration', () => {
 
     cy.intercept('POST', `api/v2/applications/${apps[0].id}/refresh-token`, {
       statusCode: 200,
-      body: { client_secret: 'SECRET_TOKEN' },
+      body: { client_secret: 'SECRET_TOKEN' }
     }).as('refreshToken')
 
     cy.get('[data-testid="client-secret-table"]').should('not.exist')
@@ -641,7 +643,7 @@ describe('Application Registration', () => {
 
       cy.intercept('POST', `api/v2/applications/${apps[0].id}/refresh-token`, {
         statusCode: 200,
-        body: { client_secret: 'SECRET_TOKEN' },
+        body: { client_secret: 'SECRET_TOKEN' }
       }).as('refreshToken')
 
       cy.get('[data-testid="dropdown-delete-application"]').should('exist')
@@ -651,7 +653,7 @@ describe('Application Registration', () => {
 
       cy.get('.toaster-container-outer .message').should(
         'contain',
-        'Successfully refreshed secret',
+        'Successfully refreshed secret'
       )
 
       cy.get('[data-testid="application-secret-token-modal"]').should('exist')
@@ -659,7 +661,7 @@ describe('Application Registration', () => {
 
       cy.get('.toaster-container-outer .message').should(
         'contain',
-        '"SECRET_TOKEN" copied to clipboard',
+        '"SECRET_TOKEN" copied to clipboard'
       )
 
       cy.get('[data-testid="close-btn"]').click()
@@ -677,7 +679,7 @@ describe('Application Registration', () => {
 
       cy.intercept('POST', `api/v2/applications/${apps[0].id}/refresh-token`, {
         statusCode: 200,
-        body: { client_secret: 'SECRET_TOKEN' },
+        body: { client_secret: 'SECRET_TOKEN' }
       }).as('refreshToken')
 
       cy.wait('@isDcrPortal')
@@ -689,7 +691,7 @@ describe('Application Registration', () => {
 
       cy.get('.toaster-container-outer .message').should(
         'contain',
-        'Successfully refreshed secret',
+        'Successfully refreshed secret'
       )
 
       cy.get('[data-testid="application-secret-token-modal"]').should('exist')
@@ -697,7 +699,7 @@ describe('Application Registration', () => {
 
       cy.get('.toaster-container-outer .message').should(
         'contain',
-        '"SECRET_TOKEN" copied to clipboard',
+        '"SECRET_TOKEN" copied to clipboard'
       )
 
       cy.get('[data-testid="close-btn"]').click()

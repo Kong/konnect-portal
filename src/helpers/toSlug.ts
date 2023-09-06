@@ -1,4 +1,4 @@
-export default function toSlug(input: string) {
+export default function toSlug (input: string) {
   return input
     .toLowerCase()
     .trim()

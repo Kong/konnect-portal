@@ -14,8 +14,8 @@
 defineProps({
   title: {
     type: String,
-    default: null,
-  },
+    default: null
+  }
 })
 </script>
 
@@ -29,7 +29,7 @@ section:first-of-type {
 }
 
 h2 {
-  color: var(--text_colors-primary);
   font: 500 12px var(--font-base);
+  color: var(--text_colors-primary);
 }
 </style>

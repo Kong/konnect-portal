@@ -19,8 +19,8 @@
             -->
             <textarea
               id="spec-area"
-              disabled
               :value="specContents"
+              disabled
             />
           </code>
         </span>
@@ -28,31 +28,31 @@
       <template #footer-content>
         <KClipboardProvider v-slot="{ copyToClipboard }">
           <KButton
-            appearance="primary"
             class="copy"
-            data-testid="copy-btn"
+            appearance="primary"
             :is-rounded="false"
+            data-testid="copy-btn"
             @click="copySpec(copyToClipboard)"
           >
             {{ helpText.copy }}
           </KButton>
         </KClipboardProvider>
         <KButton
-          appearance="secondary"
           class="ml-2"
-          data-testid="download-btn"
+          appearance="secondary"
           :is-rounded="false"
+          data-testid="download-btn"
           type="submit"
           @click="downloadCallback"
         >
           {{ helpText.download }}
         </KButton>
         <KButton
-          appearance="secondary"
-          class="close"
           data-testid="close-btn"
+          class="close"
           :is-rounded="false"
           style="margin-left: auto;"
+          appearance="secondary"
           @click="closeModal"
         >
           {{ helpText.close }}
@@ -72,20 +72,20 @@ const helpText = useI18nStore().state.helpText.viewSpecModal
 const props = defineProps({
   specName: {
     type: String,
-    default: '',
+    default: ''
   },
   specContents: {
     type: String,
-    default: '',
+    default: ''
   },
   isVisible: {
     type: Boolean,
-    default: false,
+    default: false
   },
   downloadCallback: {
     type: Function as PropType<() => void>,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const emit = defineEmits(['close'])
@@ -100,27 +100,27 @@ const copySpec = (executeCopy) => {
   if (!executeCopy(props.specContents)) {
     notify({
       appearance: 'danger',
-      message: helpText.copyError,
+      message: helpText.copyError
     })
   }
 
   notify({
-    message: helpText.copySuccess,
+    message: helpText.copySuccess
   })
 }
 </script>
 
 <style lang="scss" scoped>
 #spec-area {
-  background-color: var(--section_colors-tertiary);
-  color: var(--text_colors-primary);
-  font-family: var(--font-family-mono);
-  font-size: var(--type-xs);
-  height: 300px;
-  margin: 0;
-  overflow: scroll;
-  padding: var(--spacing-md);
-  white-space: pre;
   width: 100%;
+  height: 300px;
+  overflow: scroll;
+  white-space: pre;
+  color: var(--text_colors-primary);
+  background-color: var(--section_colors-tertiary);
+  margin: 0;
+  padding: var(--spacing-md);
+  font-size: var(--type-xs);
+  font-family: var(--font-family-mono);
 }
 </style>

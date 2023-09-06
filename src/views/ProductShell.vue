@@ -2,8 +2,8 @@
   <div class="container flex pb-0 product fixed-position">
     <EmptyState
       v-if="productError"
-      class="mt-6"
       is-error
+      class="mt-6"
       :message="productError"
     />
     <template v-else>
@@ -19,8 +19,8 @@
       <div class="content">
         <KAlert
           v-if="activeProductVersionDeprecated"
-          :alert-message="deprecatedWarning"
           appearance="warning"
+          :alert-message="deprecatedWarning"
           class="deprecated-warning"
         />
         <!-- pass product to child routes as a prop -->
@@ -64,7 +64,7 @@ const { product, documentTree, activeDocumentSlug, activeProductVersionId } = st
 const productIdParam = computed(() => route.params.product as string)
 const productVersionParam = computed(() => route.params.product_version as string)
 
-function setActiveDocumentSlug() {
+function setActiveDocumentSlug () {
   const slugs = route.params.slug
 
   // The last slug is the active document to be rendered
@@ -77,7 +77,7 @@ function setActiveDocumentSlug() {
 
 const { productsApi, versionsApi, documentationApi } = portalApiV2.value.service
 
-async function fetchProduct() {
+async function fetchProduct () {
   const id = productIdParam.value
 
   try {
@@ -85,7 +85,7 @@ async function fetchProduct() {
 
     const productWithVersion: ProductWithVersions = {
       ...product,
-      versions: await fetchAll(meta => versionsApi.listProductVersions({ ...meta, productId: id })),
+      versions: await fetchAll(meta => versionsApi.listProductVersions({ ...meta, productId: id }))
     }
 
     productStore.setProduct(productWithVersion)
@@ -96,7 +96,7 @@ async function fetchProduct() {
 
     if (err.response?.status === 404) {
       router.push({
-        name: 'not-found',
+        name: 'not-found'
       })
     }
 
@@ -104,13 +104,13 @@ async function fetchProduct() {
   }
 }
 
-async function fetchDocumentTree() {
+async function fetchDocumentTree () {
   const id = productIdParam.value
 
   try {
     const requestOptions = {
       productId: id,
-      accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson,
+      accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson
     }
     // @ts-ignore
     // overriding the axios response because we're specifying what we're accepting above
@@ -126,13 +126,13 @@ async function fetchDocumentTree() {
       console.error(err)
       notify({
         appearance: 'danger',
-        message: helpText.productVersion.unableToRetrieveDoc,
+        message: helpText.productVersion.unableToRetrieveDoc
       })
     }
   }
 }
 
-function initActiveProductVersionId() {
+function initActiveProductVersionId () {
   if (!product.value) {
     return
   }
@@ -148,7 +148,7 @@ function initActiveProductVersionId() {
   const val = productVersionParam.value?.toLowerCase()
   if (val) {
     const newProductVersion = versions.find(
-      (productVersion) => productVersion.id === val || productVersion.name?.toLowerCase() === val,
+      (productVersion) => productVersion.id === val || productVersion.name?.toLowerCase() === val
     )
 
     if (newProductVersion) {
@@ -161,19 +161,19 @@ function initActiveProductVersionId() {
   }
 }
 
-function routeToDocumentBySlug(slug: string) {
+function routeToDocumentBySlug (slug: string) {
   if (slug) {
     router.replace({
       name: 'api-documentation-page',
       params: {
         product: route.params.product,
-        slug: [slug],
-      },
+        slug: [slug]
+      }
     })
   }
 }
 
-function onSwitchVersion() {
+function onSwitchVersion () {
   if (route.name === 'spec') {
     productStore.setSidebarActiveOperation(null)
 
@@ -181,19 +181,19 @@ function onSwitchVersion() {
       name: 'spec',
       params: {
         product: productIdParam.value,
-        product_version: activeProductVersionId.value,
-      },
+        product_version: activeProductVersionId.value
+      }
     })
   }
 }
 
-function onOperationSelectedSidebar(operation: Operation) {
+function onOperationSelectedSidebar (operation: Operation) {
   const routeLocation = {
     name: 'spec',
     params: {
       product: productIdParam.value,
-      product_version: activeProductVersionId.value,
-    },
+      product_version: activeProductVersionId.value
+    }
   }
 
   if (route.name !== 'spec') {
@@ -263,11 +263,11 @@ watchEffect(() => {
 }
 
 .container.product.page.fixed-position {
+  position: fixed;
   bottom: 0;
   left: 0;
-  max-width: 100%;
-  position: fixed;
   right: 0;
+  max-width: 100%;
 }
 
 .product {
@@ -275,8 +275,8 @@ watchEffect(() => {
 }
 
 .sidebar-wrapper {
-  border-right: 1px solid var(--section_colors-stroke);
   flex: 0 0 auto;
+  border-right: 1px solid var(--section_colors-stroke);
 }
 
 .sidebar {

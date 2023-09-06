@@ -2,22 +2,22 @@
 
 module.exports = {
   future: {
-    purgeLayersByDefault: true,
+    purgeLayersByDefault: true
   },
   layers: ['utilities'],
   content: [
     './src/**/*.js',
-    './src/**/*.vue',
+    './src/**/*.vue'
   ],
   theme: {
     extend: {
       screens: {
-        '2xl': '1390px',
+        '2xl': '1390px'
       },
       maxWidth: {
-        'screen-2xl': '1390px',
-      },
-    },
+        'screen-2xl': '1390px'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }

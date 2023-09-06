@@ -5,9 +5,9 @@
       class="loading-container"
     >
       <KIcon
-        color="var(--steel-300)"
         icon="spinner"
         size="96"
+        color="var(--steel-300)"
       />
     </div>
     <template v-else>
@@ -39,23 +39,23 @@ const initialLoadingId = 'initial-fullscreen-loading-container'
 export default defineComponent({
   name: 'App',
   components: {
-    Nav,
+    Nav
   },
-  setup() {
+  setup () {
     removeElementFromDOMById(initialLoadingId)
   },
   computed: {
     ...mapState(useAppStore, ['globalLoading']),
-    isFullScreen() {
+    isFullScreen () {
       return !isAuthRoute(this.$route.name) && this.$route.name !== 'not-found-redirect'
-    },
+    }
   },
-  beforeMount() {
+  beforeMount () {
     this.initializeApiClients()
   },
   methods: {
     ...mapActions(useAppStore, ['logout']),
-    initializeApiClients() {
+    initializeApiClients () {
       // Konnect API Client
       portalApiV2.setAuthErrorCallback(async (err, reason) => {
         // redirect to 403 page if portal api returns HTTP 403 but the session is correct
@@ -69,14 +69,14 @@ export default defineComponent({
           await createRedirectHandler(this.$router, this.logout)()
         }
       })
-    },
-  },
+    }
+  }
 })
 </script>
 
 <style lang="scss">
 // Import Kongponent var overrides
-@import './assets/kongponents-theme';
+@import './assets/kongponents-theme.scss';
 
 #app {
   hr {
@@ -96,18 +96,18 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-  @import './assets/kongponents-theme';
+  @import './assets/kongponents-theme.scss';
   .loading-container {
-    align-items: center;
-    background: var(--white);
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    left: 0;
     position: fixed;
-    right: 0;
     top: 0;
-    z-index: 10500
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10500;
+    flex-direction: column;
+    background: var(--white)
   }
 </style>

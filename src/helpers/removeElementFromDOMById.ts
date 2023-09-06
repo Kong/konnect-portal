@@ -1,4 +1,4 @@
-function removeElementFromDOMById(id: string) {
+function removeElementFromDOMById (id: string) {
   return document.getElementById(id)?.remove()
 }
 

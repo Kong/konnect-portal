@@ -34,7 +34,7 @@ import { createRedirectHandler } from './helpers/auth'
  * Initialize application
  */
 
-async function init() {
+async function init () {
   const app = createApp(App)
 
   // Initialize the Pinia store
@@ -65,7 +65,7 @@ async function init() {
       basic_auth_enabled: basicAuthEnabled,
       dcr_provider_ids: dcrProviderIds,
       rbac_enabled: isRbacEnabled,
-      allowed_time_period: allowedTimePeriod,
+      allowed_time_period: allowedTimePeriod
     } = portalContext.data
 
     if (isPublic === false) {
@@ -101,7 +101,7 @@ async function init() {
 
         await session.saveData({
           ...session.data,
-          developer: res.data,
+          developer: res.data
         })
       }
     }
@@ -115,17 +115,17 @@ async function init() {
       shadowDom: false,
       customErrorHandler: handleKongAuthElementsError,
       developerConfig: {
-        portalId,
-      },
+        portalId
+      }
     })
 
     app.use(CopyUuid, {
       notify: (props: CopyUuidNotifyParam) => {
         useToaster().notify({
           appearance: props.type === 'error' ? 'danger' : 'success',
-          message: props.message,
+          message: props.message
         })
-      },
+      }
     })
 
     app.mount('#app')

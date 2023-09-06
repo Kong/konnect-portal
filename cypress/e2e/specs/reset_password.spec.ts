@@ -7,7 +7,7 @@ describe('Reset Password Page', () => {
   it('Sends token to backend that developer can get from email and resets password', () => {
     cy.intercept('POST', '**/developer/reset-password', {
       statusCode: 204,
-      delay: 300,
+      delay: 300
     }).as('resetPassword')
 
     cy.visit('/forgot-password', { useOriginalFn: true })
@@ -45,12 +45,12 @@ describe('Reset Password Page', () => {
       statusCode: 500,
       body:
       {
-        status: 500,
-        title: 'Internal',
-        instance: 'konnect:trace:1115722991246784904',
-        detail: 'An internal failure occurred',
+        "status": 500,
+        "title": "Internal",
+        "instance": "konnect:trace:1115722991246784904",
+        "detail": "An internal failure occurred"
       },
-      delay: 300,
+      delay: 300
     }).as('resetPassword')
 
     cy.visit('/forgot-password', { useOriginalFn: true })
