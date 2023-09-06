@@ -76,7 +76,7 @@ export default defineComponent({
 
 <style lang="scss">
 // Import Kongponent var overrides
-@import './assets/kongponents-theme.scss';
+@import './assets/kongponents-theme';
 
 #app {
   hr {
@@ -96,18 +96,18 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-  @import './assets/kongponents-theme.scss';
+  @import './assets/kongponents-theme';
   .loading-container {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    z-index: 10500;
+    background: var(--white);
+    bottom: 0;
+    display: flex;
     flex-direction: column;
-    background: var(--white)
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10500
   }
 </style>

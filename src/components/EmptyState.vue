@@ -52,9 +52,9 @@ export default defineComponent({
 <style lang="scss">
 // !important required because kemptystate has no theming options
 .empty-state-wrapper {
-  color: var(--text_colors-primary) !important;
-  border-color: var(--section_colors-stroke) !important;
   background-color: var(--section_colors-hero) !important;
+  border-color: var(--section_colors-stroke) !important;
+  color: var(--text_colors-primary) !important;
 
   .k-empty-state-message {
     color: var(--text_colors-primary) !important;

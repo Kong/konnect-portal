@@ -224,13 +224,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/mixins.scss';
-@import '../../assets/variables.scss';
+@import '../../assets/mixins';
 
 .chart-grid {
   @include grid-columns(1);
 
-  @media (min-width: $viewport-md) {
+  @media (min-width: $kui-breakpoint-phablet) {
     @include grid-columns(2);
   }
 
@@ -242,11 +241,11 @@ onMounted(() => {
 
   // Tooltip overrides
   .analytics-chart-parent {
-    // More padding on the right, to balance out space taken up by Y-Axis label
-    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
     background-color: var(--white, #fff);
     margin: 0;
     min-width: 400px !important;
+    // More padding on the right, to balance out space taken up by Y-Axis label
+    padding: var(--spacing-md) var(--spacing-lg) var(--spacing-md) var(--spacing-md);
     position: relative;
 
     &:deep(.legend-container) {
@@ -256,13 +255,13 @@ onMounted(() => {
 
     &:deep(.chart-title) {
       color: #3c4557; // override --text_colors-primary until full portal customization
-      padding-top: 0;
       padding-bottom: var(--spacing-md);
+      padding-top: 0;
     }
 
     &:deep(ul.tooltip) {
       max-width: 320px;
-      @media (min-width: $viewport-md) {
+      @media (min-width: $kui-breakpoint-phablet) {
         max-width: 440px;
       }
       .display-value, .display-label  {

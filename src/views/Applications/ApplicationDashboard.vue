@@ -319,15 +319,13 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/variables.scss';
-
 .analytics-filters {
   column-gap: 24px;
   flex-direction: column;
   flex-wrap: wrap;
   row-gap: 24px;
 
-  @media (min-width: $viewport-md) {
+  @media (min-width: $kui-breakpoint-phablet) {
     flex-direction: row;
     justify-content: space-around;
   }

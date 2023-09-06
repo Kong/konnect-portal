@@ -92,11 +92,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .wrapper {
+    max-height: calc(100vh - var(--headerHeight));
+    overflow-x: auto;
+    padding: 2rem 0;
     position: sticky;
     top: 0;
-    max-height: calc(100vh - var(--headerHeight));
-    padding: 2rem 0;
-    overflow-x: auto;
   }
 
   p {
@@ -106,17 +106,17 @@ export default defineComponent({
   }
 
   ul {
+    list-style: none;
     margin: 0;
     padding: 0;
     padding-right: 2rem;
-    list-style: none;
   }
 
   li {
+    border-left: 2px solid rgba(0,0,0,0);
     font-size: 0.875rem;
     margin: 0.25rem 0;
     position: relative;
-    border-left: 2px solid rgba(0,0,0,0);
   }
 
   li.active {

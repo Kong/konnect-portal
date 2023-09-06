@@ -112,15 +112,15 @@ const copySpec = (executeCopy) => {
 
 <style lang="scss" scoped>
 #spec-area {
-  width: 100%;
-  height: 300px;
-  overflow: scroll;
-  white-space: pre;
-  color: var(--text_colors-primary);
   background-color: var(--section_colors-tertiary);
-  margin: 0;
-  padding: var(--spacing-md);
-  font-size: var(--type-xs);
+  color: var(--text_colors-primary);
   font-family: var(--font-family-mono);
+  font-size: var(--type-xs);
+  height: 300px;
+  margin: 0;
+  overflow: scroll;
+  padding: var(--spacing-md);
+  white-space: pre;
+  width: 100%;
 }
 </style>

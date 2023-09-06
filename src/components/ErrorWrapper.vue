@@ -62,9 +62,9 @@ export default defineComponent({
   border-top: 3px solid var(--text_colors-accent);
 
   &__code {
-    -webkit-text-stroke: 2px var(--text_colors-accent);
     color: white;
     font-size: 5rem;
+    -webkit-text-stroke: 2px var(--text_colors-accent);
   }
 }
 </style>

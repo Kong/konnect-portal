@@ -340,10 +340,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 
  .registered-apps-list {
-   margin-top: 1rem;
    list-style: none;
-   text-align: left;
+   margin-top: 1rem;
    padding-left: var(--spacing-xl, 32px);
+   text-align: left;
  }
 </style>
 

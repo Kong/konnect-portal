@@ -138,13 +138,13 @@ export default defineComponent({
     &.router-link-active {
       font-weight: 500;
     }
-    flex: 1 1 auto;
+    border-radius: 0.25rem;
+    color: var(--text_colors-secondary);
     display: block;
+    flex: 1 1 auto;
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--text_colors-secondary);
     padding: 0.5rem 0;
-    border-radius: 0.25rem;
     position: relative;
   }
 
@@ -162,15 +162,15 @@ export default defineComponent({
   }
 
   .expandable-node-container {
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
   }
 
   .expand-button {
-    width: 24px;
     height: 24px;
     padding: 0.25rem;
+    width: 24px;
 
     &.expand-icon {
       transform: rotate(180deg);

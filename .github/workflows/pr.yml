@@ -24,6 +24,8 @@ jobs:
           node-version-file: '.nvmrc'
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+      - name: Stylelint
+        run: yarn stylelint
       - name: Lint
         run: yarn lint
       - name: Check TypeScript types

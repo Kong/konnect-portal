@@ -1,3 +1,5 @@
+const deprecatedUtilityClasses = require('./utilities/deprecated-utility-classes')
+
 module.exports = {
   root: true,
   env: {
@@ -53,6 +55,12 @@ module.exports = {
     ],
     curly: 'error',
     camelcase: 'off',
+    indent: 'off',
+    'semi': ['error', 'never'],
+    quotes: ['error', 'single', {
+      avoidEscape: true,
+    }],
+    'comma-dangle': ['error', 'always-multiline'],
     'eol-last': 'error',
     'no-mixed-operators': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -61,11 +69,19 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     'vue/custom-event-name-casing': 'off',
     'vue/html-indent': 'error',
+    '@typescript-eslint/indent': ['error', 2],
     'no-trailing-spaces': 'error',
     'vue/multiline-html-element-content-newline': ['error', {
       ignoreWhenEmpty: true,
       ignores: ['CodeContent', 'pre', 'textarea', 'a']
-    }]
+    }],
+    'vue/attributes-order': ['error', {
+      alphabetical: true,
+    }],
+    // Disallow Kongponents utility classes
+    // TODO: Enable this rule when we remove all Kongponents utility classes
+    // 'vue/no-restricted-class': ['error', ...disallowedUtilityClasses],
+    // TODO: Temporary rules that need to be resolved and turned back into errors
   },
   overrides: [
   ]

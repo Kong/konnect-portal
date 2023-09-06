@@ -63,11 +63,11 @@ export default defineComponent({
       width: 320px
     }
     .card-header {
+      background-color: var(--section_colors-hero);
+      border-radius: 3px 3px 0 0;
       height: 6rem;
       margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) 0;
       padding: 2rem;
-      border-radius: 3px 3px 0 0;
-      background-color: var(--section_colors-hero);
     }
   }
 }

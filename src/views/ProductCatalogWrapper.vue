@@ -202,8 +202,8 @@ export default defineComponent({
     border-bottom: 1px solid var(--section_colors-stroke);
 
     .k-input {
-      fill: var(--text_colors-accent);
       border-radius: 3px 0 0 3px !important;
+      fill: var(--text_colors-accent);
       &::-webkit-input-placeholder { color:var(--text_colors-secondary) !important; }
       &::-moz-placeholder { color:var(--text_colors-secondary) !important; }
       &::-ms-placeholder { color:var(--text_colors-secondary) !important; }

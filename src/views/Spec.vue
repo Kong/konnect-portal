@@ -480,18 +480,18 @@ export default defineComponent({
 <style lang="scss">
 .spec {
   .deprecated-alert {
-    padding: 14px;
-    font-family: inherit;
-    font-size: 1rem;
+    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
+    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
     border-radius: 4px;
     color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
-    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 14px;
   }
 
   .container .breadcrumbs {
-    position: relative;
-    left: var(--spacing-xs)
+    left: var(--spacing-xs);
+    position: relative
   }
 
   .swagger-ui .version-pragma {
@@ -502,9 +502,9 @@ export default defineComponent({
     position: relative;
 
     svg {
-      position: absolute;
-      left: -1.5rem;
       bottom: 0;
+      left: -1.5rem;
+      position: absolute;
     }
   }
 }

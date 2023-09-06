@@ -72,17 +72,17 @@ export default defineComponent({
   --KBadgePaddingX: var(--spacing-sm);
   --KBadgeBackground: var(--blue-200);
   --KBadgeLighterBackground: var(--white-100);
-  border: 1px solid var(--section_colors-stroke);
-  height: auto;
-  display: flex;
   align-items: center;
+  border: 1px solid var(--section_colors-stroke);
+  display: flex;
+  height: auto;
 }
 
 .action-dropdown-button {
   --KButtonOutlineBorder: var(--section_colors-stroke);
   border: none;
-  padding: 0 !important;
   margin: 0;
+  padding: 0 !important;
 }
 </style>
 
@@ -99,8 +99,8 @@ export default defineComponent({
   --KPopPaddingX: 0;
   --KPopBorder: var(--section_colors-stroke);
   div {
-    color: var(--text_colors-secondary);
     background-color: var(--section_colors-tertiary);
+    color: var(--text_colors-secondary);
     &:hover {
       background-color: var(--section_colors-accent);
     }

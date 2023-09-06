@@ -64,9 +64,9 @@ export default defineComponent({
   --KBadgePaddingY: 0.1rem;
   --KBadgePaddingX: var(--spacing-xs);
   --KBadgeFontSize: var(--type-xs);
-  width: auto;
   height: 100%;
-  vertical-align: middle;
   text-transform: uppercase;
+  vertical-align: middle;
+  width: auto;
 }
 </style>

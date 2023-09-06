@@ -429,8 +429,8 @@ export default defineComponent({
 
     .k-input-label {
       display: block;
-      text-align: left;
       font-size: var(--type-md, 16px);
+      text-align: left;
     }
 
     .display-name-input {
@@ -445,9 +445,9 @@ export default defineComponent({
       margin-top: 0.5rem !important;
 
       .clipboard-button {
+        font-size: var(--type-md, 16px);
         padding: 10px 16px;
         padding-right: 8px;
-        font-size: var(--type-md, 16px);
       }
     }
   }
@@ -458,8 +458,8 @@ export default defineComponent({
     --KModalHeaderColor: var(--text_colors-headings);
     --KModalColor: var(--text_colors-primary);
     .copy-text {
-      text-align: left;
       font-size: var(--type-md, 16px);
+      text-align: left;
 
       &.copy-label {
         font-weight: 500;

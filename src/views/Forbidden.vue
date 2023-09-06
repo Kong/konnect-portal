@@ -61,19 +61,19 @@ export default defineComponent({
 
   h1,
   .circle {
-    opacity: 0;
     animation: .75s var(--timingFunction) forwards fadeIn;
+    opacity: 0;
   }
 
   h1 { animation-delay: 1.25s; }
-  .circle { animation-delay: 1s; }
 
   .circle {
-    padding: 3rem;
-    margin: 4rem 0;
-    font-size: 2.5rem;
-    border-radius: 50%;
+    animation-delay: 1s;
     border: 1px solid var(--section_colors-stroke);
+    border-radius: 50%;
+    font-size: 2.5rem;
+    margin: 4rem 0;
+    padding: 3rem;
   }
 
   .logo {

@@ -136,23 +136,23 @@ export default {
 
 <style lang="scss" scoped>
   .products-card-title {
+    border-bottom: 1px solid var(--section_colors-stroke);
     color: var(--text_colors-accent);
     font-weight: 600;
     padding: 1.5rem 1rem;
-    border-bottom: 1px solid var(--section_colors-stroke);
     width: 100%;
   }
 
   .description {
-    display: -webkit-box;
     -webkit-box-orient: vertical;
+    color: var(--text_colors-primary);
+    display: -webkit-box;
     -webkit-line-clamp: 4;
     line-height: 1.4rem;
-    text-overflow: ellipsis;
     max-height: 5.6rem;
     overflow: hidden;
+    text-overflow: ellipsis;
     white-space: pre-line;
-    color: var(--text_colors-primary);
   }
 
   .details-item {
@@ -160,8 +160,8 @@ export default {
   }
 
   .link {
-    display: inline-flex;
     align-items: center;
+    display: inline-flex;
   }
 
   .link-icon {
@@ -179,9 +179,9 @@ export default {
     --KCardBorder: 1px solid var(--section_colors-stroke);
 
     .kong-card {
-      height: 19rem;
       display: flex;
       flex-direction: column;
+      height: 19rem;
     }
 
     .show-docs.kong-card {
@@ -197,9 +197,9 @@ export default {
     }
 
     .k-card-body {
-      padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
+      padding: 1.5rem 1rem;
     }
 
     .k-card-title,
@@ -210,8 +210,8 @@ export default {
     .docs-links {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
       flex-wrap: wrap;
+      justify-content: space-between;
     }
   }
 </style>

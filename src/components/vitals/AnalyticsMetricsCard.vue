@@ -51,16 +51,14 @@ const metricProviderProps = computed(() => ({
 </script>
 
 <style lang="scss">
-@import '../../assets/variables.scss';
-
 .analytics-overview {
   background-color: var(--white, #fff) !important;
 
   .kong-ui-public-metric-card-container {
     .metricscard {
-      @media (min-width: $viewport-md) {
-        max-width: 220px;
+      @media (min-width: $kui-breakpoint-phablet) {
         justify-content: space-around;
+        max-width: 220px;
       }
     }
   }

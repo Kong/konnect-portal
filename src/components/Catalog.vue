@@ -143,18 +143,18 @@ export default defineComponent({
 }
 
 .product-catalog-empty-state {
+  display: block;
   margin: auto;
   width: 20rem;
-  display: block;
 }
 
 .product-catalog-loading-spinner {
-  width: 100%;
   display: flex;
+  width: 100%;
 }
 
 .product-catalog-no-products {
-  text-align: center;
   padding: 20px var(--spacing-xs);
+  text-align: center;
 }
 </style>

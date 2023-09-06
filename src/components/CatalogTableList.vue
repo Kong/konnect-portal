@@ -121,14 +121,14 @@ export default defineComponent({
         color: var(--text_colors-secondary);
 
         &:nth-of-type(1) {
-          min-width: 120px;
           color: var(--text_colors-headings);
+          min-width: 120px;
         }
 
         &:nth-of-type(2) {
-          width: auto;
           max-width: 65ch;
           white-space: normal;
+          width: auto;
         }
       }
     }
@@ -137,9 +137,9 @@ export default defineComponent({
 </style>
 <style lang="scss" scoped>
 .link {
+  color: var(--text_colors-link) !important;
   display: inline-block;
   margin: 0 0.25rem;
-  color: var(--text_colors-link) !important;
 
   &:first-child {
     margin-left: 0;

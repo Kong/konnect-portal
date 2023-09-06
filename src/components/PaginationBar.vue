@@ -150,18 +150,18 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .pagination-button {
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
   border: 1px solid var(--section_colors-stroke);
   border-radius: 50%;
-  margin-left: 5px;
   cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  margin-left: 5px;
+  width: 44px;
   &:focus {
-    outline: none;
     border-color: var(--button_colors-primary-fill);
+    outline: none;
   }
 }
 </style>

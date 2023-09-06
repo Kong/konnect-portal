@@ -263,11 +263,11 @@ watchEffect(() => {
 }
 
 .container.product.page.fixed-position {
-  position: fixed;
   bottom: 0;
   left: 0;
-  right: 0;
   max-width: 100%;
+  position: fixed;
+  right: 0;
 }
 
 .product {
@@ -275,8 +275,8 @@ watchEffect(() => {
 }
 
 .sidebar-wrapper {
-  flex: 0 0 auto;
   border-right: 1px solid var(--section_colors-stroke);
+  flex: 0 0 auto;
 }
 
 .sidebar {

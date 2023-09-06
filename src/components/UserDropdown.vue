@@ -77,17 +77,17 @@ export default defineComponent({
   .k-button:focus,
   .k-button:hover,
   .k-button.is-active {
-    text-decoration: none !important;
-    box-shadow: none !important;
     backdrop-filter: brightness(1.35);
+    box-shadow: none !important;
+    text-decoration: none !important;
   }
 
   ul {
+    background-color: var(--section_colors-tertiary);
     border: 1px solid var(--section_colors-stroke);
     border-radius: 3px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--section_colors-tertiary);
     li {
       &:last-child { border-top: 1px solid var(--section_colors-stroke); }
       &:hover { background-color: var(--section_colors-accent); }

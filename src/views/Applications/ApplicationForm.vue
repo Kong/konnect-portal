@@ -483,9 +483,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .generate-reference-id-button {
-  position: relative;
   height: 36px;
-  top: 4px;
   margin-left: 16px;
+  position: relative;
+  top: 4px;
 }
 </style>

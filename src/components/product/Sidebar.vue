@@ -94,15 +94,15 @@ watch([
 
 <style scoped>
   aside {
-    width: 100%;
     max-width: 260px;
+    width: 100%;
   }
 
   .title {
-    font-weight: 500;
-    font-size: 20px;
-    display: block;
     color: var(--text_colors-primary);
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
   }
 
   .version-select-dropdown :deep(div.k-select-input.select-input-container) {

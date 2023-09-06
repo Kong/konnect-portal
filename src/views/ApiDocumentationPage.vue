@@ -283,11 +283,11 @@ export default defineComponent({
 }
 
 .documents-title {
+  color: var(--text_colors-headings);
   display: block;
+  font-family: var(--font-family-headings);
   font-size: 1.25rem;
   margin: 0 0 0.75rem;
-  color: var(--text_colors-headings);
-  font-family: var(--font-family-headings);
 }
 
 .portal-document-viewer {
@@ -301,8 +301,6 @@ export default defineComponent({
 
   // This is going to solve some contrast issues with blockquotes
   // and their text colors.
-
-  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
   :deep(blockquote) {
     color: var(--steel-700, #0a2b66);
 
