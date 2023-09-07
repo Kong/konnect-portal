@@ -5,7 +5,7 @@
         v-if="currentState.matches('error')"
         :alert-message="errorMessage"
         appearance="danger"
-        class="justify-content-center my-3"
+        class="unauthenticated-message"
         data-testid="unauthenticated-message"
       />
       <!-- Kong Auth Element requires the wrapper with corresponding id attribute -->
@@ -33,7 +33,6 @@
       <span
         id="sign-up-encouragement-message"
         data-testid="sign-up-encouragement-message"
-        class="mt-6 text-center"
       >
         <p class="color-text_colors-primary">
           {{ helpText.login.missingAccount }}
@@ -198,6 +197,11 @@ export default defineComponent({
   width: 528px;
 }
 
+#sign-up-encouragement-message {
+  margin-top: 24px;
+  text-align: center;
+}
+
 #sign-up-encouragement-message .kong-icon {
   vertical-align: middle;
 }
@@ -213,5 +217,10 @@ export default defineComponent({
       }
     }
   }
+}
+.unauthenticated-message {
+  justify-content: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 </style>

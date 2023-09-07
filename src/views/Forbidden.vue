@@ -1,7 +1,7 @@
 <template>
   <Content>
     <section
-      class="forbidden d-flex flex-column justify-content-center align-items-center"
+      class="forbidden"
       data-testid="forbidden"
     >
       <div>
@@ -12,15 +12,15 @@
         >
       </div>
 
-      <div class="circle d-flex align-items-center justify-content-center">
+      <div class="circle">
         {{ helpText.http403 }}
       </div>
 
       <div class="message text-center">
-        <h1 class="mb-1 type-xxl">
+        <h1 class="sorry-message">
           {{ helpText.sorryMessage }}
         </h1>
-        <h1 class="mt-0 type-xxl">
+        <h1 class="go-back">
           {{ helpText.goBack }}
           <router-link
             data-testid="go-home"
@@ -58,11 +58,18 @@ export default defineComponent({
 .forbidden {
   --timingFunction: cubic-bezier(.785, .135, .15, .86);
   height: calc(100vh - var(--headerHeight));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   h1,
   .circle {
     opacity: 0;
     animation: .75s var(--timingFunction) forwards fadeIn;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   h1 { animation-delay: 1.25s; }
@@ -78,6 +85,18 @@ export default defineComponent({
 
   .logo {
     max-height: 41px;
+  }
+}
+.message {
+  .sorry-message {
+    margin-bottom: 4px;
+    font-size: 24px;
+    line-height: 32px;
+  }
+  .go-back {
+    margin-top: 0;
+    font-size: 24px;
+    line-height: 32px;
   }
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="credentials-list">
-    <PageTitle class="mb-5">
-      <h2 class="font-normal type-lg m-0">
+    <PageTitle class="credentials-list-wrapper">
+      <h2 class="credentials-list-title">
         {{ helpText.title }}
       </h2>
       <template #right>
@@ -41,13 +41,13 @@
             <ActionsDropdown>
               <template #content>
                 <div
-                  class="py-2 px-3 type-md cursor-pointer rename-item"
+                  class="rename-item"
                   @click="handleRenameCredentialModal(row)"
                 >
                   {{ helpText.renameModal.actionLabel }}
                 </div>
                 <div
-                  class="py-2 px-3 type-md cursor-pointer delete-item"
+                  class="delete-item"
                   @click="handleDeleteCredentialModal(row)"
                 >
                   {{ helpText.revokeModal.revokeButton }}
@@ -80,7 +80,7 @@
         <KButton
           :is-rounded="false"
           appearance="danger"
-          class="mr-3"
+          class="revoke-credential-modal-button"
           data-testid="revoke-credential-modal-button"
           @click="handleDeleteCredentialSubmit"
         >
@@ -114,7 +114,7 @@
         {{ helpText.copyModal.title }}
       </template>
       <template #body-content>
-        <p class="copy-text mb-5">
+        <p class="hidden-credentials-text copy-text">
           {{ helpText.copyModal.hiddenCredentialsText }}
         </p>
 
@@ -132,7 +132,7 @@
           <KButton
             :is-rounded="false"
             appearance="primary"
-            class="mr-3"
+            class="copy-credentials-confirm-modal-button"
             data-testid="copy-credentials-confirm-modal-button"
             @click="copyTokenToClipboard(copyToClipboard)"
           >
@@ -475,5 +475,33 @@ export default defineComponent({
         height: 16px;
       }
     }
+  }
+
+  .credentials-list-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .credentials-list-title {
+    font-weight: 400;
+    margin: 0;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .delete-item,
+  .rename-item {
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .revoke-credential-modal-button {
+    margin-right: 12px;
+  }
+  .copy-text.hidden-credentials-text {
+    margin-bottom: 20px;
+  }
+  .copy-credentials-confirm-modal-button {
+    margin-right: 12px;
   }
 </style>

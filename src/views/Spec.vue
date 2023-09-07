@@ -1,18 +1,18 @@
 <template>
   <div
     :ref="specDetails"
-    class="spec mt-6 api-documentation"
+    class="spec api-documentation"
   >
-    <div class="container max-w-screen-2xl px-5 md:px-0">
+    <div class="api-documentation-container responsive-container">
       <div class="swagger-ui has-sidebar breadcrumbs">
         <KBreadcrumbs :items="breadcrumbs" />
       </div>
     </div>
-    <div class="container mx-auto max-w-screen-2xl px-5 md:px-0">
+    <div class="empty-state-container responsive-container">
       <EmptyState
         v-if="hasProductError"
         is-error
-        class="mt-6"
+        class="product-error-message"
         :message="hasProductError"
       />
     </div>
@@ -37,7 +37,7 @@
 
     <SpecDetails
       v-else-if="spec"
-      class="w-100"
+      class="spec-details-wrapper"
       :document="spec"
       :has-sidebar="false"
       :application-registration-enabled="applicationRegistrationEnabled"
@@ -479,6 +479,8 @@ export default defineComponent({
 
 <style lang="scss">
 .spec {
+  margin-top: 24px;
+
   .deprecated-alert {
     padding: 14px;
     font-family: inherit;
@@ -489,7 +491,7 @@ export default defineComponent({
     background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
   }
 
-  .container .breadcrumbs {
+  .responsive-container .breadcrumbs {
     position: relative;
     left: var(--spacing-xs)
   }
@@ -522,7 +524,25 @@ export default defineComponent({
   z-index: 10000;
 }
 
+.empty-state-container,
+.api-documentation-container {
+  max-width: 1390px;
+  padding-left: 20px;
+  padding-right: 20px;
+  @media (min-width: 768px) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+.empty-state-container .product-error-message {
+  margin-top: 24px;
+}
+
 .spec.api-documentation .breadcrumbs {
   margin-left: 0;
+}
+
+.spec-details-wrapper {
+  width: 100%;
 }
 </style>

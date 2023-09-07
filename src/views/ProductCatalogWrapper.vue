@@ -4,13 +4,13 @@
       class="products-top-section flex flex-col items-center justify-center py-16 bg-section_colors-hero"
       :style="catalog_cover_style"
     >
-      <h4 class="products-welcome mb-4 font-normal color-text_colors-secondary text-2xl">
+      <h4 class="products-welcome color-text_colors-secondary">
         {{ welcome_message }}
       </h4>
-      <h1 class="products-title mb-5 font-normal color-text_colors-hero text-4xl">
+      <h1 class="products-title color-text_colors-hero">
         {{ primary_header }}
       </h1>
-      <div class="w-full max-w-lg mx-auto inline-flex">
+      <div class="search-wrapper">
         <form
           id="searchProductsForm"
           @submit.prevent="searchProducts"
@@ -212,6 +212,25 @@ export default defineComponent({
     .k-button {
       border-radius: 0 3px 3px 0;
       font-weight: normal !important;
+    }
+    .products-welcome {
+      margin-bottom: 16px;
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .products-title {
+      margin-bottom: 20px;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 40px;
+    }
+    .search-wrapper {
+      max-width: 32rem;
+      width: 100%;
+      display: inline-flex;
+      margin-left: auto;
+      margin-right: auto;
     }
   }
 }

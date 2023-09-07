@@ -16,11 +16,11 @@
         class="action-dropdown-button"
       >
         <KBadge
-          data-testid="action-badge"
           :class="[
             'actions-badge',
             { opened: isOpened }
           ]"
+          data-testid="action-badge"
         >
           <KIcon
             icon="gearFilled"
@@ -98,10 +98,19 @@ export default defineComponent({
   }
 }
 
+.actions-popup {
+  float: right;
+}
+
+.actions-badge {
+  cursor: pointer;
+}
+
 .action-dropdown {
   --KPopPaddingY: 0;
   --KPopPaddingX: 0;
   --KPopBorder: var(--section_colors-stroke);
+
   div {
     color: var(--text_colors-secondary);
     background-color: var(--section_colors-tertiary);

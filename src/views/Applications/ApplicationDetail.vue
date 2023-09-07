@@ -15,13 +15,13 @@
     >
       <div>
         <PageTitle
-          class="mb-5"
+          class="application-detail-page-title"
           :title="application.name"
         >
           <template #right>
             <KButton
-              data-testid="application-update-button"
               appearance="primary"
+              data-testid="application-update-button"
               :is-rounded="false"
               :to="{ name: 'update-application' }"
             >
@@ -29,12 +29,12 @@
             </KButton>
           </template>
         </PageTitle>
-        <div class="d-flex justify-between mb-6">
+        <div class="application-details-container">
           <div
             v-if="application.description"
-            class="flex-1"
+            class="application-description-wrapper"
           >
-            <p class="mb-2">
+            <p class="application-description">
               {{ helpText.application.description }}
             </p>
             <p class="color-text_colors-secondary">
@@ -57,19 +57,19 @@
           </div>
         </div>
       </div>
-      <hr class="my-6">
+      <hr class="section-separator">
       <div
         v-if="!vitalsLoading"
       >
-        <PageTitle class="mb-5">
-          <h2 class="font-normal type-lg m-0">
+        <PageTitle class="vitals-card">
+          <h2 class="vitals-card-title">
             {{ analyticsCardTitle }}
           </h2>
           <template #right>
             <KButton
+              appearance="secondary"
               data-testid="application-dashboard-button"
               :is-rounded="false"
-              appearance="secondary"
               @click="$router.push({ name: 'application-dashboard', params: { application_id: id }})"
             >
               {{ helpText.analytics.viewAnalytics }}
@@ -77,23 +77,23 @@
           </template>
         </PageTitle>
         <AnalyticsMetricsCard
-          class="mb-4"
+          :application-id="application.id"
+          class="analytics-metric-cards"
           data-testid="analytics-metric-cards"
           hide-title
-          :application-id="application.id"
           :timeframe="(fixedTimeframe as Timeframe)"
         />
-        <hr class="my-6">
+        <hr class="section-separator">
       </div>
       <DcrAuthenticationTable
         v-if="isDcr"
         :application="application"
-        class="mb-6"
+        class="dcr-table-wrapper"
       />
       <CredentialsList
         v-if="!isDcr"
         :id="id"
-        class="mb-6"
+        class="credentials-list-wrapper"
       />
       <ProductList :id="id" />
     </section>
@@ -197,3 +197,44 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.application-detail-page-title {
+  margin-bottom: 24px;
+}
+.application-details-container {
+  display:flex;
+  justify-content: space-between;
+  margin-bottom:32px;
+
+  .application-description-wrapper {
+    flex: 1;
+  }
+  .application-description {
+    margin-bottom: 8px;
+  }
+}
+
+.section-separator {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.dcr-table-wrapper,
+credentials-list-wrapper {
+  margin-bottom: 32px;
+}
+
+.vitals-card {
+  margin-bottom: 24px;
+  .vitals-card-title {
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 18px
+  }
+}
+
+.analytics-metric-cards {
+  margin-bottom: 16px;
+}
+</style>

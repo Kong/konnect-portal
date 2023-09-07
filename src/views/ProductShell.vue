@@ -1,9 +1,9 @@
 <template>
-  <div class="container flex pb-0 product fixed-position">
+  <div class="product-shell product fixed-position responsive-container">
     <EmptyState
       v-if="productError"
       is-error
-      class="mt-6"
+      class="product-error-message"
       :message="productError"
     />
     <template v-else>
@@ -262,7 +262,7 @@ watchEffect(() => {
   z-index: 1;
 }
 
-.container.product.page.fixed-position {
+.responsive-container.product.page.fixed-position {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -288,5 +288,15 @@ watchEffect(() => {
   flex: 1 1 auto;
   overflow: auto;
   position: relative;
+}
+
+.product-shell {
+  width: 100%;
+  display: flex;
+  padding-bottom: 0;
+
+  .product-error-message {
+    margin-top: 24px;
+  }
 }
 </style>
