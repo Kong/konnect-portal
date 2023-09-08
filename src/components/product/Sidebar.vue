@@ -95,7 +95,7 @@ watch([
 <style scoped>
   aside {
     width: 100%;
-    max-width: 260px;
+    max-width: 330px;
   }
 
   .title {
