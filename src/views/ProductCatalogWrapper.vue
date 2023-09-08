@@ -47,7 +47,7 @@
       :search-triggered="searchTriggered"
       :loading="loading"
       @active-view-changed="catalogViewChanged"
-      @cards-page-changed="catalogPageChanged"
+      @list-page-changed="catalogPageChanged"
     />
   </div>
 </template>

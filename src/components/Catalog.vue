@@ -32,11 +32,7 @@
       <CatalogCardList
         v-if="activeView == 'grid'"
         :products="catalogItems"
-        :page-size="cardsPerPage"
-        :total-count="totalCount"
-        :search-triggered="searchTriggered"
         :loading="loading"
-        @page-changed="$emit('cards-page-changed', $event)"
       />
       <CatalogTableList
         v-else
@@ -44,6 +40,13 @@
         :loading="loading"
       />
     </div>
+    <PaginationBar
+      class="pagination-bar mt-4"
+      :page-size="cardsPerPage"
+      :total-count="totalCount"
+      :search-triggered="searchTriggered"
+      @pageChanged="$emit('list-page-changed', $event)"
+    />
   </div>
 </template>
 
@@ -51,6 +54,7 @@
 import { PropType, defineComponent } from 'vue'
 import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
+import PaginationBar from './PaginationBar.vue'
 import CatalogTableList from './CatalogTableList.vue'
 import { CatalogItemModel, useI18nStore } from '@/stores'
 
@@ -59,6 +63,7 @@ export default defineComponent({
   components: {
     CatalogCardList,
     CatalogTableList,
+    PaginationBar,
     EmptyState
   },
   props: {
@@ -83,7 +88,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['cards-page-changed', 'active-view-changed'],
+  emits: ['list-page-changed', 'active-view-changed'],
   setup () {
     const helpText = useI18nStore().state.helpText.catalog
     const catalogTitle = helpText.entityTypeProduct

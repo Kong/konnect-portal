@@ -10,54 +10,27 @@
         :loading="loading"
       />
     </div>
-    <PaginationBar
-      class="catalog-pagination mt-4"
-      :page-size="pageSize"
-      :total-count="totalCount"
-      :search-triggered="searchTriggered"
-      @pageChanged="onPageChanged"
-    />
   </div>
 </template>
 
 <script lang="ts">
 import CatalogItem from './CatalogItem.vue'
-import PaginationBar from './PaginationBar.vue'
 import { PropType } from 'vue'
 import { CatalogItemModel } from '@/stores'
 
 export default {
   name: 'CatalogCardList',
   components: {
-    CatalogItem,
-    PaginationBar
+    CatalogItem
   },
   props: {
     products: {
       type: Array as PropType<CatalogItemModel[]>,
       default: () => []
     },
-    pageSize: {
-      type: Number,
-      default: 12
-    },
-    totalCount: {
-      type: Number,
-      default: 0
-    },
-    searchTriggered: {
-      type: Boolean,
-      default: false
-    },
     loading: {
       type: Boolean,
       default: false
-    }
-  },
-  emits: ['page-changed'],
-  methods: {
-    onPageChanged (page) {
-      this.$emit('page-changed', page)
     }
   }
 }
