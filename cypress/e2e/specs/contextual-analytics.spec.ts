@@ -1,4 +1,4 @@
-import { apps, productRegistration, productRegistrations, versions } from '../fixtures/consts'
+import { apps, productRegistrations, versions } from '../fixtures/consts'
 
 describe('Contextual Developer Analytics', () => {
   beforeEach(() => {
@@ -21,9 +21,7 @@ describe('Contextual Developer Analytics', () => {
     viewAnalyticsButton: '[data-testid="application-dashboard-button"]'
   }
 
-  it('My Apps – displays displays metric cards if the feature flag is on', () => {
-    cy.mockLaunchDarklyFlags([{ name: 'ma-1002-dev-portal-contextual-analytics', value: true }])
-
+  it('My Apps – displays displays metric cards', () => {
     cy.mockApplications(apps, 4)
 
     cy.visit('/', { useOriginalFn: true })
@@ -36,38 +34,8 @@ describe('Contextual Developer Analytics', () => {
     cy.get(selectors.dashboardDropdownLink).should('exist')
   })
 
-  it('My Apps – does not display metric cards or the analytics dropdown link if the feature flag is off', () => {
-    cy.mockLaunchDarklyFlags([{ name: 'ma-1002-dev-portal-contextual-analytics', value: false }])
 
-    cy.mockApplications(apps, 5)
-    cy.visit('/my-apps')
-
-    cy.get(selectors.metricCardsParent).should('not.exist')
-    cy.get('[data-testid="applications-table"]').find('.actions-badge').first().click()
-    cy.get(selectors.dashboardDropdownLink).should('not.exist')
-  })
-
-  it('My App details page – does not display Metrics Card, View Analytics button if the feature flag is off', () => {
-    cy.mockLaunchDarklyFlags([{ name: 'ma-1002-dev-portal-contextual-analytics', value: true }])
-    cy.mockApplications(apps, 4)
-
-    cy.intercept(
-      'GET',
-      `**/api/v2/applications/${apps[0].id}`, {
-        statusCode: 200,
-        body: { ...apps[0] }
-      }
-    ).as('getSingleApplication')
-
-    cy.mockApplicationWithCredAndReg(apps[0])
-
-    cy.visit(`/application/${apps[0].id}`)
-    cy.get('[data-testid="analytics-metric-cards"]').should('not.exist')
-    cy.get('[data-testid="application-dashboard-button"]').should('not.exist')
-  })
-
-  it('App Dashboard - vitals elements load when contextual analytics feature flag is on', () => {
-    cy.mockLaunchDarklyFlags([{ name: 'ma-1002-dev-portal-contextual-analytics', value: true }])
+  it('App Dashboard - vitals elements load', () => {
     cy.mockApplications(apps, 4)
 
     cy.intercept('GET', `**/api/v2/applications/${apps[0].id}`, {
