@@ -196,3 +196,27 @@
   display: flex;
   margin-left: 4px;
 }
+
+.responsive-container {
+  width: 100% ;
+
+  @media (min-width: $kui-breakpoint-mobile) {
+    max-width: $kui-breakpoint-mobile !important;
+  }
+
+  @media (min-width: $kui-breakpoint-phablet) {
+    max-width: $kui-breakpoint-phablet !important;
+  }
+
+  @media (min-width: $kui-breakpoint-tablet) {
+    max-width: $kui-breakpoint-tablet !important;
+  }
+
+  @media (min-width: $kui-breakpoint-laptop) {
+    max-width: $kui-breakpoint-laptop !important;
+  }
+  
+  @media (min-width: $kui-breakpoint-desktop) {
+    max-width: $kui-breakpoint-desktop !important;
+  }
+}

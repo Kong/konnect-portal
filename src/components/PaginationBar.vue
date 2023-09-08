@@ -3,7 +3,7 @@
     v-if="!searchTriggered && totalCount > pageSize"
     class="card-pagination-bar flex items-center justify-end"
   >
-    <span class="pagination-text type-lg color-text_colors-secondary mr-4">{{ getPaginationString() }}</span>
+    <span class="pagination-text color-text_colors-secondary">{{ getPaginationString() }}</span>
     <div>
       <button
         class="pagination-button"
@@ -164,6 +164,11 @@ export default defineComponent({
     border-color: var(--button_colors-primary-fill);
   }
 }
+
+  .pagination-text {
+    font-size: $kui-font-size-50;
+    margin-right: $kui-space-60;
+  }
 </style>
 
 <style lang="scss">

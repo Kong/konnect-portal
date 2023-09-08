@@ -1,6 +1,6 @@
 <template>
-  <div class="products-content px-5">
-    <div class="container max-w-screen-2xl mx-auto mt-6 mb-5 flex justify-between">
+  <div class="products-content">
+    <div class="products-container responsive-container">
       <span class="products-label">{{ catalogTitle }}</span>
       <KViewSwitcher
         data-testid="view-switcher"
@@ -13,9 +13,9 @@
       v-if="!catalogItems.length"
       class="product-catalog-empty-state"
     >
-      <div class="product-catalog-no-products type-lg color-text_colors-secondary">
+      <div class="product-catalog-no-products color-text_colors-secondary">
         <template v-if="!loading">
-          <EmptyState class="mb-2 mx-auto" />
+          <EmptyState class="empty-products" />
           {{ noResultsMessage }}
         </template>
         <div
@@ -123,11 +123,18 @@ export default defineComponent({
 <style lang="scss" scoped>
 .products-content {
   --grey-500: var(--button_colors-primary-fill);
+  padding: 0 $kui-space-80;
 
   .products-label {
     color: var(--text_colors-primary);
     font-size: var(--type-xl);
     font-weight: normal;
+  }
+
+  .products-container {
+    display: flex;
+    justify-content: space-between;
+    margin: $kui-space-90 auto $kui-space-80 auto;
   }
 
   .view-switch-button {
@@ -156,5 +163,10 @@ export default defineComponent({
 .product-catalog-no-products {
   text-align: center;
   padding: 20px var(--spacing-xs);
+  font-size: $kui-font-size-50;
+
+  .empty-products {
+    margin: 0 auto $kui-space-40 auto;
+  }
 }
 </style>

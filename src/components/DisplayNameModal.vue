@@ -22,7 +22,7 @@
         :placeholder="helpText.renameModal.inputPlaceholder"
         data-testid="rename-display-name-input"
         type="text"
-        class="w-100 k-input--full display-name-input"
+        class="k-input--full display-name-input"
         @keyup.enter="submitHandler"
       />
     </template>
@@ -39,7 +39,7 @@
         :placeholder="helpText.creationModal.inputPlaceholder"
         data-testid="display-name-input"
         type="text"
-        class="w-100 k-input--full display-name-input"
+        class="k-input--full display-name-input"
         @keyup.enter="submitHandler"
       />
     </template>
@@ -51,7 +51,7 @@
         :is-rounded="false"
         :disabled="updatedDisplayName ? null : true"
         appearance="primary"
-        class="mr-3"
+        class="submit-credential-button"
         data-testid="rename-credential-modal-button"
         @click="submitHandler"
       >
@@ -73,7 +73,7 @@
         :is-rounded="false"
         :disabled="displayName ? null : true"
         appearance="primary"
-        class="mr-3"
+        class="submit-credential-button"
         data-testid="create-credential-modal-button"
         @click="submitHandler"
       >
@@ -146,5 +146,13 @@ export default defineComponent({
 .display-name-modal {
   --KModalHeaderColor: var(--text_colors-headings);
   --KModalColor: var(--text_colors-primary);
+
+  .submit-credential-button {
+    margin-right: $kui-space-50;
+  }
+}
+
+.display-name-input {
+  width: 100%;
 }
 </style>

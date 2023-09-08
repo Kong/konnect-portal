@@ -1,6 +1,6 @@
 <template>
   <KCard
-    class="mb-3 analytics-overview"
+    class="analytics-overview"
     data-testid="analytics-metrics-overview"
   >
     <template #body>
@@ -51,14 +51,14 @@ const metricProviderProps = computed(() => ({
 </script>
 
 <style lang="scss">
-@import '../../assets/variables.scss';
 
 .analytics-overview {
   background-color: var(--white, #fff) !important;
+  margin-bottom: $kui-space-50;
 
   .kong-ui-public-metric-card-container {
     .metricscard {
-      @media (min-width: $viewport-md) {
+      @media (min-width: $kui-breakpoint-phablet) {
         max-width: 220px;
         justify-content: space-around;
       }

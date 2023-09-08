@@ -38,7 +38,7 @@
           </KButton>
         </KClipboardProvider>
         <KButton
-          class="ml-2"
+          class="download-btn"
           appearance="secondary"
           :is-rounded="false"
           data-testid="download-btn"
@@ -111,6 +111,10 @@ const copySpec = (executeCopy) => {
 </script>
 
 <style lang="scss" scoped>
+.download-btn {
+  margin-left: $kui-space-40;
+}
+
 #spec-area {
   width: 100%;
   height: 300px;

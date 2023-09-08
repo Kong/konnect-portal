@@ -1,6 +1,6 @@
 <template>
-  <div class="container max-w-screen-2xl mx-auto catalog-card-view">
-    <div class="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+  <div class="responsive-container catalog-card-view">
+    <div class="card-grid">
       <CatalogItem
         v-for="(product, index) in products"
         :key="product.id + index"
@@ -11,7 +11,7 @@
       />
     </div>
     <PaginationBar
-      class="catalog-pagination mt-4"
+      class="catalog-pagination"
       :page-size="pageSize"
       :total-count="totalCount"
       :search-triggered="searchTriggered"
@@ -62,3 +62,28 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.catalog-card-view {
+  margin: 0 auto;
+
+  .card-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $kui-space-70;
+
+    @media (min-width: $kui-breakpoint-phablet){
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    @media (min-width: $kui-breakpoint-tablet){
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .catalog-pagination {
+    margin-top: $kui-space-60;
+  }
+}
+</style>

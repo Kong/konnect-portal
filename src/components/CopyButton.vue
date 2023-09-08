@@ -1,6 +1,6 @@
 <template>
   <div
-    class="my-4"
+    class="copy-button-container"
   >
     <KTooltip
       :label="helpText.clickToCopy"
@@ -9,12 +9,12 @@
         <KButton
           :is-rounded="false"
           :aria-label="helpText.ariaLabel"
-          class="clipboard-button w-100 justify-content-between"
+          class="clipboard-button"
           data-testid="copy-button"
           appearance="secondary"
           @click="copyTokenToClipboard(copyToClipboard)"
         >
-          <span class="truncate">{{ label }} {{ textToCopy }}</span>
+          <span class="truncate-text">{{ label }} {{ textToCopy }}</span>
           <KIcon
             :title="helpText.copyToClipboard"
             icon="copy"
@@ -68,8 +68,23 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss" scoped>
+.copy-button-container {
+  margin: $kui-space-60 0;
+}
+
+.truncate-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
+
 <style lang="scss">
 .clipboard-button {
   --KButtonFontSize: 12px;
+
+  width: 100%;
+  justify-content: space-between;
 }
 </style>

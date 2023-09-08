@@ -2,7 +2,7 @@
   <section>
     <header
       v-if="title"
-      class="mb-3"
+      class="header-wrapper"
     >
       <h2>{{ title }}</h2>
     </header>
@@ -19,9 +19,13 @@ defineProps({
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 section {
   margin: 32px 0;
+}
+
+.header-wrapper {
+  margin-bottom: $kui-space-50;
 }
 
 section:first-of-type {

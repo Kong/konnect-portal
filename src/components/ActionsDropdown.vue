@@ -3,7 +3,7 @@
     ref="popRef"
     :popover-timeout="0"
     popover-classes="mt-1 action-dropdown"
-    class="float-right"
+    class="popover"
     placement="bottomEnd"
     width="150"
     hide-caret
@@ -18,7 +18,7 @@
         <KBadge
           data-testid="action-badge"
           :class="[
-            'cursor-pointer actions-badge',
+            'actions-badge',
             { opened: isOpened }
           ]"
         >
@@ -76,6 +76,10 @@ export default defineComponent({
   height: auto;
   display: flex;
   align-items: center;
+}
+
+.popover {
+  float: right;
 }
 
 .action-dropdown-button {
