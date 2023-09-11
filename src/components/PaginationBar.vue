@@ -167,7 +167,7 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-.catalog-card-view {
+.card-pagination-bar {
   .pagination-button .kong-icon path {
     fill: var(--text_colors-secondary);
     fill-opacity: unset;

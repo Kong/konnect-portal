@@ -153,6 +153,10 @@ describe('Catalog', () => {
     it('displays the table view', () => {
       cy.get('.k-table').should('have.length', 1)
       cy.get('.k-table tbody td:nth-of-type(1)').should('have.length', 13)
+      cy.get('.card-pagination-bar')
+        .should('have.length', 1)
+        .get('.card-pagination-bar')
+        .contains('1 - 12 of 13')
     })
 
     it('goes to details view on click', () => {
