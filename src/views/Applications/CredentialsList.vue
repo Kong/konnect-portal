@@ -430,12 +430,12 @@ export default defineComponent({
     .k-input-label {
       display: block;
       text-align: left;
-      font-size: var(--type-md, 16px);
+      font-size: $kui-font-size-40;
     }
 
     .display-name-input {
       .k-input {
-        font-size: var(--type-md, 16px);
+        font-size: $kui-font-size-40;
       }
     }
   }
@@ -445,9 +445,9 @@ export default defineComponent({
       margin-top: 0.5rem !important;
 
       .clipboard-button {
-        padding: 10px 16px;
-        padding-right: 8px;
-        font-size: var(--type-md, 16px);
+        padding: $kui-space-40 $kui-space-60;
+        padding-right: $kui-space-40;
+        font-size: $kui-font-size-40;
       }
     }
   }
@@ -459,10 +459,10 @@ export default defineComponent({
     --KModalColor: var(--text_colors-primary);
     .copy-text {
       text-align: left;
-      font-size: var(--type-md, 16px);
+      font-size: $kui-font-size-40;
 
       &.copy-label {
-        font-weight: 500;
+        font-weight: $kui-font-weight-medium;
       }
     }
   }
@@ -478,30 +478,29 @@ export default defineComponent({
   }
 
   .credentials-list-wrapper {
-    margin-bottom: 20px;
+    margin-bottom: $kui-space-70;
   }
 
   .credentials-list-title {
-    font-weight: 400;
+    font-weight: $kui-font-weight-regular;
     margin: 0;
-    font-size: 18px;
-    line-height: 28px;
+    font-size: $kui-font-size-50;
+    line-height: $kui-line-height-50;
   }
 
   .delete-item,
   .rename-item {
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: $kui-space-40 $kui-space-50;
+    font-size: $kui-font-size-40;
     cursor: pointer;
   }
 
+  .copy-credentials-confirm-modal-button,
   .revoke-credential-modal-button {
-    margin-right: 12px;
+    margin-right: $kui-space-50;
   }
   .copy-text.hidden-credentials-text {
-    margin-bottom: 20px;
+    margin-bottom: $kui-space-70;
   }
-  .copy-credentials-confirm-modal-button {
-    margin-right: 12px;
-  }
+
 </style>

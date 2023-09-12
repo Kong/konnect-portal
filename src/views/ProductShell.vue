@@ -293,10 +293,10 @@ watchEffect(() => {
 .product-shell {
   width: 100%;
   display: flex;
-  padding-bottom: 0;
+  padding-bottom: $kui-space-0;
 
   .product-error-message {
-    margin-top: 24px;
+    margin-top: $kui-space-80;
   }
 }
 </style>

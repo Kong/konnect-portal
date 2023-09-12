@@ -486,7 +486,7 @@ export default defineComponent({
   position: relative;
   height: 36px;
   top: 4px;
-  margin-left: 16px;
+  margin-left: $kui-space-60;
 }
 
 .application-form-wrapper {
@@ -500,16 +500,16 @@ export default defineComponent({
   .description-wrapper,
   .application-form-error,
   .application-form-title {
-    margin-bottom: 24px;
+    margin-bottom: $kui-space-80;
   }
   .required-field {
     font-size: 0.875rem;
     line-height: 1.25rem;
-    margin-bottom: 24px;
+    margin-bottom: $kui-space-80;
   }
 
   .application-submit-button {
-    margin-right: 16px;
+    margin-right: $kui-space-60;
   }
 
   .uri-input {
@@ -521,7 +521,7 @@ export default defineComponent({
   }
 
   .delete-application-button {
-    margin-right: 12px;
+    margin-right: $kui-space-50;
   }
 
 }

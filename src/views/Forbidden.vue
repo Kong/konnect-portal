@@ -89,14 +89,14 @@ export default defineComponent({
 }
 .message {
   .sorry-message {
-    margin-bottom: 4px;
-    font-size: 24px;
-    line-height: 32px;
+    margin-bottom: $kui-space-20;
+    font-size: $kui-font-size-70;
+    line-height: $kui-line-height-60;
   }
   .go-back {
-    margin-top: 0;
-    font-size: 24px;
-    line-height: 32px;
+    margin-top: $kui-space-0;
+    font-size: $kui-font-size-70;
+    line-height: $kui-line-height-60;
   }
 }
 

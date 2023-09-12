@@ -479,10 +479,10 @@ export default defineComponent({
 
 <style lang="scss">
 .spec {
-  margin-top: 24px;
+  margin-top: $kui-space-80;
 
   .deprecated-alert {
-    padding: 14px;
+    padding: $kui-space-60;
     font-family: inherit;
     font-size: 1rem;
     border-radius: 4px;
@@ -527,19 +527,19 @@ export default defineComponent({
 .empty-state-container,
 .api-documentation-container {
   max-width: 1390px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: $kui-space-70;
+  padding-right: $kui-space-70;
   @media (min-width: 768px) {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: $kui-space-0;
+    padding-right: $kui-space-0;
   }
 }
 .empty-state-container .product-error-message {
-  margin-top: 24px;
+  margin-top: $kui-space-80
 }
 
 .spec.api-documentation .breadcrumbs {
-  margin-left: 0;
+  margin-left: $kui-space-0;
 }
 
 .spec-details-wrapper {

@@ -59,14 +59,14 @@ export default defineComponent({
 .forgot-password {
 
   .heading-text {
-    font-size: 18px;
-    line-height: 28px;
+    font-size: $kui-font-size-50;
+    line-height: $kui-line-height-50;
     text-align: center;
-    margin-bottom: 16px;
+    margin-bottom: $kui-space-60;
   }
   .subheading-text {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: $kui-space-70;
   }
 
 }

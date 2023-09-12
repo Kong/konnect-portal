@@ -214,16 +214,16 @@ export default defineComponent({
       font-weight: normal !important;
     }
     .products-welcome {
-      margin-bottom: 16px;
-      font-weight: 400;
-      font-size: 24px;
-      line-height: 32px;
+      margin-bottom: $kui-space-60;
+      font-weight: $kui-font-weight-regular;
+      font-size: $kui-font-size-70;
+      line-height: $kui-line-height-70;
     }
     .products-title {
-      margin-bottom: 20px;
-      font-weight: 400;
-      font-size: 36px;
-      line-height: 40px;
+      margin-bottom: $kui-space-70;
+      font-weight: $kui-font-weight-regular;
+      font-size: $kui-font-size-80;
+      line-height: $kui-line-height-80;
     }
     .search-wrapper {
       max-width: 32rem;

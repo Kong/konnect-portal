@@ -383,26 +383,26 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .my-apps-title-wrapper  {
-  margin-bottom: 24px;
+  margin-bottom: $kui-space-80;
 }
 .create-application-button-plus  {
-  margin-right: 8px;
+  margin-right: $kui-space-40;
 }
 .analytics-my-apps,
 .summary-tier-based {
-  margin-bottom: 16px;
+  margin-bottom: $kui-space-60;
 }
 
 .dropdown-delete-application,
 .dropdown-refresh-application-dcr-token,
 .dropdown-analytics-dashboard {
-  padding: 8px 12px;
+  padding: $kui-space-40 $kui-space-50;
   cursor: pointer;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: $kui-font-size-40;
+  line-height: $kui-line-height-40;
 }
 
 .delete-modal-delete-button {
-  margin-right: 12px;
+  margin-right: $kui-space-50;
 }
 </style>

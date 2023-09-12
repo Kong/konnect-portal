@@ -198,7 +198,7 @@ export default defineComponent({
 }
 
 #sign-up-encouragement-message {
-  margin-top: 24px;
+  margin-top: $kui-space-80;
   text-align: center;
 }
 
@@ -220,7 +220,7 @@ export default defineComponent({
 }
 .unauthenticated-message {
   justify-content: center;
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: $kui-space-50;
+  margin-bottom: $kui-space-50;
 }
 </style>

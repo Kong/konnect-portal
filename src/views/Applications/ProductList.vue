@@ -196,16 +196,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .products-list-wrapper {
-  margin-bottom: 24px;
+  margin-bottom: $kui-space-80;
 }
 .products-list-title-text {
-  font-size: 18px;
+  font-size: $kui-font-size-50;
   margin: 0;
-  font-weight: 400;
+  font-weight: $kui-font-weight-regular;
 }
 .products-list-actions-dropdown {
-  padding: 8px;
+  padding: $kui-space-40;
   cursor: pointer;
-  font-size: 16px;
+  font-size: $kui-font-size-40;
 }
 </style>

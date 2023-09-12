@@ -324,7 +324,7 @@ onMounted(() => {
 
 .application-dashboard-wrapper {
   .page-title {
-    margin-bottom: 24px;
+    margin-bottom: $kui-space-80;
   }
 }
 
@@ -337,7 +337,7 @@ onMounted(() => {
   flex-grow: 1;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 32px;
+  margin-bottom: $kui-space-90;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -368,7 +368,7 @@ onMounted(() => {
     &:deep(.k-segmented-control) {
       .k-button {
         color: #1155cb !important;
-        font-weight: 500 !important;
+        font-weight: $kui-font-weight-medium !important;
 
         &.primary {
           background-color: #f2f6fe !important;
@@ -379,24 +379,24 @@ onMounted(() => {
 }
 
 .analytics-summary {
-  margin-bottom: 32px;
+  margin-bottom: $kui-space-90;
   .analytics-summary-title {
-    font-weight: 400;
-    margin-bottom: 16px;
-    font-size: var(--type-lg);
+    font-weight: $kui-font-weight-regular;
+    margin-bottom: $kui-space-60;
+    font-size: $kui-font-size-50;
   }
   .analytics-metrics-cards {
-    margin-bottom: 32px;
+    margin-bottom: $kui-space-90;
   }
 
   .chart-overview {
-    font-weight: 400;
-    margin-bottom: 16px;
-    font-size: var(--type-lg);
+    font-weight: $kui-font-weight-regular;
+    margin-bottom: $kui-space-60;
+    font-size: $kui-font-size-50;
   }
 }
 .no-product-versions-message {
-margin-bottom: 16px;
+margin-bottom: $kui-space-60;
 }
 
 </style>

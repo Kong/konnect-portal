@@ -156,11 +156,11 @@ export default defineComponent({
   }
 }
 .client-secret-table-title {
-  margin-bottom: 24px;
+  margin-bottom: $kui-space-80;
 }
 .client-secret-table-title-text {
-  font-weight: 400;
+  font-weight: $kui-font-weight-regular;
   margin: 0;
-  font-size: 18px;
+  font-size: $kui-font-size-50;
 }
 </style>

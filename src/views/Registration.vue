@@ -87,7 +87,7 @@ export default defineComponent({
 
 <style lang="scss">
 #login-encouragement-message {
-  margin-top: 24px;
+  margin-top: $kui-space-80;
   text-align: center;
 }
 #login-encouragement-message .kong-icon {

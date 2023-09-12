@@ -200,41 +200,41 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .application-detail-page-title {
-  margin-bottom: 24px;
+  margin-bottom: $kui-space-80;
 }
 .application-details-container {
   display:flex;
   justify-content: space-between;
-  margin-bottom:32px;
+  margin-bottom: $kui-space-90;
 
   .application-description-wrapper {
     flex: 1;
   }
   .application-description {
-    margin-bottom: 8px;
+    margin-bottom: $kui-space-40;
   }
 }
 
 .section-separator {
-  margin-top: 32px;
-  margin-bottom: 32px;
+  margin-top: $kui-space-90;
+  margin-bottom: $kui-space-90;
 }
 
 .dcr-table-wrapper,
 credentials-list-wrapper {
-  margin-bottom: 32px;
+  margin-bottom: $kui-space-90;
 }
 
 .vitals-card {
-  margin-bottom: 24px;
+  margin-bottom: $kui-space-80;
   .vitals-card-title {
-    margin-bottom: 0;
-    font-weight: 400;
+    margin-bottom: $kui-space-0;
+    font-weight: $kui-font-weight-regular;
     font-size: 18px
   }
 }
 
 .analytics-metric-cards {
-  margin-bottom: 16px;
+  margin-bottom: $kui-space-60;
 }
 </style>

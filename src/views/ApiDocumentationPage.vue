@@ -245,11 +245,11 @@ export default defineComponent({
   padding: 0 0.75rem;
 
   &:first-child {
-    padding-left: 0;
+    padding-left: $kui-space-0;
   }
 
   &:last-child {
-    padding-right: 0;
+    padding-right: $kui-space-0;
   }
 }
 
@@ -312,15 +312,15 @@ export default defineComponent({
   }
 }
 .api-documentation-page-wrapper {
-  padding-left: 23px;
+  padding-left: $kui-space-80;
   display: flex;
   flex-direction: row;
   @media (min-width: 768px) {
-    padding-left: 0;
+    padding-left: $kui-space-0;
   }
 
   .empty-state {
-    margin-top: 24px;
+    margin-top: $kui-space-80;
   }
 }
 </style>
