@@ -529,7 +529,7 @@ export default defineComponent({
   max-width: 1390px;
   padding-left: $kui-space-70;
   padding-right: $kui-space-70;
-  @media (min-width: 768px) {
+  @media (min-width: $kui-breakpoint-phablet) {
     padding-left: $kui-space-0;
     padding-right: $kui-space-0;
   }

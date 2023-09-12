@@ -315,7 +315,7 @@ export default defineComponent({
   padding-left: $kui-space-80;
   display: flex;
   flex-direction: row;
-  @media (min-width: 768px) {
+  @media (min-width: $kui-breakpoint-phablet) {
     padding-left: $kui-space-0;
   }
 

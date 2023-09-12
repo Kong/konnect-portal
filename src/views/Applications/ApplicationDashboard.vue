@@ -339,7 +339,7 @@ onMounted(() => {
   align-items: baseline;
   margin-bottom: $kui-space-90;
 
-  @media (min-width: 768px) {
+  @media (min-width: $kui-breakpoint-phablet) {
     flex-direction: row;
     justify-content: space-around;
   }
