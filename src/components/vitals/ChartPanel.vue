@@ -225,12 +225,11 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import '../../assets/mixins.scss';
-@import '../../assets/variables.scss';
 
 .chart-grid {
   @include grid-columns(1);
 
-  @media (min-width: $viewport-md) {
+  @media (min-width: $kui-breakpoint-phablet) {
     @include grid-columns(2);
   }
 
@@ -262,7 +261,7 @@ onMounted(() => {
 
     &:deep(ul.tooltip) {
       max-width: 320px;
-      @media (min-width: $viewport-md) {
+      @media (min-width: $kui-breakpoint-phablet) {
         max-width: 440px;
       }
       .display-value, .display-label  {

@@ -1,15 +1,15 @@
 <template>
   <aside>
-    <div class="px-5 py-6 content">
-      <header class="mb-6">
-        <span class="title mb-5">
+    <div class="content">
+      <header>
+        <span class="title">
           {{ product?.name }}
         </span>
         <KAlert
           v-if="product && !versionSelectItems.length"
           appearance="warning"
           :alert-message="helpText.noVersions"
-          class="mb-4"
+          class="no-versions"
         />
         <KSelect
           appearance="select"
@@ -92,17 +92,30 @@ watch([
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   aside {
     width: 100%;
     max-width: 260px;
   }
 
+  .content {
+    padding: $kui-space-90 $kui-space-80;
+
+    header {
+      margin-bottom: $kui-space-90;
+    }
+
+    .no-versions {
+      margin-bottom: $kui-space-60;
+    }
+  }
+
   .title {
-    font-weight: 500;
-    font-size: 20px;
-    display: block;
     color: var(--text_colors-primary);
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: $kui-space-80;
   }
 
   .version-select-dropdown :deep(div.k-select-input.select-input-container) {

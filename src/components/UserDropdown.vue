@@ -23,11 +23,11 @@
       >
         <li
           data-testid="my-apps-item"
-          class="type-md block"
+          class="apps-item"
         >
           <router-link
             :to="{ name: 'my-apps' }"
-            class="color-text_colors-primary block py-3 px-4"
+            class="apps-link color-text_colors-primary"
             @click="toggle"
           >
             {{ helpText.myApps }}
@@ -35,7 +35,7 @@
         </li>
         <li
           data-testid="logout-item"
-          class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
+          class="logout-btn color-text_colors-primary"
           @click="$emit('logout')"
         >
           {{ helpText.logout }}
@@ -67,6 +67,23 @@ export default defineComponent({
 <style lang="scss">
 .user-dropdown {
   --KButtonLink: var(--text_colors-header);
+
+  .apps-item {
+    font-size: $kui-font-size-40;
+    display: block;
+
+    .apps-link {
+      display: block;
+      padding: $kui-space-50 $kui-space-60;
+    }
+  }
+
+  .logout-btn {
+    font-size: $kui-font-size-40;
+    display: block;
+    cursor: pointer;
+    padding: $kui-space-50 $kui-space-60;
+  }
 
   .k-button {
     --spacing-lg: var(--spacing-sm);

@@ -1,8 +1,8 @@
 <template>
-  <header class="flex flex-col sm:flex-row justify-between sm:items-center">
-    <div class="flex-1">
+  <header class="title-container">
+    <div>
       <slot>
-        <h1 class="m-0 type-xl color-text_colors-headings">
+        <h1 class="title color-text_colors-headings">
           {{ title }}
         </h1>
       </slot>
@@ -28,9 +28,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-header > div:first-child {
-  @media only screen and (max-width: 480px) {
-    margin-bottom: var(--spacing-sm);
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      flex: 1 1 0;
+      margin: 0;
+      font-size: $kui-font-size-60;
+    }
   }
-}
 </style>

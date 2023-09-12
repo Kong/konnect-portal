@@ -1,12 +1,12 @@
 <template>
-  <div class="auth h-screen d-flex align-items-center justify-content-center flex-column">
+  <div class="auth">
     <KCard
       has-shadow
       data-testid="auth-form"
-      class="auth-card col-10 col-md-6"
+      class="auth-card"
     >
       <template #body>
-        <div class="d-flex flex-column justify-content-center align-items-center mb-5 card-header">
+        <div class="card-header">
           <router-link :to="headerRouteLink">
             <img
               class="logo"
@@ -56,6 +56,12 @@ export default defineComponent({
   --KCardBorder: 1px solid var(--section_colors-stroke);
   --KButtonPaddingY: 1rem;
 
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
   background-color: var(--section_colors-body);
   .auth-card {
     width: 528px;
@@ -64,10 +70,14 @@ export default defineComponent({
     }
     .card-header {
       height: 6rem;
-      margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) 0;
+      margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) $kui-space-80;
       padding: 2rem;
       border-radius: 3px 3px 0 0;
       background-color: var(--section_colors-hero);
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
     }
   }
 }

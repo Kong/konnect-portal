@@ -22,7 +22,7 @@
           v-if="currentState.matches('error') "
           appearance="danger"
           :alert-message="errorMessage"
-          class="mb-4"
+          class="error-banner"
         />
         <div v-if="!availableApplications.length">
           <p class="color-text_colors-primary">
@@ -42,7 +42,7 @@
                     name: 'show-application',
                     params: { 'application_id': app.id }
                   }"
-                  class="color-blue-500"
+                  class="application-link"
                 >
                   {{ app.name }}
                 </router-link>
@@ -51,13 +51,13 @@
           </div>
         </div>
         <div v-else>
-          <div class="color-text_colors-primary font-semibold mb-2">
+          <div class="select-application-title color-text_colors-primary">
             {{ helpText.applicationRegistration.selectApplication }}
           </div>
           <div>
             <select
               v-model="selectedApplication"
-              class="k-input w-100 mb-4"
+              class="k-input application-select"
             >
               <option
                 v-for="app in availableApplications"
@@ -70,7 +70,7 @@
             <router-link
               data-testid="create-application-2"
               :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
-              class="color-blue-500"
+              class="application-link"
             >
               {{ helpText.applicationRegistration.createNewApplication }}
             </router-link>
@@ -90,7 +90,7 @@
         :is-rounded="false"
         appearance="primary"
         :disabled="currentState.matches('pending')"
-        class="mr-3"
+        class="action-button"
         :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
       >
         {{ helpText.applicationRegistration.createApplication }}
@@ -101,7 +101,7 @@
         :is-rounded="false"
         appearance="primary"
         :disabled="currentState.matches('pending')"
-        class="mr-3"
+        class="action-button"
         @click="currentState.matches('success_application_status_is_pending') ? closeModal() : submitSelection()"
       >
         {{ modalText.buttonText }}
@@ -338,13 +338,39 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  .application-link {
+    color: $kui-color-text-primary;
+  }
 
- .registered-apps-list {
-   margin-top: 1rem;
-   list-style: none;
-   text-align: left;
-   padding-left: var(--spacing-xl, 32px);
- }
+  .error-banner {
+    margin-bottom: $kui-space-60;
+  }
+
+  .select-application-title {
+    margin-bottom: $kui-space-40;
+    font-weight: 600;
+  }
+
+  .action-button {
+    margin-right: $kui-space-50;
+  }
+
+  .application-select {
+    width: 100%;
+    margin-bottom: $kui-space-60;
+  }
+
+  .registered-apps-list {
+    margin-top: 1rem;
+    list-style: none;
+    text-align: left;
+    padding-left: var(--spacing-xl, 32px);
+  }
+  .application-registration-modal {
+    :deep(.skeleton-loader) {
+      width: 100%;
+    }
+  }
 </style>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-screen-2xl mx-auto">
+  <div class="responsive-container table-container">
     <KTable
       :fetcher="fetcher"
       :fetcher-cache-key="fetcherCacheKey"
@@ -136,6 +136,10 @@ export default defineComponent({
 }
 </style>
 <style lang="scss" scoped>
+.table-container {
+  margin: 0 auto;
+}
+
 .link {
   display: inline-block;
   margin: 0 0.25rem;

@@ -1,9 +1,8 @@
 <template>
   <header
     id="site-header"
-    class="flex items-center fixed w-full top-0 z-10"
   >
-    <div class="w-100 container max-w-screen-2xl mx-auto flex justify-between items-center px-5 md:px-0">
+    <div class="nav-container responsive-container">
       <router-link to="/">
         <img
           class="logo"
@@ -15,7 +14,7 @@
         <router-link
           data-testid="catalog-link"
           :to="{ name: 'catalog' }"
-          class="mr-2 p-2 catalog-link"
+          class="catalog-link"
         >
           <div class="background-color-wrapper" />
           {{ helpText.catalog }}
@@ -78,10 +77,29 @@ export default defineComponent({
   max-height: 41px;
 }
 
+.nav-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 $kui-space-80;
+
+  .catalog-link {
+    padding: $kui-space-40;
+    margin-right: $kui-space-40;
+  }
+}
+
 #site-header {
   height: var(--headerHeight);
   background-color: var(--section_colors-header);
   border-bottom: 1px solid var(--section_colors-stroke);
+  display: flex;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0px;
+  z-index: 10;
 
   .links a {
     color: var(--text_colors-header);
