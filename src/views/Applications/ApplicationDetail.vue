@@ -230,7 +230,7 @@ credentials-list-wrapper {
   .vitals-card-title {
     margin-bottom: $kui-space-0;
     font-weight: $kui-font-weight-regular;
-    font-size: 18px
+    font-size: $kui-font-size-50;
   }
 }
 
