@@ -535,7 +535,7 @@ export default defineComponent({
   }
 }
 .empty-state-container .product-error-message {
-  margin-top: $kui-space-80
+  margin-top: $kui-space-80;
 }
 
 .spec.api-documentation .breadcrumbs {

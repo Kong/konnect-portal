@@ -483,7 +483,7 @@ export default defineComponent({
 
   .credentials-list-title {
     font-weight: $kui-font-weight-regular;
-    margin: 0;
+    margin: $kui-space-0;
     font-size: $kui-font-size-50;
     line-height: $kui-line-height-50;
   }

@@ -200,7 +200,7 @@ export default defineComponent({
 }
 .products-list-title-text {
   font-size: $kui-font-size-50;
-  margin: 0;
+  margin: $kui-space-0;
   font-weight: $kui-font-weight-regular;
 }
 .products-list-actions-dropdown {

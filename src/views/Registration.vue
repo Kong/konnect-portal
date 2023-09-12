@@ -94,8 +94,3 @@ export default defineComponent({
   vertical-align: middle;
 }
 </style>
-
-<style lang="scss" scoped>
-
-</style>
-
