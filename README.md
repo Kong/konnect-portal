@@ -17,6 +17,8 @@ The [Konnect Dev Portal][konnect-docs-url] is a web application for developers t
 
 In [Kong Konnect][kong-konnect-register-url], you have two hosting options for the Dev Portal web user interface: a cloud hosted Dev Portal with Konnect or a self-hosted, open source Dev Portal powered by Konnect APIs.
 
+Check out the [example app][https://konnect-portal.konghq.com/] to get an idea of what this client app looks like out-of-the-box.
+
 ## Self-hosted Dev Portal benefits
 
 There are several benefits to keep in mind when deciding whether to use a Konnect-hosted or self-hosted Dev Portal. The self-hosted portal provides the following benefits:
