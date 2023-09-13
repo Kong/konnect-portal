@@ -11,13 +11,13 @@
 
 # Konnect Dev Portal Client
 
-This repo is an [open source][oss-url] reference implementation of a Konnect Developer Portal Client leveraging the [Konnect Developer Portal Client API][portal-api-url] and [JavaScript SDK][javscript-sdk-url].
+This repo is an [open source][oss-url] reference implementation of a Konnect Developer Portal Client leveraging the [Konnect Developer Portal Client API][portal-api-url] and [JavaScript SDK][javascript-sdk-url].
 
 The [Konnect Dev Portal][konnect-docs-url] is a web application for developers to locate, access, and consume API services. The Dev Portal enables developers to browse and search API documentation, test API endpoints, and manage their own credentials.
 
 In [Kong Konnect][kong-konnect-register-url], you have two hosting options for the Dev Portal web user interface: a cloud hosted Dev Portal with Konnect or a self-hosted, open source Dev Portal powered by Konnect APIs.
 
-Check out the [example app][https://konnect-portal.konghq.com/] to get an idea of what this client app looks like out-of-the-box.
+Check out the [example app](https://konnect-portal.konghq.com/) to get an idea of what this client app looks like out-of-the-box.
 
 ## Self-hosted Dev Portal benefits
 
