@@ -189,4 +189,4 @@ limitations under the License.
 [konnect-docs-url]: https://docs.konghq.com/konnect/
 [oss-url]: https://en.wikipedia.org/wiki/Open-source_software
 [yarn-install-url]: https://classic.yarnpkg.com/lang/en/docs/install
-[javscript-sdk-url]: https://www.npmjs.com/package/@kong/sdk-portal-js
+[javascript-sdk-url]: https://www.npmjs.com/package/@kong/sdk-portal-js
