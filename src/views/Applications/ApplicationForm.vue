@@ -503,8 +503,8 @@ export default defineComponent({
     margin-bottom: $kui-space-80;
   }
   .required-field {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: $kui-font-size-30;
+    line-height: $kui-line-height-30;
     margin-bottom: $kui-space-80;
   }
 
