@@ -67,9 +67,6 @@ export default defineComponent({
   .circle {
     opacity: 0;
     animation: .75s var(--timingFunction) forwards fadeIn;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   h1 { animation-delay: 1.25s; }
@@ -81,6 +78,9 @@ export default defineComponent({
     font-size: 2.5rem;
     border-radius: 50%;
     border: 1px solid var(--section_colors-stroke);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .logo {

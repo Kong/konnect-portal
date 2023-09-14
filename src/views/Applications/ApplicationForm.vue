@@ -83,8 +83,8 @@
               :rows="5"
             />
           </div>
-          <div class="buttons-wrapper flex">
-            <div class="flex-1">
+          <div class="buttons-wrapper">
+            <div class="buttons-wrapper-inner">
               <KButton
                 appearance="primary"
                 class="application-submit-button"
@@ -522,6 +522,13 @@ export default defineComponent({
 
   .delete-application-button {
     margin-right: $kui-space-50;
+  }
+
+  .buttons-wrapper {
+    display: flex;
+  }
+  .buttons-wrapper-inner {
+    flex: 1 1 0%;
   }
 
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="product-shell product fixed-position responsive-container">
+  <div class="product-shell product responsive-container page">
     <EmptyState
       v-if="productError"
       is-error
@@ -262,7 +262,7 @@ watchEffect(() => {
   z-index: 1;
 }
 
-.responsive-container.product.page.fixed-position {
+.responsive-container.product.page {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -294,6 +294,7 @@ watchEffect(() => {
   width: 100%;
   display: flex;
   padding-bottom: $kui-space-0;
+  position: fixed;
 
   .product-error-message {
     margin-top: $kui-space-80;
