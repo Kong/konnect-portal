@@ -2,7 +2,7 @@
   <Content>
     <PageTitle
       :title="helpText.myApps"
-      class="mb-6"
+      class="my-apps-title-wrapper"
     >
       <template #right>
         <KButton
@@ -16,7 +16,7 @@
             height="16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="mr-2"
+            class="create-application-button-plus"
           >
             <title>{{ helpText.plus }}</title>
             <path
@@ -38,11 +38,11 @@
         v-slot="{ timeframe }"
         v-bind="metricProviderProps"
       >
-        <h2 class="summary-tier-based mb-4">
+        <h2 class="summary-tier-based">
           {{ analyticsCardTitle(timeframe) }}
         </h2>
         <KCard
-          class="mb-4 analytics-my-apps"
+          class="analytics-my-apps"
           data-testid="analytics-metric-cards"
         >
           <template #body>
@@ -78,7 +78,7 @@
                   <div
                     v-if="contextualAnalytics"
                     data-testid="dropdown-analytics-dashboard"
-                    class="py-2 px-3 type-md cursor-pointer"
+                    class="dropdown-analytics-dashboard"
                     @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
                   >
                     {{ helpTextVitals.viewAnalytics }}
@@ -86,14 +86,14 @@
                   <div
                     v-if="isDcr"
                     data-testid="dropdown-refresh-application-dcr-token"
-                    class="py-2 px-3 type-md cursor-pointer"
+                    class="dropdown-refresh-application-dcr-token"
                     @click="handleRefreshSecret(row.id)"
                   >
                     {{ helpText.refreshSecret }}
                   </div>
                   <div
                     data-testid="dropdown-delete-application"
-                    class="py-2 px-3 type-md cursor-pointer delete-item"
+                    class="dropdown-delete-application delete-item"
                     @click="deleteItem = row"
                   >
                     {{ helpText.delete }}
@@ -155,7 +155,7 @@
         <KButton
           appearance="danger"
           :is-rounded="false"
-          class="mr-3"
+          class="delete-modal-delete-button"
           @click="handleDelete"
         >
           {{ helpText.delete }}
@@ -378,5 +378,31 @@ export default defineComponent({
 .delete-modal, .refresh-secret-modal {
   --KModalHeaderColor: var(--text_colors-headings);
   --KModalColor: var(--text_colors-primary);
+}
+</style>
+
+<style lang="scss" scoped>
+.my-apps-title-wrapper  {
+  margin-bottom: $kui-space-80;
+}
+.create-application-button-plus  {
+  margin-right: $kui-space-40;
+}
+.analytics-my-apps,
+.summary-tier-based {
+  margin-bottom: $kui-space-60;
+}
+
+.dropdown-delete-application,
+.dropdown-refresh-application-dcr-token,
+.dropdown-analytics-dashboard {
+  padding: $kui-space-40 $kui-space-50;
+  cursor: pointer;
+  font-size: $kui-font-size-40;
+  line-height: $kui-line-height-40;
+}
+
+.delete-modal-delete-button {
+  margin-right: $kui-space-50;
 }
 </style>

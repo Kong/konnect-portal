@@ -1,7 +1,7 @@
 <template>
   <div class="products-list">
-    <PageTitle class="mb-5">
-      <h2 class="font-normal type-lg m-0">
+    <PageTitle class="products-list-wrapper">
+      <h2 class="products-list-title-text">
         {{ title }}
       </h2>
     </PageTitle>
@@ -30,7 +30,7 @@
             <ActionsDropdown>
               <template #content>
                 <div
-                  class="py-2 px-2 type-md cursor-pointer"
+                  class="products-list-actions-dropdown"
                   @click="handleDeleteRegistration(row.registrationId)"
                 >
                   {{ helpText.actions.unregister }}
@@ -193,3 +193,19 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.products-list-wrapper {
+  margin-bottom: $kui-space-80;
+}
+.products-list-title-text {
+  font-size: $kui-font-size-50;
+  margin: $kui-space-0;
+  font-weight: $kui-font-weight-regular;
+}
+.products-list-actions-dropdown {
+  padding: $kui-space-40;
+  cursor: pointer;
+  font-size: $kui-font-size-40;
+}
+</style>

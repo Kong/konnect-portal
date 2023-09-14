@@ -1,36 +1,36 @@
 <template>
   <Content>
-    <div class="w-1/2 mx-auto">
+    <div class="application-form-wrapper">
       <PageTitle
+        class="application-form-title"
         :title="($route.meta.title as string)"
-        class="mb-5"
       />
       <KAlert
         v-if="currentState.matches('error')"
-        appearance="danger"
-        class="mb-5"
         :alert-message="errorMessage"
+        appearance="danger"
+        class="application-form-error"
       />
       <div>
-        <p class="text-sm mb-5">
+        <p class="required-field">
           <span class="text-danger">*</span> {{ helpText.application.reqField }}
         </p>
         <form @submit.prevent="formMethod">
-          <div class="mb-5">
+          <div class="application-form-inputs">
             <KLabel for="applicationName">
               {{ helpText.application.applicationName }} <span class="text-danger">*</span>
             </KLabel>
             <KInput
               id="applicationName"
               v-model.trim="formData.name"
+              class="k-input--full"
               data-testid="application-name-input"
               type="text"
-              class="k-input--full"
             />
           </div>
           <div
             v-if="isDcr"
-            class="mb-5"
+            class="dcr-form-wrapper"
           >
             <KLabel for="redirectUri">
               {{ helpText.application.redirectUriLabel }}
@@ -38,32 +38,32 @@
             <KInput
               id="redirectUri"
               v-model="formData.redirect_uri"
+              class="uri-input k-input--full"
               type="text"
-              class="w-100 k-input--full"
             />
           </div>
           <div
             v-else
-            class="mb-5"
+            class="reference-id-wrapper"
           >
             <KLabel for="referenceId">
               {{ helpText.application.form.referenceId.label }} <span class="text-danger">*</span>
             </KLabel>
-            <div class="d-flex">
+            <div class="reference-id-input-wrapper">
               <KInput
                 id="referenceId"
                 v-model="formData.reference_id"
-                data-testid="reference-id-input"
-                type="text"
                 class="k-input--full"
-                :placeholder="helpText.application.form.referenceId.placeholder"
+                data-testid="reference-id-input"
                 :help="helpText.application.form.referenceId.help"
+                :placeholder="helpText.application.form.referenceId.placeholder"
+                type="text"
               />
               <KButton
+                appearance="secondary"
                 class="generate-reference-id-button"
                 data-testid="generate-reference-id"
                 :is-rounded="false"
-                appearance="secondary"
                 size="small"
                 @click="generateReferenceId"
               >
@@ -71,7 +71,7 @@
               </KButton>
             </div>
           </div>
-          <div class="mb-5">
+          <div class="description-wrapper">
             <KLabel for="description">
               {{ helpText.application.description }}
             </KLabel>
@@ -79,24 +79,24 @@
             <KTextArea
               id="description"
               v-model.trim="formData.description"
-              :rows="5"
               class="k-input--full"
+              :rows="5"
             />
           </div>
-          <div class="flex">
-            <div class="flex-1">
+          <div class="buttons-wrapper">
+            <div class="buttons-wrapper-inner">
               <KButton
+                appearance="primary"
+                class="application-submit-button"
+                :disabled="isEnabled ? null : true"
                 :is-rounded="false"
                 type="submit"
-                appearance="primary"
-                class="mr-4"
-                :disabled="isEnabled ? null : true"
               >
                 {{ buttonText }}
               </KButton>
               <KButton
-                :is-rounded="false"
                 appearance="secondary"
+                :is-rounded="false"
                 @click="handleCancel"
               >
                 {{ helpText.application.cancel }}
@@ -104,8 +104,8 @@
             </div>
             <div v-if="formMode === 'edit'">
               <KButton
-                data-testid="application-delete-button"
                 appearance="danger"
+                data-testid="application-delete-button"
                 :is-rounded="false"
                 @click="send('CLICKED_DELETE')"
               >
@@ -118,12 +118,12 @@
     </div>
 
     <KModal
-      :title="modalTitle"
-      :is-visible="currentState.matches('confirm_delete')"
-      data-testid="application-delete-modal"
-      :action-button-text="helpText.application.delete"
       action-button-appearance="danger"
+      :action-button-text="helpText.application.delete"
       class="delete-modal"
+      data-testid="application-delete-modal"
+      :is-visible="currentState.matches('confirm_delete')"
+      :title="modalTitle"
       @canceled="send('CLICKED_CANCEL')"
     >
       <template #header-content>
@@ -134,18 +134,18 @@
       </template>
       <template #footer-content>
         <KButton
-          :is-rounded="false"
           appearance="danger"
+          class="delete-application-button"
           data-testid="application-delete-confirm-button"
-          class="mr-3"
+          :is-rounded="false"
           @click="handleDelete"
         >
           {{ helpText.application.delete }}
         </KButton>
         <KButton
           appearance="secondary"
-          :is-rounded="false"
           data-testid="application-delete-cancel-button"
+          :is-rounded="false"
           @click="send('CLICKED_CANCEL')"
         >
           {{ helpText.application.cancel }}
@@ -153,12 +153,12 @@
       </template>
     </KModal>
     <KModal
-      :title="helpText.application.applicationCredentials"
-      :is-visible="secretModalIsVisible"
-      data-testid="copy-secret-modal"
-      :action-button-text="helpText.application.delete"
       action-button-appearance="danger"
+      :action-button-text="helpText.application.delete"
       class="application-secret-modal"
+      data-testid="copy-secret-modal"
+      :is-visible="secretModalIsVisible"
+      :title="helpText.application.applicationCredentials"
       @canceled="send('CLICKED_CANCEL')"
     >
       <template #header-content>
@@ -486,6 +486,50 @@ export default defineComponent({
   position: relative;
   height: 36px;
   top: 4px;
-  margin-left: 16px;
+  margin-left: $kui-space-60;
+}
+
+.application-form-wrapper {
+  width: 50%;
+  margin-left:auto;
+  margin-right: auto;
+
+  .application-form-inputs,
+  .dcr-form-wrapper,
+  .reference-id-wrapper,
+  .description-wrapper,
+  .application-form-error,
+  .application-form-title {
+    margin-bottom: $kui-space-80;
+  }
+  .required-field {
+    font-size: $kui-font-size-30;
+    line-height: $kui-line-height-30;
+    margin-bottom: $kui-space-80;
+  }
+
+  .application-submit-button {
+    margin-right: $kui-space-60;
+  }
+
+  .uri-input {
+    width: 100%;
+  }
+
+  .reference-id-input-wrapper {
+    display: flex;
+  }
+
+  .delete-application-button {
+    margin-right: $kui-space-50;
+  }
+
+  .buttons-wrapper {
+    display: flex;
+  }
+  .buttons-wrapper-inner {
+    flex: 1 1 0%;
+  }
+
 }
 </style>

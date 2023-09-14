@@ -1,5 +1,7 @@
 <template>
-  <Content>
+  <Content
+    class="application-dashboard-wrapper"
+  >
     <KSkeleton v-if="currentState.matches('pending')" />
     <KBreadcrumbs
       v-if="!currentState.matches('pending')"
@@ -14,19 +16,19 @@
       v-if="currentState.matches('success')"
     >
       <PageTitle
-        class="mb-5"
+        class="page-title"
         :title="helpText.analytics.dashboard"
       />
       <div v-if="contextualAnalytics && hasProductVersions">
         <div
-          class="analytics-filters d-flex flex-grow-1 justify-content-between align-items-baseline mb-6"
+          class="analytics-filters"
         >
           <KMultiselect
             v-model="versionMultiSelectModel"
             autosuggest
+            class="analytics-service-filter"
             collapsed-context
             data-testid="analytics-service-filter"
-            class="analytics-service-filter flex-grow-1"
             :dropdown-footer-text="multiselectFooter"
             dropdown-footer-text-position="static"
             :items="multiselectItems"
@@ -43,32 +45,32 @@
             <KDateTimePicker
               id="analytics-timepicker"
               v-model="timeframe"
-              data-test-id="analytics-timepicker"
               class="analytics-timepicker"
-              :min-date="minDateCalendar"
+              data-test-id="analytics-timepicker"
               :max-date="new Date()"
+              :min-date="minDateCalendar"
               :mode="hideCalendar ? 'relative': 'date'"
               :placeholder="helpText.analytics.selectDateRange"
-              :time-periods="timePeriods"
               :range="true"
+              :time-periods="timePeriods"
               width="100%"
               @change="changeTimeframe"
             />
           </div>
         </div>
-        <div class="mb-6">
-          <h2 class="font-normal type-lg mb-4">
+        <div class="analytics-summary">
+          <h2 class="analytics-summary-title">
             {{ helpText.analytics.summary }}
           </h2>
           <AnalyticsMetricsCard
             v-if="!vitalsLoading"
-            class="mb-6"
-            data-testid="analytics-metric-cards"
             :application-id="(appId as string)"
-            :timeframe="(selectedTimeframe as Timeframe)"
+            class="analytics-metrics-cards"
+            data-testid="analytics-metric-cards"
             :product-version-ids="selectedProductVersionIds"
+            :timeframe="(selectedTimeframe as Timeframe)"
           />
-          <h2 class="font-normal type-lg mb-4">
+          <h2 class="chart-overview">
             {{ helpText.analytics.chartOverview }}
           </h2>
           <ChartPanel
@@ -81,18 +83,18 @@
         v-else-if="!filterMultiselectLoading"
         icon="stateNoData"
         icon-size="96"
-        :title="helpText.analytics.selectProductVersions"
         :message="helpText.analytics.selectProductVersions"
+        :title="helpText.analytics.selectProductVersions"
       >
         <template #message>
-          <p class="mb-4">
+          <p class="no-product-versions-message">
             {{ helpText.productVersion.noProductVersionsDetail }}
           </p>
           <KButton
             appearance="primary"
-            :is-rounded="false"
             data-testid="copy-btn"
             icon="plus"
+            :is-rounded="false"
             :to="{ name: 'catalog' }"
           >
             {{ helpText.productVersion.registerProductVersion }}
@@ -319,15 +321,25 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/variables.scss';
+
+.application-dashboard-wrapper {
+  .page-title {
+    margin-bottom: $kui-space-80;
+  }
+}
 
 .analytics-filters {
   column-gap: 24px;
   flex-direction: column;
   flex-wrap: wrap;
   row-gap: 24px;
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: $kui-space-90;
 
-  @media (min-width: $viewport-md) {
+  @media (min-width: $kui-breakpoint-phablet) {
     flex-direction: row;
     justify-content: space-around;
   }
@@ -344,6 +356,7 @@ onMounted(() => {
   .analytics-service-filter {
     min-width: 50%;
     overflow: hidden;
+    flex-grow: 1;
   }
 
   // override theme background and text colors until full portal customization
@@ -355,7 +368,7 @@ onMounted(() => {
     &:deep(.k-segmented-control) {
       .k-button {
         color: #1155cb !important;
-        font-weight: 500 !important;
+        font-weight: $kui-font-weight-medium !important;
 
         &.primary {
           background-color: #f2f6fe !important;
@@ -364,4 +377,26 @@ onMounted(() => {
     }
   }
 }
+
+.analytics-summary {
+  margin-bottom: $kui-space-90;
+  .analytics-summary-title {
+    font-weight: $kui-font-weight-regular;
+    margin-bottom: $kui-space-60;
+    font-size: $kui-font-size-50;
+  }
+  .analytics-metrics-cards {
+    margin-bottom: $kui-space-90;
+  }
+
+  .chart-overview {
+    font-weight: $kui-font-weight-regular;
+    margin-bottom: $kui-space-60;
+    font-size: $kui-font-size-50;
+  }
+}
+.no-product-versions-message {
+margin-bottom: $kui-space-60;
+}
+
 </style>
