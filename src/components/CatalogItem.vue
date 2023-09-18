@@ -54,7 +54,7 @@
         </li>
         <li class="docs-links">
           <div
-            v-if="product.versionCount"
+            v-if="product.showSpecLink"
             class="details-item"
           >
             <template v-if="loading">

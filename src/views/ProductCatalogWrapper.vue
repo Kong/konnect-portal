@@ -134,16 +134,34 @@ export default defineComponent({
           })
           const { data: sources, meta } = portalEntities
 
-          catalogItems.value = sources.map(({ source }) => {
+          catalogItems.value = await Promise.all(sources.map(async ({ source }) => {
+            let showSpecLink = false
+
+            if (source.latest_version) {
+              await portalApiV2.value.service.versionsApi.getProductVersionSpec({
+                productId: source.id as string,
+                versionId: source.latest_version.id
+              }).then((res) => {
+                if (res.status === 200) {
+                  showSpecLink = true
+                } else if (res.status === 204) {
+                  showSpecLink = false
+                }
+              }).catch(() => {
+                showSpecLink = false
+              })
+            }
+
             return {
               id: source.id,
               title: source.name,
               latestVersion: source.latest_version,
+              showSpecLink,
               description: source.description,
               documentCount: source.document_count,
               versionCount: source.version_count
             }
-          })
+          }))
           totalCount.value = meta.page.total
         } catch (e) {
           console.error('failed to find Service Packages', e)
