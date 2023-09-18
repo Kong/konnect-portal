@@ -9,6 +9,7 @@ export interface ProductWithVersions extends Product {
 export interface CatalogItemModel {
   id: string;
   title: string;
+  showSpecLink: boolean;
   latestVersion: null|{ name: string; id: string}
   description: string;
   documentCount: number;
