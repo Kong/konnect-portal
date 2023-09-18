@@ -28,6 +28,7 @@
       </template>
       <template #links="{ row }">
         <router-link
+          v-if="row.versionCount"
           :to="{ name: 'spec', params: { product: row.id } }"
           class="link"
         >

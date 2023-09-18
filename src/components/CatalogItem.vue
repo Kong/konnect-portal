@@ -53,7 +53,10 @@
           </span>
         </li>
         <li class="docs-links">
-          <div class="details-item">
+          <div
+            v-if="product.versionCount"
+            class="details-item"
+          >
             <template v-if="loading">
               <KSkeletonBox width="50" />
             </template>
