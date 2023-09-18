@@ -143,6 +143,13 @@ describe('Catalog', () => {
       cy.get('[data-testid="view-switcher"]').should('be.disabled')
     })
 
+    it('renders the documentation link for catalog item', () => {
+      cy.mockPrivatePortal()
+      cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 2 }])
+      cy.visit('/')
+      cy.get('.catalog-item .link').contains('Documentation').should('exist')
+    })
+
     it('does not render the documentation link for catalog item if no documents', () => {
       cy.mockPrivatePortal()
       cy.mockProductsCatalog(1, [{ description: 'great description' }])
