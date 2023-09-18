@@ -1,4 +1,4 @@
-import { SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import { ProductCatalogIndexSourceLatestVersion, SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
 import { generateProducts } from '../support/utils/generateProducts'
 
 const mockProductSearchQuery = (searchQuery: string) => {
@@ -72,6 +72,7 @@ describe('Catalog', () => {
     cy.mockStylesheetFont()
     cy.mockAppearance()
     cy.mockStylesheetCss()
+    cy.mockProductVersionSpec()
   })
 
   describe('Catalog card view', () => {
@@ -113,6 +114,16 @@ describe('Catalog', () => {
       cy.url().should('include', '/spec')
     })
 
+    it('does not render specification link if no latest version', () => {
+      cy.mockPublicPortal()
+      cy.mockProduct()
+      cy.mockProductsCatalog(1, [{ description: 'great description', latest_version: null as ProductCatalogIndexSourceLatestVersion }])
+
+      cy.visit('/')
+
+      cy.get('.catalog-item .link').should('not.exist')
+    })
+
     it('displays an empty state with no products', () => {
       cy.mockPublicPortal()
       cy.mockProductsCatalog(0)
@@ -132,11 +143,11 @@ describe('Catalog', () => {
       cy.get('[data-testid="view-switcher"]').should('be.disabled')
     })
 
-    it('renders the documentation link for catalog item', () => {
+    it('does not render the documentation link for catalog item if no documents', () => {
       cy.mockPrivatePortal()
-      cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 2 }])
+      cy.mockProductsCatalog(1, [{ description: 'great description' }])
       cy.visit('/')
-      cy.get('.catalog-item .link').contains('Documentation').should('exist')
+      cy.get('.catalog-item .link').contains('Documentation').should('not.exist')
     })
   })
 
