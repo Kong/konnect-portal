@@ -2,7 +2,10 @@
   <aside>
     <div class="px-5 py-6 content">
       <header class="mb-6">
-        <span class="title mb-5">
+        <span
+          class="title mb-5"
+          :title="product?.name"
+        >
           {{ product?.name }}
         </span>
         <KAlert
@@ -103,6 +106,9 @@ watch([
     font-size: 20px;
     display: block;
     color: var(--text_colors-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .version-select-dropdown :deep(div.k-select-input.select-input-container) {
