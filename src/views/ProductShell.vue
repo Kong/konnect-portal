@@ -109,13 +109,16 @@ async function fetchDocumentTree () {
 
   try {
     const requestOptions = {
-      productId: id,
-      accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson
+      productId: id
     }
     // @ts-ignore
     // overriding the axios response because we're specifying what we're accepting above
     if (productStore.product) {
-      const res = await documentationApi.listProductDocuments(requestOptions) as AxiosResponse<ListDocumentsTree, any>
+      const res = await documentationApi.listProductDocuments(requestOptions, {
+        headers: {
+          accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson
+        }
+      }) as AxiosResponse<ListDocumentsTree, any>
 
       productStore.setDocumentTree((res.data).data)
     }
