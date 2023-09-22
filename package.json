@@ -96,11 +96,11 @@
   ],
   "engines": {
     "npm": "please-use-yarn",
-    "node": ">=18.16.0 < 19",
+    "node": ">=18.17.1 < 19",
     "yarn": ">=1.22.19"
   },
   "volta": {
-    "node": "18.16.0",
+    "node": "18.17.1",
     "yarn": "1.22.19"
   },
   "repository": {
