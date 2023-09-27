@@ -56,8 +56,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .forbidden {
-  --timingFunction: cubic-bezier(.785, .135, .15, .86);
-  height: calc(100vh - var(--headerHeight));
+  --portal-ui-animation-timing-function: cubic-bezier(.785, .135, .15, .86);
+  height: calc(100vh - var(--portal-ui-header-height));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,7 +66,7 @@ export default defineComponent({
   h1,
   .circle {
     opacity: 0;
-    animation: .75s var(--timingFunction) forwards fadeIn;
+    animation: .75s var(--portal-ui-animation-timing-function) forwards fadeIn;
   }
 
   h1 { animation-delay: 1.25s; }

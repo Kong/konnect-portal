@@ -267,7 +267,7 @@ export default defineComponent({
 }
 
 .content-header {
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: $kui-space-110;
 }
 
 .sidebar-sections {
@@ -297,17 +297,17 @@ export default defineComponent({
   --kong-ui-document-viewer-link-color: var(--text_colors-link);
   --kong-ui-document-viewer-link-hover-color: var(--text_colors-accent);
   --kong-ui-document-viewer-color: var(--text_colors-primary);
-  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
+  --kong-ui-document-viewer-code-color: #273c61;
 
   // This is going to solve some contrast issues with blockquotes
   // and their text colors.
 
-  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
+  --kong-ui-document-viewer-code-color: #273c61;
   :deep(blockquote) {
-    color: var(--steel-700, #0a2b66);
+    color: #273c61;
 
     h1, h2, h3, h4, h5, h6 {
-      color: var(--steel-700, #0a2b66);
+      color: #273c61;
     }
   }
 }
@@ -315,9 +315,6 @@ export default defineComponent({
   padding-left: $kui-space-80;
   display: flex;
   flex-direction: row;
-  @media (min-width: $kui-breakpoint-phablet) {
-    padding-left: $kui-space-0;
-  }
 
   .empty-state {
     margin-top: $kui-space-80;

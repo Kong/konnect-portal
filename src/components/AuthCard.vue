@@ -70,7 +70,7 @@ export default defineComponent({
     }
     .card-header {
       height: 6rem;
-      margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) $kui-space-80;
+      margin: calc($kui-space-90 * -1) calc($kui-space-90 * -1) $kui-space-80;
       padding: 2rem;
       border-radius: 3px 3px 0 0;
       background-color: var(--section_colors-hero);

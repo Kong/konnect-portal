@@ -7,7 +7,7 @@
 
 /* set portal theming values */
 :root {
-  --headerHeight: 55px;
+  --portal-ui-header-height: 55px;
   --font-family-sans: var(--font-base), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-headings: var(--font-headings), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   --font-family-mono: var(--font-code), "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
@@ -44,5 +44,5 @@ a {
 }
 
 [id] {
-  scroll-margin-top: calc(var(--headerHeight) + 12px);
+  scroll-margin-top: calc(var(--portal-ui-header-height) + 12px);
 }

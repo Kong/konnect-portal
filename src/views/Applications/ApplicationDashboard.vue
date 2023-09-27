@@ -346,10 +346,10 @@ onMounted(() => {
 
   // Dark theme causes the input field text to become unreadable
   &:deep(.k-multiselect-trigger) {
-    background: var(--white, #fff);
+    background: $kui-color-background;
 
     .k-input {
-      background: var(--white, #fff);
+      background: $kui-color-background;
     }
   }
 
@@ -362,7 +362,7 @@ onMounted(() => {
   // override theme background and text colors until full portal customization
   .analytics-timepicker {
     &:deep(.timepicker-input) {
-      background: var(--white, #fff);
+      background: $kui-color-background;
     }
 
     &:deep(.k-segmented-control) {

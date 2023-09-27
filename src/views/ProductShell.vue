@@ -260,6 +260,9 @@ watchEffect(() => {
   position: sticky;
   top: 0;
   z-index: 1;
+  color: #a05604;
+  border-color: #ffe6ba;
+  background-color: #fff3d8;
 }
 
 .responsive-container.product.page {
@@ -271,7 +274,7 @@ watchEffect(() => {
 }
 
 .product {
-  min-height: calc(100vh - var(--headerHeight));
+  min-height: calc(100vh - var(--portal-ui-header-height));
 }
 
 .sidebar-wrapper {

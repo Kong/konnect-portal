@@ -36,13 +36,12 @@
   .pagination-button {
     &.square {
       background-color: var(--section_colors-body) !important;
-      border: 1px solid var(--KPaginationBorderColor, var(--grey-300)) !important;
+      border: 1px solid var(--section_colors-stroke, #e7e7ec) !important;
     }
   }
 }
 
 .k-skeleton-container {
-
   .skeleton-table-row,
   .skeleton-loader {
     .box {
@@ -55,18 +54,18 @@
 
 
 .k-button.secondary {
-  border-color: var(--KButtonSecondaryBorder, var(--black-10, rgba(0, 0, 0, .1))) !important;
+  border-color: var(--section_colors-stroke, rgba(0, 0, 0, .1)) !important;
   color: var(--text_colors-primary) !important;
 
   &:hover,
   &:active,
   &:hover:not(:disabled) {
-    border-color: var(--KButtonSecondaryHoverBorder, var(--black-45, rgba(0, 0, 0, .45))) !important;
-    background-color: var(--KButtonSecondaryBase) !important;
+    border-color: var(--text_colors-secondary, rgba(0, 0, 0, .45)) !important;
+    background-color: var(--section_colors-body) !important;
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px var(--white, #fff), 0 0 0 4px var(--KButtonSecondaryHoverBorder, var(--blue-500, #1155cb)) !important;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--text_colors-secondary, #1155cb) !important;
   }
 }
 

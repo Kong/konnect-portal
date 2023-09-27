@@ -28,9 +28,9 @@
     >
       <div>
         <KIcon
+          color="#a3b6d9"
           icon="spinner"
           size="96"
-          color="var(--steel-300)"
         />
       </div>
     </div>
@@ -486,14 +486,14 @@ export default defineComponent({
     font-family: inherit;
     font-size: 1rem;
     border-radius: 4px;
-    color: var(--KAlertWarningColor, var(--yellow-500, color(yellow-500)));
-    border-color: var(--KAlertWarningBorder, var(--yellow-200, color(yellow-200)));
-    background-color: var(--KAlertWarningBackground, var(--yellow-100, color(yellow-100)));
+    color: #c67c06;
+    border-color: #ffe6ba;
+    background-color: #fff3d8;
   }
 
   .responsive-container .breadcrumbs {
     position: relative;
-    left: var(--spacing-xs)
+    left: 8px;
   }
 
   .swagger-ui .version-pragma {
@@ -513,7 +513,7 @@ export default defineComponent({
 
 .spec-loading-container {
   align-items: center;
-  background-color: var(--white, #fff);
+  background-color: $kui-color-background;
   display: flex;
   height: 100%;
   justify-content: center;

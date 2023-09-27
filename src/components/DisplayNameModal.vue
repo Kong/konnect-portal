@@ -147,6 +147,14 @@ export default defineComponent({
   --KModalHeaderColor: var(--text_colors-headings);
   --KModalColor: var(--text_colors-primary);
 
+  :deep(.k-modal-content .k-modal-header) {
+    color: var(--text_colors-headings);
+  }
+
+  :deep(.k-modal-content .k-modal-body) {
+    color: var(--text_colors-primary);
+  }
+
   .submit-credential-button {
     margin-right: $kui-space-50;
   }

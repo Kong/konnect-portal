@@ -91,7 +91,7 @@ export default defineComponent({
 }
 
 #site-header {
-  height: var(--headerHeight);
+  height: var(--portal-ui-header-height);
   background-color: var(--section_colors-header);
   border-bottom: 1px solid var(--section_colors-stroke);
   display: flex;

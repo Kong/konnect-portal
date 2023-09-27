@@ -364,7 +364,7 @@ export default defineComponent({
     margin-top: 1rem;
     list-style: none;
     text-align: left;
-    padding-left: var(--spacing-xl, 32px);
+    padding-left: $kui-space-90;
   }
   .application-registration-modal {
     :deep(.skeleton-loader) {
