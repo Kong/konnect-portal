@@ -53,7 +53,7 @@ const metricProviderProps = computed(() => ({
 <style lang="scss">
 
 .analytics-overview {
-  background-color: var(--white, #fff) !important;
+  background-color: $kui-color-background !important;
   margin-bottom: $kui-space-50;
 
   .kong-ui-public-metric-card-container {

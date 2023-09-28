@@ -123,8 +123,8 @@ const copySpec = (executeCopy) => {
   color: var(--text_colors-primary);
   background-color: var(--section_colors-tertiary);
   margin: 0;
-  padding: var(--spacing-md);
-  font-size: var(--type-xs);
+  padding: $kui-space-60;
+  font-size: $kui-font-size-20;
   font-family: var(--font-family-mono);
 }
 </style>

@@ -1,6 +1,6 @@
 // Add allowed CSS custom property prefixes here as needed from the Appearance API
-const allowedCssCustomPropertyPattern = '^(kui-|kong-ui-|text_colors|button_colors|section_colors).+$'
-const allowedCssCustomPropertyMessage = "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-' or to have one of the following prefixes: '--kong-ui-', '--text_colors', '--button_colors', '--section_colors'"
+const allowedCssCustomPropertyPattern = '^(kui-|portal-ui-|font-|kong-ui-|text_colors-|button_colors-|section_colors-).+$'
+const allowedCssCustomPropertyMessage = "Expected custom property \"%s\" to be sourced from @kong/design-tokens with prefix '--kui-' or to have one of the following prefixes: '--kong-ui-', '--text_colors', '--button_colors', '--section_colors', '--portal-ui', '--font'"
 
 module.exports = {
   extends: [
@@ -20,14 +20,13 @@ module.exports = {
     'order/properties-alphabetical-order': true,
     '@kong/design-tokens/use-proper-token': true,
     // Only allow @kong/design-tokens or `--kong-ui-*` CSS custom properties
-    // TODO: Enable this rule and remove the override below when all Kongponents utility classes and CSS custom properties have been removed
-    // 'custom-property-pattern': [
-    //   allowedCssCustomPropertyPattern,
-    //   {
-    //     message: allowedCssCustomPropertyMessage,
-    //     severity: 'error'
-    //   }
-    // ],
+    'custom-property-pattern': [
+      allowedCssCustomPropertyPattern,
+      {
+        message: allowedCssCustomPropertyMessage,
+        severity: 'error'
+      }
+    ],
     'custom-property-no-missing-var-function': true,
     // Disable the following rules
     'no-descending-specificity': null,

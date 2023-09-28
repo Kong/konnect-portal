@@ -93,7 +93,7 @@ export default defineComponent({
   .wrapper {
     position: sticky;
     top: 0;
-    max-height: calc(100vh - var(--headerHeight));
+    max-height: calc(100vh - var(--portal-ui-header-height));
     padding: 2rem 0;
     overflow-x: auto;
 

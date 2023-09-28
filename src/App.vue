@@ -5,9 +5,9 @@
       class="loading-container"
     >
       <KIcon
+        color="#a3b6d9"
         icon="spinner"
         size="96"
-        color="var(--steel-300)"
       />
     </div>
     <template v-else>
@@ -84,11 +84,9 @@ export default defineComponent({
   }
 
   .product-version {
-    --KBadgeBorderRadius: 12px;
-    --KBadgeMinWidth: auto;
-    --KBadgePaddingY: 2px;
-    --KBadgePaddingX: var(--spacing-sm);
-
+    border-radius: $kui-border-radius-40;
+    min-width: auto;
+    padding: $kui-space-10 $kui-space-50;
     vertical-align: text-bottom;
   }
 }
@@ -108,6 +106,6 @@ export default defineComponent({
     justify-content: center;
     z-index: 10500;
     flex-direction: column;
-    background: var(--white)
+    background: $kui-color-background
   }
 </style>

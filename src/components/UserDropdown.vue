@@ -86,7 +86,7 @@ export default defineComponent({
   }
 
   .k-button {
-    --spacing-lg: var(--spacing-sm);
+    --spacing-lg: #{$kui-space-50};
     // this is to fix the alignment of the text
     line-height: 24px !important;
   }

@@ -16,9 +16,9 @@
         >
           <span class="truncate-text">{{ label }} {{ textToCopy }}</span>
           <KIcon
-            :title="helpText.copyToClipboard"
+            color="#a3b6d9"
             icon="copy"
-            color="var(--steel-300)"
+            :title="helpText.copyToClipboard"
           />
         </KButton>
       </KClipboardProvider>

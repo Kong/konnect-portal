@@ -20,8 +20,8 @@ const APPEARANCES = {
   },
   pending: {
     appearance: 'custom',
-    color: 'var(--steel-600)',
-    'background-color': 'var(--steel-200)'
+    color: '#395380',
+    'background-color': '#dae3f2'
   },
   rejected: {
     appearance: 'danger',
@@ -33,11 +33,6 @@ const APPEARANCES = {
     color: '',
     'background-color': ''
   },
-  unregistered: {
-    appearance: 'custom',
-    color: 'var(--black-70)',
-    'background-color': 'var(--black-10)'
-  }
 }
 
 export default defineComponent({
@@ -60,10 +55,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .status-badge {
-  --KBadgeBorderRadius: var(--spacing-xs);
-  --KBadgePaddingY: 0.1rem;
-  --KBadgePaddingX: var(--spacing-xs);
-  --KBadgeFontSize: var(--type-xs);
+  --KBadgeBorderRadius: #{$kui-space-40};
+  --KBadgePaddingY: #{$kui-space-10};
+  --KBadgePaddingX: #{$kui-space-40};
+  --KBadgeFontSize: #{$kui-font-size-20};
   width: auto;
   height: 100%;
   vertical-align: middle;

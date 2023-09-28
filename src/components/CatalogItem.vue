@@ -200,6 +200,14 @@ export default {
       height: 19rem;
       display: flex;
       flex-direction: column;
+
+      .k-card-header {
+        margin-bottom: 0 !important;
+
+        .k-card-title {
+          margin-bottom: 0 !important;
+        }
+      }
     }
 
     .show-docs.kong-card {
@@ -218,11 +226,6 @@ export default {
       padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
-    }
-
-    .k-card-title,
-    .k-card-header {
-      margin-bottom: 0 !important;
     }
 
     .docs-links {

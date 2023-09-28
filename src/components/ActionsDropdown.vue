@@ -23,8 +23,8 @@
           data-testid="action-badge"
         >
           <KIcon
+            color="#a3b6d9"
             icon="gearFilled"
-            color="var(--steel-300)"
             size="16"
             view-box="0 0 16 16"
           />
@@ -65,13 +65,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .actions-badge.k-badge {
-  --KBadgeBorderRadius: var(--spacing-sm);
+  --KBadgeBorderRadius: #{$kui-space-50};
   --KBadgeWidth: auto;
   --KBadgeMinWidth: auto;
-  --KBadgePaddingY: var(--spacing-xxs);
-  --KBadgePaddingX: var(--spacing-sm);
-  --KBadgeBackground: var(--blue-200);
-  --KBadgeLighterBackground: var(--white-100);
+  --KBadgePaddingY: #{$kui-space-20};
+  --KBadgePaddingX: #{$kui-space-50};
+  --KBadgeBackground: #bdd3f9;
   border: 1px solid var(--section_colors-stroke);
   height: auto;
   display: flex;
@@ -94,7 +93,7 @@ export default defineComponent({
 .actions-badge.k-badge:hover, .actions-badge.opened {
 
   .kong-icon path {
-    fill: var(--steel-500);
+    fill: #5c7299;
   }
 }
 
@@ -119,7 +118,7 @@ export default defineComponent({
     }
   }
   .delete-item {
-    color: var(--red-500);
+    color: #d44324;
   }
 }
 </style>

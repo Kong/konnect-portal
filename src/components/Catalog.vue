@@ -122,12 +122,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .products-content {
-  --grey-500: var(--button_colors-primary-fill);
   padding: 0 $kui-space-80;
 
   .products-label {
     color: var(--text_colors-primary);
-    font-size: var(--type-xl);
+    font-size: $kui-font-size-70;
     font-weight: normal;
   }
 
@@ -138,14 +137,14 @@ export default defineComponent({
   }
 
   .view-switch-button {
-    --grey-500: var(--text_colors-primary);
-    --spacing-xs: 6px;
-    --spacing-md: 6px;
-    --KButtonOutlineBase: var(--section_colors-body);
-    --KButtonOutlineBorder: var(--text_colors-primary);
-    --KButtonOutlineHover: var(--section_colors-tertiary);
+    padding: $kui-space-30;
+    border: 1px solid var(--text_colors-primary) !important;
 
-    border: 1px solid var(--KButtonOutlineBorder) !important;
+    :deep(.icon) {
+      i {
+        background-color: var(--text_colors-primary);;
+      }
+    }
   }
 }
 
@@ -162,7 +161,7 @@ export default defineComponent({
 
 .product-catalog-no-products {
   text-align: center;
-  padding: 20px var(--spacing-xs);
+  padding: 20px $kui-space-40;
   font-size: $kui-font-size-50;
 
   .empty-products {

@@ -27,7 +27,7 @@
 }
 .xl\:pl-2 {
   @media (min-width: 1200px) {
-    padding-left: var(--spacing-xs) !important;
+    padding-left: $kui-space-40 !important;
   }
 }
 
@@ -70,45 +70,26 @@
 .list-badge.k-badge {
   --KBadgePaddingY: 2px;
   --KBadgeBorderRadius: 12px;
-  --KBadgePaddingX: var(--spacing-sm);
+  --KBadgePaddingX: #{$kui-space-50};
   cursor: pointer;
+
   a &:hover {
     text-decoration: none;
-  }
-
-  &.badge-white {
-    color: var(--blue-500);
-    background-color: var(--white);
-    border: 1px solid var(--steel-200);
-  }
-  &.badge-grey {
-    color: var(--black-70);
-    background-color: var(--black-10);
-    &:hover {
-      background-color: var(--black-25);
-    }
-  }
-  &.badge-blue {
-    color: var(--blue-500);
-    background-color: var(--blue-200);
-    &:hover {
-      background-color: var(--blue-300);
-    }
   }
 }
 
 .top-border {
   padding-top: 1.5rem;
-  border-top: 1px solid var(--black-10);
+  border-top: 1px solid rgba(0, 0, 0, .1);
 }
 
 .bottom-border {
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--black-10);
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
-.text-muted { color: var(--black-45) !important; }
-.text-danger { color: var(--red-500) !important; }
+.text-muted { color: rgba(0, 0, 0, .45) !important; }
+.text-danger { color: #d44324 !important; }
 
 .h-100 { height: 100%; }
 .h-screen { min-height: 100vh;}
@@ -123,72 +104,6 @@
 
 .text-nowrap {
   white-space: nowrap;
-}
-
-/* Tabs - Bootstrap styling 😢️😩️ */
-.nav {
-  display: flex;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  &.nav-tabs {
-    border-bottom: 1px solid var(--grey-300);
-    .nav-item {
-      margin-bottom: -1px;
-      cursor: pointer;
-    }
-    .nav-link {
-      display: block;
-      color: var(--black-45);
-      padding: var(--spacing-xs) var(--spacing-md);
-      border: 1px solid transparent;
-      border-top-right-radius: 3px;
-      border-top-left-radius: 3px;
-      &.active {
-        color: var(--blue-700);
-        border-color: var(--grey-300) var(--grey-300) #fff;
-        background-color: #fff;
-        &:hover,
-        &:focus {
-          border-color: var(--grey-300) var(--grey-300) #fff;
-        }
-      }
-      &:hover,
-      &:focus {
-        text-decoration: none;
-        border-color: var(--grey-200) var(--grey-200) var(--grey-300);
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 1650px) {
-.sidebar-content-margin {
-    margin-left: var(--sidebarOpenWidth);
-    &.has-subnav {
-      margin-left: calc(var(--sidebarCollapsedWidth) + var(--subnavWidth));
-    }
-  }
-}
-/* Show pages */
-.widget-cards {
-  .k-card {
-    margin-bottom: 0;
-  }
-  .k-table {
-    --spacing-md: 12px;
-    .float-right { margin: 0 !important; }
-    .btn-link { padding: 0; }
-  }
-}
-
-/* Product's publish status */
-.publish-status {
-  --KBadgePaddingX: var(--spacing-xs);
-  --KBadgePaddingY: 1px;
-  --KBadgeFontSize: var(--type-xs);
-  text-transform: uppercase;
-  vertical-align: middle;
 }
 
 // make uuid-icon-wrapper inline-block so it stays on the same line
