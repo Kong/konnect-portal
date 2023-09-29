@@ -41,7 +41,7 @@
       />
     </div>
     <PaginationBar
-      class="pagination-bar mt-4"
+      class="pagination-bar container mt-4"
       :page-size="cardsPerPage"
       :total-count="totalCount"
       :search-triggered="searchTriggered"
@@ -128,6 +128,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .products-content {
   --grey-500: var(--button_colors-primary-fill);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .products-label {
     color: var(--text_colors-primary);
