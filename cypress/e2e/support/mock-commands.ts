@@ -419,6 +419,36 @@ Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, conf
     }).as('getProductVersionApplicationRegistration')
 })
 
+Cypress.Commands.add('mockProductVersionAvailableRegistrations', (productId, versionId, apps) => {
+  const availableRegistrations = apps.map((app) => {
+    return {
+      created_at: app.created_at,
+      updated_at: app.updated_at,
+      name: app.name,
+      id: app.id,
+      registration_id: null,
+      registration_status: null
+    }
+  })
+
+  const response = {
+    data: availableRegistrations,
+    meta: {
+      page: {
+        number: 1,
+        size: 15,
+        total: availableRegistrations.length
+      }
+    }
+  }
+
+  return cy.intercept(
+    'GET',
+    `**/api/v2/products/${productId}/versions/${versionId}/applications**`, {
+      body: response
+    }).as('getProductVersionAvailableRegistrations')
+})
+
 Cypress.Commands.add('mockProductsCatalog', (count = 1, overrides = [], pageNum = 1, pageSize = 12) => {
   const products = generateProducts(count, overrides)
   const response: SearchResults = {

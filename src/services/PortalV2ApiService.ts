@@ -15,6 +15,10 @@ import {
   ApplicationAnalyticsApi
 } from '@kong/sdk-portal-js'
 
+import {
+  VersionsApi as VersionsApiDev
+} from '@kong/sdk-portal-js-dev'
+
 export const ApiServiceAuthErrorReason = {
   NO_SESSION: 'NO_SESSION',
   SESSION_EXPIRED: 'SESSION_EXPIRED',
@@ -42,6 +46,7 @@ export default class PortalV2ApiService {
     registrationsApi: RegistrationsApi,
     documentationApi: DocumentationApi,
     versionsApi: VersionsApi,
+    versionsApiDev: VersionsApiDev,
     applicationAnalyticsApi: ApplicationAnalyticsApi
   }
 
@@ -81,6 +86,7 @@ export default class PortalV2ApiService {
       registrationsApi: new RegistrationsApi(baseConfig, this.baseURL, this.client),
       documentationApi: new DocumentationApi(baseConfig, this.baseURL, this.client),
       versionsApi: new VersionsApi(baseConfig, this.baseURL, this.client),
+      versionsApiDev: new VersionsApiDev(baseConfig, this.baseURL, this.client),
       applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client)
     }
 

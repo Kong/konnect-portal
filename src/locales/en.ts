@@ -179,10 +179,12 @@ export const en = {
   },
   applicationRegistration: {
     noAvailableApplications: 'You currently have no applications to register.',
+    noFoundApplications: 'You currently have no applications with that name.',
     noApplications: 'No Applications',
     selectApplication: 'Select Application',
     createNewApplication: 'Create new Application +',
     createApplication: 'Create an Application',
+    searchPlaceholder: 'Search applications',
     cancelButton: 'Cancel',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
     modalApplicationRegistrationDefault: {
