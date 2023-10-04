@@ -82,7 +82,7 @@
         data-testid="submit-registration"
         :is-rounded="false"
         appearance="primary"
-        :disabled="currentState.matches('pending')"
+        :disabled="currentState.matches('pending') || !selectedApplication"
         class="button-spacing"
         @click="currentState.matches('success_application_status_is_pending') ? closeModal() : submitSelection()"
       >
@@ -151,8 +151,8 @@ export default defineComponent({
     ]
 
     const ktablePaginationConfig = ref({
-      paginationPageSizes: [10, 50, 100],
-      initialPageSize: 10
+      paginationPageSizes: [5, 25, 50],
+      initialPageSize: 5
     })
 
     const { portalApiV2 } = usePortalApi()
@@ -281,6 +281,7 @@ export default defineComponent({
     const closeModal = () => {
       send('CLOSED')
       emit('close')
+      selectedApplication.value = null
       searchStr.value = ''
     }
 
