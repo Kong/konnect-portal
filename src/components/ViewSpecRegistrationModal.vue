@@ -151,8 +151,8 @@ export default defineComponent({
     ]
 
     const ktablePaginationConfig = ref({
-      paginationPageSizes: [15, 50, 100],
-      initialPageSize: 15
+      paginationPageSizes: [10, 50, 100],
+      initialPageSize: 10
     })
 
     const { portalApiV2 } = usePortalApi()
@@ -206,10 +206,6 @@ export default defineComponent({
       }
     }
 
-    // const revalidate = () => {
-    //   key.value += 1
-    // }
-
     const handleRowClick = (e, row) => {
       selectedApplication.value = row.id
     }
@@ -228,7 +224,7 @@ export default defineComponent({
 
       send('FETCH')
 
-      return portalApiV2.value.service.versionsApiDev.getApplicationsByProductVersion(requestOptions)
+      return portalApiV2.value.service.versionsApi.getApplicationsByProductVersion(requestOptions)
         .then((res) => {
           send('RESOLVE')
 
@@ -350,7 +346,7 @@ export default defineComponent({
     .modal-dialog {
       margin-top: 4rem;
       margin-bottom: 0;
-      max-width: 600px;
+      max-width: 750px;
     }
   }
   .k-table-toolbar {
