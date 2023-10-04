@@ -183,6 +183,8 @@ export const fr: I18nType = {
   },
   applicationRegistration: {
     noAvailableApplications: 'Vous n\'avez actuellement aucune application à enregistrer.',
+    noFoundApplications: translationNeeded(en.applicationRegistration.noFoundApplications),
+    searchPlaceholder: translationNeeded(en.applicationRegistration.searchPlaceholder),
     noApplications: 'Aucune application',
     selectApplication: 'Sélectionner une application',
     createNewApplication: 'Créer une nouvelle application +',

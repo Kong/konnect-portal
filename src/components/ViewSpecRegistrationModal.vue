@@ -22,60 +22,42 @@
           v-if="currentState.matches('error') "
           appearance="danger"
           :alert-message="errorMessage"
-          class="mb-4"
+          class="alert-message"
         />
-        <div v-if="!availableApplications.length">
-          <p class="color-text_colors-primary">
-            {{ helpText.applicationRegistration.noAvailableApplications }}
-          </p>
-          <div v-if="registeredApplications.length">
-            <p>
-              {{ alreadyRegisteredMessage }}
+        <KTable
+          :is-loading="currentState.matches('pending')"
+          data-testid="applications-list"
+          :fetcher-cache-key="fetcherCacheKey"
+          :empty-state-title="helpText.applicationRegistration.noApplications"
+          :empty-state-message="searchStr ? helpText.applicationRegistration.noFoundApplications : helpText.applicationRegistration.noAvailableApplications"
+          :fetcher="fetcher"
+          has-side-border
+          :headers="tableHeaders"
+          :pagination-page-sizes="ktablePaginationConfig.paginationPageSizes"
+          :row-attrs="rowAttrsFn"
+          :initial-fetcher-params="{ pageSize: ktablePaginationConfig.initialPageSize }"
+          :search-input="searchStr"
+          @row:click="handleRowClick"
+        >
+          <template #toolbar="{ state }">
+            <div class="applications-toolbar">
+              <KInput
+                v-if="state.hasData || searchStr"
+                v-model="searchStr"
+                :placeholder="helpText.applicationRegistration.searchPlaceholder"
+                type="search"
+              />
+            </div>
+          </template>
+          <template #name="{ row }">
+            <p
+              class="table-text"
+              :data-testid="`register-${row.name}`"
+            >
+              {{ row.name }}
             </p>
-            <ul class="registered-apps-list">
-              <li
-                v-for="app in registeredApplications"
-                :key="app.id"
-              >
-                <router-link
-                  :to="{
-                    name: 'show-application',
-                    params: { 'application_id': app.id }
-                  }"
-                  class="color-blue-500"
-                >
-                  {{ app.name }}
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div v-else>
-          <div class="color-text_colors-primary font-semibold mb-2">
-            {{ helpText.applicationRegistration.selectApplication }}
-          </div>
-          <div>
-            <select
-              v-model="selectedApplication"
-              class="k-input w-100 mb-4"
-            >
-              <option
-                v-for="app in availableApplications"
-                :key="app.id"
-                :value="app.id"
-              >
-                {{ app.name }}
-              </option>
-            </select>
-            <router-link
-              data-testid="create-application-2"
-              :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
-              class="color-blue-500"
-            >
-              {{ helpText.applicationRegistration.createNewApplication }}
-            </router-link>
-          </div>
-        </div>
+          </template>
+        </KTable>
       </div>
       <div v-if="currentState.matches('success_application_status_is_pending')">
         <p class="color-text_colors-primary">
@@ -85,12 +67,12 @@
     </template>
     <template #footer-content>
       <KButton
-        v-if="!availableApplications.length"
+        v-if="!applications.length"
         data-testid="create-application"
         :is-rounded="false"
         appearance="primary"
         :disabled="currentState.matches('pending')"
-        class="mr-3"
+        class="button-spacing"
         :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
       >
         {{ helpText.applicationRegistration.createApplication }}
@@ -100,8 +82,8 @@
         data-testid="submit-registration"
         :is-rounded="false"
         appearance="primary"
-        :disabled="currentState.matches('pending')"
-        class="mr-3"
+        :disabled="currentState.matches('pending') || !selectedApplication"
+        class="button-spacing"
         @click="currentState.matches('success_application_status_is_pending') ? closeModal() : submitSelection()"
       >
         {{ modalText.buttonText }}
@@ -119,7 +101,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMachine } from '@xstate/vue'
 import { createMachine } from 'xstate'
@@ -127,7 +109,6 @@ import useToaster from '@/composables/useToaster'
 import usePortalApi from '@/hooks/usePortalApi'
 import { useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
-import { fetchAll } from '@/helpers/fetchAll'
 
 export default defineComponent({
   name: 'ViewSpecRegistrationModal',
@@ -157,10 +138,22 @@ export default defineComponent({
     const $route = useRoute()
     const { notify } = useToaster()
 
+    const searchStr = ref('')
     const helpText = useI18nStore().state.helpText
     const errorMessage = ref('')
     const selectedApplication = ref('')
     const applications = ref([])
+    const key = ref(0)
+    const fetcherCacheKey = computed(() => key.value.toString())
+
+    const tableHeaders = [
+      { label: 'Name', key: 'name' }
+    ]
+
+    const ktablePaginationConfig = ref({
+      paginationPageSizes: [5, 25, 50],
+      initialPageSize: 5
+    })
 
     const { portalApiV2 } = usePortalApi()
 
@@ -204,65 +197,55 @@ export default defineComponent({
       }[currentState.value.matches('success_application_status_is_pending') ? 'success' : 'default']
     })
 
-    const availableApplications = computed(() => {
-      return applications.value.filter(app => {
-        if (app?.registrations?.length > 0) {
-          return app.registrations.every(r => r.product_version_id !== props.version?.id)
-        }
-
-        return app
-      })
-    })
-
-    const registeredApplications = computed(() => {
-      return applications.value.filter(app => {
-        if (app?.registrations?.length > 0) {
-          return app.registrations.some(r => r.product_version_id === props.version?.id)
-        }
-
-        return app
-      })
-    })
-
-    const attachRegistrations = async (apps) => {
-      const appsWithReg = await Promise.all(apps.map(async app => {
-        app.registrations = await fetchAll((meta) => portalApiV2.value.service.registrationsApi.listApplicationRegistrations({ applicationId: app.id, ...meta }))
-
-        return app
-      }))
-
-      return appsWithReg
+    const rowAttrsFn = (rowItem) => {
+      return {
+        class: {
+          selected: rowItem.id === selectedApplication.value
+        },
+        'data-testid': 'row-item'
+      }
     }
 
-    const initializeSelectedApplication = () => {
-      // no available applications, return
-      if (!availableApplications.value.length) {
-        return
-      }
-
-      // if initialSelectedApplication prop exists in availableApplications, return initialSelectedApplication (id)
-      if (availableApplications.value.some(app => app.id === props.initialSelectedApplication)) {
-        return props.initialSelectedApplication
-      }
-
-      // otherwise, return the first available application id
-      return availableApplications.value[0].id
+    const handleRowClick = (e, row) => {
+      selectedApplication.value = row.id
     }
 
-    const fetchApplications = () => {
+    const fetcher = async (payload: { pageSize: number; page: number }) => {
+      const { pageSize, page: pageNumber } = payload
+
+      const requestOptions = {
+        productId: props.product?.id || $route.params.product,
+        versionId: props.version?.id || $route.params.product_version,
+        ...(searchStr.value.length && { filterNameContains: searchStr.value }),
+        unregistered: true,
+        pageNumber,
+        pageSize
+      }
+
       send('FETCH')
-      fetchAll((meta) => portalApiV2.value.service.applicationsApi.listApplications(meta))
-        .then(async (apps) => {
-          applications.value = await attachRegistrations(apps)
-          selectedApplication.value = initializeSelectedApplication()
+
+      return portalApiV2.value.service.versionsApi.getApplicationsByProductVersion(requestOptions)
+        .then((res) => {
           send('RESOLVE')
+
+          applications.value = res.data.data
+
+          return {
+            data: res.data.data,
+            total: res.data.meta.page.total
+          }
+        }).catch((e) => {
+          send('RESOLVE')
+
+          return handleError(e)
         })
-        .catch(error => {
-          console.error(error)
-          send('REJECT', {
-            errorMessage: getMessageFromError(error)
-          })
-        })
+    }
+
+    const handleError = (error: any) => {
+      notify({
+        appearance: 'danger',
+        message: getMessageFromError(error)
+      })
     }
 
     const submitSelection = () => {
@@ -274,7 +257,6 @@ export default defineComponent({
         }
       })
         .then(
-          /** @param {import('axios').AxiosResponse<{status: 'approved'|'pending'}>} res */
           res => {
             let message = 'Registration '
 
@@ -299,22 +281,13 @@ export default defineComponent({
     const closeModal = () => {
       send('CLOSED')
       emit('close')
+      selectedApplication.value = null
+      searchStr.value = ''
     }
 
-    watch(() => props.isVisible, (newState) => {
-      if (newState) {
-        fetchApplications()
-      }
-    })
-
-    watch(selectedApplication, (newSelectedApplication) => {
-      if (newSelectedApplication && newSelectedApplication !== $route.query.application) {
-        $router.replace({
-          query: {
-            ...$route.query,
-            application: newSelectedApplication
-          }
-        })
+    onMounted(() => {
+      if (props.initialSelectedApplication) {
+        searchStr.value = props.initialSelectedApplication
       }
     })
 
@@ -326,10 +299,15 @@ export default defineComponent({
       applications,
       selectedApplication,
       helpText,
+      rowAttrsFn,
+      fetcher,
       modalText,
-      availableApplications,
+      searchStr,
+      tableHeaders,
+      fetcherCacheKey,
+      ktablePaginationConfig,
       alreadyRegisteredMessage,
-      registeredApplications,
+      handleRowClick,
       submitSelection,
       closeModal
     }
@@ -339,20 +317,41 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 
- .registered-apps-list {
-   margin-top: 1rem;
-   list-style: none;
-   text-align: left;
-   padding-left: var(--spacing-xl, 32px);
+ .table-text {
+  text-align: left;
  }
+
+ .application-registration-modal {
+  :deep(.selected) {
+    background-color: var(--text_colors-accent) !important;
+
+    td {
+      color: var(--section_colors-body) !important;
+    }
+  }
+
+  // TODO: kui vars
+  .alert-message {
+    margin-bottom: 16px;
+  }
+  .button-spacing {
+    margin-right: 12px;
+  }
+ }
+
 </style>
 
 <style lang="scss">
 .application-registration-modal {
   .modal-backdrop {
     .modal-dialog {
-      margin-top: 7rem;
+      margin-top: 4rem;
+      margin-bottom: 0;
+      max-width: 750px;
     }
+  }
+  .k-table-toolbar {
+    margin-bottom: 8px !important;
   }
 }
 </style>

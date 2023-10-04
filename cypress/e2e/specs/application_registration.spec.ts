@@ -91,9 +91,6 @@ Cypress.Commands.add('createNewApplication', (app, productId, versions) => {
   cy.get(submitButton).click()
 
   cy.url().should('include', `/spec/${productId}`)
-  cy.get(selectors.appRegModal).should('exist')
-  cy.get(`${selectors.appRegModal} select`)
-    .should('contain', app.name)
 
   return cy.document().then(document => {
     const params = (new URL(document.location.toString())).searchParams
@@ -138,6 +135,7 @@ describe('Application Registration', () => {
   describe('Create Application', () => {
     it('can create a new applications from spec page', () => {
       mockApplicationWithCredAndReg(apps[0])
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, [])
       cy.mockApplications([apps[0]], 1)
       cy.createNewApplication(apps[0], product.id, versions)
     })
@@ -501,10 +499,11 @@ describe('Application Registration', () => {
       cy.get('.swagger-ui', { timeout: 12000 })
 
       cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
 
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
       cy.get(selectors.appRegModal).should('exist')
-      cy.get(`${selectors.appRegModal} select`).should('contain', apps[0].name)
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
 
       const mockCreateRegResponse = {
         ...productRegistration,
@@ -540,10 +539,11 @@ describe('Application Registration', () => {
       cy.visit(`/spec/${product.id}`)
 
       cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
 
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
       cy.get(selectors.appRegModal).should('exist')
-      cy.get(`${selectors.appRegModal} select`).should('contain', apps[0].name)
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
 
       cy.intercept(
         'POST',
@@ -563,35 +563,25 @@ describe('Application Registration', () => {
     })
 
     it('cannot duplicate a registration request', () => {
-      cy.createNewApplication(apps[2], product.id, versions)
-      cy.viewport(1440, 900)
-
       cy.mockProductDocument()
-      cy.visit(`/spec/${product.id}`).get('.swagger-ui', {
-        timeout: 12000
-      })
-      cy.get('[data-testid="register-button"]', { timeout: 12000 })
-      cy.mockRegistrations(apps[0].id, [productRegistration])
-      cy.mockRegistrations(apps[1].id, [productRegistration])
+      cy.mockProduct()
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', [])
 
-      cy.mockApplications(
-        [
-          { ...apps[0] },
-          { ...apps[1] },
-          apps[2]
-        ],
-        3
-      )
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
 
-      cy.get('[data-testid="register-button"]').click()
-      cy.get(`${selectors.appRegModal} select`)
-        .contains(apps[0].name)
-        .should('not.exist')
-      cy.get(`${selectors.appRegModal} select`)
-        .contains(apps[1].name)
-        .should('not.exist')
-      cy.get(`${selectors.appRegModal} select`).should('contain', apps[2].name)
-      cy.get('[data-testid=create-application-2]').should('exist')
+      cy.mockApplications(apps, 3)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, [apps[2]])
+
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('not.exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[1].name}"]`).should('not.exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[2].name}"]`).should('exist')
     })
   })
 
