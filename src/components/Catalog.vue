@@ -28,7 +28,10 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div
+      v-else
+      class="list-wrapper"
+    >
       <CatalogCardList
         v-if="activeView == 'grid'"
         :products="catalogItems"
@@ -39,14 +42,14 @@
         :products="catalogItems"
         :loading="loading"
       />
+      <PaginationBar
+        class="pagination-bar container max-w-screen-2xl mx-auto"
+        :page-size="cardsPerPage"
+        :total-count="totalCount"
+        :search-triggered="searchTriggered"
+        @pageChanged="$emit('list-page-changed', $event)"
+      />
     </div>
-    <PaginationBar
-      class="pagination-bar container mt-4"
-      :page-size="cardsPerPage"
-      :total-count="totalCount"
-      :search-triggered="searchTriggered"
-      @pageChanged="$emit('list-page-changed', $event)"
-    />
   </div>
 </template>
 
@@ -126,6 +129,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.list-wrapper {
+  width: 100%;
+}
+
+.pagination-bar {
+  // TODO: Kui variables
+  margin-top: 16px;
+}
+
 .products-content {
   --grey-500: var(--button_colors-primary-fill);
   display: flex;
