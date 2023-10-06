@@ -284,6 +284,8 @@ export const de: I18nType = {
     plus: 'Plus',
     myApps: 'Meine Applikationen',
     refreshSecret: 'Secret erneuern',
+    noSearchResults: translationNeeded(en.myApp.noSearchResults),
+    searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Löschen',
     cancel: 'Abbrechen',
     noApp: 'Keine Applikationen',
