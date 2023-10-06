@@ -87,6 +87,7 @@ export default defineComponent({
     border-radius: 3px;
     left: 50%;
     transform: translateX(-50%);
+    top: 41px;
     background-color: var(--section_colors-tertiary);
     li {
       &:last-child { border-top: 1px solid var(--section_colors-stroke); }
