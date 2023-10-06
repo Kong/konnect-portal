@@ -32,7 +32,7 @@
       </template>
     </PageTitle>
     <div
-      v-if="contextualAnalytics && !vitalsLoading && myAppsReady"
+      v-if="!vitalsLoading && myAppsReady"
     >
       <MetricsProvider
         v-slot="{ timeframe }"
@@ -76,7 +76,6 @@
               <ActionsDropdown :key="row.id">
                 <template #content>
                   <div
-                    v-if="contextualAnalytics"
                     data-testid="dropdown-analytics-dashboard"
                     class="dropdown-analytics-dashboard"
                     @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
@@ -182,8 +181,6 @@
 import { defineComponent, computed, ref, onMounted } from 'vue'
 import { useMachine } from '@xstate/vue'
 import { createMachine } from 'xstate'
-import { FeatureFlags } from '@/constants/feature-flags'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import RefreshTokenModal from '@/components/RefreshTokenModal.vue'
 import PageTitle from '@/components/PageTitle.vue'
@@ -218,9 +215,6 @@ export default defineComponent({
     const helpText = useI18nStore().state.helpText.myApp
     const helpTextVitals = useI18nStore().state.helpText.analytics
     const vitalsLoading = ref(true)
-
-    // @ts-ignore: Dev Portal doesn't have TS for feature flags.
-    const contextualAnalytics = useLDFeatureFlag(FeatureFlags.PortalContextualAnalytics, false)
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
@@ -365,7 +359,6 @@ export default defineComponent({
       helpText,
       helpTextVitals,
       analyticsCardTitle,
-      contextualAnalytics,
       vitalsLoading,
       metricProviderProps,
       myAppsReady

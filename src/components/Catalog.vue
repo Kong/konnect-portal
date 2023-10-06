@@ -28,20 +28,26 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div
+      v-else
+      class="list-wrapper"
+    >
       <CatalogCardList
         v-if="activeView == 'grid'"
         :products="catalogItems"
-        :page-size="cardsPerPage"
-        :total-count="totalCount"
-        :search-triggered="searchTriggered"
         :loading="loading"
-        @page-changed="$emit('cards-page-changed', $event)"
       />
       <CatalogTableList
         v-else
         :products="catalogItems"
         :loading="loading"
+      />
+      <PaginationBar
+        class="pagination-bar container max-w-screen-2xl mx-auto"
+        :page-size="cardsPerPage"
+        :total-count="totalCount"
+        :search-triggered="searchTriggered"
+        @pageChanged="$emit('list-page-changed', $event)"
       />
     </div>
   </div>
@@ -51,6 +57,7 @@
 import { PropType, defineComponent } from 'vue'
 import EmptyState from '../assets/catalog-empty-state.svg'
 import CatalogCardList from './CatalogCardList.vue'
+import PaginationBar from './PaginationBar.vue'
 import CatalogTableList from './CatalogTableList.vue'
 import { CatalogItemModel, useI18nStore } from '@/stores'
 
@@ -59,6 +66,7 @@ export default defineComponent({
   components: {
     CatalogCardList,
     CatalogTableList,
+    PaginationBar,
     EmptyState
   },
   props: {
@@ -83,7 +91,7 @@ export default defineComponent({
       default: false
     }
   },
-  emits: ['cards-page-changed', 'active-view-changed'],
+  emits: ['list-page-changed', 'active-view-changed'],
   setup () {
     const helpText = useI18nStore().state.helpText.catalog
     const catalogTitle = helpText.entityTypeProduct
@@ -121,8 +129,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.list-wrapper {
+  width: 100%;
+}
+
+.pagination-bar {
+  // TODO: Kui variables
+  margin-top: 16px;
+}
+
 .products-content {
   padding: 0 $kui-space-80;
+  --grey-500: var(--button_colors-primary-fill);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   .products-label {
     color: var(--text_colors-primary);

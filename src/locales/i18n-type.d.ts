@@ -179,12 +179,14 @@ export interface I18nType {
   };
   applicationRegistration: {
     noAvailableApplications: string;
+    noFoundApplications: string;
     noApplications: string;
     selectApplication: string;
     createNewApplication: string;
     createApplication: string;
     cancelButton: string;
     registeredApplicationsProduct: string;
+    searchPlaceholder: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;
       buttonText: string;

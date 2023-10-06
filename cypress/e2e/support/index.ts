@@ -29,6 +29,7 @@ declare global {
       mockContextualAnalytics(): Chainable<JQuery<HTMLElement>>
       mockRegistrations(applicationId?: string, registrations?: Array<GetRegistrationResponse>, totalCount?: number): Chainable<JQuery<HTMLElement>>
       mockProductVersionApplicationRegistration(value:any): Chainable<JQuery<HTMLElement>>
+      mockProductVersionAvailableRegistrations(productId: string, versionId: string, apps: GetApplicationResponse[]): Chainable<JQuery<HTMLElement>>
       mockProductsCatalog(count?: number, overrides?: Partial<ProductCatalogIndexSource>[], pageNum?:number, pageSize?:number): Chainable<JQuery<HTMLElement>>
       mockGetProductDocumentBySlug(servicePckageId: string, slug:string, options?:Partial<TypeOptions> & {document?:any, revision?: any}): Chainable<JQuery<HTMLElement>>
       mockGetProductDocuments(productId:string): Chainable<JQuery<HTMLElement>>

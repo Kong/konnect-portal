@@ -115,7 +115,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return spec.value.statusCode !== 404 && currentVersion.value.registration_configs?.length && isAllowedToRegister.value
+      return currentVersion.value.registration_configs?.length && isAllowedToRegister.value
     })
 
     const helpText = useI18nStore().state.helpText

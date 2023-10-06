@@ -95,7 +95,7 @@ watch([
 <style scoped lang="scss">
   aside {
     width: 100%;
-    max-width: 260px;
+    max-width: 330px;
   }
 
   .content {
@@ -116,6 +116,9 @@ watch([
     font-size: 20px;
     font-weight: 500;
     margin-bottom: $kui-space-80;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .version-select-dropdown :deep(div.k-select-input.select-input-container) {

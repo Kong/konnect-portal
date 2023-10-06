@@ -3,18 +3,21 @@
 ![Stars](https://img.shields.io/github/stars/Kong/konnect-portal?style=flat-square)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Kong/konnect-portal?style=flat-square)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Tests](https://github.com/Kong/konnect-portal/actions/workflows/pr.yml/badge.svg)](https://github.com/Kong/konnect-portal/actions/workflows/pr.yml)
+[![Deploy Example App](https://github.com/Kong/konnect-portal/actions/workflows/github-pages.yml/badge.svg?branch=main)](https://github.com/Kong/konnect-portal/actions/workflows/github-pages.yml)
+[![Semantic Release](https://github.com/Kong/konnect-portal/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/Kong/konnect-portal/actions/workflows/release.yml)
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue?style=flat-square)
 
 ![Twitter Follow](https://img.shields.io/twitter/follow/thekonginc?style=social)
 
 # Konnect Dev Portal Client
 
-This repo is an [open source][oss-url] reference implementation of a Konnect Developer Portal Client leveraging the [Konnect Developer Portal Client API][portal-api-url] and [JavaScript SDK][javscript-sdk-url].
+This repo is an [open source][oss-url] reference implementation of a Konnect Developer Portal Client leveraging the [Konnect Developer Portal Client API][portal-api-url] and [JavaScript SDK][javascript-sdk-url].
 
 The [Konnect Dev Portal][konnect-docs-url] is a web application for developers to locate, access, and consume API services. The Dev Portal enables developers to browse and search API documentation, test API endpoints, and manage their own credentials.
 
 In [Kong Konnect][kong-konnect-register-url], you have two hosting options for the Dev Portal web user interface: a cloud hosted Dev Portal with Konnect or a self-hosted, open source Dev Portal powered by Konnect APIs.
+
+Check out the [example app](https://konnect-portal.konghq.com/) to get an idea of what this client app looks like out-of-the-box.
 
 ## Self-hosted Dev Portal benefits
 
@@ -186,4 +189,4 @@ limitations under the License.
 [konnect-docs-url]: https://docs.konghq.com/konnect/
 [oss-url]: https://en.wikipedia.org/wiki/Open-source_software
 [yarn-install-url]: https://classic.yarnpkg.com/lang/en/docs/install
-[javscript-sdk-url]: https://www.npmjs.com/package/@kong/sdk-portal-js
+[javascript-sdk-url]: https://www.npmjs.com/package/@kong/sdk-portal-js

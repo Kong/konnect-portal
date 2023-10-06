@@ -1,4 +1,4 @@
-import { SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import { ProductCatalogIndexSourceLatestVersion, SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
 import { generateProducts } from '../support/utils/generateProducts'
 
 const mockProductSearchQuery = (searchQuery: string) => {
@@ -72,6 +72,7 @@ describe('Catalog', () => {
     cy.mockStylesheetFont()
     cy.mockAppearance()
     cy.mockStylesheetCss()
+    cy.mockProductVersionSpec()
   })
 
   describe('Catalog card view', () => {
@@ -113,6 +114,16 @@ describe('Catalog', () => {
       cy.url().should('include', '/spec')
     })
 
+    it('does not render specification link if no latest version', () => {
+      cy.mockPublicPortal()
+      cy.mockProduct()
+      cy.mockProductsCatalog(1, [{ description: 'great description', latest_version: null as ProductCatalogIndexSourceLatestVersion }])
+
+      cy.visit('/')
+
+      cy.get('.catalog-item .link').should('not.exist')
+    })
+
     it('displays an empty state with no products', () => {
       cy.mockPublicPortal()
       cy.mockProductsCatalog(0)
@@ -138,6 +149,13 @@ describe('Catalog', () => {
       cy.visit('/')
       cy.get('.catalog-item .link').contains('Documentation').should('exist')
     })
+
+    it('does not render the documentation link for catalog item if no documents', () => {
+      cy.mockPrivatePortal()
+      cy.mockProductsCatalog(1, [{ description: 'great description' }])
+      cy.visit('/')
+      cy.get('.catalog-item .link').contains('Documentation').should('not.exist')
+    })
   })
 
   describe('Catalog table view', () => {
@@ -153,6 +171,10 @@ describe('Catalog', () => {
     it('displays the table view', () => {
       cy.get('.k-table').should('have.length', 1)
       cy.get('.k-table tbody td:nth-of-type(1)').should('have.length', 13)
+      cy.get('.card-pagination-bar')
+        .should('have.length', 1)
+        .get('.card-pagination-bar')
+        .contains('1 - 12 of 13')
     })
 
     it('goes to details view on click', () => {

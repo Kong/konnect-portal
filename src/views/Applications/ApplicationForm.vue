@@ -324,7 +324,7 @@ export default defineComponent({
             clientId.value = res.data.credentials?.client_id
             clientSecret.value = res.data.credentials?.client_secret
           } else {
-            handleSuccess(res.data.id, 'created')
+            handleSuccess(res.data.id, res.data.name, 'created')
           }
         })
         .catch((error) => handleError(error))
@@ -339,7 +339,7 @@ export default defineComponent({
           applicationId: id.value,
           updateApplicationPayload: cleanupEmptyFields(formData.value) as { name: string, [x: string]: any }
         })
-        .then((res) => handleSuccess(res.data.id, 'updated'))
+        .then((res) => handleSuccess(res.data.id, res.data.name, 'updated'))
         .catch((error) => handleError(error))
     }
 
@@ -347,7 +347,7 @@ export default defineComponent({
       errorMessage.value = ''
       portalApiV2.value.service.applicationsApi
         .deleteApplication({ applicationId: id.value })
-        .then(() => handleSuccess('', 'deleted'))
+        .then(() => handleSuccess('', '', 'deleted'))
         .catch((error) => handleError(error))
     }
 
@@ -380,10 +380,10 @@ export default defineComponent({
       send('CLICKED_CANCEL')
       secretModalIsVisible.value = false
 
-      handleSuccess(applicationId.value, 'created')
+      handleSuccess(applicationId.value, '', 'created')
     }
 
-    const getRedirectRoute = (id: string) => {
+    const getRedirectRoute = (id: string, name: string) => {
       if (!id) {
         return { path: '/my-apps' }
       }
@@ -400,7 +400,7 @@ export default defineComponent({
             product_version: $route.query.product_version
           },
           query: {
-            application: id
+            application: name
           }
         }
       }
@@ -409,13 +409,13 @@ export default defineComponent({
       return { path: `/application/${id}` }
     }
 
-    const handleSuccess = (id: string, action: string): void => {
+    const handleSuccess = (id: string, name: string, action: string): void => {
       send('RESOLVE')
       notify({
         message: `Application successfully ${action}`
       })
 
-      $router.push(getRedirectRoute(id))
+      $router.push(getRedirectRoute(id, name))
     }
 
     const handleError = (error) => {
