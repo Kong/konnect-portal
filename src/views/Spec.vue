@@ -493,7 +493,7 @@ export default defineComponent({
 
   .responsive-container .breadcrumbs {
     position: relative;
-    left: 8px;
+    padding-left: $kui-space-90;
   }
 
   .swagger-ui .version-pragma {

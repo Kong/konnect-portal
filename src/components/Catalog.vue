@@ -43,7 +43,7 @@
         :loading="loading"
       />
       <PaginationBar
-        class="pagination-bar container max-w-screen-2xl mx-auto"
+        class="pagination-bar responsive-container"
         :page-size="cardsPerPage"
         :total-count="totalCount"
         :search-triggered="searchTriggered"
@@ -134,8 +134,7 @@ export default defineComponent({
 }
 
 .pagination-bar {
-  // TODO: Kui variables
-  margin-top: 16px;
+  margin: $kui-space-60 auto 0 auto;
 }
 
 .products-content {

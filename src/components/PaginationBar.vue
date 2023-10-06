@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="!searchTriggered && totalCount > pageSize"
-    class="card-pagination-bar flex items-center justify-end"
+    class="catalog-pagination-bar"
   >
     <span class="pagination-text color-text_colors-secondary">{{ getPaginationString() }}</span>
     <div>
@@ -172,7 +172,11 @@ export default defineComponent({
 </style>
 
 <style lang="scss">
-.card-pagination-bar {
+.catalog-pagination-bar {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
   .pagination-button .kong-icon path {
     fill: var(--text_colors-secondary);
     fill-opacity: unset;

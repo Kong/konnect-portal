@@ -330,12 +330,11 @@ export default defineComponent({
     }
   }
 
-  // TODO: kui vars
   .alert-message {
-    margin-bottom: 16px;
+    margin-bottom: $kui-space-60;
   }
   .button-spacing {
-    margin-right: 12px;
+    margin-right: $kui-space-50;
   }
  }
 
