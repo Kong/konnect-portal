@@ -85,6 +85,8 @@ export default defineComponent({
   ul {
     border: 1px solid var(--section_colors-stroke);
     border-radius: 3px;
+    border-top-left-radius: 0; 
+    border-top-right-radius: 0;
     left: 50%;
     transform: translateX(-50%);
     top: 41px;
