@@ -33,7 +33,7 @@
     "@kong-ui-public/spec-renderer": "0.11.28",
     "@kong/kong-auth-elements": "2.8.0",
     "@kong/kongponents": "8.123.3",
-    "@kong/sdk-portal-js": "2.2.0",
+    "@kong/sdk-portal-js": "2.3.4",
     "@xstate/vue": "2.0.0",
     "axios": "0.27.2",
     "date-fns": "2.30.0",
