@@ -284,6 +284,8 @@ export const ca_ES: I18nType = {
     plus: 'Més',
     myApps: 'Les meves aplicacions',
     refreshSecret: 'Actualitzar secret',
+    noSearchResults: translationNeeded(en.myApp.noSearchResults),
+    searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Eliminar',
     cancel: 'Cancel·lar',
     noApp: 'Sense aplicacions',

@@ -282,6 +282,8 @@ export interface I18nType {
     refreshSecret: string;
     delete: string;
     cancel: string;
+    searchPlaceholder: string;
+    noSearchResults: string;
     noApp: string;
     create: string;
     getStarted: string;

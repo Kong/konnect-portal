@@ -283,6 +283,8 @@ export const en = {
     delete: 'Delete',
     cancel: 'Cancel',
     noApp: 'No Applications',
+    searchPlaceholder: 'Search applications',
+    noSearchResults: 'No Applications Found',
     create: 'Create a new app',
     getStarted: ' to get started',
     deleteDialog: (name: string) => `Are you sure you want to delete ${name}? This action cannot be undone.`

@@ -66,9 +66,20 @@
             is-small
             class="applications-table"
             :pagination-page-sizes="paginationConfig.paginationPageSizes"
+            :search-input="searchStr"
             :initial-fetcher-params="{ pageSize: paginationConfig.initialPageSize }"
             @row:click="(_, row) => $router.push({ name: 'show-application', params: { application_id: row.id }})"
           >
+            <template #toolbar="{ state }">
+              <div class="applications-toolbar">
+                <KInput
+                  v-if="state.hasData || searchStr"
+                  v-model="searchStr"
+                  :placeholder="helpText.searchPlaceholder"
+                  type="search"
+                />
+              </div>
+            </template>
             <template #name="{ row }">
               {{ row.name }}
             </template>
@@ -102,7 +113,7 @@
             </template>
             <template #empty-state>
               <EmptyState
-                :title="helpText.noApp"
+                :title="searchStr ? helpText.noSearchResults : helpText.noApp"
               >
                 <template #message>
                   <p>
@@ -202,6 +213,7 @@ export default defineComponent({
   setup () {
     const { notify } = useToaster()
     const errorMessage = ref('')
+    const searchStr = ref('')
     const applications = ref([])
     const key = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
@@ -242,7 +254,11 @@ export default defineComponent({
 
     const fetcher = async (payload: { pageSize: number; page: number }) => {
       const { pageSize, page: pageNumber } = payload
-      const reqPayload = { pageNumber, pageSize }
+      const reqPayload = {
+        pageNumber,
+        pageSize,
+        ...(searchStr.value.length && { filterNameContains: searchStr.value })
+      }
 
       send('FETCH')
 
@@ -353,6 +369,7 @@ export default defineComponent({
       token,
       onModalClose,
       handleRefreshSecret,
+      searchStr,
       fetcherCacheKey,
       fetcher,
       paginationConfig,
