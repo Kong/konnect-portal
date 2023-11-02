@@ -152,6 +152,60 @@ Please follow the following branch naming scheme when creating your branch:
 
 This repo uses [Semantic Release](https://github.com/semantic-release/semantic-release) for automated releases once per week. The release is triggered by a GitHub Action on the `main` branch. The release is based on the commit messages, so please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
+## Spec Customization
+
+If you need to add or remove languages to the code snippet languages, you can pass in an object to `SpecDetails`.
+
+You may pass in a `themeOverrides` object to `SpecDetails`. Here is an example if you would like to override languages:
+
+```javascript
+        <SpecDetails
+          :theme-overrides="{
+            languages: [
+              {
+                prismLanguage: 'bash',
+                target: 'shell',
+                client: 'curl'
+              },
+              {
+                prismLanguage: 'javascript',
+                target: 'javascript',
+                client: 'xhr'
+              },
+              {
+                prismLanguage: 'java',
+                target: 'java'
+              },
+            ]
+          }"
+        />
+```
+
+The default languages are the following. They will be overridden by what you pass in to `SpecDetails`
+
+```javascript
+      languages = [
+        {
+          prismLanguage: 'bash',
+          target: 'shell',
+          client: 'curl'
+        },
+        {
+          prismLanguage: 'javascript',
+          target: 'javascript',
+          client: 'xhr'
+        },
+        {
+          prismLanguage: 'python',
+          target: 'python'
+        },
+        {
+          prismLanguage: 'ruby',
+          target: 'ruby'
+        }
+      ]
+```
+
 ## [Translations guidelines](./src/locales/README.md)
 
 ## Join the Community
