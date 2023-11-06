@@ -423,15 +423,10 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
-"@braintree/sanitize-url@=6.0.2":
+"@braintree/sanitize-url@6.0.2", "@braintree/sanitize-url@=6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-6.0.2.tgz#6110f918d273fe2af8ea1c4398a88774bb9fc12f"
   integrity sha512-Tbsj02wXCbqGmzdnXNk0SOF19ChhRU70BsroIi4Pm6Ehp56in6vch94mfbdQ17DozxkL3BAVjbZ4Qc1a0HFRAg==
-
-"@braintree/sanitize-url@^2.0.2":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-2.1.0.tgz#549a9d1f923c9bc7953a585d3e9aa9429be8fe28"
-  integrity sha512-zvYD5sSgXYCuiYMRWqGbpymH4fQ7w92n4I5t81g5ix7yalajoFd4hVQRAVIMKDWhuEkyOgTGXdcvds/C4Z3ITA==
 
 "@colors/colors@1.5.0":
   version "1.5.0"
@@ -1090,22 +1085,22 @@
   dependencies:
     approximate-number "^2.1.0"
 
-"@kong-ui-public/spec-renderer@0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.12.0.tgz#15a7839f3d7896515c80da6e4d5116355dd17709"
-  integrity sha512-7Bn/uq974YHGBZEfxpR7ciZ028ZVGGBqpaeb6Eyj56wx93TmQhYRKyvSGdQEgq1K5vTi2SaZPOXclu3+kGWBXA==
+"@kong-ui-public/spec-renderer@0.12.2":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.12.2.tgz#f737355a381362723780cfec274f1d04d0e5e23d"
+  integrity sha512-WEV3TykPHChN1aRcRTTdQjibtV7mGtslK7ocQquRl97BW0ZQqKML31u5ZOF9vASOXiSzATJdRedxnnZ9XJmjDg==
   dependencies:
     "@kong-ui-public/i18n" "^0.8.6"
-    "@kong-ui-public/swagger-ui-web-component" "^0.10.0"
+    "@kong-ui-public/swagger-ui-web-component" "^0.10.1"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.1"
 
-"@kong-ui-public/swagger-ui-web-component@^0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.0.tgz#df8455e03034b74df44a2e88a6639930abef1d67"
-  integrity sha512-jstHyz6nn6vSpDJ2U2xLhx4hfC3U/jPrRkWx2j6doPyw8JxeOvTAEZ5bZcLPk7+N9EXTtey9oKknxDGAcrTydQ==
+"@kong-ui-public/swagger-ui-web-component@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.1.tgz#4f1bbad7916947580a588eb5bf836e751c689cf7"
+  integrity sha512-vf4i3NiiTstJaxAxXnpnHOES2piy+jhi85b96XS2C58gwVVYWiz/d3ktfoBs4b1Jyo/d7W9BsnJf40oCYIpK3A==
   dependencies:
-    "@kong/swagger-ui-kong-theme-universal" "^4.2.8"
+    "@kong/swagger-ui-kong-theme-universal" "^4.3.1"
     react "17.0.2"
     react-dom "17.0.2"
     swagger-client "^3.23.0"
@@ -1146,12 +1141,12 @@
   dependencies:
     axios "0.27.2"
 
-"@kong/swagger-ui-kong-theme-universal@^4.2.8":
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/@kong/swagger-ui-kong-theme-universal/-/swagger-ui-kong-theme-universal-4.2.8.tgz#8d560c2b80e33b1e545034b79fafa6dcf5564be6"
-  integrity sha512-HS2Fjjd/tLWCmcEeRefzsDotsdNcF2d10L5ugzOYOuIMTRbCXq6wB7lTKJZQDCa7uy5syIeDuku1QSNpnmHOyw==
+"@kong/swagger-ui-kong-theme-universal@^4.3.1":
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@kong/swagger-ui-kong-theme-universal/-/swagger-ui-kong-theme-universal-4.3.1.tgz#f67e027f5d1130acb5f914a40636785200d37709"
+  integrity sha512-TcPO3lmzGdU+1XZ7wRt9ytK+fpoIHbiNmoqdvUg/LakbR5h00WI7cCjjwLL8sCheWPSgBQpH/vjCDuhABR4mbQ==
   dependencies:
-    "@braintree/sanitize-url" "^2.0.2"
+    "@braintree/sanitize-url" "6.0.2"
     "@kong/kongponents" "^8.32.0"
     "@kyleshockey/xml" "^1.0.2"
     classnames "^2.3.2"
