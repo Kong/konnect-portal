@@ -1,6 +1,4 @@
 import { authApi } from '@/services'
-import { usePermissionsStore, useAppStore } from '@/stores'
-import { storeToRefs } from 'pinia'
 
 /**
  * @typedef {Object} SessionUser
@@ -76,10 +74,6 @@ export default class SessionCookie {
   }
 
   async saveData (data: Record<string, any>, force = true) {
-    const appStore = useAppStore()
-    const permissionsStore = usePermissionsStore()
-    const { portalId, isRbacEnabled, isPublic } = storeToRefs(appStore)
-
     this.data = data
 
     const sessionExists = this.exists()
@@ -87,25 +81,6 @@ export default class SessionCookie {
     // or if the session doesn't exist and force is false.
     if (force || (!force && !sessionExists)) {
       localStorage.setItem(this.sessionName, this.encode(this.data))
-    }
-
-    if (sessionExists && !isPublic.value && isRbacEnabled.value) {
-      try {
-        const { data: developerPermissions } = await authApi.client.get(`/api/v2/portals/${portalId.value}/developers/me/permissions`)
-
-        // response can be a JSON (object) or string
-        // when permissions feature flag is not enabled, string with HTTP 200 is returned
-        if (typeof developerPermissions === 'object') {
-          // Add permission krns to the store
-          await permissionsStore.addKrns({
-            krns: developerPermissions,
-            replaceAll: true
-          })
-        }
-      } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to fetch permissions', e)
-      }
     }
   }
 

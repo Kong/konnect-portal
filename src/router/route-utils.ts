@@ -1,5 +1,5 @@
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { usePermissionsStore } from '@/stores'
+import { ProductAction, usePermissionsStore } from '@/stores'
 
 export const AUTH_ROUTES = {
   login: true,
@@ -18,7 +18,7 @@ export const PRIVATE_ROUTES = {
   ...AUTH_ROUTES
 }
 
-export function canUserAccess (krnArgs) {
+export function canUserAccess (krnArgs: { action: ProductAction; productId: string }) {
   const { canUserAccess } = usePermissionsStore()
 
   return canUserAccess(krnArgs)

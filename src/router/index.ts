@@ -87,10 +87,9 @@ export const portalRouter = () => {
                 name: 'spec',
                 meta: {
                   title: helpText.specTitle,
-                  isAuthorized: (route, { portalId }) => canUserAccess({
-                    service: 'konnect',
-                    action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.product}`
+                  isAuthorized: (route) => canUserAccess({
+                    action: 'view',
+                    productId: route.params.product
                   })
                 },
                 component: () => import('../views/Spec.vue')
@@ -100,10 +99,9 @@ export const portalRouter = () => {
                 name: 'api-documentation-page',
                 meta: {
                   title: helpText.docsTitle,
-                  isAuthorized: (route, { portalId }) => canUserAccess({
-                    service: 'konnect',
-                    action: '#view',
-                    resourcePath: `portals/${portalId}/services/${route.params.product}`
+                  isAuthorized: (route) => canUserAccess({
+                    action: 'view',
+                    productId: route.params.product
                   })
                 },
                 component: () => import('../views/ApiDocumentationPage.vue')
