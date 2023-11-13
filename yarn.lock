@@ -1005,12 +1005,12 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/analytics-chart@0.10.2":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-chart/-/analytics-chart-0.10.2.tgz#5246dae4cceee96143e726d82d85c62e129744b2"
-  integrity sha512-N0hMO6Ni2FdnsukOjgI1B9JyQjnwJKty2ewOtU1AMoXpHl0SoLLWmoj0ogYwmtCTrx0Hi4vnKTqsfL6ZkvN0uA==
+"@kong-ui-public/analytics-chart@0.15.2":
+  version "0.15.2"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-0.15.2.tgz#406be4da2f2c01f752697ca7e576856c534126f3"
+  integrity sha512-APImyIjNkaUMlFhMq3E1fTKMYKJayCbHK9t9UA/n98lniobNfqJ+u1wmP8K9u1/B3UHdBsQDwcC0PsZUMTf5UA==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.8.0"
+    "@kong-ui-public/analytics-utilities" "^0.10.1"
     approximate-number "^2.1.1"
     chart.js "^4.4.0"
     chartjs-adapter-date-fns "^3.0.0"
@@ -1018,32 +1018,24 @@
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
     pretty-bytes "^6.1.1"
-    uuid "^9.0.0"
+    uuid "^9.0.1"
     vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-metric-provider@1.1.22":
-  version "1.1.22"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.1.22.tgz#08a9829d99e34cece68b4958f7a584afaa6be5d5"
-  integrity sha512-avI6PEg004zUzpmHAZU8hQh8QbwJoza+HXEyRLuo2XUysqfDJWe0IAcans51Ons5bFGI7DoMWo7WuiIS40FY1Q==
+"@kong-ui-public/analytics-metric-provider@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.2.9.tgz#59a64c20b0ccae7d086f1ea79f43cebaecef817a"
+  integrity sha512-xJZWZXcIq6Y2d40/QE8t+DHRMozAWWTpEsPYTCo3Wn8+03A01NGVUCGV+VGd5XvykraF7boVjDWBtzP6IdMYKw==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.7.1"
+    "@kong-ui-public/analytics-utilities" "^0.10.1"
     "@kong-ui-public/core" "1.1.0"
-    "@kong-ui-public/metric-cards" "0.2.14"
-    axios "^1.4.0"
+    "@kong-ui-public/metric-cards" "^0.5.4"
+    axios "^1.6.0"
     swrv "^1.0.4"
 
-"@kong-ui-public/analytics-utilities@0.7.1", "@kong-ui-public/analytics-utilities@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.7.1.tgz#c351396b85244a9d6445348d5f58da3c25e2d20c"
-  integrity sha512-XYdRAdyvai+yAQuRiJgosJIzYXtFfwTfx+8Ew0zdr1hnAwkaLiFB6mH8KQWSDjjOIqD5FqxN3CiNcrIVkZU8yQ==
-  dependencies:
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-
-"@kong-ui-public/analytics-utilities@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.8.0.tgz#780d87630816da3ad610ffd08805437601f26492"
-  integrity sha512-P5Nvfm+XTQ7x8c9zYu8JVdOXmy8ODlMbsos1uyMy7SjGi5yd4cr+DsipNPx+xLEvgqV7DEQNopOexkWjb6JXHw==
+"@kong-ui-public/analytics-utilities@0.10.1", "@kong-ui-public/analytics-utilities@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.10.1.tgz#232c35658e9bf2d847fdf8fa22fdb39441ada229"
+  integrity sha512-csBjChpQBJSinQwbVX3S3pOhWgY1qPGSmmoAwXuK20CRlWMC3eOP4o6zL3gMEYt/vkup+FQln2XJqh60L7mf1w==
   dependencies:
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
@@ -1086,12 +1078,13 @@
     flat "^6.0.1"
     intl-messageformat "^10.5.3"
 
-"@kong-ui-public/metric-cards@0.2.14":
-  version "0.2.14"
-  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.2.14.tgz#97c80f80f862d311072a5e3239bc9e666e6aaf55"
-  integrity sha512-3z7aKeRox1VgxjQG6a0g1W+ME8u+62n+VvIb1HUH00rdacIBIKXGPBJTdIAFbodNtDa+s9oeV/OdjEUS5j+YbQ==
+"@kong-ui-public/metric-cards@^0.5.4":
+  version "0.5.5"
+  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.5.5.tgz#1813c2d76fd9165692b558e88b8658d521ca7625"
+  integrity sha512-EUG1quw+28pwV98w7OWI9kO/xr9dG6aQab6cu5iDaKyCfOTaNtC5rGk2HYvVLkzdwwCJmm5bJP65DjT8tG6EtQ==
   dependencies:
-    approximate-number "^2.1.0"
+    "@kong/icons" "^1.8.0"
+    approximate-number "^2.1.1"
 
 "@kong-ui-public/spec-renderer@0.12.2":
   version "0.12.2"
@@ -1113,6 +1106,11 @@
     react-dom "17.0.2"
     swagger-client "^3.23.0"
     swagger-ui "^4.19.1"
+
+"@kong/icons@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.npmjs.org/@kong/icons/-/icons-1.8.0.tgz#3fb6423fec31be4cc27af94f2912f52aee4f9077"
+  integrity sha512-ynO3GXaJTh4yoJMZ7XeTbA+ZHvlrteleI+rWNGUbEr726Tw/jgHLdT6wZ1YWR65cA38FN0Q96vEX/7+6ExwaHA==
 
 "@kong/kong-auth-elements@2.8.0":
   version "2.8.0"
@@ -3034,7 +3032,7 @@ app-module-path@^2.2.0:
   resolved "https://registry.yarnpkg.com/app-module-path/-/app-module-path-2.2.0.tgz#641aa55dfb7d6a6f0a8141c4b9c0aa50b6c24dd5"
   integrity sha512-gkco+qxENJV+8vFcDiiFhuoSvRXb2a/QPqpSoWhVz829VNJfOTnELbBmPmNKFxf3xdNnw4DWCkzkDaavcX/1YQ==
 
-approximate-number@^2.1.0, approximate-number@^2.1.1:
+approximate-number@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/approximate-number/-/approximate-number-2.1.1.tgz#4a8e570c393728679c0d5965b2fbb8de290998c3"
   integrity sha512-JAP0WOktu68l1TQoBq9SvwSPOJBLVnlEOchHcPg/brZKiswxGtTbZcd5vXQLjIb1xxD3Q+AOtwNyBU4zt4RP2A==
@@ -3276,6 +3274,15 @@ axios@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
   integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.6.0:
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/axios/-/axios-1.6.1.tgz#76550d644bf0a2d469a01f9244db6753208397d7"
+  integrity sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==
   dependencies:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
@@ -11467,11 +11474,6 @@ uuid@^8.0.0, uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
-
-uuid@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.0.tgz#592f550650024a38ceb0c562f2f6aa435761efb5"
-  integrity sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==
 
 uuid@^9.0.1:
   version "9.0.1"
