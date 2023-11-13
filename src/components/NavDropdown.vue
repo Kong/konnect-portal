@@ -1,8 +1,8 @@
 <template>
   <KToggle v-slot="{toggle, isToggled}">
     <div
-      data-testid="user-dropdown"
-      class="inline user-dropdown relative"
+      :data-testid="dataTestid"
+      class="inline nav-dropdown relative"
     >
       <div
         v-if="isToggled.value"
@@ -15,30 +15,34 @@
         appearance="btn-link"
         @click="toggle"
       >
-        {{ email }}
+        {{ label }}
       </KButton>
       <ul
         v-if="isToggled.value"
         class="list-none m-0 p-0 absolute w-40 shadow bg-white"
       >
         <li
-          data-testid="my-apps-item"
+          v-for="item of items"
+          :key="item.label"
           class="type-md block"
         >
           <router-link
-            :to="{ name: 'my-apps' }"
+            v-if="item.routerLink"
+            :data-testid="item.testid"
+            :to="{ name: item.routerLink }"
             class="color-text_colors-primary block py-3 px-4"
-            @click="toggle"
+            @click="(e) => { toggle(e); item.onClick?.() }"
           >
-            {{ helpText.myApps }}
+            {{ item.label }}
           </router-link>
-        </li>
-        <li
-          data-testid="logout-item"
-          class="py-3 px-4 type-md cursor-pointer logout-btn block color-text_colors-primary"
-          @click="$emit('logout')"
-        >
-          {{ helpText.logout }}
+          <div
+            v-else
+            :data-testid="item.testid"
+            class="color-text_colors-primary block py-3 px-4 cursor-pointer"
+            @click="(e) => { toggle(e); item.onClick?.() }"
+          >
+            {{ item.label }}
+          </div>
         </li>
       </ul>
     </div>
@@ -46,26 +50,35 @@
 </template>
 
 <script lang="ts">
-import { useI18nStore } from '@/stores'
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
-  name: 'UserDropdown',
+  name: 'NavDropdown',
   props: {
-    email: {
+    label: {
       type: String,
       required: true
+    },
+    items: {
+      type: Array as PropType<{
+        label: string
+        routerLink?: string
+        onClick?: () => void
+        testid?: string
+      }[]>,
+      required: true
+    },
+    dataTestid: {
+      type: String,
+      required: false,
+      default: ''
     }
-  },
-  emits: ['logout'],
-  data: () => ({
-    helpText: useI18nStore().state.helpText.userDropdown
-  })
+  }
 })
 </script>
 
 <style lang="scss">
-.user-dropdown {
+.nav-dropdown {
   --KButtonLink: var(--text_colors-header);
 
   .k-button {
