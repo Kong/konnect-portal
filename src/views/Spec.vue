@@ -115,7 +115,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return currentVersion.value.registration_configs?.length && isAllowedToRegister.value
+      return Boolean(currentVersion.value.registration_configs?.length && isAllowedToRegister.value)
     })
 
     const helpText = useI18nStore().state.helpText
@@ -161,7 +161,11 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.product, async () => {
+    watch(() => props.product, async (newProduct, oldProduct) => {
+      if (newProduct?.id === oldProduct?.id) {
+        return
+      }
+
       isAllowedToRegister.value = await canUserAccess({
         action: 'register',
         productId: $route.params.product.toString()
@@ -185,8 +189,8 @@ export default defineComponent({
       }
     })
 
-    watch(() => $route.params.product_version, async (productVersionId) => {
-      if (productVersionId) {
+    watch(() => $route.params.product_version, async (productVersionId, oldValue) => {
+      if (productVersionId && (oldValue !== productVersionId)) {
         isAllowedToRegister.value = await canUserAccess({
           action: 'register',
           productId: $route.params.product.toString()

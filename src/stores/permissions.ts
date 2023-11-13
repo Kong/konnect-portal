@@ -16,13 +16,10 @@ export const usePermissionsStore = defineStore('permissions', () => {
 
     const { action, productId } = requestedPermission
 
-    // Ensure action starts with a hash '#'
-    const requestedAction = action
-
     const { data } = await portalApiV2.service.productsApi.getProductActions({ productId })
 
     //  make sure the requested action is true on the response
-    return data.actions[requestedAction]
+    return data.actions[action]
   }
 
   return {
