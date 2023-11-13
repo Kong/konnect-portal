@@ -1134,12 +1134,12 @@
     v-calendar "^3.0.0-alpha.8"
     vue-draggable-next "^2.1.1"
 
-"@kong/sdk-portal-js@2.3.4":
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-2.3.4.tgz#dc161bd597cd33c2bc1e6d9494a7daa227f408cc"
-  integrity sha512-UG+ik2bE6dEaUZdCn6gkinPVzcFbjhqQgzjBUxn/cLBcCLV7LWoT0MMlT9VZymhkqpzqTtA+CLsL1KHz8kvtFQ==
+"@kong/sdk-portal-js@2.3.6":
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-2.3.6.tgz#18ad2354e527637f43c43a2b2cd64161eeb00fd2"
+  integrity sha512-18l3h6AGmapiF+p98mRXOIXUoBuhP5V1rvI3vpoaIHIyFbJ36zLsYdlNv10b6fTFzPVIGb3fC60/Bfi2QjV8+A==
   dependencies:
-    axios "0.27.2"
+    axios "1.6.0"
 
 "@kong/swagger-ui-kong-theme-universal@^4.3.1":
   version "4.3.1"
@@ -3261,14 +3261,6 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.12.0.tgz#ce1c9d143389679e253b314241ea9aa5cec980d3"
   integrity sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==
 
-axios@0.27.2, axios@^0.27.2:
-  version "0.27.2"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
-  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
-  dependencies:
-    follow-redirects "^1.14.9"
-    form-data "^4.0.0"
-
 axios@1.6.0, axios@^1.4.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
@@ -3277,6 +3269,14 @@ axios@1.6.0, axios@^1.4.0:
     follow-redirects "^1.15.0"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
+
+axios@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
+  integrity sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==
+  dependencies:
+    follow-redirects "^1.14.9"
+    form-data "^4.0.0"
 
 babel-code-frame@^6.26.0:
   version "6.26.0"
