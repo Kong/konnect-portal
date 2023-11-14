@@ -1045,7 +1045,23 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.38.2"
 
-"@kong/kongponents@8.123.3", "@kong/kongponents@^8.32.0":
+"@kong/kongponents@8.126.1":
+  version "8.126.1"
+  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.126.1.tgz#f5f68e534a38df68c21c231c2e8ff728fbd2bd07"
+  integrity sha512-8GdHy+/pcALzabuTplnZZSsAnb8rBZhaMAx4nADfqrt6uPvfDHI6AQfLZg6Fc+D3CPjo9q2PL+o1kf2a5nuYLg==
+  dependencies:
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    focus-trap "^7.5.2"
+    focus-trap-vue "^4.0.2"
+    popper.js "^1.16.1"
+    sortablejs "^1.15.0"
+    swrv "^1.0.4"
+    uuid "^9.0.0"
+    v-calendar "3.0.0-alpha.8"
+    vue-draggable-next "^2.2.1"
+
+"@kong/kongponents@^8.32.0":
   version "8.123.3"
   resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.123.3.tgz#038f5019f958d4a5da0db57a7b84dc1ab90b8212"
   integrity sha512-nE0q69Imr5C5Q3rOW5mu+5h18Pi8WmnA1+s+yZNHlC5xvy3zSPo/xbpTfBqkk/VmQiu2oXqtQMMmxgtFoKF0Tg==
@@ -1406,6 +1422,11 @@
     "@pnpm/config.env-replace" "^1.1.0"
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
+
+"@popperjs/core@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.0.tgz#0e1bdf8d021e7ea58affade33d9d607e11365915"
+  integrity sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==
 
 "@semantic-release/changelog@6.0.3":
   version "6.0.3"
@@ -8953,7 +8974,7 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
-popper.js@^1.15.0:
+popper.js@^1.15.0, popper.js@^1.16.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
   integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
@@ -11383,6 +11404,17 @@ uuid@^9.0.0, uuid@^9.0.1:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
   integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
+v-calendar@3.0.0-alpha.8:
+  version "3.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/v-calendar/-/v-calendar-3.0.0-alpha.8.tgz#3bc8c69f4788fb527c39706f41fd2a502a17c827"
+  integrity sha512-T23H5UbK0EomrwArlF/jrT2LFbV/lu+Bp9JroZ1paN6rPoaMyvE+HrLxvAmUgi+pODrdTURDMzM3+WPgeFKEBQ==
+  dependencies:
+    "@popperjs/core" "2.4.0"
+    "@types/lodash" "^4.14.165"
+    date-fns "^2.16.1"
+    date-fns-tz "^1.0.12"
+    lodash "^4.17.20"
+
 v-calendar@^3.0.0-alpha.8:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/v-calendar/-/v-calendar-3.0.3.tgz#f04c625d3c3352d5685099bb4ad3e24d0530a7d4"
@@ -11467,6 +11499,11 @@ vue-draggable-next@^2.1.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/vue-draggable-next/-/vue-draggable-next-2.2.0.tgz#cdefc345f950d64afb013436bf3111c7d87239f3"
   integrity sha512-JQ7Ac4knnpsA47/acUhRR7negDHNZDLdpbXRR+n89f516rJDt+eHh48tfqTe80q2UfnLymQ46zi81gCMKFU4DQ==
+
+vue-draggable-next@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/vue-draggable-next/-/vue-draggable-next-2.2.1.tgz#adbe98c74610cca8f4eb63f92042681f96920451"
+  integrity sha512-EAMS1IRHF0kZO0o5PMOinsQsXIqsrKT1hKmbICxG3UEtn7zLFkLxlAtajcCcUTisNvQ6TtCB5COjD9a1raNADw==
 
 vue-eslint-parser@^9.3.1:
   version "9.3.1"
