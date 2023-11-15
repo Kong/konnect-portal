@@ -27,7 +27,7 @@
   "dependencies": {
     "@kong-ui-public/analytics-chart": "0.8.31",
     "@kong-ui-public/analytics-metric-provider": "1.1.22",
-    "@kong-ui-public/analytics-utilities": "0.7.1",
+    "@kong-ui-public/analytics-utilities": "0.10.1",
     "@kong-ui-public/copy-uuid": "1.1.5",
     "@kong-ui-public/document-viewer": "0.10.5",
     "@kong-ui-public/spec-renderer": "0.13.1",
