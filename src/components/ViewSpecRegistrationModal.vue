@@ -50,12 +50,25 @@
             </div>
           </template>
           <template #name="{ row }">
-            <p
-              class="table-text"
-              :data-testid="`register-${row.name}`"
-            >
-              {{ row.name }}
-            </p>
+            <div class="name-container">
+              <p
+                class="table-text"
+                :data-testid="`register-${row.name}`"
+              >
+                {{ row.name }}
+              </p>
+              <div v-if="selectedApplication === row.id">
+                <KMultiselect
+                  v-if="availableScopes.length"
+                  v-model="selectedScopes"
+                  :label="helpText.applicationRegistration.availableScopesLabel"
+                  data-testid="analytics-service-filter"
+                  class="analytics-service-filter"
+                  :items="mappedAvailableScopes"
+                  @change="handleChangedItem"
+                />
+              </div>
+            </div>
           </template>
         </KTable>
       </div>
@@ -101,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted } from 'vue'
+import { computed, defineComponent, ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMachine } from '@xstate/vue'
 import { createMachine } from 'xstate'
@@ -109,6 +122,8 @@ import useToaster from '@/composables/useToaster'
 import usePortalApi from '@/hooks/usePortalApi'
 import { useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ViewSpecRegistrationModal',
@@ -142,9 +157,25 @@ export default defineComponent({
     const helpText = useI18nStore().state.helpText
     const errorMessage = ref('')
     const selectedApplication = ref('')
+    const availableScopes = ref([])
+    const selectedScopes = ref([])
+    const useDeveloperManagedScopes = useLDFeatureFlag(FeatureFlags.DeveloperManagedScopes, false)
     const applications = ref([])
     const key = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
+
+    const mappedAvailableScopes = computed(() => {
+      if (!availableScopes.value.length) {
+        return []
+      }
+
+      return availableScopes.value.map((scope) => {
+        return {
+          label: scope,
+          value: scope
+        }
+      })
+    })
 
     const tableHeaders = [
       { label: 'Name', key: 'name' }
@@ -248,9 +279,18 @@ export default defineComponent({
       })
     }
 
-    const submitSelection = () => {
+    const handleChangedItem = (item) => {
+      if (!item) { return }
+
+      const itemAdded = selectedScopes.value.filter(curr => curr.value === item.value)
+
+      // If a new item selected, set its `selected` state to true
+      item.selected = !!itemAdded.length
+    }
+
+    const submitSelection = async () => {
       send('CLICK_SUBMIT')
-      portalApiV2.value.service.registrationsApi.createApplicationRegistration({
+      await portalApiV2.value.service.registrationsApi.createApplicationRegistration({
         applicationId: selectedApplication.value,
         createRegistrationPayload: {
           product_version_id: props.version.id
@@ -285,7 +325,29 @@ export default defineComponent({
       searchStr.value = ''
     }
 
-    onMounted(() => {
+    watch(() => selectedApplication.value, (newSelectedApplication, oldSelectedApplication) => {
+      // We reset selectedScopes if we change applications
+      if (newSelectedApplication !== oldSelectedApplication && selectedScopes.value.length) {
+        selectedScopes.value = []
+      }
+    })
+
+    watch([() => props.product, () => props.version], async () => {
+      if (props.product && props.version && useDeveloperManagedScopes) {
+        await portalApiV2.value.service.versionsApi.getProductVersion({
+          productId: props.product.id,
+          versionId: props.version.id
+        }).then((res) => {
+          const registrationConfigs = res.data.registration_configs
+
+          if (registrationConfigs?.length && registrationConfigs[0].available_scopes) {
+            availableScopes.value = registrationConfigs[0].available_scopes
+          }
+        })
+      }
+    })
+
+    onMounted(async () => {
       if (props.initialSelectedApplication) {
         searchStr.value = props.initialSelectedApplication
       }
@@ -299,6 +361,10 @@ export default defineComponent({
       applications,
       selectedApplication,
       helpText,
+      handleChangedItem,
+      availableScopes,
+      mappedAvailableScopes,
+      selectedScopes,
       rowAttrsFn,
       fetcher,
       modalText,
@@ -328,6 +394,12 @@ export default defineComponent({
     td {
       color: var(--section_colors-body) !important;
     }
+
+    .k-input-label {
+      color: var(--section_colors-body);
+      font-weight: 400;
+      width: 100%;
+    }
   }
 
   // TODO: kui vars
@@ -338,6 +410,12 @@ export default defineComponent({
     margin-right: 12px;
   }
  }
+
+  .name-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
 </style>
 

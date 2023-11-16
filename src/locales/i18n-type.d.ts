@@ -187,6 +187,7 @@ export interface I18nType {
     cancelButton: string;
     registeredApplicationsProduct: string;
     searchPlaceholder: string;
+    availableScopesLabel: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;
       buttonText: string;

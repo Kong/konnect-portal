@@ -186,6 +186,7 @@ export const en = {
     createApplication: 'Create an Application',
     searchPlaceholder: 'Search applications',
     cancelButton: 'Cancel',
+    availableScopesLabel: 'Available scopes',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Register for ${serviceName} - ${productVersion}`,
