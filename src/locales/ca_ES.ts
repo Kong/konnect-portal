@@ -185,6 +185,7 @@ export const ca_ES: I18nType = {
     noAvailableApplications: 'Actualment no teniu cap aplicació per registrar.',
     noFoundApplications: translationNeeded(en.applicationRegistration.noFoundApplications),
     searchPlaceholder: translationNeeded(en.applicationRegistration.searchPlaceholder),
+    availableScopesLabel: translationNeeded(en.applicationRegistration.availableScopesLabel),
     noApplications: 'Sense aplicacions',
     selectApplication: 'Seleccionar aplicació',
     createNewApplication: 'Crear nova aplicació +',
