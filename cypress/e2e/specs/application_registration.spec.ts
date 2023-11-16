@@ -1,5 +1,5 @@
 import { CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
-import { product, versions, productRegistration, apps, productVersion } from '../fixtures/consts'
+import { product, versions, productRegistration, apps } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
