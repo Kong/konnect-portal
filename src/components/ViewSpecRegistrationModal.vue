@@ -62,8 +62,8 @@
                   v-if="availableScopes.length"
                   v-model="selectedScopes"
                   :label="helpText.applicationRegistration.availableScopesLabel"
-                  data-testid="analytics-service-filter"
-                  class="analytics-service-filter"
+                  data-testid="available-scopes-select"
+                  class="available-scopes-select"
                   :items="mappedAvailableScopes"
                   @change="handleChangedItem"
                 />
