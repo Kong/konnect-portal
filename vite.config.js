@@ -46,7 +46,7 @@ function createCustomLogger () {
   return logger
 }
 
-export default ({ command, mode }) => {
+export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
@@ -56,8 +56,6 @@ export default ({ command, mode }) => {
     sourcemap: true,
     gzipSize: true
   })
-
-  console.log('command', command)
 
   // Sets VITE_INDEX_API_URL which is templated in index.html if BUILD_AND_SERVE=true
   process.env.VITE_INDEX_API_URL = process.env.PREVIEW_LOCAL === 'true' ? '/' : process.env.VITE_PORTAL_API_URL
@@ -73,6 +71,17 @@ export default ({ command, mode }) => {
   const subdomainR = /http:\/\/(.*)localhost/
   if (subdomainR.test(portalApiUrl)) {
     portalApiUrl = 'http://localhost' + portalApiUrl.replace(subdomainR, '')
+  }
+
+  const proxy = {
+    '^/api': {
+      target: portalApiUrl,
+      changeOrigin: true,
+      configure: (proxy) => {
+        mutateCookieAttributes(proxy)
+        setHostHeader(proxy)
+      }
+    }
   }
 
   // required to prevent localhost from being rendered as 127.0.0.1
@@ -121,28 +130,10 @@ export default ({ command, mode }) => {
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
     preview: {
-      proxy: {
-        '^/api': {
-          target: portalApiUrl,
-          changeOrigin: true,
-          configure: (proxy) => {
-            mutateCookieAttributes(proxy)
-            setHostHeader(proxy)
-          }
-        }
-      }
+      proxy
     },
     server: {
-      proxy: {
-        '^/api': {
-          target: portalApiUrl,
-          changeOrigin: true,
-          configure: (proxy) => {
-            mutateCookieAttributes(proxy)
-            setHostHeader(proxy)
-          }
-        }
-      }
+      proxy
     },
     customLogger: createCustomLogger()
   })
