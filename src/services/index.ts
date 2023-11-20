@@ -2,7 +2,7 @@ import AuthApiService from '@/services/AuthApiService'
 import SessionCookie from '@/services/SessionCookie'
 import PortalV2ApiService from '@/services/PortalV2ApiService'
 
-export const baseUrl = import.meta.env.DEV ? '/' : import.meta.env.VITE_PORTAL_API_URL
+export const baseUrl = import.meta.env.DEV || window.location.hostname.includes('localhost') ? '/' : import.meta.env.VITE_PORTAL_API_URL
 
 const strippedTrailingSlashAuthApiUrl = import.meta.env.VITE_PORTAL_API_URL.endsWith('/') ? import.meta.env.VITE_PORTAL_API_URL.slice(0, -1) : import.meta.env.VITE_PORTAL_API_URL
 

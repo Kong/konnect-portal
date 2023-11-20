@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
-import { defineConfig, loadEnv, createLogger } from 'vite'
+import {defineConfig, loadEnv, createLogger} from 'vite'
 import dns from 'dns'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import { visualizer } from 'rollup-plugin-visualizer'
+import {visualizer} from 'rollup-plugin-visualizer'
 
 const path = require('path')
 
-function mutateCookieAttributes (proxy) {
-  proxy.on('proxyRes', function (proxyRes, req, res) {
+function mutateCookieAttributes(proxy) {
+  proxy.on('proxyRes', function(proxyRes, req, res) {
     if (proxyRes.headers['set-cookie']) {
       proxyRes.headers['set-cookie'] = (proxyRes.headers['set-cookie']).map(h => {
         return h.replace(/Domain=.*;/, 'Domain=localhost; Secure;')
@@ -18,10 +18,11 @@ function mutateCookieAttributes (proxy) {
   })
 }
 
-function setHostHeader (proxy) {
+function setHostHeader(proxy) {
+  // TODO: stay the same
   const host = new URL(process.env.VITE_PORTAL_API_URL).hostname
 
-  proxy.on('proxyReq', function (proxyRes) {
+  proxy.on('proxyReq', function(proxyRes) {
     proxyRes.setHeader('host', host)
   })
 }
@@ -29,7 +30,7 @@ function setHostHeader (proxy) {
 /**
  * Create a custom logger to ignore `vite:css` errors (from postcss) for imported packages
  */
-function createCustomLogger () {
+function createCustomLogger() {
   const logger = createLogger()
   const loggerWarn = logger.warn
   // Create array of partial message strings to ignore
@@ -46,8 +47,8 @@ function createCustomLogger () {
   return logger
 }
 
-export default ({ command, mode }) => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+export default ({command, mode}) => {
+  process.env = {...process.env, ...loadEnv(mode, process.cwd())}
 
   // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
   const buildVisualizerPlugin = process.env.BUILD_VISUALIZER === 'true' && visualizer({
@@ -57,12 +58,15 @@ export default ({ command, mode }) => {
     gzipSize: true
   })
 
-  // Sets VITE_INDEX_API_URL which is templated in index.html
-  process.env.VITE_INDEX_API_URL = command === 'serve' ? '/' : process.env.VITE_PORTAL_API_URL
+  console.log('command', command)
+
+  // Sets VITE_INDEX_API_URL which is templated in index.html if BUILD_AND_SERVE=true
+  process.env.VITE_INDEX_API_URL = process.env.PREVIEW_LOCAL === 'true' ? '/' : process.env.VITE_PORTAL_API_URL
 
   // Defaults locale to en
   process.env.VITE_LOCALE = process.env.VITE_LOCALE || 'en'
 
+  // TODO: stay the same
   let portalApiUrl = process.env.VITE_PORTAL_API_URL
   if (!portalApiUrl.endsWith('/')) {
     portalApiUrl += '/'
@@ -117,6 +121,25 @@ export default ({ command, mode }) => {
        * https://vitejs.dev/config/#resolve-extensions
        */
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+    },
+    preview: {
+      proxy: {
+        '^/api': {
+          target: portalApiUrl,
+          changeOrigin: true,
+          configure: (proxy, options) => {
+            mutateCookieAttributes(proxy)
+            setHostHeader(proxy)
+
+            proxy.on('proxyReq', function(proxyReq, req, res, options) {
+              console.log(req.url)
+            })
+          }
+        }
+      },
+      cors: {
+        origin: ['localhost:4173']
+      }
     },
     server: {
       proxy: {

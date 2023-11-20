@@ -6,7 +6,7 @@
   "scripts": {
     "start": "yarn dev",
     "dev": "vite",
-    "serve": "vite preview",
+    "serve": "cross-env PREVIEW_LOCAL vite build --mode production && vite preview",
     "build": "vite build --mode production",
     "build:analyze": "BUILD_VISUALIZER=true vite build --mode production",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore src",
