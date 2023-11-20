@@ -34,7 +34,7 @@ import { createRedirectHandler } from './helpers/auth'
  * Initialize application
  */
 
-async function init() {
+async function init () {
   const app = createApp(App)
 
   // Initialize the Pinia store
@@ -133,7 +133,7 @@ async function init() {
     // This logic ensures that if the portalaccesstoken is invalid
     // a user will not get stuck on the loading screen
     if (error?.response?.status === 401 && window.location.hostname.includes('localhost')) {
-      document.cookie = `portalaccesstoken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${ window.location.hostname };`
+      document.cookie = `portalaccesstoken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname};`
       session.destroy()
       window.location.reload()
     }
