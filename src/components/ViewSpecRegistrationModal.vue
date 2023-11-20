@@ -62,9 +62,12 @@
                   v-if="availableScopes.length"
                   v-model="selectedScopes"
                   :label="helpText.applicationRegistration.availableScopesLabel"
+                  collapsed-context
                   data-testid="available-scopes-select"
                   class="available-scopes-select"
                   :items="mappedAvailableScopes"
+                  :placeholder="helpText.applicationRegistration.availableScopesLabel"
+                  width="100%"
                   @change="handleChangedItem"
                 />
               </div>
@@ -385,6 +388,7 @@ export default defineComponent({
 
  .table-text {
   text-align: left;
+  font-weight: 600;
  }
 
  .application-registration-modal {
@@ -397,7 +401,7 @@ export default defineComponent({
 
     .k-input-label {
       color: var(--section_colors-body);
-      font-weight: 400;
+      font-weight: 600;
       width: 100%;
     }
   }
@@ -413,8 +417,11 @@ export default defineComponent({
 
   .name-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+
+    .available-scopes-select {
+      margin-top: 14px;
+    }
   }
 
 </style>
