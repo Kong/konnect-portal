@@ -62,9 +62,11 @@
                   v-if="availableScopes.length"
                   v-model="selectedScopes"
                   :label="helpText.applicationRegistration.availableScopesLabel"
+                  collapsed-context
                   data-testid="available-scopes-select"
                   class="available-scopes-select"
                   :items="mappedAvailableScopes"
+                  :placeholder="helpText.applicationRegistration.availableScopesLabel"
                   width="100%"
                   @change="handleChangedItem"
                 />
