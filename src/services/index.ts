@@ -6,7 +6,7 @@ export const baseUrl = import.meta.env.DEV || window.location.hostname.includes(
 
 const strippedTrailingSlashAuthApiUrl = import.meta.env.VITE_PORTAL_API_URL.endsWith('/') ? import.meta.env.VITE_PORTAL_API_URL.slice(0, -1) : import.meta.env.VITE_PORTAL_API_URL
 
-export const authApiBaseUrl = import.meta.env.DEV ? window.location.origin : strippedTrailingSlashAuthApiUrl
+export const authApiBaseUrl = import.meta.env.DEV || window.location.hostname.includes('localhost') ? window.location.origin : strippedTrailingSlashAuthApiUrl
 
 export const portalApiV2 = new PortalV2ApiService(baseUrl)
 
