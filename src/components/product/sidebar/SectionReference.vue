@@ -58,10 +58,10 @@ async function fetchOperations () {
       productVersionId
     })
 
-    operations.value = res.data.operations?.map(operation => ({
+    operations.value = res.data.operations?.map((operation) => ({
       ...operation,
       operationId: operation.operation_id
-    }))
+    })) as CustomOperation[]
 
     productStore.setSidebarOperations(operations.value)
   } catch (err) {
