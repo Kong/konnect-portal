@@ -93,7 +93,7 @@ async function init () {
         try {
           res = await portalApiV2.value.service.developerApi.getDeveloperMe()
         } catch (e) {
-          // // catch error to prevent going directly to global api error handler
+        // // catch error to prevent going directly to global api error handler
           res = { data: undefined }
           // remove loginSuccess to adjust session check
           removeQueryParam('loginSuccess')

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,13 +27,8 @@
       }
 
       @keyframes svg-spin {
-        0% {
-          transform: rotate(0deg);
-        }
-
-        100% {
-          transform: rotate(1turn);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(1turn); }
       }
 
       #initial-fullscreen-loading-container svg g {
@@ -44,19 +38,16 @@
       }
     </style>
   </head>
-
   <body>
     <noscript>
-      <strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to
-        continue.</strong>
+      <strong>We're sorry but this app doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
 
     <div id="initial-fullscreen-loading-container">
       <svg viewBox="0 0 20 20" fill="#a3b6d9" xmlns="http://www.w3.org/2000/svg" role="img" width="96" height="96">
         <title>Loading</title>
         <g>
-          <path d="M5 10a5 5 0 1 0 5-5" fill="none" stroke="#a3b6d9" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round"></path>
+          <path d="M5 10a5 5 0 1 0 5-5" fill="none" stroke="#a3b6d9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         </g>
       </svg>
 
@@ -65,5 +56,4 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
-
 </html>
