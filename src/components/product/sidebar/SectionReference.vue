@@ -55,7 +55,7 @@ async function fetchOperations () {
   try {
     const res = await portalApiV2.service.versionsApi.getProductVersionSpecOperations({
       productId,
-      versionId: productVersionId
+      productVersionId
     })
 
     operations.value = res.data.operations?.map(operation => ({

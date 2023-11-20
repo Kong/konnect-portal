@@ -324,7 +324,7 @@ export default defineComponent({
 
       return await portalApiV2.value.service.versionsApi.getProductVersionSpec({
         productId: $route.params.product as string,
-        versionId: version
+        productVersionId: version
       })
         .then(async res => {
           // no content
