@@ -127,6 +127,7 @@ import { useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { FeatureFlags } from '@/constants/feature-flags'
+import { CreateRegistrationPayload } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'ViewSpecRegistrationModal',
@@ -249,7 +250,7 @@ export default defineComponent({
 
       const requestOptions = {
         productId: props.product?.id || $route.params.product,
-        versionId: props.version?.id || $route.params.product_version,
+        productVersionId: props.version?.id || $route.params.product_version,
         ...(searchStr.value.length && { filterNameContains: searchStr.value }),
         unregistered: true,
         pageNumber,
@@ -293,11 +294,17 @@ export default defineComponent({
 
     const submitSelection = async () => {
       send('CLICK_SUBMIT')
+      const payload: CreateRegistrationPayload = {
+        product_version_id: props.version.id
+      }
+
+      if (selectedScopes.value.length) {
+        payload.scopes = selectedScopes.value
+      }
+
       await portalApiV2.value.service.registrationsApi.createApplicationRegistration({
         applicationId: selectedApplication.value,
-        createRegistrationPayload: {
-          product_version_id: props.version.id
-        }
+        createRegistrationPayload: payload
       })
         .then(
           res => {
@@ -339,7 +346,7 @@ export default defineComponent({
       if (props.product && props.version && useDeveloperManagedScopes) {
         await portalApiV2.value.service.versionsApi.getProductVersion({
           productId: props.product.id,
-          versionId: props.version.id
+          productVersionId: props.version.id
         }).then((res) => {
           const registrationConfigs = res.data.registration_configs
 

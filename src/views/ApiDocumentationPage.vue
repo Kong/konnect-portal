@@ -141,7 +141,7 @@ export default defineComponent({
       // this is to prevent duplicate slugs
       const slugMap = new Map<string, number>()
 
-      const allHeadings = findAllNodesOfType<DocumentBlock>(content.value, 'heading') as HeadingNode[]
+      const allHeadings = findAllNodesOfType<DocumentBlock>(content.value, 'heading') as unknown as HeadingNode[]
 
       return allHeadings
         .map((node) => {
