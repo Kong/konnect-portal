@@ -63,7 +63,7 @@ export default ({ mode }) => {
   }
 
   // Sets VITE_INDEX_API_URL which is templated in index.html if PREVIEW_LOCAL=true
-  process.env.VITE_INDEX_API_URL = process.env.PREVIEW_LOCAL === 'true' ? '/' : portalApiUrl
+  process.env.VITE_INDEX_API_URL = mode === 'development' || process.env.PREVIEW_LOCAL === 'true' ? '/' : portalApiUrl
 
   // Defaults locale to en
   process.env.VITE_LOCALE = process.env.VITE_LOCALE || 'en'
