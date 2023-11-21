@@ -46,7 +46,7 @@ function createCustomLogger () {
   return logger
 }
 
-export default ({ command, mode }) => {
+export default ({ mode }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
 
   // Include the rollup-plugin-visualizer if the BUILD_VISUALIZER env var is set to "true"
@@ -57,20 +57,31 @@ export default ({ command, mode }) => {
     gzipSize: true
   })
 
-  // Sets VITE_INDEX_API_URL which is templated in index.html
-  process.env.VITE_INDEX_API_URL = command === 'serve' ? '/' : process.env.VITE_PORTAL_API_URL
-
-  // Defaults locale to en
-  process.env.VITE_LOCALE = process.env.VITE_LOCALE || 'en'
-
   let portalApiUrl = process.env.VITE_PORTAL_API_URL
   if (!portalApiUrl.endsWith('/')) {
     portalApiUrl += '/'
   }
 
-  const subdomainR = new RegExp(/http:\/\/(.*)localhost/)
+  // Sets VITE_INDEX_API_URL which is templated in index.html if PREVIEW_LOCAL=true
+  process.env.VITE_INDEX_API_URL = mode === 'development' || process.env.PREVIEW_LOCAL === 'true' ? '/' : portalApiUrl
+
+  // Defaults locale to en
+  process.env.VITE_LOCALE = process.env.VITE_LOCALE || 'en'
+
+  const subdomainR = /http:\/\/(.*)localhost/
   if (subdomainR.test(portalApiUrl)) {
     portalApiUrl = 'http://localhost' + portalApiUrl.replace(subdomainR, '')
+  }
+
+  const proxy = {
+    '^/api': {
+      target: portalApiUrl,
+      changeOrigin: true,
+      configure: (proxy) => {
+        mutateCookieAttributes(proxy)
+        setHostHeader(proxy)
+      }
+    }
   }
 
   // required to prevent localhost from being rendered as 127.0.0.1
@@ -118,17 +129,11 @@ export default ({ command, mode }) => {
        */
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
+    preview: {
+      proxy
+    },
     server: {
-      proxy: {
-        '^/api': {
-          target: portalApiUrl,
-          changeOrigin: true,
-          configure: (proxy, options) => {
-            mutateCookieAttributes(proxy)
-            setHostHeader(proxy)
-          }
-        }
-      }
+      proxy
     },
     customLogger: createCustomLogger()
   })

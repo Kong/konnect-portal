@@ -6,7 +6,7 @@
   "scripts": {
     "start": "yarn dev",
     "dev": "vite",
-    "serve": "vite preview",
+    "serve": "cross-env PREVIEW_LOCAL=true yarn build && vite preview",
     "build": "vite build --mode production",
     "build:analyze": "BUILD_VISUALIZER=true vite build --mode production",
     "lint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore src",
@@ -59,6 +59,7 @@
     "autoprefixer": "10.4.14",
     "commitizen": "4.3.0",
     "concurrently": "8.2.0",
+    "cross-env": "7.0.3",
     "cypress": "13.5.0",
     "cypress-split": "1.15.4",
     "cypress-terminal-report": "5.3.2",
