@@ -57,7 +57,7 @@ export default ({ mode }) => {
     gzipSize: true
   })
 
-  // Sets VITE_INDEX_API_URL which is templated in index.html if BUILD_AND_SERVE=true
+  // Sets VITE_INDEX_API_URL which is templated in index.html if PREVIEW_LOCAL=true
   process.env.VITE_INDEX_API_URL = process.env.PREVIEW_LOCAL === 'true' ? '/' : process.env.VITE_PORTAL_API_URL
 
   // Defaults locale to en
