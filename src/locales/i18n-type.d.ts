@@ -185,6 +185,7 @@ export interface I18nType {
     createNewApplication: string;
     createApplication: string;
     cancelButton: string;
+    fetchingScopesLabel: string;
     registeredApplicationsProduct: string;
     searchPlaceholder: string;
     availableScopesLabel: string;

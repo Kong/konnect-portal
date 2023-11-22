@@ -186,6 +186,7 @@ export const es_ES: I18nType = {
     noFoundApplications: translationNeeded(en.applicationRegistration.noFoundApplications),
     searchPlaceholder: translationNeeded(en.applicationRegistration.searchPlaceholder),
     availableScopesLabel: translationNeeded(en.applicationRegistration.availableScopesLabel),
+    fetchingScopesLabel: translationNeeded(en.applicationRegistration.fetchingScopesLabel),
     noApplications: 'No hay aplicaciones',
     selectApplication: 'Seleccionar aplicación',
     createNewApplication: 'Crear aplicación nueva +',

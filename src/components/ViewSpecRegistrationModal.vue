@@ -66,7 +66,8 @@
                   data-testid="available-scopes-select"
                   class="available-scopes-select"
                   :items="mappedAvailableScopes"
-                  :placeholder="helpText.applicationRegistration.availableScopesLabel"
+                  :loading="fetchingScopes"
+                  :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.availableScopesLabel"
                   width="100%"
                   @change="handleChangedItem"
                 />
@@ -163,9 +164,11 @@ export default defineComponent({
     const selectedApplication = ref('')
     const availableScopes = ref([])
     const selectedScopes = ref([])
+    const alreadyGrantedScopes = ref([])
     const useDeveloperManagedScopes = useLDFeatureFlag(FeatureFlags.DeveloperManagedScopes, false)
     const applications = ref([])
     const key = ref(0)
+    const fetchingScopes = ref(false)
     const fetcherCacheKey = computed(() => key.value.toString())
 
     const mappedAvailableScopes = computed(() => {
@@ -174,9 +177,12 @@ export default defineComponent({
       }
 
       return availableScopes.value.map((scope) => {
+        const alreadySelected = alreadyGrantedScopes.value?.includes(scope)
+
         return {
           label: scope,
-          value: scope
+          value: scope,
+          selected: alreadySelected
         }
       })
     })
@@ -342,18 +348,42 @@ export default defineComponent({
       }
     })
 
-    watch([() => props.product, () => props.version], async () => {
+    watch([() => props.product, () => props.version, () => selectedApplication.value], async (newValues, oldValues) => {
       if (props.product && props.version && useDeveloperManagedScopes) {
-        await portalApiV2.value.service.versionsApi.getProductVersion({
-          productId: props.product.id,
-          productVersionId: props.version.id
-        }).then((res) => {
-          const registrationConfigs = res.data.registration_configs
+        alreadyGrantedScopes.value = []
+        fetchingScopes.value = true
+        // Only make the getProductVersion request if we change productVersions
+        if (newValues[1] !== oldValues[1]) {
+          await portalApiV2.value.service.versionsApi.getProductVersion({
+            productId: props.product.id,
+            productVersionId: props.version.id
+          }).then((res) => {
+            fetchingScopes.value = false
+            const registrationConfigs = res.data.registration_configs
 
-          if (registrationConfigs?.length && registrationConfigs[0].available_scopes) {
-            availableScopes.value = registrationConfigs[0].available_scopes
-          }
-        })
+            if (registrationConfigs?.length && registrationConfigs[0].available_scopes) {
+              availableScopes.value = registrationConfigs[0].available_scopes
+            }
+          }).finally(() => {
+            fetchingScopes.value = false
+          })
+        }
+
+        if (selectedApplication.value) {
+          fetchingScopes.value = true
+
+          await portalApiV2.value.service.devApplicationsApi.getApplicationProductVersionGrantedScopes({
+            applicationId: selectedApplication.value,
+            productVersionId: props.version.id
+          }).then((res) => {
+            const grantedScopesArr = res.data.scopes
+
+            alreadyGrantedScopes.value = grantedScopesArr
+            fetchingScopes.value = false
+          }).finally(() => {
+            fetchingScopes.value = false
+          })
+        }
       }
     })
 
@@ -376,6 +406,7 @@ export default defineComponent({
       mappedAvailableScopes,
       selectedScopes,
       rowAttrsFn,
+      fetchingScopes,
       fetcher,
       modalText,
       searchStr,

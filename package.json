@@ -34,6 +34,7 @@
     "@kong/kong-auth-elements": "2.8.0",
     "@kong/kongponents": "8.126.1",
     "@kong/sdk-portal-js": "2.4.0",
+    "@kong/sdk-portal-js-dev": "0.1.1",
     "@xstate/vue": "2.0.0",
     "axios": "1.6.0",
     "date-fns": "2.30.0",
