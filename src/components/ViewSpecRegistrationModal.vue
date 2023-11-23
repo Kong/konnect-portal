@@ -372,7 +372,7 @@ export default defineComponent({
         if (selectedApplication.value) {
           fetchingScopes.value = true
 
-          await portalApiV2.value.service.devApplicationsApi.getApplicationProductVersionGrantedScopes({
+          await portalApiV2.value.service.applicationsApi.getApplicationProductVersionGrantedScopes({
             applicationId: selectedApplication.value,
             productVersionId: props.version.id
           }).then((res) => {

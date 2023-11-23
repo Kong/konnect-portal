@@ -15,11 +15,6 @@ import {
   ApplicationAnalyticsApi
 } from '@kong/sdk-portal-js'
 
-import {
-  ApplicationsApi as DevApplicationsApi,
-  RegistrationsApi as DevRegistrationsApi
-} from '@kong/sdk-portal-js-dev'
-
 export const ApiServiceAuthErrorReason = {
   NO_SESSION: 'NO_SESSION',
   SESSION_EXPIRED: 'SESSION_EXPIRED',
@@ -48,8 +43,6 @@ export default class PortalV2ApiService {
     documentationApi: DocumentationApi,
     versionsApi: VersionsApi,
     applicationAnalyticsApi: ApplicationAnalyticsApi,
-    devApplicationsApi: DevApplicationsApi,
-    devRegistrationsApi: DevRegistrationsApi
   }
 
   setAuthErrorCallback (authErrorCallback) {
@@ -88,11 +81,7 @@ export default class PortalV2ApiService {
       registrationsApi: new RegistrationsApi(baseConfig, this.baseURL, this.client),
       documentationApi: new DocumentationApi(baseConfig, this.baseURL, this.client),
       versionsApi: new VersionsApi(baseConfig, this.baseURL, this.client),
-      applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client),
-      // @ts-ignore
-      devApplicationsApi: new DevApplicationsApi(baseConfig, this.baseURL, this.client),
-      // @ts-ignore
-      devRegistrationsApi: new DevRegistrationsApi(baseConfig, this.baseURL, this.client)
+      applicationAnalyticsApi: new ApplicationAnalyticsApi(baseConfig, this.baseURL, this.client)
     }
 
     this.client.interceptors.response.use(res => res, (originalErr) => {
