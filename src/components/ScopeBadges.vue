@@ -60,6 +60,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 250px;
+    row-gap: 6px;
+
     :not(:last-child) {
       margin-right: 4px;
     }
