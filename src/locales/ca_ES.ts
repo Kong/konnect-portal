@@ -154,6 +154,7 @@ export const ca_ES: I18nType = {
   },
   productList: {
     titleProducts: 'Productes',
+    showMoreLabel: (items: string) => translationNeeded(en.productList.showMoreLabel(items)),
     actions: {
       unregister: 'Anul·lar el registre'
     },
@@ -166,6 +167,7 @@ export const ca_ES: I18nType = {
       nameProduct: 'Producte',
       version: 'Versió',
       status: 'Estat',
+      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Accions'
     }
   },

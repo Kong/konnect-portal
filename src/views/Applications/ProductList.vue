@@ -8,6 +8,7 @@
     <KCard>
       <template #body>
         <KTable
+          :key="headerCacheKey"
           data-testid="products-list"
           :fetcher-cache-key="fetcherCacheKey"
           :fetcher="fetcher"
@@ -25,6 +26,9 @@
           </template>
           <template #status="{ row }">
             <StatusBadge :status="row.status" />
+          </template>
+          <template #scopes="{ row }">
+            <ScopeBadges :scopes="row.scopes" />
           </template>
           <template #actions="{ row }">
             <ActionsDropdown>
@@ -71,11 +75,12 @@ import usePortalApi from '@/hooks/usePortalApi'
 
 import PageTitle from '@/components/PageTitle.vue'
 import StatusBadge from '@/components/StatusBadge.vue'
+import ScopeBadges from '@/components/ScopeBadges.vue'
 import ActionsDropdown from '@/components/ActionsDropdown.vue'
 
 export default defineComponent({
   name: 'ProductList',
-  components: { PageTitle, StatusBadge, ActionsDropdown },
+  components: { PageTitle, ScopeBadges, StatusBadge, ActionsDropdown },
   props: {
     id: {
       type: String,
@@ -91,12 +96,27 @@ export default defineComponent({
     const viewCatalog2 = helpText.emptyState.viewCatalog2Product
 
     const { notify } = useToaster()
-    const tableHeaders = [
-      { label: nameLabel, key: 'name' },
-      { label: helpText.labels.version, key: 'version' },
-      { label: helpText.labels.status, key: 'status' },
-      { label: helpText.labels.actions, key: 'actions', hideLabel: true }
-    ]
+    const hasGrantedScopes = ref(false)
+    const tableHeaders = computed(() => {
+      if (hasGrantedScopes.value) {
+        revalidateHeaders()
+
+        return [
+          { label: nameLabel, key: 'name' },
+          { label: helpText.labels.version, key: 'version' },
+          { label: helpText.labels.status, key: 'status' },
+          { label: helpText.labels.scopes, key: 'scopes' },
+          { label: helpText.labels.actions, key: 'actions', hideLabel: true }
+        ]
+      }
+
+      return [
+        { label: nameLabel, key: 'name' },
+        { label: helpText.labels.version, key: 'version' },
+        { label: helpText.labels.status, key: 'status' },
+        { label: helpText.labels.actions, key: 'actions', hideLabel: true }
+      ]
+    })
 
     const { portalApiV2 } = usePortalApi()
 
@@ -114,7 +134,9 @@ export default defineComponent({
     )
 
     const key = ref(0)
+    const headerKey = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
+    const headerCacheKey = computed(() => headerKey.value.toString())
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
@@ -123,6 +145,10 @@ export default defineComponent({
 
     const revalidate = () => {
       key.value += 1
+    }
+
+    const revalidateHeaders = () => {
+      headerKey.value += 1
     }
 
     const fetcher = async (payload: { pageSize: number; page: number }) => {
@@ -135,17 +161,22 @@ export default defineComponent({
         .then(({ data }) => {
           send('RESOLVE')
 
+          const items = data.data.map(registration => {
+            return {
+              name: registration.product_name,
+              version: registration.product_version_name,
+              id: registration.product_version_id,
+              ...(registration.granted_scopes) && { scopes: registration.granted_scopes },
+              specLink: `/spec/${registration.product_id}/${registration.product_version_id}`,
+              status: registration.status,
+              registrationId: registration.id
+            }
+          })
+
+          hasGrantedScopes.value = items.some((item) => { return item.scopes })
+
           return {
-            data: data.data.map(registration => {
-              return {
-                name: registration.product_name,
-                version: registration.product_version_name,
-                id: registration.product_version_id,
-                specLink: `/spec/${registration.product_id}/${registration.product_version_id}`,
-                status: registration.status,
-                registrationId: registration.id
-              }
-            }),
+            data: items,
             total: data.meta.page.total
           }
         }).catch((e) => {
@@ -181,9 +212,11 @@ export default defineComponent({
     return {
       helpText,
       tableHeaders,
+      hasGrantedScopes,
       currentState,
       handleDeleteRegistration,
       fetcher,
+      headerCacheKey,
       fetcherCacheKey,
       paginationConfig,
       emptyStateTitle,
