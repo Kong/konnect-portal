@@ -140,7 +140,7 @@ export default defineComponent({
             if (source.latest_version) {
               await portalApiV2.value.service.versionsApi.getProductVersionSpec({
                 productId: source.id as string,
-                versionId: source.latest_version.id
+                productVersionId: source.latest_version.id
               }).then((res) => {
                 if (res.status === 200) {
                   showSpecLink = true

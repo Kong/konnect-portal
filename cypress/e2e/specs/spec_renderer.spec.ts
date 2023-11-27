@@ -1,3 +1,4 @@
+import { ProductActionsResponse } from '@kong/sdk-portal-js'
 import { product, versions } from '../fixtures/consts'
 import petstoreJson from '../fixtures/oas_specs/petstoreJson.json'
 import petstoreJson3 from '../fixtures/oas_specs/petstoreJson3.0.json'
@@ -330,18 +331,23 @@ describe('Spec Renderer Page', () => {
         rbac_enabled: true
       }).as('getPortalContext')
 
-      cy.intercept('GET', 'api/v2/portals/*/developers/me/permissions', {
+      const response: ProductActionsResponse = {
+        actions: {
+          register: false,
+          view: false,
+          view_documentation: false
+        }
+      }
+
+      cy.intercept('GET', '/api/v2/products/*/actions', {
         statusCode: 200,
-        body: [{
-          resource: 'krn:konnect:reg/*:org/*:portals/*/services/*',
-          actions: []
-        }],
+        body: response,
         delay: 300
-      }).as('getPermissions')
+      }).as('getProductActions')
 
       cy.visit(`/spec/${product.id}`)
 
-      cy.wait('@getPermissions')
+      cy.wait('@getProductActions')
 
       cy.get('[data-testid="forbidden"]').should('exist')
     })
@@ -351,21 +357,23 @@ describe('Spec Renderer Page', () => {
         rbac_enabled: true
       }).as('getPortalContext')
 
-      cy.intercept('GET', 'api/v2/portals/*/developers/me/permissions', {
+      const response: ProductActionsResponse = {
+        actions: {
+          register: true,
+          view: true,
+          view_documentation: true
+        }
+      }
+
+      cy.intercept('GET', '/api/v2/products/*/actions', {
         statusCode: 200,
-        body: [{
-          resource: 'krn:konnect:reg/*:org/*:portals/*/services/*',
-          actions: [
-            '#view',
-            '#consume'
-          ]
-        }],
+        body: response,
         delay: 300
-      }).as('getPermissions')
+      }).as('getProductActions')
 
       cy.visit(`/spec/${product.id}`)
 
-      cy.wait('@getPermissions')
+      cy.wait('@getProductActions')
 
       cy.get('[data-testid="kong-public-ui-spec-details-swagger"]', { timeout: 12000 })
         .get('.info h2').should('contain', 'Swagger Petstore')
@@ -373,17 +381,17 @@ describe('Spec Renderer Page', () => {
       cy.get('[data-testid="register-button"]').should('exist')
     })
 
-    it('does not call developers/me/permissions if rbac not enabled', () => {
+    it('does not retrieve product actions if rbac not enabled', () => {
       cy.intercept('GET', '**/api/v2/portal', {
         rbac_enabled: false
       }).as('getPortalContext')
 
-      cy.intercept('get', 'api/v2/portals/*/developers/me/permissions', cy.spy().as('apiNotCalled'))
+      cy.intercept('get', '/api/v2/products/*/actions', cy.spy().as('apiNotCalled'))
 
       cy.visit(`/spec/${product.id}`)
 
       cy.get('[data-testid="kong-public-ui-spec-details-swagger"]', { timeout: 12000 })
-        .get('.info h2').should('contain', 'Swagger Petstore')
+      .get('.info h2').should('contain', 'Swagger Petstore')
 
       cy.get('[data-testid="register-button"]').should('exist')
 
@@ -405,12 +413,12 @@ describe('Spec Renderer Page', () => {
       cy.mockAppearance()
     })
 
-    it('allows seeing spec when portal is public and rbac enabled, does not call developers/me/permissions', () => {
+    it('allows seeing spec when portal is public and rbac enabled, does not retrieve product actions', () => {
       cy.intercept('GET', '**/portal_api/portal/portal_context', {
         rbac_enabled: true
       }).as('getPortalContext')
 
-      cy.intercept('get', 'api/v2/portals/*/developers/me/permissions', cy.spy().as('apiNotCalled'))
+      cy.intercept('get', '/api/v2/products/*/actions', cy.spy().as('apiNotCalled'))
 
       cy.visit(`/spec/${product.id}`)
 

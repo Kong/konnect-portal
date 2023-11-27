@@ -150,6 +150,7 @@ export const en = {
   },
   productList: {
     titleProducts: 'Products',
+    showMoreLabel: (items: string) => `+ ${items} more`,
     actions: {
       unregister: 'Unregister'
     },
@@ -162,6 +163,7 @@ export const en = {
       nameProduct: 'Product',
       version: 'Version',
       status: 'Status',
+      scopes: 'Scopes',
       actions: 'Actions'
     }
   },
@@ -186,6 +188,8 @@ export const en = {
     createApplication: 'Create an Application',
     searchPlaceholder: 'Search applications',
     cancelButton: 'Cancel',
+    availableScopesLabel: 'Select scopes',
+    fetchingScopesLabel: 'Fetching scopes...',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => `Register for ${serviceName} - ${productVersion}`,
@@ -283,6 +287,8 @@ export const en = {
     delete: 'Delete',
     cancel: 'Cancel',
     noApp: 'No Applications',
+    searchPlaceholder: 'Search applications',
+    noSearchResults: 'No Applications Found',
     create: 'Create a new app',
     getStarted: ' to get started',
     deleteDialog: (name: string) => `Are you sure you want to delete ${name}? This action cannot be undone.`

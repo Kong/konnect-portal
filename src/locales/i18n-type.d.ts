@@ -150,6 +150,7 @@ export interface I18nType {
   },
   productList: {
     titleProducts: string;
+    showMoreLabel: (items: string) => string,
     actions: {
       unregister: string;
     };
@@ -163,6 +164,7 @@ export interface I18nType {
       version: string;
       status: string;
       actions: string;
+      scopes: string;
     };
   };
   dcrAuthentication: {
@@ -185,8 +187,10 @@ export interface I18nType {
     createNewApplication: string;
     createApplication: string;
     cancelButton: string;
+    fetchingScopesLabel: string;
     registeredApplicationsProduct: string;
     searchPlaceholder: string;
+    availableScopesLabel: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;
       buttonText: string;
@@ -282,6 +286,8 @@ export interface I18nType {
     refreshSecret: string;
     delete: string;
     cancel: string;
+    searchPlaceholder: string;
+    noSearchResults: string;
     noApp: string;
     create: string;
     getStarted: string;

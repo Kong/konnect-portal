@@ -154,6 +154,7 @@ export const fr: I18nType = {
   },
   productList: {
     titleProducts: 'Produits',
+    showMoreLabel: (items: string) => translationNeeded(en.productList.showMoreLabel(items)),
     actions: {
       unregister: 'Désenregistrer'
     },
@@ -166,6 +167,7 @@ export const fr: I18nType = {
       nameProduct: 'Produit',
       version: 'Version',
       status: 'Statut',
+      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Actions'
     }
   },
@@ -185,6 +187,8 @@ export const fr: I18nType = {
     noAvailableApplications: 'Vous n\'avez actuellement aucune application à enregistrer.',
     noFoundApplications: translationNeeded(en.applicationRegistration.noFoundApplications),
     searchPlaceholder: translationNeeded(en.applicationRegistration.searchPlaceholder),
+    availableScopesLabel: translationNeeded(en.applicationRegistration.availableScopesLabel),
+    fetchingScopesLabel: translationNeeded(en.applicationRegistration.fetchingScopesLabel),
     noApplications: 'Aucune application',
     selectApplication: 'Sélectionner une application',
     createNewApplication: 'Créer une nouvelle application +',
@@ -284,6 +288,8 @@ export const fr: I18nType = {
     plus: 'Plus',
     myApps: 'Mes applications',
     refreshSecret: 'Actualiser le secret',
+    noSearchResults: translationNeeded(en.myApp.noSearchResults),
+    searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Supprimer',
     cancel: 'Annuler',
     noApp: 'Aucune application',

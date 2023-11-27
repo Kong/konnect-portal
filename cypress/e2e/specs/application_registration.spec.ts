@@ -169,8 +169,6 @@ describe('Application Registration', () => {
 
       cy.get(submitButton).click()
 
-
-
       cy.wait('@postApplicationRegistration').then(() => {
         cy.get('[data-testid="copy-secret-modal"]').should('exist')
         cy.get('[data-testid="copy-button"]').eq(0).should('exist').should('contain', 'your-client-id')
@@ -303,6 +301,96 @@ describe('Application Registration', () => {
       .should('have.length', 3)
       .contains(apps[0].name)
       .should('not.exist')
+  })
+
+  it('shows granted scopes if present ', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z',
+        granted_scopes: [
+          'scope1',
+          'scope2'
+        ]
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="granted-scope1"]').should('exist')
+    cy.get('[data-testid="granted-scope2"]').should('exist')
+    cy.get('[data-testid="show-more-scopes"]').should('not.exist')
+  })
+
+  it('shows granted scopes if present - show more badge exists', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z',
+        granted_scopes: [
+          'scope1',
+          'scope2',
+          'scope3',
+          'scope4'
+        ]
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="granted-scope1"]').should('exist')
+    cy.get('[data-testid="granted-scope2"]').should('exist')
+    cy.get('[data-testid="show-more-scopes"]').should('exist').click().then(() => {
+      cy.get('[data-testid="granted-scope4"]').should('exist')
+    })
+  })
+
+  it('does not show granted scopes if not in response ', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z'
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="products-list"]')
+      .should('not.include.text', 'Scopes')
+    cy.get('.badge-container').should('not.exist')
   })
 
   describe('Credentials Management', () => {
@@ -524,6 +612,141 @@ describe('Application Registration', () => {
         'contain',
         'You will be notified upon approval'
       )
+    })
+
+    it('does not show select available scopes if no scopes are available - feature flag on', () => {
+      cy.mockProductDocument()
+      cy.mockProduct()
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3460-developer-managed-scopes',
+          value: true
+        }
+      ])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
+      cy.get('[data-testid="available-scopes-select"]').should('not.exist')
+    })
+    it('does show select available scopes if scopes are available - feature flag on', () => {
+      cy.mockProductDocument()
+      cy.mockProduct(product.id, product)
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3460-developer-managed-scopes',
+          value: true
+        }
+      ])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      // Update the version to include registration config
+      const productVersionWithScopes = versions[0]
+
+      productVersionWithScopes.registration_configs = [
+        {
+          name: 'openid-connect',
+          available_scopes: [
+            'scope1',
+            'scope2'
+          ]
+        }
+      ]
+      cy.mockProductVersion(product.id, versions[0].id, productVersionWithScopes)
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
+      cy.get('.available-scopes-select').should('exist')
+    })
+    it('does not show select available scopes if scopes are available - feature flag off', () => {
+      cy.mockProductDocument()
+      cy.mockProduct(product.id, product)
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3460-developer-managed-scopes',
+          value: false
+        }
+      ])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      // Update the version to include registration config
+      const productVersionWithScopes = versions[0]
+
+      productVersionWithScopes.registration_configs = [
+        {
+          name: 'openid-connect',
+          available_scopes: [
+            'scope1',
+            'scope2'
+          ]
+        }
+      ]
+      cy.mockProductVersion(product.id, versions[0].id, productVersionWithScopes)
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
+      cy.get('.available-scopes-select').should('not.exist')
+    })
+    it('does not show select available scopes if feature flag off', () => {
+      cy.mockProductDocument()
+      cy.mockProduct()
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3460-developer-managed-scopes',
+          value: false
+        }
+      ])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications(apps, 4)
+      cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${apps[0].name}"]`).should('contain', apps[0].name).click()
+      cy.get('[data-testid="available-scopes-select"]').should('not.exist')
     })
 
     it('can request registration to a product and is directed to application upon auto_approval', () => {

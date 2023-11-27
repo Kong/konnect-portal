@@ -115,7 +115,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return currentVersion.value.registration_configs?.length && isAllowedToRegister.value
+      return Boolean(currentVersion.value?.registration_configs?.length && isAllowedToRegister.value)
     })
 
     const helpText = useI18nStore().state.helpText
@@ -161,11 +161,14 @@ export default defineComponent({
       }
     })
 
-    watch(() => props.product, async () => {
+    watch(() => props.product, async (newProduct, oldProduct) => {
+      if (newProduct?.id === oldProduct?.id) {
+        return
+      }
+
       isAllowedToRegister.value = await canUserAccess({
-        service: 'konnect',
-        action: '#consume',
-        resourcePath: `services/${$route.params.product}`
+        action: 'register',
+        productId: $route.params.product.toString()
       })
 
       await processProduct()
@@ -186,12 +189,11 @@ export default defineComponent({
       }
     })
 
-    watch(() => $route.params.product_version, async (productVersionId) => {
-      if (productVersionId) {
+    watch(() => $route.params.product_version, async (productVersionId, oldValue) => {
+      if (productVersionId && (oldValue !== productVersionId)) {
         isAllowedToRegister.value = await canUserAccess({
-          service: 'konnect',
-          action: '#consume',
-          resourcePath: `services/${$route.params.product}`
+          action: 'register',
+          productId: $route.params.product.toString()
         })
 
         // this is not called on page load, but will be called when back button clicked and on select
@@ -202,9 +204,8 @@ export default defineComponent({
 
     onMounted(async () => {
       isAllowedToRegister.value = await canUserAccess({
-        service: 'konnect',
-        action: '#consume',
-        resourcePath: `services/${$route.params.product}`
+        action: 'register',
+        productId: $route.params.product.toString()
       })
 
       await processProduct()
@@ -323,7 +324,7 @@ export default defineComponent({
 
       return await portalApiV2.value.service.versionsApi.getProductVersionSpec({
         productId: $route.params.product as string,
-        versionId: version
+        productVersionId: version
       })
         .then(async res => {
           // no content

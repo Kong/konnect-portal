@@ -68,6 +68,11 @@ export default defineComponent({
     @media only screen and (max-device-width: 528px) {
       width: 320px
     }
+
+    :deep(.k-button) {
+      justify-content: center;
+    }
+
     .card-header {
       height: 6rem;
       margin: calc($kui-space-90 * -1) calc($kui-space-90 * -1) $kui-space-80;
