@@ -1037,10 +1037,10 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.38.2"
 
-"@kong/kongponents@8.126.1":
-  version "8.126.1"
-  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.126.1.tgz#f5f68e534a38df68c21c231c2e8ff728fbd2bd07"
-  integrity sha512-8GdHy+/pcALzabuTplnZZSsAnb8rBZhaMAx4nADfqrt6uPvfDHI6AQfLZg6Fc+D3CPjo9q2PL+o1kf2a5nuYLg==
+"@kong/kongponents@8.127.0", "@kong/kongponents@^8.32.0":
+  version "8.127.0"
+  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.127.0.tgz#5854fb862525aec2c7a05200ecc27718446a4d70"
+  integrity sha512-C/MFT+OZtyul62ElgHEggqMYPbLjXiRJg5GE3il8MZpaep2D5QV+F5UQ7frbA98TkZCCVBD4LpR0OmiwXKs+tg==
   dependencies:
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
@@ -1052,23 +1052,6 @@
     uuid "^9.0.0"
     v-calendar "3.0.0-alpha.8"
     vue-draggable-next "^2.2.1"
-
-"@kong/kongponents@^8.32.0":
-  version "8.123.3"
-  resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.123.3.tgz#038f5019f958d4a5da0db57a7b84dc1ab90b8212"
-  integrity sha512-nE0q69Imr5C5Q3rOW5mu+5h18Pi8WmnA1+s+yZNHlC5xvy3zSPo/xbpTfBqkk/VmQiu2oXqtQMMmxgtFoKF0Tg==
-  dependencies:
-    axios "^0.27.2"
-    date-fns "^2.29.3"
-    date-fns-tz "^1.3.7"
-    focus-trap "^7.5.2"
-    focus-trap-vue "^4.0.2"
-    popper.js "^1.15.0"
-    sortablejs "^1.15.0"
-    swrv "^1.0.0"
-    uuid "^8.3.2"
-    v-calendar "^3.0.0-alpha.8"
-    vue-draggable-next "^2.1.1"
 
 "@kong/sdk-portal-js@2.5.0":
   version "2.5.0"
@@ -2337,11 +2320,6 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/resize-observer-browser@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@types/resize-observer-browser/-/resize-observer-browser-0.1.7.tgz#294aaadf24ac6580b8fbd1fe3ab7b59fe85f9ef3"
-  integrity sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==
-
 "@types/scheduler@*":
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
@@ -3214,16 +3192,7 @@ axios@^0.27.2:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
 
-axios@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.4.0.tgz#38a7bf1224cd308de271146038b551d725f0be1f"
-  integrity sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
-axios@^1.6.0:
+axios@^1.4.0, axios@^1.6.0:
   version "1.6.1"
   resolved "https://registry.npmjs.org/axios/-/axios-1.6.1.tgz#76550d644bf0a2d469a01f9244db6753208397d7"
   integrity sha512-vfBmhDpKafglh0EldBEbVuoe7DyAavGSLWhuSm5ZSEKQnHhBf0xAAwybbNH1IkrJNGnS/VG4I5yxig1pCEXE4g==
@@ -4324,7 +4293,7 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns-tz@^1.0.12, date-fns-tz@^1.3.7:
+date-fns-tz@^1.0.12:
   version "1.3.8"
   resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-1.3.8.tgz#083e3a4e1f19b7857fa0c18deea6c2bc46ded7b9"
   integrity sha512-qwNXUFtMHTTU6CFSFjoJ80W8Fzzp24LntbjFFBgL/faqds4e5mo9mftoRLgr3Vi1trISsg4awSpYVsOQCRnapQ==
@@ -4334,7 +4303,7 @@ date-fns-tz@^2.0.0:
   resolved "https://registry.yarnpkg.com/date-fns-tz/-/date-fns-tz-2.0.0.tgz#1b14c386cb8bc16fc56fe333d4fc34ae1d1099d5"
   integrity sha512-OAtcLdB9vxSXTWHdT8b398ARImVwQMyjfYGkKD2zaGpHseG2UPHbHjXELReErZFxWdSLph3c2zOaaTyHfOhERQ==
 
-date-fns@2.30.0, date-fns@^2.16.1, date-fns@^2.29.3, date-fns@^2.30.0:
+date-fns@2.30.0, date-fns@^2.16.1, date-fns@^2.30.0:
   version "2.30.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
   integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
@@ -9021,7 +8990,7 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
-popper.js@^1.15.0, popper.js@^1.16.1:
+popper.js@^1.16.1:
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.16.1.tgz#2a223cb3dc7b6213d740e40372be40de43e65b1b"
   integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
@@ -10763,7 +10732,7 @@ swagger2har@1.0.3:
     json-schema-instantiator "0.4.4"
     rollup-plugin-babel "^4.4.0"
 
-swrv@^1.0.0, swrv@^1.0.4:
+swrv@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/swrv/-/swrv-1.0.4.tgz#278b4811ed4acbb1ae46654972a482fd1847e480"
   integrity sha512-zjEkcP8Ywmj+xOJW3lIT65ciY/4AL4e/Or7Gj0MzU3zBJNMdJiT8geVZhINavnlHRMMCcJLHhraLTAiDOTmQ9g==
@@ -11470,18 +11439,6 @@ v-calendar@3.0.0-alpha.8:
     date-fns-tz "^1.0.12"
     lodash "^4.17.20"
 
-v-calendar@^3.0.0-alpha.8:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/v-calendar/-/v-calendar-3.0.3.tgz#f04c625d3c3352d5685099bb4ad3e24d0530a7d4"
-  integrity sha512-Skpp/nMoFqFadm94aWj0oOfazoux5T5Ug3/pbRbdolkoDrnVcL7Ronw1/SGFRUPGOwnLdYwhKPhrhSE1segW6w==
-  dependencies:
-    "@types/lodash" "^4.14.165"
-    "@types/resize-observer-browser" "^0.1.7"
-    date-fns "^2.16.1"
-    date-fns-tz "^1.0.12"
-    lodash "^4.17.20"
-    vue-screen-utils "^1.0.0-beta.13"
-
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz#6336e8d71965cb3d35a1bbb7868445a7c05264bf"
@@ -11550,11 +11507,6 @@ vue-demi@^0.13.11:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.13.11.tgz#7d90369bdae8974d87b1973564ad390182410d99"
   integrity sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==
 
-vue-draggable-next@^2.1.1:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/vue-draggable-next/-/vue-draggable-next-2.2.0.tgz#cdefc345f950d64afb013436bf3111c7d87239f3"
-  integrity sha512-JQ7Ac4knnpsA47/acUhRR7negDHNZDLdpbXRR+n89f516rJDt+eHh48tfqTe80q2UfnLymQ46zi81gCMKFU4DQ==
-
 vue-draggable-next@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/vue-draggable-next/-/vue-draggable-next-2.2.1.tgz#adbe98c74610cca8f4eb63f92042681f96920451"
@@ -11586,11 +11538,6 @@ vue-router@4.2.1:
   integrity sha512-nW28EeifEp8Abc5AfmAShy5ZKGsGzjcnZ3L1yc2DYUo+MqbBClrRP9yda3dIekM4I50/KnEwo1wkBLf7kHH5Cw==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
-
-vue-screen-utils@^1.0.0-beta.13:
-  version "1.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/vue-screen-utils/-/vue-screen-utils-1.0.0-beta.13.tgz#0c739e19f6ffbffab63184aba7b6d710b6a63681"
-  integrity sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==
 
 vue-template-compiler@^2.7.14:
   version "2.7.14"
