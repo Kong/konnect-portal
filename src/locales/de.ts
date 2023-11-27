@@ -154,6 +154,7 @@ export const de: I18nType = {
   },
   productList: {
     titleProducts: 'Produkte',
+    showMoreLabel: (items: string) => translationNeeded(en.productList.showMoreLabel(items)),
     actions: {
       unregister: 'Registrierung aufheben'
     },
@@ -166,6 +167,7 @@ export const de: I18nType = {
       nameProduct: 'Produkt',
       version: 'Version',
       status: 'Status',
+      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Aktionen'
     }
   },

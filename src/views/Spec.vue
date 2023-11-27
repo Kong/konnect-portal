@@ -115,7 +115,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return Boolean(currentVersion.value.registration_configs?.length && isAllowedToRegister.value)
+      return Boolean(currentVersion.value?.registration_configs?.length && isAllowedToRegister.value)
     })
 
     const helpText = useI18nStore().state.helpText

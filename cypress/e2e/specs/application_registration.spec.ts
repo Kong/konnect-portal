@@ -303,6 +303,96 @@ describe('Application Registration', () => {
       .should('not.exist')
   })
 
+  it('shows granted scopes if present ', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z',
+        granted_scopes: [
+          'scope1',
+          'scope2'
+        ]
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="granted-scope1"]').should('exist')
+    cy.get('[data-testid="granted-scope2"]').should('exist')
+    cy.get('[data-testid="show-more-scopes"]').should('not.exist')
+  })
+
+  it('shows granted scopes if present - show more badge exists', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z',
+        granted_scopes: [
+          'scope1',
+          'scope2',
+          'scope3',
+          'scope4'
+        ]
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="granted-scope1"]').should('exist')
+    cy.get('[data-testid="granted-scope2"]').should('exist')
+    cy.get('[data-testid="show-more-scopes"]').should('exist').click().then(() => {
+      cy.get('[data-testid="granted-scope4"]').should('exist')
+    })
+  })
+
+  it('does not show granted scopes if not in response ', () => {
+    cy.mockApplications(apps, 1)
+    cy.visit('/my-apps')
+
+    mockApplicationWithCredAndReg(apps[0], [], [
+      {
+        id: 'regId',
+        product_id: 'id',
+        product_name: 'mockbin',
+        product_version_id: 'pvid',
+        product_version_name: 'version_name',
+        application_id: apps[0].id,
+        status: 'approved',
+        created_at: '2023-11-24T17:35:52.765Z',
+        updated_at: '2023-11-24T17:49:32.719Z'
+      }
+    ])
+    cy.get('[data-testid="applications-table"] tbody tr')
+      .contains(apps[0].name)
+      .click()
+
+    cy.get('[data-testid="products-list"]')
+      .should('not.include.text', 'Scopes')
+    cy.get('.badge-container').should('not.exist')
+  })
+
   describe('Credentials Management', () => {
     it("doesn't display unhashed credentials column", () => {
       cy.mockApplications(apps, 4)

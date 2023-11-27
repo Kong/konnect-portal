@@ -150,6 +150,7 @@ export const en = {
   },
   productList: {
     titleProducts: 'Products',
+    showMoreLabel: (items: string) => `+ ${items} more`,
     actions: {
       unregister: 'Unregister'
     },
@@ -162,6 +163,7 @@ export const en = {
       nameProduct: 'Product',
       version: 'Version',
       status: 'Status',
+      scopes: 'Scopes',
       actions: 'Actions'
     }
   },

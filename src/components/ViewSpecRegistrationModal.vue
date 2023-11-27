@@ -359,7 +359,7 @@ export default defineComponent({
             productVersionId: props.version.id
           }).then((res) => {
             fetchingScopes.value = false
-            const registrationConfigs = res.data.registration_configs
+            const registrationConfigs = res.data?.registration_configs
 
             if (registrationConfigs?.length && registrationConfigs[0].available_scopes) {
               availableScopes.value = registrationConfigs[0].available_scopes
@@ -379,6 +379,7 @@ export default defineComponent({
             const grantedScopesArr = res.data.scopes
 
             alreadyGrantedScopes.value = grantedScopesArr
+            selectedScopes.value = grantedScopesArr
             fetchingScopes.value = false
           }).finally(() => {
             fetchingScopes.value = false
