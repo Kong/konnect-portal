@@ -1041,7 +1041,7 @@
     swagger-client "^3.24.4"
     swagger-ui "^4.19.1"
 
-"@kong/design-tokens@^1.11.10":
+"@kong/design-tokens@1.11.10":
   version "1.11.10"
   resolved "https://registry.yarnpkg.com/@kong/design-tokens/-/design-tokens-1.11.10.tgz#e53bc7fd4e241473c5aa909f009469286e4a3d7b"
   integrity sha512-0ovN/48VgduW/FHQJ2ygHdrjW0mBrUu1GJptFYIzwL0MTRavBBfBQ5uq7NvYlsZWODgSnNh3N7RBwDO+LALvew==
