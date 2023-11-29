@@ -236,6 +236,7 @@ export default defineComponent({
     const clientSecret = ref('')
     const clientId = ref('')
     const applicationId = ref('')
+    const applicationName = ref('')
     const secretModalIsVisible = ref(false)
 
     const defaultFormData: UpdateApplicationPayload = makeDefaultFormData(isDcr.value)
@@ -321,6 +322,7 @@ export default defineComponent({
           if (isDcr.value) {
             secretModalIsVisible.value = true
             applicationId.value = res.data.id
+            applicationName.value = res.data.name
             clientId.value = res.data.credentials?.client_id
             clientSecret.value = res.data.credentials?.client_secret
           } else {
@@ -380,7 +382,7 @@ export default defineComponent({
       send('CLICKED_CANCEL')
       secretModalIsVisible.value = false
 
-      handleSuccess(applicationId.value, '', 'created')
+      handleSuccess(applicationId.value, applicationName.value, 'created')
     }
 
     const getRedirectRoute = (id: string, name: string) => {
