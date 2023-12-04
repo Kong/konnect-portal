@@ -975,18 +975,27 @@
   dependencies:
     date-fns "^2.30.0"
 
-"@kong-ui-public/document-viewer@0.10.5":
-  version "0.10.5"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/document-viewer/-/document-viewer-0.10.5.tgz#39e115f8a9197adea89edc0b537ac82bfa546378"
-  integrity sha512-HLu+binq/CYT2Vf+JzMz93xCzYibm1lqCoeMy0Tx8ufMF7G5GK2+/n0IHGFHhAfgZeol1+fSHnmv7stuwBRBIA==
+"@kong-ui-public/document-viewer@^.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/document-viewer/-/document-viewer-2.0.7.tgz#7891eae6cfd8125e1a1d009267b1964449ababc1"
+  integrity sha512-cMR4dwX0LKkYlfWMVkLi8GPr5wQQtqdGSZMrJvLU2LO/01jNoMJ6YrCIdnYH66qhhRyk/WTDF1avE/eKe+ro/g==
   dependencies:
-    "@kong-ui-public/i18n" "^0.8.0"
+    "@kong-ui-public/i18n" "^2.0.0"
     prismjs "^1.29.0"
 
-"@kong-ui-public/i18n@^0.8.0", "@kong-ui-public/i18n@^0.8.6":
+"@kong-ui-public/i18n@^0.8.6":
   version "0.8.6"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-0.8.6.tgz#6774fe21626bcd014ef9b9d8a87bc950e28e0288"
   integrity sha512-FPf5nfpJzjwvx5CQGXh7tjZqcy7IeRZyquoM6dsM+/O9wIlmr/PGfqVCiJwwdONgrkg/DCVuzm+qQBAjdaQlXQ==
+  dependencies:
+    "@formatjs/intl" "^2.9.3"
+    flat "^6.0.1"
+    intl-messageformat "^10.5.3"
+
+"@kong-ui-public/i18n@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-2.0.0.tgz#d36b5df36074ac0d55f7ed719e122ea0e76da144"
+  integrity sha512-n/fkoGmY9CG9tgMrBwxGCiI8M8x4KoUwwSL361gIs8E8ehbtfn0Tw3O9Tpwzq3JRqnzyYuTf/S4Z4ZaI5/SC9g==
   dependencies:
     "@formatjs/intl" "^2.9.3"
     flat "^6.0.1"
