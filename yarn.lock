@@ -975,7 +975,7 @@
   dependencies:
     date-fns "^2.30.0"
 
-"@kong-ui-public/document-viewer@^.0.7":
+"@kong-ui-public/document-viewer@2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/document-viewer/-/document-viewer-2.0.7.tgz#7891eae6cfd8125e1a1d009267b1964449ababc1"
   integrity sha512-cMR4dwX0LKkYlfWMVkLi8GPr5wQQtqdGSZMrJvLU2LO/01jNoMJ6YrCIdnYH66qhhRyk/WTDF1avE/eKe+ro/g==
