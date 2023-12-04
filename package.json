@@ -65,7 +65,7 @@
     "cypress-terminal-report": "5.3.2",
     "cz-conventional-changelog": "3.3.0",
     "druid.d.ts": "0.12.2",
-    "eslint": "8.54.0",
+    "eslint": "8.55.0",
     "eslint-plugin-cypress": "2.15.1",
     "eslint-plugin-import": "2.29.0",
     "eslint-plugin-node": "11.1.0",
