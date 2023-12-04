@@ -11803,10 +11803,10 @@ xml@=1.0.1:
   resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
   integrity sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==
 
-xstate@4.38.0:
-  version "4.38.0"
-  resolved "https://registry.yarnpkg.com/xstate/-/xstate-4.38.0.tgz#94c4316bea8e9e7a2974c7c501e5306f6e17ac19"
-  integrity sha512-oFjw2YZPyu6HeO0JWCSqfhAALsjFPURsrD2FUFN3u213dWwYU68RFuLtSHco+cEUhpQFW+hRG3PNYgq8HatudQ==
+xstate@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/xstate/-/xstate-5.0.0.tgz#e23cbaf6772c82da74090710948e2a77f6296ac5"
+  integrity sha512-FIKtRv8eQB+3dRLdnzdxlQ/sRjcqiN31JaskeHbcyRBaEvcwcjbakYZ5PVV9v4K0szbe793SUN/04J6/g5GrEA==
 
 xstate@^4.38.3:
   version "4.38.3"
