@@ -1035,6 +1035,11 @@
   resolved "https://registry.npmjs.org/@kong/icons/-/icons-1.8.0.tgz#3fb6423fec31be4cc27af94f2912f52aee4f9077"
   integrity sha512-ynO3GXaJTh4yoJMZ7XeTbA+ZHvlrteleI+rWNGUbEr726Tw/jgHLdT6wZ1YWR65cA38FN0Q96vEX/7+6ExwaHA==
 
+"@kong/icons@^1.8.3":
+  version "1.8.3"
+  resolved "https://registry.npmjs.org/@kong/icons/-/icons-1.8.3.tgz#ae82ace540bcd3fd1c1c092533099e7721ea55ee"
+  integrity sha512-9xXD8au1ty9Osi4qhy3OXthNTa8rAnVTIXryGJuA41/T0o4YnOSXMA7oj0F/kX6tEVeEi6TWbqwzGrj881ZFvA==
+
 "@kong/kong-auth-elements@2.11.1":
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.11.1.tgz#97fdc8621ac46479698530dcd9ec27371a6d2ebf"
@@ -1047,7 +1052,25 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.38.3"
 
-"@kong/kongponents@8.127.0", "@kong/kongponents@^8.126.2":
+"@kong/kongponents@9.0.0-pr.1881.bc9972cc.0":
+  version "9.0.0-pr.1881.bc9972cc.0"
+  resolved "https://registry.npmjs.org/@kong/kongponents/-/kongponents-9.0.0-pr.1881.bc9972cc.0.tgz#a67d8ae81a027d127650140747e4c57a9ea1b6f2"
+  integrity sha512-7M2aqPY+EfDgEQ4sGutiVYFuUMkueFgehVXcUrICGSZeJs70Ge0QmGYeoh29ILgzUkP5XWUMhbAXX/Cxc4uHgw==
+  dependencies:
+    "@kong/icons" "^1.8.3"
+    "@popperjs/core" "^2.11.8"
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    focus-trap "^7.5.4"
+    focus-trap-vue "^4.0.3"
+    popper.js "^1.16.1"
+    sortablejs "^1.15.0"
+    swrv "^1.0.4"
+    uuid "^9.0.1"
+    v-calendar "^3.1.2"
+    vue-draggable-next "^2.2.1"
+
+"@kong/kongponents@^8.126.2":
   version "8.127.0"
   resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.127.0.tgz#5854fb862525aec2c7a05200ecc27718446a4d70"
   integrity sha512-C/MFT+OZtyul62ElgHEggqMYPbLjXiRJg5GE3il8MZpaep2D5QV+F5UQ7frbA98TkZCCVBD4LpR0OmiwXKs+tg==
@@ -1412,6 +1435,11 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.0.tgz#0e1bdf8d021e7ea58affade33d9d607e11365915"
   integrity sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==
+
+"@popperjs/core@^2.11.8":
+  version "2.11.8"
+  resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
+  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@semantic-release/changelog@6.0.3":
   version "6.0.3"
@@ -2326,6 +2354,11 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     csstype "^3.0.2"
+
+"@types/resize-observer-browser@^0.1.7":
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@types/resize-observer-browser/-/resize-observer-browser-0.1.11.tgz#d3c98d788489d8376b7beac23863b1eebdd3c13c"
+  integrity sha512-cNw5iH8JkMkb3QkCoe7DaZiawbDQEUX8t7iuQaRTyLOyQCR2h+ibBD4GJt7p5yhUHrlOeL7ZtbxNHeipqNsBzQ==
 
 "@types/scheduler@*":
   version "0.16.3"
@@ -5723,10 +5756,22 @@ focus-trap-vue@^4.0.2:
   resolved "https://registry.yarnpkg.com/focus-trap-vue/-/focus-trap-vue-4.0.2.tgz#c9cc4976b2625d5290a8263b4edea542559fdb1a"
   integrity sha512-2iQN2xKCSCzyhcD90VpueQcTIAhaCRxxo67fkz7RSqLmEd16QKjfGslCr3KxvBx0LfpVN9j0IAyKKuJKw3Intg==
 
+focus-trap-vue@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/focus-trap-vue/-/focus-trap-vue-4.0.3.tgz#c13f19d94e666c5144498793e93e51e0c46c2660"
+  integrity sha512-cIX5rybkCAlNZ4IHYJ3nCFIsipDDljJHHjtTO2IgYWkVYg7X9ipUVdab3HzYp88kmHgMwjcB71LYnXRRsF6ZqQ==
+
 focus-trap@^7.4.3, focus-trap@^7.5.2:
   version "7.5.2"
   resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.5.2.tgz#e5ee678d10a18651f2591ffb66c949fb098d57cf"
   integrity sha512-p6vGNNWLDGwJCiEjkSK6oERj/hEyI9ITsSwIUICBoKLlWiTWXJRfQibCwcoi50rTZdbi87qDtUlMCmQwsGSgPw==
+  dependencies:
+    tabbable "^6.2.0"
+
+focus-trap@^7.5.4:
+  version "7.5.4"
+  resolved "https://registry.npmjs.org/focus-trap/-/focus-trap-7.5.4.tgz#6c4e342fe1dae6add9c2aa332a6e7a0bbd495ba2"
+  integrity sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==
   dependencies:
     tabbable "^6.2.0"
 
@@ -11511,6 +11556,18 @@ v-calendar@3.0.0-alpha.8:
     date-fns-tz "^1.0.12"
     lodash "^4.17.20"
 
+v-calendar@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.npmjs.org/v-calendar/-/v-calendar-3.1.2.tgz#fb47320a5469973454f030d850134eebcd2307eb"
+  integrity sha512-QDWrnp4PWCpzUblctgo4T558PrHgHzDtQnTeUNzKxfNf29FkCeFpwGd9bKjAqktaa2aJLcyRl45T5ln1ku34kg==
+  dependencies:
+    "@types/lodash" "^4.14.165"
+    "@types/resize-observer-browser" "^0.1.7"
+    date-fns "^2.16.1"
+    date-fns-tz "^2.0.0"
+    lodash "^4.17.20"
+    vue-screen-utils "^1.0.0-beta.13"
+
 v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz#6336e8d71965cb3d35a1bbb7868445a7c05264bf"
@@ -11609,6 +11666,11 @@ vue-router@4.2.1:
   integrity sha512-nW28EeifEp8Abc5AfmAShy5ZKGsGzjcnZ3L1yc2DYUo+MqbBClrRP9yda3dIekM4I50/KnEwo1wkBLf7kHH5Cw==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
+
+vue-screen-utils@^1.0.0-beta.13:
+  version "1.0.0-beta.13"
+  resolved "https://registry.npmjs.org/vue-screen-utils/-/vue-screen-utils-1.0.0-beta.13.tgz#0c739e19f6ffbffab63184aba7b6d710b6a63681"
+  integrity sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==
 
 vue-template-compiler@^2.7.14:
   version "2.7.14"
