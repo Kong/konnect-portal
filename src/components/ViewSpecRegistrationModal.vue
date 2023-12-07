@@ -67,7 +67,7 @@
                   class="available-scopes-select"
                   :items="mappedAvailableScopes"
                   :loading="fetchingScopes"
-                  :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.availableScopesLabel"
+                  :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.filterScopes"
                   width="100%"
                   @change="handleChangedItem"
                 />

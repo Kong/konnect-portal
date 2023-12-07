@@ -188,6 +188,7 @@ export const en = {
     createApplication: 'Create an Application',
     searchPlaceholder: 'Search applications',
     cancelButton: 'Cancel',
+    filterScopes: 'filter...',
     availableScopesLabel: 'Select scopes',
     fetchingScopesLabel: 'Fetching scopes...',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',

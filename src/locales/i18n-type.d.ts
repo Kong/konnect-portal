@@ -191,6 +191,7 @@ export interface I18nType {
     registeredApplicationsProduct: string;
     searchPlaceholder: string;
     availableScopesLabel: string;
+    filterScopes: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;
       buttonText: string;
