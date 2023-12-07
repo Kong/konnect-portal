@@ -67,7 +67,7 @@
                   class="available-scopes-select"
                   :items="mappedAvailableScopes"
                   :loading="fetchingScopes"
-                  :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.availableScopesLabel"
+                  :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.filterScopes"
                   width="100%"
                   @change="handleChangedItem"
                 />
@@ -432,14 +432,7 @@ export default defineComponent({
 
  .application-registration-modal {
   :deep(.selected) {
-    background-color: var(--text_colors-accent) !important;
-
-    td {
-      color: var(--section_colors-body) !important;
-    }
-
     .k-input-label {
-      color: var(--section_colors-body);
       font-weight: 600;
       width: 100%;
     }
@@ -472,6 +465,17 @@ export default defineComponent({
       margin-top: 4rem;
       margin-bottom: 0;
       max-width: 750px;
+
+      .k-multiselect {
+        .k-multiselect-icon .k-multiselect-clear-icon {
+          top: 21px;
+        }
+
+        .k-multiselect-selections {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
     }
   }
   .k-table-toolbar {
