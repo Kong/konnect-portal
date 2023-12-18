@@ -588,6 +588,7 @@ describe('Application Registration', () => {
 
       cy.mockApplications(apps, 4)
       cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+      cy.mockGrantedScopes(versions[0].id, apps[0].id, ['scope1', 'scope2'])
 
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
       cy.get(selectors.appRegModal).should('exist')
@@ -763,6 +764,7 @@ describe('Application Registration', () => {
 
       cy.mockApplications(apps, 4)
       cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+      cy.mockGrantedScopes(versions[0].id, apps[0].id, ['scope1', 'scope2'])
 
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).click()
       cy.get(selectors.appRegModal).should('exist')
