@@ -1,19 +1,19 @@
 <template>
   <section
-    class="error-wrapper container p-16 mx-auto d-flex flex-column justify-content-center align-items-center"
+    class="error-wrapper responsive-container"
     data-testid="error-wrapper"
   >
     <div
       v-if="errorCode"
-      class="error-wrapper__code mb-2"
+      class="error-wrapper__code"
     >
       {{ errorCode }}
     </div>
 
-    <div class="text-center mt-2">
+    <div class="description-wrapper">
       <p
         v-if="description"
-        class="mb-4 type-xxl"
+        class="description"
       >
         {{ description }}
       </p>
@@ -60,11 +60,29 @@ export default defineComponent({
 .error-wrapper  {
   border: 1px solid var(--section_colors-stroke);
   border-top: 3px solid var(--text_colors-accent);
+  padding: $kui-space-130;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   &__code {
     -webkit-text-stroke: 2px var(--text_colors-accent);
     color: white;
     font-size: 5rem;
+    margin-bottom: $kui-space-40;
+  }
+
+  .description-wrapper {
+    text-align: center;
+    margin-top: $kui-space-40;
+
+    .description {
+      margin-bottom: $kui-space-60;
+      font-size: $kui-font-size-70;
+    }
   }
 }
 </style>

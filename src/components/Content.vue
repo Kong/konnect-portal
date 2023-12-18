@@ -1,5 +1,14 @@
 <template>
-  <div class="container mx-auto max-w-screen-2xl pt-6 px-5 md:px-0">
+  <div class="responsive-container content-container">
     <slot />
   </div>
 </template>
+
+<style lang="scss" scoped>
+  .content-container {
+    margin: 0 auto;
+    padding-top: $kui-space-90;
+    padding-left: $kui-space-80;
+    padding-right: $kui-space-80;
+  }
+</style>

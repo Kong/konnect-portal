@@ -15,7 +15,7 @@ jobs:
   deploy:
     # This permission is required on the first run of running the action on a branch
     # because the branch doesn't exist the workflow needs permission to create it
-    permissions: 
+    permissions:
       contents: write
     if: github.repository == 'kong/konnect-portal'
     name: deploy build to github-pages
@@ -40,6 +40,8 @@ jobs:
           echo "VITE_PORTAL_API_URL='https://api-konnect-portal.konghq.com/'" >> .env
           echo "VITE_LOCALE='en'" >> .env
           echo "VITE_ENABLE_LAUNCH_DARKLY=true" >> .env
+      - name: Stylelint
+        run: yarn stylelint
       - name: Lint
         run: yarn lint
       - name: Build

@@ -1,14 +1,24 @@
-#   Refer for explanation to following link:
-#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+# Refer for explanation to following link:
+# https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 
 pre-push:
   parallel: true
   commands:
+    stylelint:
+      skip:
+        - merge
+        - rebase
+      run: yarn stylelint
     eslint:
       skip:
         - merge
         - rebase
       run: yarn lint
+    typecheck:
+      skip:
+        - merge
+        - rebase
+      run: yarn typecheck
     dependencies:
       skip:
         - merge

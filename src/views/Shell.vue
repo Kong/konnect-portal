@@ -7,7 +7,7 @@
 <style lang="scss">
 .page, .sidebar-menu {
   position: relative;
-  top: var(--headerHeight);
-  padding-bottom: var(--spacing-xl);
+  top: var(--portal-ui-header-height);
+  padding-bottom: $kui-space-90;
 }
 </style>

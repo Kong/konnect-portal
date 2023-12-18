@@ -1,10 +1,10 @@
 <!-- eslint-disable vue/no-v-for-template-key -->
 <template>
   <main
-    class="pl-5 md:pl-0 d-flex flex-row"
+    class="api-documentation-page-wrapper"
     data-testid="api-documentation-page"
   >
-    <div class="col content mt-6">
+    <div class="empty-state col content">
       <div
         v-if="product && !product.document_count"
         data-testid="documentation-empty-state"
@@ -33,14 +33,14 @@
 
         <ErrorWrapper
           v-if="errorCode"
-          :error-code="errorCode"
           :description="helpText.apiDocumentation.error.description"
+          :error-code="errorCode"
           :link-text="helpText.apiDocumentation.error.linkText"
         />
         <DocumentViewer
           v-else-if="content"
-          data-testid="portal-document-viewer"
           class="portal-document-viewer"
+          data-testid="portal-document-viewer"
           :document="content"
         />
       </template>
@@ -79,15 +79,15 @@ export default defineComponent({
   components: {
     DocumentViewer,
     DocumentSections,
-    ErrorWrapper
+    ErrorWrapper,
   },
   props: {
     product: {
       type: Object as PropType<ProductWithVersions>,
-      required: true
-    }
+      required: true,
+    },
   },
-  setup (props) {
+  setup(props) {
     const helpText = useI18nStore().state.helpText
     const productStore = useProductStore()
     const { activeDocumentSlug } = storeToRefs(productStore)
@@ -101,32 +101,32 @@ export default defineComponent({
       {
         key: 'product-catalog',
         to: { name: 'catalog' },
-        text: helpText.nav.catalog
+        text: helpText.nav.catalog,
       },
       {
         key: 'product',
         to: props.product
           ? {
-              name: 'spec',
-              params: {
-                product: props.product.id
-              }
-            }
+            name: 'spec',
+            params: {
+              product: props.product.id,
+            },
+          }
           : undefined,
-        text: props.product?.name || (helpText.nav.breadcrumbProduct)
+        text: props.product?.name || (helpText.nav.breadcrumbProduct),
       },
       {
         key: 'documentation',
         text: helpText.nav.breadcrumbDocumentation,
         to: props.product
           ? {
-              name: 'api-documentation-page',
-              params: {
-                product: props.product.id
-              }
-            }
-          : undefined
-      }
+            name: 'api-documentation-page',
+            params: {
+              product: props.product.id,
+            },
+          }
+          : undefined,
+      },
     ]))
 
     const title = ref<string>(null)
@@ -152,26 +152,26 @@ export default defineComponent({
           return {
             level,
             slug,
-            title: text
+            title: text,
           }
 
-          function getMaxHeaderLevel (maxHeadingLevel) {
+          function getMaxHeaderLevel(maxHeadingLevel) {
             return Math.min(node.level, maxHeadingLevel)
           }
         })
     })
 
-    async function fetchDocument (productId: string, slug: string) {
+    async function fetchDocument(productId: string, slug: string) {
       errorCode.value = null
       isDocumentLoading.value = true
 
       await portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
-        documentId: slug
+        documentId: slug,
       }, {
         headers: {
-          accept: 'application/vnd.konnect.document-nodes+json'
-        }
+          accept: 'application/vnd.konnect.document-nodes+json',
+        },
       })
         .then((res) => {
           const data = res.data as unknown as ProductDocument // override
@@ -188,7 +188,7 @@ export default defineComponent({
     const handleError = (error) => {
       notify({
         appearance: 'danger',
-        message: getMessageFromError(error)
+        message: getMessageFromError(error),
       })
 
       const statusCode = error?.response?.status || 400
@@ -197,7 +197,7 @@ export default defineComponent({
         errorCode.value = statusCode
       } else {
         router.replace({
-          name: 'not-found'
+          name: 'not-found',
         })
       }
     }
@@ -221,9 +221,9 @@ export default defineComponent({
       breadcrumbs,
       document,
       errorCode,
-      slug: activeDocumentSlug.value
+      slug: activeDocumentSlug.value,
     }
-  }
+  },
 })
 </script>
 
@@ -245,11 +245,11 @@ export default defineComponent({
   padding: 0 0.75rem;
 
   &:first-child {
-    padding-left: 0;
+    padding-left: $kui-space-0;
   }
 
   &:last-child {
-    padding-right: 0;
+    padding-right: $kui-space-0;
   }
 }
 
@@ -267,7 +267,7 @@ export default defineComponent({
 }
 
 .content-header {
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: $kui-space-110;
 }
 
 .sidebar-sections {
@@ -297,18 +297,27 @@ export default defineComponent({
   --kong-ui-document-viewer-link-color: var(--text_colors-link);
   --kong-ui-document-viewer-link-hover-color: var(--text_colors-accent);
   --kong-ui-document-viewer-color: var(--text_colors-primary);
-  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
+  --kong-ui-document-viewer-code-color: #273c61;
 
   // This is going to solve some contrast issues with blockquotes
   // and their text colors.
 
-  --kong-ui-document-viewer-code-color: var(--steel-700, #0a2b66);
+  --kong-ui-document-viewer-code-color: #273c61;
   :deep(blockquote) {
-    color: var(--steel-700, #0a2b66);
+    color: #273c61;
 
     h1, h2, h3, h4, h5, h6 {
-      color: var(--steel-700, #0a2b66);
+      color: #273c61;
     }
+  }
+}
+.api-documentation-page-wrapper {
+  padding-left: $kui-space-80;
+  display: flex;
+  flex-direction: row;
+
+  .empty-state {
+    margin-top: $kui-space-80;
   }
 }
 </style>

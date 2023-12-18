@@ -15,7 +15,6 @@
     >
       <div
         id="login-encouragement-message"
-        class="mt-6 text-center"
       >
         <p class="color-text_colors-primary">
           {{ helpText.registration.alreadyCreated }}
@@ -87,6 +86,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+#login-encouragement-message {
+  margin-top: $kui-space-80;
+  text-align: center;
+}
 #login-encouragement-message .kong-icon {
   vertical-align: middle;
 }

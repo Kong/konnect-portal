@@ -10,9 +10,8 @@
         :key="item.slug"
         :class="{
           active: activeHeading === item.slug,
-          'mt-4':true,
-          'pl-4': true,
-          ['ml-'+(item.level-1)*4]: true
+          'document-section': true,
+          ['indent-level-'+(item.level-1)]: true
         }"
       >
         <a
@@ -94,9 +93,24 @@ export default defineComponent({
   .wrapper {
     position: sticky;
     top: 0;
-    max-height: calc(100vh - var(--headerHeight));
+    max-height: calc(100vh - var(--portal-ui-header-height));
     padding: 2rem 0;
     overflow-x: auto;
+
+    .document-section {
+      margin-top: $kui-space-60;
+      padding-left: $kui-space-60;
+    }
+
+    .indent-level {
+      &-0 {
+        margin-left: $kui-space-0;
+      }
+
+      &-1 {
+        margin-left: $kui-space-60;
+      }
+    }
   }
 
   p {

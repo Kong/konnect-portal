@@ -1,9 +1,9 @@
 <template>
-  <AuthCard>
-    <h3 class="text-lg text-center color-text_colors-primary mb-4">
+  <AuthCard class="forgot-password">
+    <h3 class="heading-text color-text_colors-primary">
       {{ helpText.heading }}
     </h3>
-    <p class="text-center color-text_colors-secondary mb-5">
+    <p class="subheading-text color-text_colors-secondary">
       {{ helpText.subHeading }}
     </p>
     <!-- Kong Auth Element requires the wrapper with corresponding id attribute -->
@@ -54,3 +54,20 @@ export default defineComponent({
 
 })
 </script>
+
+<style lang="scss" scoped>
+.forgot-password {
+
+  .heading-text {
+    font-size: $kui-font-size-50;
+    line-height: $kui-line-height-50;
+    text-align: center;
+    margin-bottom: $kui-space-60;
+  }
+  .subheading-text {
+    text-align: center;
+    margin-bottom: $kui-space-70;
+  }
+
+}
+</style>

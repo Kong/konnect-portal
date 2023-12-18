@@ -8,8 +8,9 @@ import { visualizer } from 'rollup-plugin-visualizer'
 
 const path = require('path')
 
-function mutateCookieAttributes (proxy) {
-  proxy.on('proxyRes', function (proxyRes, req, res) {
+function mutateCookieAttributes(proxy) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  proxy.on('proxyRes', function(proxyRes, req, res) {
     if (proxyRes.headers['set-cookie']) {
       proxyRes.headers['set-cookie'] = (proxyRes.headers['set-cookie']).map(h => {
         return h.replace(/Domain=.*;/, 'Domain=localhost; Secure;')
@@ -18,10 +19,10 @@ function mutateCookieAttributes (proxy) {
   })
 }
 
-function setHostHeader (proxy) {
+function setHostHeader(proxy) {
   const host = new URL(process.env.VITE_PORTAL_API_URL).hostname
 
-  proxy.on('proxyReq', function (proxyRes) {
+  proxy.on('proxyReq', function(proxyRes) {
     proxyRes.setHeader('host', host)
   })
 }
@@ -29,12 +30,12 @@ function setHostHeader (proxy) {
 /**
  * Create a custom logger to ignore `vite:css` errors (from postcss) for imported packages
  */
-function createCustomLogger () {
+function createCustomLogger() {
   const logger = createLogger()
   const loggerWarn = logger.warn
   // Create array of partial message strings to ignore
   const ignoredWarnings = [
-    'end value has mixed support'
+    'end value has mixed support',
   ]
 
   logger.warn = (msg, options) => {
@@ -54,7 +55,7 @@ export default ({ mode }) => {
     filename: path.resolve(__dirname, 'bundle-analyzer/stats-treemap.html'),
     template: 'treemap', // sunburst|treemap|network
     sourcemap: true,
-    gzipSize: true
+    gzipSize: true,
   })
 
   let portalApiUrl = process.env.VITE_PORTAL_API_URL
@@ -89,6 +90,17 @@ export default ({ mode }) => {
 
   return defineConfig({
     logLevel: 'info',
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // Import the SCSS variables and mixins here so that they are globally available within component files
+          additionalData: `
+            @import "@kong/design-tokens/tokens/scss/variables";
+          `,
+        },
+      },
+      devSourcemap: true,
+    },
     build: {
       rollupOptions: {
         output: {
@@ -96,30 +108,30 @@ export default ({ mode }) => {
             vue: ['vue', 'vue-router'],
             kongponents: ['@kong/kongponents'],
             kongAuthelements: ['@kong/kong-auth-elements'],
-            specRenderer: ['@kong-ui-public/spec-renderer']
-          }
+            specRenderer: ['@kong-ui-public/spec-renderer'],
+          },
         },
         plugins: [
-          buildVisualizerPlugin
-        ]
-      }
+          buildVisualizerPlugin,
+        ],
+      },
     },
     plugins: [
       vue(
         {
           template: {
             transformAssetUrls: {
-              includeAbsolute: false
-            }
-          }
-        }
+              includeAbsolute: false,
+            },
+          },
+        },
       ),
       vueJsx(),
-      svgLoader()
+      svgLoader(),
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
+        '@': path.resolve(__dirname, './src'),
       },
       preserveSymlinks: true,
       /**
@@ -127,14 +139,14 @@ export default ({ mode }) => {
        * TODO: This is a crutch as we need to add `.vue` to all component imports.
        * https://vitejs.dev/config/#resolve-extensions
        */
-      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
     preview: {
-      proxy
+      proxy,
     },
     server: {
-      proxy
+      proxy,
     },
-    customLogger: createCustomLogger()
+    customLogger: createCustomLogger(),
   })
 }

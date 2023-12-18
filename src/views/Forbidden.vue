@@ -1,7 +1,7 @@
 <template>
   <Content>
     <section
-      class="forbidden d-flex flex-column justify-content-center align-items-center"
+      class="forbidden"
       data-testid="forbidden"
     >
       <div>
@@ -12,15 +12,15 @@
         >
       </div>
 
-      <div class="circle d-flex align-items-center justify-content-center">
+      <div class="circle">
         {{ helpText.http403 }}
       </div>
 
       <div class="message text-center">
-        <h1 class="mb-1 type-xxl">
+        <h1 class="sorry-message">
           {{ helpText.sorryMessage }}
         </h1>
-        <h1 class="mt-0 type-xxl">
+        <h1 class="go-back">
           {{ helpText.goBack }}
           <router-link
             data-testid="go-home"
@@ -56,13 +56,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .forbidden {
-  --timingFunction: cubic-bezier(.785, .135, .15, .86);
-  height: calc(100vh - var(--headerHeight));
+  --portal-ui-animation-timing-function: cubic-bezier(.785, .135, .15, .86);
+  height: calc(100vh - var(--portal-ui-header-height));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   h1,
   .circle {
     opacity: 0;
-    animation: .75s var(--timingFunction) forwards fadeIn;
+    animation: .75s var(--portal-ui-animation-timing-function) forwards fadeIn;
   }
 
   h1 { animation-delay: 1.25s; }
@@ -74,10 +78,25 @@ export default defineComponent({
     font-size: 2.5rem;
     border-radius: 50%;
     border: 1px solid var(--section_colors-stroke);
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .logo {
     max-height: 41px;
+  }
+}
+.message {
+  .sorry-message {
+    margin-bottom: $kui-space-20;
+    font-size: $kui-font-size-70;
+    line-height: $kui-line-height-60;
+  }
+  .go-back {
+    margin-top: $kui-space-0;
+    font-size: $kui-font-size-70;
+    line-height: $kui-line-height-60;
   }
 }
 

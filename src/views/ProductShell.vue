@@ -1,9 +1,9 @@
 <template>
-  <div class="container flex pb-0 product fixed-position">
+  <div class="product-shell product responsive-container page">
     <EmptyState
       v-if="productError"
       is-error
-      class="mt-6"
+      class="product-error-message"
       :message="productError"
     />
     <template v-else>
@@ -263,9 +263,12 @@ watchEffect(() => {
   position: sticky;
   top: 0;
   z-index: 1;
+  color: #a05604;
+  border-color: #ffe6ba;
+  background-color: #fff3d8;
 }
 
-.container.product.page.fixed-position {
+.responsive-container.product.page {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -274,7 +277,7 @@ watchEffect(() => {
 }
 
 .product {
-  min-height: calc(100vh - var(--headerHeight));
+  min-height: calc(100vh - var(--portal-ui-header-height));
 }
 
 .sidebar-wrapper {
@@ -291,5 +294,16 @@ watchEffect(() => {
   flex: 1 1 auto;
   overflow: auto;
   position: relative;
+}
+
+.product-shell {
+  width: 100%;
+  display: flex;
+  padding-bottom: $kui-space-0;
+  position: fixed;
+
+  .product-error-message {
+    margin-top: $kui-space-80;
+  }
 }
 </style>

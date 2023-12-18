@@ -3,7 +3,7 @@
     ref="popRef"
     :popover-timeout="0"
     popover-classes="mt-1 action-dropdown"
-    class="float-right"
+    class="popover"
     placement="bottomEnd"
     width="150"
     hide-caret
@@ -16,15 +16,15 @@
         class="action-dropdown-button"
       >
         <KBadge
-          data-testid="action-badge"
           :class="[
-            'cursor-pointer actions-badge',
+            'actions-badge',
             { opened: isOpened }
           ]"
+          data-testid="action-badge"
         >
           <KIcon
+            color="#a3b6d9"
             icon="gearFilled"
-            color="var(--steel-300)"
             size="16"
             view-box="0 0 16 16"
           />
@@ -65,17 +65,20 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .actions-badge.k-badge {
-  --KBadgeBorderRadius: var(--spacing-sm);
+  --KBadgeBorderRadius: #{$kui-space-50};
   --KBadgeWidth: auto;
   --KBadgeMinWidth: auto;
-  --KBadgePaddingY: var(--spacing-xxs);
-  --KBadgePaddingX: var(--spacing-sm);
-  --KBadgeBackground: var(--blue-200);
-  --KBadgeLighterBackground: var(--white-100);
+  --KBadgePaddingY: #{$kui-space-20};
+  --KBadgePaddingX: #{$kui-space-50};
+  --KBadgeBackground: #bdd3f9;
   border: 1px solid var(--section_colors-stroke);
   height: auto;
   display: flex;
   align-items: center;
+}
+
+.popover {
+  float: right;
 }
 
 .action-dropdown-button {
@@ -90,14 +93,23 @@ export default defineComponent({
 .actions-badge.k-badge:hover, .actions-badge.opened {
 
   .kong-icon path {
-    fill: var(--steel-500);
+    fill: #5c7299;
   }
+}
+
+.actions-popup {
+  float: right;
+}
+
+.actions-badge {
+  cursor: pointer;
 }
 
 .action-dropdown {
   --KPopPaddingY: 0;
   --KPopPaddingX: 0;
   --KPopBorder: var(--section_colors-stroke);
+
   div {
     color: var(--text_colors-secondary);
     background-color: var(--section_colors-tertiary);
@@ -106,7 +118,7 @@ export default defineComponent({
     }
   }
   .delete-item {
-    color: var(--red-500);
+    color: #d44324;
   }
 }
 </style>

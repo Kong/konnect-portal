@@ -1,8 +1,8 @@
 <template>
   <KToggle v-slot="{toggle, isToggled}">
     <div
-      :data-testid="dataTestid"
       class="inline nav-dropdown relative"
+      :data-testid="dataTestid"
     >
       <div
         v-if="isToggled.value"
@@ -10,9 +10,9 @@
         @click="toggle"
       />
       <KButton
-        show-caret
-        :is-rounded="false"
         appearance="btn-link"
+        :is-rounded="false"
+        show-caret
         @click="toggle"
       >
         {{ label }}
@@ -28,17 +28,17 @@
         >
           <router-link
             v-if="item.routerLink"
+            class="color-text_colors-primary block py-3 px-4"
             :data-testid="item.testid"
             :to="{ name: item.routerLink }"
-            class="color-text_colors-primary block py-3 px-4"
             @click="(e) => { toggle(e); item.onClick?.() }"
           >
             {{ item.label }}
           </router-link>
           <div
             v-else
-            :data-testid="item.testid"
             class="color-text_colors-primary block py-3 px-4 cursor-pointer"
+            :data-testid="item.testid"
             @click="(e) => { toggle(e); item.onClick?.() }"
           >
             {{ item.label }}
@@ -57,7 +57,7 @@ export default defineComponent({
   props: {
     label: {
       type: String,
-      required: true
+      required: true,
     },
     items: {
       type: Array as PropType<{
@@ -66,14 +66,14 @@ export default defineComponent({
         onClick?: () => void
         testid?: string
       }[]>,
-      required: true
+      required: true,
     },
     dataTestid: {
       type: String,
       required: false,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 })
 </script>
 
@@ -81,8 +81,25 @@ export default defineComponent({
 .nav-dropdown {
   --KButtonLink: var(--text_colors-header);
 
+  .apps-item {
+    font-size: $kui-font-size-40;
+    display: block;
+
+    .apps-link {
+      display: block;
+      padding: $kui-space-50 $kui-space-60;
+    }
+  }
+
+  .logout-btn {
+    font-size: $kui-font-size-40;
+    display: block;
+    cursor: pointer;
+    padding: $kui-space-50 $kui-space-60;
+  }
+
   .k-button {
-    --spacing-lg: var(--spacing-sm);
+    --spacing-lg: #{$kui-space-50};
     // this is to fix the alignment of the text
     line-height: 24px !important;
   }

@@ -1,6 +1,6 @@
 <template>
-  <div class="products-content px-5">
-    <div class="container max-w-screen-2xl mx-auto mt-6 mb-5 flex justify-between">
+  <div class="products-content">
+    <div class="products-container responsive-container">
       <span class="products-label">{{ catalogTitle }}</span>
       <KViewSwitcher
         data-testid="view-switcher"
@@ -13,9 +13,9 @@
       v-if="!catalogItems.length"
       class="product-catalog-empty-state"
     >
-      <div class="product-catalog-no-products type-lg color-text_colors-secondary">
+      <div class="product-catalog-no-products color-text_colors-secondary">
         <template v-if="!loading">
-          <EmptyState class="mb-2 mx-auto" />
+          <EmptyState class="empty-products" />
           {{ noResultsMessage }}
         </template>
         <div
@@ -43,7 +43,7 @@
         :loading="loading"
       />
       <PaginationBar
-        class="pagination-bar container max-w-screen-2xl mx-auto"
+        class="pagination-bar responsive-container"
         :page-size="cardsPerPage"
         :total-count="totalCount"
         :search-triggered="searchTriggered"
@@ -134,11 +134,11 @@ export default defineComponent({
 }
 
 .pagination-bar {
-  // TODO: Kui variables
-  margin-top: 16px;
+  margin: $kui-space-60 auto 0 auto;
 }
 
 .products-content {
+  padding: 0 $kui-space-80;
   --grey-500: var(--button_colors-primary-fill);
   display: flex;
   flex-direction: column;
@@ -146,19 +146,25 @@ export default defineComponent({
 
   .products-label {
     color: var(--text_colors-primary);
-    font-size: var(--type-xl);
+    font-size: $kui-font-size-70;
     font-weight: normal;
   }
 
-  .view-switch-button {
-    --grey-500: var(--text_colors-primary);
-    --spacing-xs: 6px;
-    --spacing-md: 6px;
-    --KButtonOutlineBase: var(--section_colors-body);
-    --KButtonOutlineBorder: var(--text_colors-primary);
-    --KButtonOutlineHover: var(--section_colors-tertiary);
+  .products-container {
+    display: flex;
+    justify-content: space-between;
+    margin: $kui-space-90 auto $kui-space-80 auto;
+  }
 
-    border: 1px solid var(--KButtonOutlineBorder) !important;
+  .view-switch-button {
+    padding: $kui-space-30;
+    border: 1px solid var(--text_colors-primary) !important;
+
+    :deep(.icon) {
+      i {
+        background-color: var(--text_colors-primary);;
+      }
+    }
   }
 }
 
@@ -175,6 +181,11 @@ export default defineComponent({
 
 .product-catalog-no-products {
   text-align: center;
-  padding: 20px var(--spacing-xs);
+  padding: 20px $kui-space-40;
+  font-size: $kui-font-size-50;
+
+  .empty-products {
+    margin: 0 auto $kui-space-40 auto;
+  }
 }
 </style>

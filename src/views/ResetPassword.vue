@@ -39,7 +39,7 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 input.k-input::placeholder {
-  color: var(--KInputPlaceholderColor);
+  color: var(--text_colors-secondary);
   opacity: 0.57;
 }
 </style>

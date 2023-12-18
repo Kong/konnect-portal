@@ -11,7 +11,7 @@
         v-else
         :to="`/spec/${product.id}`"
       >
-        <p class="products-card-title truncate">
+        <p class="products-card-title truncate-text">
           {{ product.title }}
         </p>
       </router-link>
@@ -29,11 +29,11 @@
           {{ product.description }}
         </template>
       </p>
-      <ul class="mt-auto pt1">
+      <ul class="link-container">
         <li class="details-item">
           <span
             v-if="version"
-            class="my-2 color-text_colors-secondary"
+            class="name-span color-text_colors-secondary"
           >
             <template
               v-if="loading"
@@ -41,7 +41,7 @@
               <KSkeletonBox width="2" />
             </template>
             <template v-else>
-              <span class="mr-2">{{ helpText.latestVersion }}</span>
+              <span class="latest-version">{{ helpText.latestVersion }}</span>
               <KBadge
                 color="var(--text_colors-secondary)"
                 background-color="var(--section_colors-accent)"
@@ -144,6 +144,12 @@ export default {
     padding: 1.5rem 1rem;
     border-bottom: 1px solid var(--section_colors-stroke);
     width: 100%;
+
+    &.truncate-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .description {
@@ -160,6 +166,18 @@ export default {
 
   .details-item {
     padding: 0.25rem 0;
+  }
+
+  .name-span {
+    margin: $kui-space-40 0;
+
+    .latest-version {
+      margin-right: $kui-space-40;
+    }
+  }
+
+  .link-container {
+    margin-top: auto;
   }
 
   .link {
@@ -185,6 +203,14 @@ export default {
       height: 19rem;
       display: flex;
       flex-direction: column;
+
+      .k-card-header {
+        margin-bottom: 0 !important;
+
+        .k-card-title {
+          margin-bottom: 0 !important;
+        }
+      }
     }
 
     .show-docs.kong-card {
@@ -203,11 +229,6 @@ export default {
       padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
-    }
-
-    .k-card-title,
-    .k-card-header {
-      margin-bottom: 0 !important;
     }
 
     .docs-links {
