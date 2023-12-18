@@ -421,6 +421,23 @@ Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, conf
     }).as('getProductVersionApplicationRegistration')
 })
 
+Cypress.Commands.add('mockGrantedScopes', (versionId, applicationId, scopes = []) => {
+  return cy.intercept(
+    'GET',
+    `**/api/v2/applications/${applicationId}/product-versions/${versionId}/granted-scopes`, {
+      body: {
+        scopes,
+        meta: {
+          page: {
+            number: 1,
+            size: 10,
+            total: 0
+          }
+        }
+      }
+    }).as('getGrantedScopes')
+})
+
 Cypress.Commands.add('mockProductVersionAvailableRegistrations', (productId, versionId, apps) => {
   const availableRegistrations = apps.map((app) => {
     return {
