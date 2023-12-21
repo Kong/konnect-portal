@@ -1009,25 +1009,25 @@
     "@kong/icons" "^1.8.0"
     approximate-number "^2.1.1"
 
-"@kong-ui-public/spec-renderer@0.13.4":
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.13.4.tgz#725d48e4f2c3c99d51e0670fcedeac5db1d5f929"
-  integrity sha512-+h3NvGgMxL4fzM0++xwOlA6t8oI38SBV37CN8XXhvfZtw5jIz71A+ysnlCxLPgLT4/Dzt2wi7fEggTE/VCPdbQ==
+"@kong-ui-public/spec-renderer@0.13.5":
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-0.13.5.tgz#333690ce4d67d3f425c43c5f1817f48ea9a07e44"
+  integrity sha512-hUICm1vJZQtlRk6a7fRkHDFPuMPUBlEx1wFPjVHxoIrT+auUVKcc9SbMkj1G81byoMdEKsfeD7E3IQrHxDPFHg==
   dependencies:
     "@kong-ui-public/i18n" "^0.8.6"
-    "@kong-ui-public/swagger-ui-web-component" "^0.10.3"
+    "@kong-ui-public/swagger-ui-web-component" "^0.10.7"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.1"
 
-"@kong-ui-public/swagger-ui-web-component@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.3.tgz#991fd999ac430fda455c4f670cad48a2825d779e"
-  integrity sha512-H9HIdbTAigFKGdnYjpAkI4gqGqpNQAN2z+uwt/eMYtKlMAkWhdF0kCYqpK5nkR/8vAvKPGJiGcNbUBJcfua07A==
+"@kong-ui-public/swagger-ui-web-component@^0.10.7":
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.7.tgz#d79a9116505527b530568449e84a1148a993683c"
+  integrity sha512-s8HhrFCd4dlZumllWeRYaYXwfJA2gTLXdjkUYniCFDn1RiVtVaOXQWOpYy3b05Iy9me5Tvq9kyrhmzwKzw+IEA==
   dependencies:
-    "@kong/swagger-ui-kong-theme-universal" "^4.3.2"
+    "@kong/swagger-ui-kong-theme-universal" "^4.3.3"
     react "17.0.2"
     react-dom "17.0.2"
-    swagger-client "^3.24.4"
+    swagger-client "^3.24.5"
     swagger-ui "^4.19.1"
 
 "@kong/icons@^1.8.0":
@@ -1070,10 +1070,10 @@
   dependencies:
     axios "1.6.0"
 
-"@kong/swagger-ui-kong-theme-universal@^4.3.2":
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/@kong/swagger-ui-kong-theme-universal/-/swagger-ui-kong-theme-universal-4.3.2.tgz#a0d306f0b26fe28d7f6d29363bf7995dea6fcec6"
-  integrity sha512-+wv/1bIPARDh6ZnZYdknbpKjcedBEOhuM8NUkzojCzWk09lq9B1CXQJcIkKoN2bE61HuMZpAqKzCt3qeMjaQCg==
+"@kong/swagger-ui-kong-theme-universal@^4.3.3":
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@kong/swagger-ui-kong-theme-universal/-/swagger-ui-kong-theme-universal-4.3.3.tgz#0fcdc9be67501dfb7c57b533ac7c9e9b7ffb06e7"
+  integrity sha512-g89NLf7Vu19BJ157fVUkLIrjzTmNE74zGfzktK2rxdZgIUegt4VBDsG8K0MAxDwQELQqSK3kPkamgdD9j1eV3Q==
   dependencies:
     "@braintree/sanitize-url" "6.0.2"
     "@kong/kongponents" "^8.126.2"
@@ -1086,7 +1086,7 @@
     memoizee "^0.4.12"
     react-apiembed "0.1.9"
     react-debounce-input "^3.2.0"
-    swagger2har "1.0.3"
+    swagger2har "1.0.6"
     tachyons-sass "^4.9.5"
     util "^0.12.5"
 
@@ -4081,6 +4081,11 @@ cookie@0.5.0, cookie@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
   integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
+
+cookie@~0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.6.0.tgz#2798b04b071b0ecbff0dbb62a505a8efa4e19051"
+  integrity sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==
 
 copy-to-clipboard@^3.3.1:
   version "3.3.3"
@@ -10732,10 +10737,10 @@ swagger-client@^3.19.8:
     traverse "~0.6.6"
     url "~0.11.0"
 
-swagger-client@^3.24.4:
-  version "3.24.5"
-  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.24.5.tgz#a43f866bdcfdb2584032a865b7fe36e3483cbe14"
-  integrity sha512-qb4Rr9LpWs7o2AO4KdiIK+dz0GbrRLyD+UyN24h6AcNcDUnwfkb6LgFE4e6bXwVXWJzMp27w1QvSQ4hQNMPnoQ==
+swagger-client@^3.24.5:
+  version "3.24.6"
+  resolved "https://registry.yarnpkg.com/swagger-client/-/swagger-client-3.24.6.tgz#7e255bb802b694e53e966406918be47f75a1c559"
+  integrity sha512-vgolnwLjsLCLe3mA9yOuXqmslVzxRpjz0fTBWwPtDGvYSU8FMVra0FGevw+N2OQ80UE1rOqgv4Te0AfvzMyR8g==
   dependencies:
     "@babel/runtime-corejs3" "^7.22.15"
     "@swagger-api/apidom-core" ">=0.83.0 <1.0.0"
@@ -10743,7 +10748,7 @@ swagger-client@^3.24.4:
     "@swagger-api/apidom-json-pointer" ">=0.83.0 <1.0.0"
     "@swagger-api/apidom-ns-openapi-3-1" ">=0.83.0 <1.0.0"
     "@swagger-api/apidom-reference" ">=0.83.0 <1.0.0"
-    cookie "~0.5.0"
+    cookie "~0.6.0"
     deepmerge "~4.3.0"
     fast-json-patch "^3.0.0-1"
     is-plain-object "^5.0.0"
@@ -10796,10 +10801,10 @@ swagger-ui@^4.19.1:
     xml-but-prettier "^1.0.1"
     zenscroll "^4.0.2"
 
-swagger2har@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/swagger2har/-/swagger2har-1.0.3.tgz#98ad00c5430fcd52c3bd3af32b9a734fd6f0f5c3"
-  integrity sha512-5lJZ0GW65ea5i1IpsBpOySHP2AZhHNo4I6vzwJFRsxNV5kEzYj454R47UKf16x7x7vSTyVHZidy1UuNBF50ReQ==
+swagger2har@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/swagger2har/-/swagger2har-1.0.6.tgz#62bd09d5b4c79aa92f0dbec64c9b5c090f8e1476"
+  integrity sha512-Nqn0VCeYSrslBMM/WnG4OrPi0r+ri86/a2uK4rzLsXj9HWxOOGW+Rgh4D6jUIE8V+44jyL/IUR50gfBwdDFyuA==
   dependencies:
     json-schema-instantiator "0.4.4"
     rollup-plugin-babel "^4.4.0"
