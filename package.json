@@ -36,7 +36,7 @@
     "@kong/sdk-portal-js": "2.5.0",
     "@xstate/vue": "2.0.0",
     "axios": "1.6.0",
-    "date-fns": "2.30.0",
+    "date-fns": "3.0.6",
     "dotenv": "16.3.1",
     "js-yaml": "4.1.0",
     "pinia": "2.1.3",
