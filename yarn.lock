@@ -4313,16 +4313,16 @@ curl-to-har@^1.0.1:
     underscore "^1.8.3"
     underscore.string "^3.0.3"
 
-cypress-split@1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/cypress-split/-/cypress-split-1.17.0.tgz#7015952db41e94a3641b5b2025c525d6c66596a8"
-  integrity sha512-Az1DIcCIwINurX7f+n6sMBUpjrLZyDc+K/46H6GGF0Y0x7OGKAmQPb7qz0sGKgRXnf25orrfed8tTCTge1ldIg==
+cypress-split@1.18.1:
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/cypress-split/-/cypress-split-1.18.1.tgz#a419a441bf0a6973db0c561b203eb9356594c143"
+  integrity sha512-v6f4Sl4YE6ksxq6syauA9UBxnSJFeu4d1Wf3wMf9yVl5PHv5V3HcF2YiIcRGpo4U9OQhS4JX9X2tV6UXFgvmQw==
   dependencies:
     "@actions/core" "^1.10.0"
     arg "^5.0.2"
     console.table "^0.10.0"
     debug "^4.3.4"
-    find-cypress-specs "1.37.1"
+    find-cypress-specs "1.38.4"
     globby "^11.1.0"
     humanize-duration "^3.28.0"
 
@@ -5662,16 +5662,16 @@ finalhandler@1.2.0:
     statuses "2.0.1"
     unpipe "~1.0.0"
 
-find-cypress-specs@1.37.1:
-  version "1.37.1"
-  resolved "https://registry.yarnpkg.com/find-cypress-specs/-/find-cypress-specs-1.37.1.tgz#0a582f92063f35413f46091fa562d21fda6c88fb"
-  integrity sha512-lIPMpAvX6TsvrWlpJ5MxrUTxPxTjEEBN0mstuB6v4dQu4pEMhHxeVNzWD9L0tt8irQSSBLFhN/lH9v7QKPBT/g==
+find-cypress-specs@1.38.4:
+  version "1.38.4"
+  resolved "https://registry.yarnpkg.com/find-cypress-specs/-/find-cypress-specs-1.38.4.tgz#1490030f594ca56bdc345377b88132a4cd6bd477"
+  integrity sha512-HdDsHdeiJ2GzKMZFKbf6A5/NBSgpBGP2IXOq+mLh8NDN1SRdNjr02RT0UOmiiJWL7pqnG19w6cE5Nv9bAvbsHg==
   dependencies:
     "@actions/core" "^1.10.0"
     arg "^5.0.1"
     console.table "^0.10.0"
     debug "^4.3.3"
-    find-test-names "1.28.14"
+    find-test-names "1.28.17"
     globby "^11.1.0"
     minimatch "^3.0.4"
     pluralize "^8.0.0"
@@ -5693,10 +5693,10 @@ find-root@1.1.0:
   resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
   integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
 
-find-test-names@1.28.14:
-  version "1.28.14"
-  resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.28.14.tgz#bd40a791362ec6e7f5bd015b65b79f939bfda9b6"
-  integrity sha512-ldhfZ4Vy7lpzH0ylYtkNqrT//3gtTns7JNERGIA9fQKcEBIbv8oFAtT1Z3hBgIuGMdHxV+ELLKvNItolgfuDMg==
+find-test-names@1.28.17:
+  version "1.28.17"
+  resolved "https://registry.yarnpkg.com/find-test-names/-/find-test-names-1.28.17.tgz#0f9bafe7f768c34037925264807c13eab7373bd5"
+  integrity sha512-GMkhIIOB8dmVtPuzcP4D4mtZsxJbqSNBJaFNGJjYdUYZZOF9fvz8T1BRc7ry5jV36TnNxc9r5qHLWlTmBWcG2A==
   dependencies:
     "@babel/parser" "^7.23.0"
     "@babel/plugin-syntax-jsx" "^7.22.5"
