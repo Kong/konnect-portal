@@ -2918,7 +2918,12 @@
     "@volar/typescript" "~1.8.0"
     "@vue/language-core" "1.8.4"
 
-"@xstate/vue@2.0.0", "@xstate/vue@^2.0.0":
+"@xstate/vue@3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-3.0.3.tgz#b6f38411951a7783c8792ac89b7f80c586ca4540"
+  integrity sha512-K5MNRc0h88HSTvLmY/PsWTqD3ttgDlS2zdC4D7ici/+yyHD1M/R/FrTnCiv9PYn823bIJr7KCyD+qgaKKGPoLw==
+
+"@xstate/vue@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@xstate/vue/-/vue-2.0.0.tgz#bb95f91600c5fad2e8a72f872cb8f69b3b154e10"
   integrity sha512-JlrJ3d+I6rZCcFBuu3O4GP+mGJfd11O9o69wRedzPMqZ+hxcMRBsih9L5kKnJHcU9CTmdJTT172oxTaYF7thzA==
