@@ -215,6 +215,65 @@ describe('Application Registration', () => {
 
       cy.get('[data-testid="reference-id-input"]').should('not.have.value', '')
     })
+
+    it('appregv2 - create application form shows banner if no auth strategies and flag enabled', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockApplicationAuthStrategies([], 0)
+      cy.visit('/application/create')
+
+      cy.get('[data-testid="application-name-input"]').type(apps[0].name, { delay: 0 })
+      cy.get('#description').type(apps[0].description, { delay: 0 })
+      cy.get('[data-testid="reference-id-input"]').type(apps[0].reference_id, { delay: 0 })
+      cy.get(submitButton).should('be.disabled')
+      cy.get('[data-testid="no-auth-strategies-warning"]').should('be.visible')
+    })
+
+    it('appregv2 - create application form does not show banner if flag disabled', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: false
+        }
+      ])
+      cy.mockApplicationAuthStrategies([], 0)
+      cy.visit('/application/create')
+
+      cy.get('[data-testid="no-auth-strategies-warning"]').should('not.exist')
+    })
+    it('appregv2 - does not show warning banner if flag is not on', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: false
+        }
+      ])
+      cy.mockApplications([], 0)
+      cy.mockApplicationAuthStrategies([], 0)
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="create-application-button"]').should('not.be.disabled')
+      cy.get('[data-testid="no-auth-strategies-warning"]').should('not.exist')
+    })
+
+    it('appregv2 - shows warning banner if no available auth strategies', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockApplications([], 0)
+      cy.mockApplicationAuthStrategies([], 0)
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="create-application-button"]').should('have.attr', 'disabled', 'disabled')
+      cy.get('[data-testid="no-auth-strategies-warning"]').should('be.visible')
+    })
   })
 
   it('can return to My Apps from application details via breadcrumb', () => {

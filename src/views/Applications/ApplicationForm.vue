@@ -15,6 +15,13 @@
         <p class="text-sm mb-5">
           <span class="text-danger">*</span> {{ helpText.application.reqField }}
         </p>
+        <KAlert
+          v-if="appRegV2Enabled && !hasAppAuthStrategies && formMode === 'create'"
+          :alert-message="helpText.application.authStrategyWarning"
+          appearance="warning"
+          class="no-auth-strategies-warning"
+          data-testid="no-auth-strategies-warning"
+        />
         <form @submit.prevent="formMethod">
           <div class="mb-5">
             <KLabel for="applicationName">
@@ -207,6 +214,8 @@ import cleanupEmptyFields from '@/helpers/cleanupEmptyFields'
 import useToaster from '@/composables/useToaster'
 import { useI18nStore, useAppStore } from '@/stores'
 import { CreateApplicationPayload, UpdateApplicationPayload } from '@kong/sdk-portal-js'
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 
 export default defineComponent({
   name: 'ApplicationForm',
@@ -238,6 +247,8 @@ export default defineComponent({
     const applicationId = ref('')
     const applicationName = ref('')
     const secretModalIsVisible = ref(false)
+    const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
+    const hasAppAuthStrategies = ref(false)
 
     const defaultFormData: UpdateApplicationPayload = makeDefaultFormData(isDcr.value)
     const formData = ref(defaultFormData)
@@ -274,6 +285,7 @@ export default defineComponent({
       () =>
         !currentState.value.matches('pending') &&
         formData.value.name.length &&
+        (appRegV2Enabled && formMode.value !== 'edit' ? hasAppAuthStrategies.value : true) &&
         (isDcr.value ? true : formData.value.reference_id?.length)
     )
     const modalTitle = computed(() => `Delete ${formData.value?.name}`)
@@ -291,9 +303,21 @@ export default defineComponent({
 
     const { portalApiV2 } = usePortalApi()
 
-    onMounted(() => {
+    onMounted(async () => {
       if (id.value) {
         fetchApplication()
+      }
+
+      if (appRegV2Enabled) {
+        try {
+          const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
+          if (appAuthStrategies.data?.data?.length) {
+            hasAppAuthStrategies.value = true
+          }
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.warn(`Error fetching application auth strategies: ${err}`)
+        }
       }
     })
 
@@ -459,6 +483,8 @@ export default defineComponent({
       copyTokenToClipboard,
       secretModalIsVisible,
       handleAcknowledgeSecret,
+      hasAppAuthStrategies,
+      appRegV2Enabled,
       send,
       buttonText,
       formMode,
@@ -489,5 +515,9 @@ export default defineComponent({
   height: 36px;
   top: 4px;
   margin-left: 16px;
+}
+
+.no-auth-strategies-warning {
+  margin-bottom: 8px;
 }
 </style>

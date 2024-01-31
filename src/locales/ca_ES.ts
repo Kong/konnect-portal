@@ -103,6 +103,7 @@ export const ca_ES: I18nType = {
     delete: 'Eliminar',
     proceed: 'Continuar',
     applicationName: "Nom de l'aplicació ",
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     clientID: 'ID de client: ',
     clientSecret: 'Clau secreta de client: ',
     reqField: ' indica un camp obligatori',
@@ -285,6 +286,7 @@ export const ca_ES: I18nType = {
     logoAlt: 'logotip'
   },
   myApp: {
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     newApp: 'Nova aplicació',
     plus: 'Més',
     myApps: 'Les meves aplicacions',

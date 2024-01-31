@@ -99,6 +99,7 @@ export interface I18nType {
     delete: string;
     proceed: string;
     applicationName: string;
+    authStrategyWarning: string;
     clientID: string;
     clientSecret: string;
     reqField: string;
@@ -281,6 +282,7 @@ export interface I18nType {
     logoAlt: string;
   };
   myApp: {
+    authStrategyWarning: string;
     newApp: string;
     plus: string;
     myApps: string;
