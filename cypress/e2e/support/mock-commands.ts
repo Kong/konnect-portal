@@ -10,6 +10,7 @@ import petstoreOperationsV2 from '../fixtures/v2/petstoreOperations.json'
 import {
   GetApplicationResponse,
   ListApplicationsResponse,
+  ListAuthStrategiesResponse,
   ListCredentialsResponse,
   ListDocumentsTree,
   ListRegistrationsResponse,
@@ -331,6 +332,24 @@ Cypress.Commands.add('mockApplications', (applications, totalCount, pageSize = 1
   return cy.intercept('GET', '**/api/v2/applications*', {
     body: responseBody
   }).as('getApplications')
+})
+
+Cypress.Commands.add('mockApplicationAuthStrategies', (applicationAuthStrategies, totalCount, pageSize = 1, pageNumber = 10) => {
+  const responseBody: ListAuthStrategiesResponse = {
+    data: applicationAuthStrategies,
+    meta: {
+      page: {
+        total: totalCount,
+        number: pageNumber,
+        size: pageSize
+
+      }
+    }
+  }
+
+  return cy.intercept('GET', '**/api/v2/applications/auth-strategies*', {
+    body: responseBody
+  }).as('getApplicationAuthStrategies')
 })
 
 Cypress.Commands.add('mockRegistrations', (applicationId = '*', registrations = [], pageNumber = 1, pageSize = 10, totalCount = 0) => {

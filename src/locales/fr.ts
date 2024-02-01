@@ -103,6 +103,7 @@ export const fr: I18nType = {
     delete: 'Supprimer',
     proceed: 'Continuer',
     applicationName: 'Nom de l\'application ',
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     clientID: 'Client ID : ',
     clientSecret: 'Client Secret : ',
     reqField: ' indique un champ obligatoire',
@@ -285,6 +286,7 @@ export const fr: I18nType = {
     logoAlt: 'logo'
   },
   myApp: {
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     newApp: 'Nouvelle application',
     plus: 'Plus',
     myApps: 'Mes applications',
