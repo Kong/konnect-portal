@@ -315,8 +315,10 @@ export default defineComponent({
             hasAppAuthStrategies.value = true
           }
         } catch (err) {
-          // eslint-disable-next-line no-console
-          console.warn(`Error fetching application auth strategies: ${err}`)
+          notify({
+            appearance: 'danger',
+            message: `Error fetching application auth strategies: ${err}`
+          })
         }
       }
     })
