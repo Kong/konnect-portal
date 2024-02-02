@@ -11,6 +11,31 @@ const versions: ProductVersion[] = [
   }
 ]
 
+const versionWithOidcAuthStrategy: ProductVersion = {
+  ...versions[0],
+  registration_configs: [
+    {
+      auth_methods: ['bearer', 'client_credentials'],
+      name: 'oidc auth strategy',
+      credential_type: 'client_credentials'
+    }
+  ]
+}
+
+const versionWithKeyAuthAuthStrategy: ProductVersion = {
+  created_at: '2022-03-26T14:52:46.323Z',
+  updated_at: '2022-03-26T14:52:46.323Z',
+  id: '1afac832-5b2a-474c-a56d-c241364f41cf',
+  name: 'v1-beta',
+  deprecated: false,
+  registration_configs: [
+    {
+      name: 'key auth auth strategy',
+      credential_type: 'key_auth'
+    }
+  ]
+}
+
 const product: Product = {
   created_at: '2022-03-23T14:52:41.893Z',
   updated_at: '2022-03-23T14:52:41.893Z',
@@ -94,4 +119,4 @@ const productRegistrations: GetRegistrationResponse[] = [
   productRegistration
 ]
 
-export { versions, product, productVersion, productRegistration, productRegistrations, apps, defaultContext }
+export { versions, product, productVersion, productRegistration, versionWithOidcAuthStrategy, versionWithKeyAuthAuthStrategy, productRegistrations, apps, defaultContext }
