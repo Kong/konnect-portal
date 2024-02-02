@@ -16,7 +16,7 @@
           <span class="text-danger">*</span> {{ helpText.application.reqField }}
         </p>
         <KAlert
-          v-if="appRegV2Enabled && !hasAppAuthStrategies && formMode === 'create'"
+          v-if="appRegV2Enabled && !hasAppAuthStrategies && !fetchingAuthStrategies && formMode === 'create'"
           :alert-message="helpText.application.authStrategyWarning"
           appearance="warning"
           class="no-auth-strategies-warning"
@@ -249,6 +249,7 @@ export default defineComponent({
     const secretModalIsVisible = ref(false)
     const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const hasAppAuthStrategies = ref(false)
+    const fetchingAuthStrategies = ref(true)
 
     const defaultFormData: UpdateApplicationPayload = makeDefaultFormData(isDcr.value)
     const formData = ref(defaultFormData)
@@ -309,12 +310,17 @@ export default defineComponent({
       }
 
       if (appRegV2Enabled) {
+        fetchingAuthStrategies.value = true
+
         try {
           const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
           if (appAuthStrategies.data?.data?.length) {
             hasAppAuthStrategies.value = true
           }
+
+          fetchingAuthStrategies.value = false
         } catch (err) {
+          fetchingAuthStrategies.value = false
           notify({
             appearance: 'danger',
             message: `Error fetching application auth strategies: ${err}`
@@ -483,6 +489,7 @@ export default defineComponent({
       clientSecret,
       clientId,
       copyTokenToClipboard,
+      fetchingAuthStrategies,
       secretModalIsVisible,
       handleAcknowledgeSecret,
       hasAppAuthStrategies,
