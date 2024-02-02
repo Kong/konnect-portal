@@ -673,7 +673,7 @@ describe('Application Registration', () => {
         'You will be notified upon approval'
       )
     })
-    it.only('appreg-v2 - feature flag off - does not show auth strategy card', () => {
+    it('appreg-v2 - feature flag off - does not show auth strategy card', () => {
       cy.mockLaunchDarklyFlags([
         {
           name: 'tdx-3531-app-reg-v2',
@@ -696,7 +696,7 @@ describe('Application Registration', () => {
       cy.get('[data-testid="app-reg-v2-register-btn"]').should('not.exist')
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('exist')
     })
-    it.only('appreg-v2 - feature flag on - shows information about application auth strategy (key-auth)', () => {
+    it('appreg-v2 - feature flag on - shows information about application auth strategy (key-auth)', () => {
       cy.mockLaunchDarklyFlags([
         {
           name: 'tdx-3531-app-reg-v2',
@@ -722,7 +722,7 @@ describe('Application Registration', () => {
       cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('not.exist')
     })
-    it.only('appreg-v2 - feature flag on - shows information about application auth strategy (oidc auth)', () => {
+    it('appreg-v2 - feature flag on - shows information about application auth strategy (oidc auth)', () => {
       cy.mockLaunchDarklyFlags([
         {
           name: 'tdx-3531-app-reg-v2',
