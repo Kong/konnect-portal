@@ -33,7 +33,7 @@
       </template>
     </PageTitle>
     <KAlert
-      v-if="appRegV2Enabled && !hasAppAuthStrategies"
+      v-if="appRegV2Enabled && !hasAppAuthStrategies && !fetchingAuthStrategies"
       :alert-message="helpText.authStrategyWarning"
       appearance="warning"
       class="no-auth-strategies-warning"
@@ -233,6 +233,7 @@ export default defineComponent({
     const { portalApiV2 } = usePortalApi()
     const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const hasAppAuthStrategies = ref(false)
+    const fetchingAuthStrategies = ref(true)
 
     const appStore = useAppStore()
     const { isDcr } = storeToRefs(appStore)
@@ -368,12 +369,16 @@ export default defineComponent({
       vitalsLoading.value = false
 
       if (appRegV2Enabled) {
+        fetchingAuthStrategies.value = true
         try {
           const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
           if (appAuthStrategies.data?.data?.length) {
             hasAppAuthStrategies.value = true
           }
+
+          fetchingAuthStrategies.value = false
         } catch (err) {
+          fetchingAuthStrategies.value = false
           notify({
             appearance: 'danger',
             message: `Error fetching application auth strategies: ${err}`
@@ -389,6 +394,7 @@ export default defineComponent({
       currentState,
       tableHeaders,
       handleDelete,
+      fetchingAuthStrategies,
       isDcr,
       deleteItem,
       showSecretModal,
