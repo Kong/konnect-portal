@@ -40,6 +40,15 @@ export const en = {
     noProductVersionsTitle: 'No Product Versions',
     registerProductVersion: 'Register Product version'
   },
+  authStrategyInfo: {
+    title: (authStrategyName: string) => `Supported Application Auth Strategy: ${authStrategyName}`,
+    registerBtnText: (productVersionName: string) => `Register for ${productVersionName}`,
+    authMethods: 'Auth Methods:',
+    bearer: 'Bearer',
+    keyAuth: 'Key Auth',
+    clientCredentials: 'Client Credentials',
+    session: 'Session'
+  },
   userDropdown: {
     myApps: 'My Apps',
     logout: 'Logout'

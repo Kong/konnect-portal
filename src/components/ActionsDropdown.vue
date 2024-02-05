@@ -12,7 +12,7 @@
   >
     <slot>
       <KButton
-        apperance="btn-link"
+        appearance="btn-link"
         class="action-dropdown-button"
       >
         <KBadge

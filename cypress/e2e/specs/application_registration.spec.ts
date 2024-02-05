@@ -1,5 +1,5 @@
 import { CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
-import { product, versions, productRegistration, apps } from '../fixtures/consts'
+import { product, versions, productRegistration, apps, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
@@ -672,6 +672,83 @@ describe('Application Registration', () => {
         'contain',
         'You will be notified upon approval'
       )
+    })
+    it('appreg-v2 - feature flag off - does not show auth strategy card', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: false
+        }
+      ])
+      cy.mockProductDocument()
+      cy.mockProduct(product.id, product, [versionWithKeyAuthAuthStrategy])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 }).should('exist')
+
+      cy.get('[data-testid="auth-strategy-card"]').should('not.exist')
+      cy.get('[data-testid="app-reg-v2-register-btn"]').should('not.exist')
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('exist')
+    })
+    it('appreg-v2 - feature flag on - shows information about application auth strategy (key-auth)', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockProductDocument()
+      cy.mockProduct(product.id, product, [versionWithKeyAuthAuthStrategy])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 }).should('exist')
+
+      cy.get('[data-testid="auth-strategy-card"]').should('exist')
+      cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', versionWithKeyAuthAuthStrategy.registration_configs[0].name)
+      cy.get('[data-testid="auth-method-key-auth"]').should('exist')
+      cy.get('[data-testid="app-reg-v2-bearer"]').should('not.exist')
+      cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('not.exist')
+    })
+    it('appreg-v2 - feature flag on - shows information about application auth strategy (oidc auth)', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockProductDocument()
+      cy.mockProduct(product.id, product, [versionWithOidcAuthStrategy])
+      cy.mockProductVersionApplicationRegistration(versions[0])
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations(product.id, versions[0].id)
+      cy.mockProductVersionSpec(product.id, versions[0].id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${product.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 }).should('exist')
+
+      cy.get('[data-testid="auth-strategy-card"]').should('exist')
+      cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', versionWithOidcAuthStrategy.registration_configs[0].name)
+      cy.get('[data-testid="auth-method-key-auth"]').should('not.exist')
+      versionWithOidcAuthStrategy.registration_configs[0].auth_methods.forEach((method) => {
+        cy.get(`[data-testid="auth-method-${method}"]`).should('exist')
+      })
+      cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
+      cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('not.exist')
     })
 
     it('does not show select available scopes if no scopes are available - feature flag on', () => {

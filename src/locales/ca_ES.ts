@@ -44,6 +44,15 @@ export const ca_ES: I18nType = {
     noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
     registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
   },
+  authStrategyInfo: {
+    title: (authStrategyName: string) => translationNeeded(en.authStrategyInfo.title(authStrategyName)),
+    registerBtnText: (productVersionName: string) => translationNeeded(en.authStrategyInfo.registerBtnText(productVersionName)),
+    authMethods: translationNeeded(en.authStrategyInfo.authMethods),
+    bearer: translationNeeded(en.authStrategyInfo.bearer),
+    keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
+    clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
+    session: translationNeeded(en.authStrategyInfo.session)
+  },
   userDropdown: {
     myApps: 'Les meves aplicacions',
     logout: 'Tancar sessió'

@@ -44,6 +44,15 @@ export const fr: I18nType = {
     noProductVersionsTitle: 'Aucune version de produit',
     registerProductVersion: 'Enregistrer une version de produit'
   },
+  authStrategyInfo: {
+    title: (authStrategyName: string) => translationNeeded(en.authStrategyInfo.title(authStrategyName)),
+    registerBtnText: (productVersionName: string) => translationNeeded(en.authStrategyInfo.registerBtnText(productVersionName)),
+    authMethods: translationNeeded(en.authStrategyInfo.authMethods),
+    bearer: translationNeeded(en.authStrategyInfo.bearer),
+    keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
+    clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
+    session: translationNeeded(en.authStrategyInfo.session)
+  },
   userDropdown: {
     myApps: 'Mes Applications',
     logout: 'Déconnexion'

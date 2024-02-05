@@ -40,6 +40,15 @@ export interface I18nType {
     noProductVersionsTitle: string;
     registerProductVersion: string;
   };
+  authStrategyInfo: {
+    title: (authStrategyName: string) => string;
+    registerBtnText: (productVersionName: string) => string;
+    authMethods: string;
+    bearer: string;
+    keyAuth: string;
+    clientCredentials: string;
+    session: string;
+  };
   userDropdown: {
     myApps: string;
     logout: string;
