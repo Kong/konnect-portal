@@ -90,7 +90,7 @@
         appearance="primary"
         :disabled="currentState.matches('pending')"
         class="button-spacing"
-        :to="{ name: 'create-application', query: { product: $route.params.product, product_version: $route.params.product_version } }"
+        :to="{ name: 'create-application', query: createApplicationQuery }"
       >
         {{ helpText.applicationRegistration.createApplication }}
       </KButton>
@@ -118,13 +118,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, onMounted, watch } from 'vue'
+import { computed, defineComponent, ref, onMounted, watch, PropType } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMachine } from '@xstate/vue'
 import { createMachine } from 'xstate'
 import useToaster from '@/composables/useToaster'
 import usePortalApi from '@/hooks/usePortalApi'
-import { useI18nStore } from '@/stores'
+import { ProductWithVersions, useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { FeatureFlags } from '@/constants/feature-flags'
@@ -142,7 +142,7 @@ export default defineComponent({
       default: false
     },
     product: {
-      type: Object,
+      type: Object as PropType<ProductWithVersions>,
       default: () => {}
     },
     version: {
@@ -166,6 +166,7 @@ export default defineComponent({
     const selectedScopes = ref([])
     const alreadyGrantedScopes = ref([])
     const useDeveloperManagedScopes = useLDFeatureFlag(FeatureFlags.DeveloperManagedScopes, false)
+    const useAppRegV2 = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const applications = ref([])
     const key = ref(0)
     const fetchingScopes = ref(false)
@@ -238,6 +239,26 @@ export default defineComponent({
       }[currentState.value.matches('success_application_status_is_pending') ? 'success' : 'default']
     })
 
+    const authStrategyId = computed(() => {
+      const productVersion = $route.params.product_version
+      const matchingVersion = props.product.versions.find((version) => version.id === productVersion)
+      if (!matchingVersion) {
+        return
+      }
+
+      return matchingVersion.registration_configs[0]?.id
+    })
+
+    const createApplicationQuery = computed(() => {
+      return {
+        product: $route.params.product,
+        product_version: $route.params.product_version,
+        ...(useAppRegV2 && authStrategyId.value)
+          ? { 'auth-strategy-id': authStrategyId.value }
+          : {}
+      }
+    })
+
     const rowAttrsFn = (rowItem) => {
       return {
         class: {
@@ -255,8 +276,13 @@ export default defineComponent({
       const { pageSize, page: pageNumber } = payload
 
       const requestOptions = {
-        productId: props.product?.id || $route.params.product,
-        productVersionId: props.version?.id || $route.params.product_version,
+        ...(useAppRegV2
+          ? {
+              filterAuthStrategyId: authStrategyId.value
+            }
+          : {}),
+        productId: props.product?.id || $route.params.product?.toString(),
+        productVersionId: props.version?.id || $route.params.product_version?.toString(),
         ...(searchStr.value.length && { filterNameContains: searchStr.value }),
         unregistered: true,
         pageNumber,
@@ -417,7 +443,9 @@ export default defineComponent({
       alreadyRegisteredMessage,
       handleRowClick,
       submitSelection,
-      closeModal
+      closeModal,
+      authStrategyId,
+      createApplicationQuery
     }
   }
 })

@@ -277,11 +277,11 @@ Cypress.Commands.add('mockProduct', (productId = '*', mockProduct = product, moc
     }
   }
 
-  cy.intercept('GET', `**/api/v2/products/${productId}/versions*`, {
+  cy.intercept('GET', `**/api/v2/products/${productId}/versions**`, {
     statusCode: 200,
     delay: 100,
     body: versionsResponse
-  })
+  }).as('getProductVersions')
 
   const productResponse: Product = {
     ...mockProduct

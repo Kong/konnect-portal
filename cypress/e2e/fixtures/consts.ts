@@ -1,4 +1,4 @@
-import { GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion } from '@kong/sdk-portal-js'
+import { GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion, RegistrationConfiguration } from '@kong/sdk-portal-js'
 
 const versions: ProductVersion[] = [
   {
@@ -11,14 +11,23 @@ const versions: ProductVersion[] = [
   }
 ]
 
+const keyAuthRegConfig: RegistrationConfiguration = {
+  name: 'key auth auth strategy',
+  credential_type: 'key_auth',
+  id: 'd668b397-8a0d-482d-9b97-9e05cbfc7618'
+}
+
+const oidcAuthRegConfig: RegistrationConfiguration = {
+  auth_methods: ['bearer', 'client_credentials'],
+  name: 'oidc auth strategy',
+  credential_type: 'client_credentials',
+  id: '7b651144-0b48-431a-af9b-58604adc9268'
+}
+
 const versionWithOidcAuthStrategy: ProductVersion = {
   ...versions[0],
   registration_configs: [
-    {
-      auth_methods: ['bearer', 'client_credentials'],
-      name: 'oidc auth strategy',
-      credential_type: 'client_credentials'
-    }
+    oidcAuthRegConfig
   ]
 }
 
@@ -29,10 +38,7 @@ const versionWithKeyAuthAuthStrategy: ProductVersion = {
   name: 'v1-beta',
   deprecated: false,
   registration_configs: [
-    {
-      name: 'key auth auth strategy',
-      credential_type: 'key_auth'
-    }
+    keyAuthRegConfig
   ]
 }
 
@@ -46,6 +52,34 @@ const product: Product = {
   latest_version: {
     id: versions[0].id,
     name: versions[0].name
+  },
+  version_count: 1
+}
+
+export const productWithKeyAuthAppAuthStrategy: Product = {
+  created_at: '2022-03-23T14:52:41.893Z',
+  updated_at: '2022-03-23T14:52:41.893Z',
+  id: '29985c03-a866-46f2-8152-29406243b90f',
+  name: 'barAPI',
+  description: null,
+  document_count: 0,
+  latest_version: {
+    id: versionWithKeyAuthAuthStrategy.id,
+    name: versionWithKeyAuthAuthStrategy.name
+  },
+  version_count: 1
+}
+
+export const productWithOidcAppAuthStrategy: Product = {
+  created_at: '2024-03-23T14:52:41.893Z',
+  updated_at: '2024-03-23T14:52:41.893Z',
+  id: '7b5f7176-bbb1-4e98-bb98-fa16ae492b64',
+  name: 'fooAPI',
+  description: null,
+  document_count: 0,
+  latest_version: {
+    id: versionWithOidcAuthStrategy.id,
+    name: versionWithOidcAuthStrategy.name
   },
   version_count: 1
 }
@@ -90,6 +124,17 @@ const apps: GetApplicationResponse[] = [
     updated_at: '2022-03-25T13:15:02.104Z'
   }
 ]
+
+export const appWithAuthStrategy: GetApplicationResponse = {
+  name: 'My Key-Auth App',
+  description: 'My DCR App has an auth strategy id',
+  reference_id: '5',
+  redirect_uri: 'http://google.com',
+  id: crypto.randomUUID(),
+  created_at: '2022-03-25T13:15:02.104Z',
+  updated_at: '2022-03-25T13:15:02.104Z',
+  auth_strategy_id: '452664ba-7d37-4e12-875c-3ca8044446fd'
+}
 
 const productRegistration: GetRegistrationResponse = {
   created_at: '2022-03-25T13:15:02.104Z',
