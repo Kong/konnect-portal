@@ -1,5 +1,5 @@
 import { CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
-import { product, versions, productRegistration, apps, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
+import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
@@ -673,6 +673,58 @@ describe('Application Registration', () => {
         'You will be notified upon approval'
       )
     })
+    it('appregv2 - can request registration to a product version with app auth strategy id with feature flag enabled', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockProductDocument(productWithKeyAuthAppAuthStrategy.id)
+      cy.mockProduct(productWithKeyAuthAppAuthStrategy.id, productWithKeyAuthAppAuthStrategy, [versionWithKeyAuthAuthStrategy])
+      cy.mockProductVersionApplicationRegistration(versionWithKeyAuthAuthStrategy)
+      cy.mockGetProductDocuments(productWithKeyAuthAppAuthStrategy.id)
+      cy.mockProductOperations(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id)
+      cy.mockProductVersionSpec(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${productWithKeyAuthAppAuthStrategy.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications([appWithAuthStrategy], 1)
+      cy.mockProductVersionAvailableRegistrations(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id, [appWithAuthStrategy])
+      cy.mockGrantedScopes(versionWithKeyAuthAuthStrategy.id, appWithAuthStrategy.id, ['scope1', 'scope2'])
+      cy.wait('@getProductVersions')
+
+      cy.get('[data-testid="app-reg-v2-register-btn"]', { timeout: 12000 }).click()
+      cy.wait('@getProductVersionAvailableRegistrations').then(interception => {
+        // @ts-ignore the filter property is actually an object, but the type definition is wrong
+        expect(interception.request.query.filter?.auth_strategy_id).to.eq(versionWithKeyAuthAuthStrategy.registration_configs[0].id)
+      })
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="register-${appWithAuthStrategy.name}"]`).should('contain', appWithAuthStrategy.name).click()
+
+      const mockCreateRegResponse = {
+        ...productRegistration,
+        status: 'pending',
+        application: appWithAuthStrategy
+      }
+
+      cy.intercept(
+        'POST',
+        `/api/v2/applications/${appWithAuthStrategy.id}/registrations*`,
+        {
+          body: mockCreateRegResponse
+        }
+      ).as('postApplicationRegistration')
+
+      cy.get('[data-testid="submit-registration"]').click()
+      cy.get(selectors.appRegModal).should(
+        'contain',
+        'You will be notified upon approval'
+      )
+    })
     it('appreg-v2 - feature flag off - does not show auth strategy card', () => {
       cy.mockLaunchDarklyFlags([
         {
@@ -749,6 +801,34 @@ describe('Application Registration', () => {
       })
       cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
       cy.get('[data-testid="register-button"]', { timeout: 12000 }).should('not.exist')
+    })
+
+    it('appregv2 - shows link to create new application if no applications match with feature flag enabled', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockProductDocument(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id)
+      cy.mockProduct(productWithKeyAuthAppAuthStrategy.id, productWithKeyAuthAppAuthStrategy, [versionWithKeyAuthAuthStrategy])
+      cy.mockProductVersionApplicationRegistration(versionWithKeyAuthAuthStrategy)
+      cy.mockGetProductDocuments(productWithKeyAuthAppAuthStrategy.id)
+      cy.mockProductOperations(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id)
+      cy.mockProductVersionSpec(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id)
+      cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+      cy.viewport(1440, 900)
+      cy.visit(`/spec/${productWithKeyAuthAppAuthStrategy.id}`)
+      cy.get('.swagger-ui', { timeout: 12000 })
+
+      cy.mockApplications([], 0)
+      cy.mockProductVersionAvailableRegistrations(productWithKeyAuthAppAuthStrategy.id, versionWithKeyAuthAuthStrategy.id, [])
+
+      cy.get('[data-testid="app-reg-v2-register-btn"]', { timeout: 12000 }).click()
+      cy.get(selectors.appRegModal).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="create-application"]`).should('exist')
+      cy.get(`${selectors.appRegModal} [data-testid="create-application"]`).should('have.prop', 'href').should('contain', `/application/create?product=${productWithKeyAuthAppAuthStrategy.id}&product_version=${versionWithKeyAuthAuthStrategy.id}&auth-strategy-id=${versionWithKeyAuthAuthStrategy.registration_configs[0].id}`)
     })
 
     it('does not show select available scopes if no scopes are available - feature flag on', () => {

@@ -112,7 +112,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watch, onMounted, toRaw, ComputedGetter } from 'vue'
+import { defineComponent, computed, ref, watch, onMounted, toRaw, ComputedGetter, PropType } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import jsyaml from 'js-yaml'
@@ -121,7 +121,7 @@ import getMessageFromError from '@/helpers/getMessageFromError'
 import ViewSpecModal from '@/components/ViewSpecModal.vue'
 import ViewSpecRegistrationModal from '@/components/ViewSpecRegistrationModal.vue'
 import usePortalApi from '@/hooks/usePortalApi'
-import { useI18nStore, useAppStore, usePermissionsStore, useProductStore } from '@/stores'
+import { useI18nStore, useAppStore, usePermissionsStore, useProductStore, ProductWithVersions } from '@/stores'
 import { OperationListItem, SpecDetails } from '@kong-ui-public/spec-renderer'
 import { idFromPathMethod } from '@/helpers/generatedOperationId'
 import '@kong-ui-public/spec-renderer/dist/style.css'
@@ -138,7 +138,7 @@ export default defineComponent({
   },
   props: {
     product: {
-      type: Object,
+      type: Object as PropType<ProductWithVersions>,
       required: true
     }
   },
