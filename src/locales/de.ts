@@ -112,6 +112,7 @@ export const de: I18nType = {
     delete: 'Löschen',
     proceed: 'Weiter',
     applicationName: 'Name der Applikation',
+    authStrategy: translationNeeded(en.application.authStrategy),
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     clientID: translationNeeded(en.application.clientID),
     clientSecret: translationNeeded(en.application.clientSecret),

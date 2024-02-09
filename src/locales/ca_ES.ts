@@ -112,6 +112,7 @@ export const ca_ES: I18nType = {
     delete: 'Eliminar',
     proceed: 'Continuar',
     applicationName: "Nom de l'aplicació ",
+    authStrategy: translationNeeded(en.application.authStrategy),
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
     clientID: 'ID de client: ',
     clientSecret: 'Clau secreta de client: ',
