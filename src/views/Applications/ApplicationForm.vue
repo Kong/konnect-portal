@@ -55,7 +55,7 @@
             />
           </div>
           <div
-            v-if="(!appRegV2Enabled && isDcr) || (appRegV2Enabled && appIsDcr)"
+            v-if="(!appRegV2Enabled && isDcr) || (appRegV2Enabled && appIsDcr) || (appRegV2Enabled && appIsSelfManaged)"
             class="mb-5"
           >
             <KLabel for="redirectUri">
@@ -69,7 +69,7 @@
             />
           </div>
           <div
-            v-else
+            v-if="(!appRegV2Enabled && !isDcr) || (appRegV2Enabled && !appIsDcr)"
             class="mb-5"
           >
             <KLabel for="referenceId">
@@ -262,7 +262,7 @@ export default defineComponent({
 
     const helpText = useI18nStore().state.helpText
     const appStore = useAppStore()
-    const { isDcr } = storeToRefs(appStore) // TODO: remove with AppRegV2
+    const { isDcr } = storeToRefs(appStore) // TODO: remove with AppRegV2 use appIsDcr instead
     const errorMessage = ref('')
     const clientSecret = ref('')
     const clientId = ref('')
@@ -272,6 +272,7 @@ export default defineComponent({
     const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const appAuthStrategies = ref([])
     const appIsDcr = ref(false)
+    const appIsSelfManaged = ref(false)
     const hasAppAuthStrategies = ref(false)
     const fetchingAuthStrategies = ref(true)
 
@@ -311,7 +312,10 @@ export default defineComponent({
         !currentState.value.matches('pending') &&
         formData.value.name.length &&
         (appRegV2Enabled && formMode.value !== 'edit' ? hasAppAuthStrategies.value : true) &&
-        (isDcr.value ? true : formData.value.reference_id?.length)
+        (appRegV2Enabled
+          ? (appIsDcr.value ? true : formData.value.reference_id?.length)
+          : (isDcr.value ? true : formData.value.reference_id?.length)
+        )
     )
     const modalTitle = computed(() => `Delete ${formData.value?.name}`)
     const id = computed(() => $route.params.application_id as string)
@@ -350,13 +354,19 @@ export default defineComponent({
               label: strat.name,
               value: strat.id,
               isDcr: strat.credential_type === 'client_credentials',
+              isSelfManaged: strat.credential_type === 'self_managed_client_credentials',
               selected: formData.value.auth_strategy_id ? strat.id === formData.value.auth_strategy_id : ($route.query.auth_strategy_id || false)
             }))
           }
 
-          const selected = appAuthStrategies.value.find((authStrat) => authStrat.value === formData.value.auth_strategy_id)
+          const selected = rawAuthStrategies.length === 1
+            ? appAuthStrategies.value[0]
+            : appAuthStrategies.value.find((authStrat) => authStrat.selected === true)
+
           if (selected) {
+            formData.value.auth_strategy_id = selected.value
             appIsDcr.value = selected.isDcr
+            appIsSelfManaged.value = selected.isSelfManaged
           }
 
           fetchingAuthStrategies.value = false
@@ -393,6 +403,7 @@ export default defineComponent({
 
       formData.value.auth_strategy_id = selected.value
       appIsDcr.value = selected.isDcr
+      appIsSelfManaged.value = selected.isSelfManaged
     }
 
     const handleSubmit = () => {
@@ -568,7 +579,8 @@ export default defineComponent({
       helpText,
       appAuthStrategies,
       onChangeAuthStrategy,
-      appIsDcr
+      appIsDcr,
+      appIsSelfManaged
     }
   }
 })
