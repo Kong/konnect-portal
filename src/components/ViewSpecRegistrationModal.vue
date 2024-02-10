@@ -241,7 +241,7 @@ export default defineComponent({
 
     const authStrategyId = computed(() => {
       const productVersion = $route.params.product_version
-      const matchingVersion = props.product.versions.find((version) => version.id === productVersion)
+      const matchingVersion = props.product?.versions?.find((version) => version.id === productVersion)
       if (!matchingVersion) {
         return
       }
