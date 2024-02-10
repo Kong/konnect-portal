@@ -6,7 +6,7 @@
       class="mt-6"
       :message="productError"
     />
-    <template v-else>
+    <template v-else-if="product">
       <div
         class="sidebar-wrapper"
       >
