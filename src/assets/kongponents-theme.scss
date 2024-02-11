@@ -121,6 +121,10 @@
   }
 }
 
+#app input.k-input:disabled {
+  cursor: not-allowed;
+}
+
 .kong-card .k-card-content div.k-card-body {
   font-size: 16px;
   line-height: 24px;
