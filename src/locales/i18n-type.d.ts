@@ -108,6 +108,7 @@ export interface I18nType {
     delete: string;
     proceed: string;
     applicationName: string;
+    authStrategy: string;
     authStrategyWarning: string;
     clientID: string;
     clientSecret: string;

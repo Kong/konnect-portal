@@ -1,4 +1,4 @@
-import { CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
+import { CredentialCreationResponse, GetApplicationResponse, ListAuthStrategiesItem, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
 import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
@@ -153,6 +153,167 @@ describe('Application Registration', () => {
       cy.get('[data-testid="application-name-input"]').type(apps[3].name, { delay: 0 })
       cy.get('#description').type(apps[3].description, { delay: 0 })
       cy.get('#redirectUri').type(apps[3].redirect_uri, { delay: 0 })
+      cy.get(submitButton).should('not.be.disabled')
+
+      cy.intercept('POST', '**/api/v2/applications', {
+        body: {
+          id: apps[0].id,
+          credentials: {
+            client_id: 'your-client-id',
+            client_secret: 'your-client-secret'
+          }
+        }
+      }).as('postApplicationRegistration')
+      mockApplicationWithCredAndReg(apps[3])
+      mockApplicationWithCredAndReg(apps[0])
+
+      cy.get(submitButton).click()
+
+      cy.wait('@postApplicationRegistration').then(() => {
+        cy.get('[data-testid="copy-secret-modal"]').should('exist')
+        cy.get('[data-testid="copy-button"]').eq(0).should('exist').should('contain', 'your-client-id')
+        cy.get('[data-testid="copy-button"]').eq(1).should('exist').should('contain', 'your-client-secret')
+        cy.get('[data-testid="close-application-secret-modal"]').should('exist').click()
+
+        cy.get('.k-alert.success').should('exist')
+      })
+    })
+
+    it('appregv2 - can create an application with DCR for portal enabled - 1 auth strat', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockApplications([], 0)
+      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials' } as ListAuthStrategiesItem], 0)
+
+      cy.mockDcrPortal()
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="create-application-button"]').should('exist')
+      cy.get('[data-testid="create-application-link"]').should('exist')
+      cy.get('[data-testid="create-application-button"]').click()
+
+      cy.get('header h1').should('contain', 'Create New Application')
+      cy.get(submitButton).should('be.disabled')
+      cy.get('[data-testid="application-name-input"]').type(apps[3].name, { delay: 0 })
+      cy.get('#description').type(apps[3].description, { delay: 0 })
+      cy.get('#redirectUri').type(apps[3].redirect_uri, { delay: 0 })
+      cy.get(submitButton).should('not.be.disabled')
+
+      cy.intercept('POST', '**/api/v2/applications', {
+        body: {
+          id: apps[0].id,
+          credentials: {
+            client_id: 'your-client-id',
+            client_secret: 'your-client-secret'
+          }
+        }
+      }).as('postApplicationRegistration')
+      mockApplicationWithCredAndReg(apps[3])
+      mockApplicationWithCredAndReg(apps[0])
+
+      cy.get(submitButton).click()
+
+      cy.wait('@postApplicationRegistration').then(() => {
+        cy.get('[data-testid="copy-secret-modal"]').should('exist')
+        cy.get('[data-testid="copy-button"]').eq(0).should('exist').should('contain', 'your-client-id')
+        cy.get('[data-testid="copy-button"]').eq(1).should('exist').should('contain', 'your-client-secret')
+        cy.get('[data-testid="close-application-secret-modal"]').should('exist').click()
+
+        cy.get('.k-alert.success').should('exist')
+      })
+    })
+
+    it('appregv2 - can create an application with key-auth for portal enabled - 1 auth strat', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockApplications([], 0)
+      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'key_auth' } as ListAuthStrategiesItem], 0)
+
+      cy.mockDcrPortal()
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="create-application-button"]').should('exist')
+      cy.get('[data-testid="create-application-link"]').should('exist')
+      cy.get('[data-testid="create-application-button"]').click()
+
+      cy.get('header h1').should('contain', 'Create New Application')
+      cy.get(submitButton).should('be.disabled')
+      cy.get('[data-testid="application-name-input"]').type(apps[3].name, { delay: 0 })
+      cy.get('#description').type(apps[3].description, { delay: 0 })
+      cy.get('[data-testid="reference-id-input"]').type(apps[3].reference_id, { delay: 0 })
+      cy.get(submitButton).should('not.be.disabled')
+
+      cy.intercept('POST', '**/api/v2/applications', {
+        body: {
+          id: apps[0].id,
+          credentials: {
+            client_id: 'your-client-id',
+            client_secret: 'your-client-secret'
+          }
+        }
+      }).as('postApplicationRegistration')
+      mockApplicationWithCredAndReg(apps[3])
+      mockApplicationWithCredAndReg(apps[0])
+
+      cy.get(submitButton).click()
+
+      cy.wait('@postApplicationRegistration').then(() => {
+        cy.get('[data-testid="copy-secret-modal"]').should('not.exist')
+        cy.get('.k-alert.success').should('exist')
+      })
+    })
+
+    it('appregv2 - can create an application with DCR for portal enabled - many auth strat', () => {
+      cy.mockLaunchDarklyFlags([
+        {
+          name: 'tdx-3531-app-reg-v2',
+          value: true
+        }
+      ])
+      cy.mockApplications([], 0)
+      cy.mockApplicationAuthStrategies([
+        { name: 'foo', id: '1', credential_type: 'client_credentials' },
+        { name: 'bar', id: '2', credential_type: 'key_auth' },
+        { name: 'baz', id: '3', credential_type: 'self_managed_client_credentials' }
+      ] as ListAuthStrategiesItem[], 0)
+
+      cy.mockDcrPortal()
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="create-application-button"]').should('exist')
+      cy.get('[data-testid="create-application-link"]').should('exist')
+      cy.get('[data-testid="create-application-button"]').click()
+
+      cy.get('header h1').should('contain', 'Create New Application')
+      cy.get(submitButton).should('be.disabled')
+      cy.get('[data-testid="application-name-input"]').type(apps[3].name, { delay: 0 })
+      cy.get('#description').type(apps[3].description, { delay: 0 })
+
+      cy.get('[data-testid="application-auth-strategy-select"]').click()
+      cy.get('[data-testid="k-select-item-2"] > .k-select-item-container > button').contains('bar').click()
+      cy.get('#redirectUri').should('not.exist')
+      cy.get('[data-testid="reference-id-input"]').should('exist')
+
+      cy.get('[data-testid="application-auth-strategy-select"]').click()
+      cy.get('[data-testid="k-select-item-3"] > .k-select-item-container > button').contains('baz').click()
+      cy.get('#redirectUri').should('exist')
+      cy.get('[data-testid="reference-id-input"]').should('exist')
+
+      cy.get('[data-testid="application-auth-strategy-select"]').click()
+      cy.get('[data-testid="k-select-item-1"] > .k-select-item-container > button').contains('foo').click()
+      cy.get('#redirectUri').should('exist')
+      cy.get('[data-testid="reference-id-input"]').should('not.exist')
+
+      cy.get('#redirectUri').type(apps[3].redirect_uri, { delay: 0 })
+
       cy.get(submitButton).should('not.be.disabled')
 
       cy.intercept('POST', '**/api/v2/applications', {

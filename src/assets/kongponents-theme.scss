@@ -1,6 +1,7 @@
 :root {
   --KInputBackground: var(--section_colors-tertiary);
   --KInputReadonlyBackground: var(--section_colors-tertiary);
+  --KInputDisabledBackground: var(--section_colors-tertiary);
   --KInputSelectBackground: var(--section_colors-tertiary);
   --KInputBorder: var(--section_colors-stroke);
   --KInputColor: var(--text_colors-primary);
@@ -118,6 +119,10 @@
       opacity: .3;
     }
   }
+}
+
+#app input.k-input:disabled {
+  cursor: not-allowed;
 }
 
 .kong-card .k-card-content div.k-card-body {

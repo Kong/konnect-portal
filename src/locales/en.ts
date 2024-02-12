@@ -108,6 +108,7 @@ export const en = {
     delete: 'Delete',
     proceed: 'Proceed',
     applicationName: 'Application Name ',
+    authStrategy: 'Auth Strategy',
     authStrategyWarning: 'You cannot create an application as this developer portal has no available application auth strategies. Please contact a developer portal admin.',
     clientID: 'Client ID: ',
     clientSecret: 'Client Secret: ',
