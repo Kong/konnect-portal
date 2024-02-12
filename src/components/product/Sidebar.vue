@@ -30,6 +30,7 @@
       </header>
       <SectionOverview :product="product" />
       <SectionReference
+        v-if="activeProductVersionId"
         :active-product-version-id="activeProductVersionId"
         :product="product"
         :deselect-operation="deselectOperation"
