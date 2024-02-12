@@ -4371,15 +4371,15 @@ cypress-split@1.19.0:
     globby "^11.1.0"
     humanize-duration "^3.28.0"
 
-cypress-terminal-report@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-5.3.2.tgz#3a6b1cbda6101498243d17c5a2a646cb69af0336"
-  integrity sha512-0Gf/pXjrYpTkf2aR3LAFGoxEM0KulWsMKCu+52YJB6l7GEP2RLAOAr32tcZHZiL2EWnS0vE4ollomMzGvCci0w==
+cypress-terminal-report@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-6.0.0.tgz#2835a0f877f1fcd48936f32ea107e9cc752ac4e9"
+  integrity sha512-XteAbYtCAwd2pUYJggVP2UUPSbOMR3SjYk+AtCkKMwoK3VhWZcYbkPOmBu5/1C2Y/yUEpsDHuFPRvxKDU7xIDQ==
   dependencies:
     chalk "^4.0.0"
     fs-extra "^10.1.0"
-    safe-json-stringify "^1.2.0"
-    semver "^7.3.5"
+    process "^0.11.10"
+    semver "^7.5.4"
     tv4 "^1.3.0"
 
 cypress@13.6.0:
@@ -10149,11 +10149,6 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
-
-safe-json-stringify@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/safe-json-stringify/-/safe-json-stringify-1.2.0.tgz#356e44bc98f1f93ce45df14bcd7c01cda86e0afd"
-  integrity sha512-gH8eh2nZudPQO6TytOvbxnuhYBOvDBBLW52tz5q6X58lJcd/tkmqFR+5Z9adS8aJtURSXWThWy/xJtJwixErvg==
 
 safe-regex-test@^1.0.0:
   version "1.0.0"
