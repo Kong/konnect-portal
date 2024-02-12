@@ -313,8 +313,8 @@ export default defineComponent({
         formData.value.name.length &&
         (appRegV2Enabled && formMode.value !== 'edit' ? hasAppAuthStrategies.value : true) &&
         (appRegV2Enabled
-          ? (appIsDcr.value ? true : formData.value.reference_id?.length)
-          : (isDcr.value ? true : formData.value.reference_id?.length)
+          ? (appIsDcr.value || formData.value.reference_id?.length)
+          : (isDcr.value || formData.value.reference_id?.length)
         )
     )
     const modalTitle = computed(() => `Delete ${formData.value?.name}`)
