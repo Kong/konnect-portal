@@ -102,7 +102,7 @@
                     {{ helpTextVitals.viewAnalytics }}
                   </div>
                   <div
-                    v-if="isDcr"
+                    v-if="isApplicationDcr(row)"
                     data-testid="dropdown-refresh-application-dcr-token"
                     class="py-2 px-3 type-md cursor-pointer"
                     @click="handleRefreshSecret(row.id)"
@@ -215,6 +215,7 @@ import { EXPLORE_V2_DIMENSIONS, EXPLORE_V2_FILTER_TYPES, MetricsConsumer } from 
 import { storeToRefs } from 'pinia'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { GetApplicationResponse, ListAuthStrategiesItemCredentialTypeEnum } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'MyApps',
@@ -236,7 +237,7 @@ export default defineComponent({
     const fetchingAuthStrategies = ref(true)
 
     const appStore = useAppStore()
-    const { isDcr } = storeToRefs(appStore)
+    const { isDcr: isPortalDcr } = storeToRefs(appStore)
     const helpText = useI18nStore().state.helpText.myApp
     const helpTextVitals = useI18nStore().state.helpText.analytics
     const vitalsLoading = ref(true)
@@ -245,6 +246,16 @@ export default defineComponent({
       paginationPageSizes: [25, 50, 100],
       initialPageSize: 25
     })
+
+    const isApplicationDcr = (application: GetApplicationResponse) => {
+      if (appRegV2Enabled) {
+        // TODO: fix once typing is merged
+        // @ts-ignore
+        return application.auth_strategy?.credential_type === ListAuthStrategiesItemCredentialTypeEnum.ClientCredentials
+      }
+
+      return isPortalDcr.value
+    }
 
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
     const appIds = ref([])
@@ -395,7 +406,7 @@ export default defineComponent({
       tableHeaders,
       handleDelete,
       fetchingAuthStrategies,
-      isDcr,
+      isApplicationDcr,
       deleteItem,
       showSecretModal,
       appRegV2Enabled,

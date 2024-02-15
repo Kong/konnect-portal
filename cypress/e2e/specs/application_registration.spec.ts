@@ -1223,6 +1223,123 @@ describe('Application Registration', () => {
     cy.get('.credentials-list').should('exist')
   })
 
+  it('app-reg-v2 - show credentials table if app is keyauth ', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    const keyAuthApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'key-auth-strat-id',
+        name: 'keyauthstrat',
+        credential_type: 'key_auth'
+      }
+    }
+
+    cy.mockApplications([{ ...keyAuthApp }], 1)
+    mockApplicationWithCredAndReg({ ...keyAuthApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+
+    cy.get('[data-testid="client-secret-table"]').should('not.exist')
+    cy.get('[data-testid="client-secret-table"] [data-testid="refresh-secret-button"]').should('not.exist')
+    cy.get('.credentials-list').should('exist')
+  })
+  it('app-reg-v2 - does not show any tables if app is oidc ', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    const oidcApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'oidc-strat-id',
+        name: 'oidc-strat',
+        auth_methods: [
+          'client_credentials',
+          'session',
+          'bearer'
+        ],
+        credential_type: 'self_managed_client_credentials'
+      }
+    }
+
+    cy.mockApplications([{ ...oidcApp }], 1)
+    mockApplicationWithCredAndReg({ ...oidcApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+
+    cy.get('[data-testid="client-secret-table"]').should('not.exist')
+    cy.get('[data-testid="client-secret-table"] [data-testid="refresh-secret-button"]').should('not.exist')
+    cy.get('.credentials-list').should('not.exist')
+  })
+
+  it('app-reg-v2 - show dcr token table if app is DCR ', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    cy.intercept('POST', `api/v2/applications/${apps[0].id}/refresh-token`, {
+      statusCode: 200,
+      body: { client_secret: 'SECRET_TOKEN' }
+    }).as('refreshToken')
+
+    const dcrApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'okta-strat-id',
+        name: 'dcr-strat',
+        auth_methods: [
+          'bearer',
+          'client_credentials',
+          'session'
+        ],
+        credential_type: 'client_credentials'
+      }
+    }
+
+    cy.mockApplications([{ ...dcrApp }], 1)
+    mockApplicationWithCredAndReg({ ...dcrApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+    cy.get('.credentials-list').should('not.exist')
+
+    cy.get('[data-testid="client-secret-table"]').should('exist')
+    cy.get('[data-testid="client-secret-table"] [data-testid="refresh-secret-button"]').should('exist').click()
+
+    cy.wait('@refreshToken')
+
+    cy.get('.toaster-container-outer .message').should(
+      'contain',
+      'Successfully refreshed secret'
+    )
+
+    cy.get('[data-testid="application-secret-token-modal"]').should('exist')
+    cy.get('[data-testid="copy-button"]').should('contain', 'SECRET_TOKEN').click()
+
+    cy.get('.toaster-container-outer .message').should(
+      'contain',
+      '"SECRET_TOKEN" copied to clipboard'
+    )
+
+    cy.get('[data-testid="close-btn"]').click()
+
+    cy.get('[data-testid="application-secret-token-modal"]').should('not.exist')
+  })
+
   describe('Credential management with DCR', () => {
     it('can refresh token of existing application with dcr', () => {
       cy.mockDcrPortal()
