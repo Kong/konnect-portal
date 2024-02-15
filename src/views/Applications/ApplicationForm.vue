@@ -472,7 +472,7 @@ export default defineComponent({
             description: res.data.description || '',
             redirect_uri: res.data.redirect_uri,
             reference_id: res.data.reference_id,
-            auth_strategy_id: res.data.auth_strategy_id
+            auth_strategy_id: res.data.auth_strategy?.id
           }
           if (isDcr.value) {
             delete newFormData.reference_id

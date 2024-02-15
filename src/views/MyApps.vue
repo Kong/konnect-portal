@@ -215,7 +215,7 @@ import { EXPLORE_V2_DIMENSIONS, EXPLORE_V2_FILTER_TYPES, MetricsConsumer } from 
 import { storeToRefs } from 'pinia'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { GetApplicationResponse, ListAuthStrategiesItemCredentialTypeEnum } from '@kong/sdk-portal-js'
+import { GetApplicationResponse, AuthStrategyCredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'MyApps',
@@ -249,9 +249,7 @@ export default defineComponent({
 
     const isApplicationDcr = (application: GetApplicationResponse) => {
       if (appRegV2Enabled) {
-        // TODO: fix once typing is merged
-        // @ts-ignore
-        return application.auth_strategy?.credential_type === ListAuthStrategiesItemCredentialTypeEnum.ClientCredentials
+        return application.auth_strategy?.credential_type === AuthStrategyCredentialType.ClientCredentials
       }
 
       return isPortalDcr.value

@@ -1,4 +1,4 @@
-import { GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion, RegistrationConfiguration } from '@kong/sdk-portal-js'
+import { AuthStrategyKeyAuthCredentialTypeEnum, GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion, RegistrationConfiguration } from '@kong/sdk-portal-js'
 
 const versions: ProductVersion[] = [
   {
@@ -133,7 +133,11 @@ export const appWithAuthStrategy: GetApplicationResponse = {
   id: crypto.randomUUID(),
   created_at: '2022-03-25T13:15:02.104Z',
   updated_at: '2022-03-25T13:15:02.104Z',
-  auth_strategy_id: '452664ba-7d37-4e12-875c-3ca8044446fd'
+  auth_strategy: {
+    id: crypto.randomUUID(),
+    name: 'keyauthstrat',
+    credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
+  }
 }
 
 const productRegistration: GetRegistrationResponse = {

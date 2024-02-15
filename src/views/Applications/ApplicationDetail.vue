@@ -124,7 +124,7 @@ import {
 } from '@kong-ui-public/analytics-utilities'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { ListAuthStrategiesItemCredentialTypeEnum } from '@kong/sdk-portal-js'
+import { AuthStrategyCredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'ApplicationDetail',
@@ -165,13 +165,13 @@ export default defineComponent({
     }))
 
     const isApplicationOIDC = computed(() => {
-      return application.value.auth_strategy?.credential_type === ListAuthStrategiesItemCredentialTypeEnum.SelfManagedClientCredentials
+      return application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.SelfManagedClientCredentials
     })
 
     const isApplicationDcr = computed(() => {
       if (appRegV2Enabled && application.value) {
         // check the application type
-        if (application.value.auth_strategy?.credential_type === ListAuthStrategiesItemCredentialTypeEnum.ClientCredentials) {
+        if (application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.ClientCredentials) {
           return true
         } else {
           return false

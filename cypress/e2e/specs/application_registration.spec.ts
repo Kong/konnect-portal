@@ -1,4 +1,4 @@
-import { CredentialCreationResponse, GetApplicationResponse, ListAuthStrategiesItem, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
+import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, ListAuthStrategiesItem, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
 import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
@@ -1235,7 +1235,7 @@ describe('Application Registration', () => {
       auth_strategy: {
         id: 'key-auth-strat-id',
         name: 'keyauthstrat',
-        credential_type: 'key_auth'
+        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
       }
     }
 
@@ -1267,7 +1267,7 @@ describe('Application Registration', () => {
           'session',
           'bearer'
         ],
-        credential_type: 'self_managed_client_credentials'
+        credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.SelfManagedClientCredentials
       }
     }
 
@@ -1305,7 +1305,7 @@ describe('Application Registration', () => {
           'client_credentials',
           'session'
         ],
-        credential_type: 'client_credentials'
+        credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.ClientCredentials
       }
     }
 
