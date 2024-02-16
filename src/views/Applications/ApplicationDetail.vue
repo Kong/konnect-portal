@@ -86,12 +86,12 @@
         <hr class="my-6">
       </div>
       <DcrAuthenticationTable
-        v-if="isDcr"
+        v-if="isApplicationDcr"
         :application="application"
         class="mb-6"
       />
       <CredentialsList
-        v-if="!isDcr"
+        v-if="!isApplicationDcr && !isApplicationOIDC"
         :id="id"
         class="mb-6"
       />
@@ -122,6 +122,9 @@ import {
   TimeframeKeys,
   TimePeriods
 } from '@kong-ui-public/analytics-utilities'
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { AuthStrategyCredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'ApplicationDetail',
@@ -130,6 +133,7 @@ export default defineComponent({
   setup () {
     const errorMessage = ref('')
     const application = ref(null)
+    const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
 
     const helpText = useI18nStore().state.helpText
     const $route = useRoute()
@@ -142,7 +146,7 @@ export default defineComponent({
 
     const { portalApiV2 } = usePortalApi()
     const appStore = useAppStore()
-    const { isDcr, allowedTimePeriod } = storeToRefs(appStore)
+    const { isDcr: isPortalDcr, allowedTimePeriod } = storeToRefs(appStore)
     const vitalsLoading = ref(false)
     const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
       ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY) as Timeframe)
@@ -159,6 +163,23 @@ export default defineComponent({
         error: { on: { FETCH: 'pending' } }
       }
     }))
+
+    const isApplicationOIDC = computed(() => {
+      return application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.SelfManagedClientCredentials
+    })
+
+    const isApplicationDcr = computed(() => {
+      if (appRegV2Enabled && application.value) {
+        // check the application type
+        if (application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.ClientCredentials) {
+          return true
+        } else {
+          return false
+        }
+      }
+
+      return isPortalDcr.value
+    })
 
     const analyticsCardTitle = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
       ? `${helpText.analytics.summary30Days} ${helpText.analytics.summary}`
@@ -190,7 +211,8 @@ export default defineComponent({
       helpText,
       id,
       breadcrumbs,
-      isDcr,
+      isApplicationDcr,
+      isApplicationOIDC,
       fixedTimeframe,
       vitalsLoading
     }
