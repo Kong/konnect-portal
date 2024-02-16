@@ -254,7 +254,7 @@ export default defineComponent({
         product: $route.params.product,
         product_version: $route.params.product_version,
         ...(useAppRegV2 && authStrategyId.value)
-          ? { 'auth-strategy-id': authStrategyId.value }
+          ? { auth_strategy_id: authStrategyId.value }
           : {}
       }
     })
