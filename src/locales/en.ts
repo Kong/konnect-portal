@@ -41,12 +41,14 @@ export const en = {
     registerProductVersion: 'Register Product version'
   },
   authStrategyInfo: {
-    title: (authStrategyName: string) => `Supported Application Auth Strategy: ${authStrategyName}`,
+    titleLabel: 'Supported Application Auth Strategy:',
+    credentialTypeLabel: 'Credential Type:',
     registerBtnText: (productVersionName: string) => `Register for ${productVersionName}`,
     authMethods: 'Auth Methods:',
     bearer: 'Bearer',
     keyAuth: 'Key Auth',
     clientCredentials: 'Client Credentials',
+    selfManagedClientCredentials: 'Self Managed Client Credentials',
     session: 'Session'
   },
   userDropdown: {

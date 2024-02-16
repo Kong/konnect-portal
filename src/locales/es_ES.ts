@@ -45,12 +45,14 @@ export const es_ES: I18nType = {
     registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
   },
   authStrategyInfo: {
-    title: (authStrategyName: string) => translationNeeded(en.authStrategyInfo.title(authStrategyName)),
+    titleLabel: translationNeeded(en.authStrategyInfo.titleLabel),
+    credentialTypeLabel: translationNeeded(en.authStrategyInfo.credentialTypeLabel),
     registerBtnText: (productVersionName: string) => translationNeeded(en.authStrategyInfo.registerBtnText(productVersionName)),
     authMethods: translationNeeded(en.authStrategyInfo.authMethods),
     bearer: translationNeeded(en.authStrategyInfo.bearer),
     keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
     clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
+    selfManagedClientCredentials: translationNeeded(en.authStrategyInfo.selfManagedClientCredentials),
     session: translationNeeded(en.authStrategyInfo.session)
   },
   userDropdown: {

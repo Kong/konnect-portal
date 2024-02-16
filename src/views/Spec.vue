@@ -11,12 +11,15 @@
           data-testid="auth-strategy-card"
         >
           <template #body>
-            <p
-              class="title"
+            <span
+              class="label"
               data-testid="auth-strategy-title"
             >
-              {{ helpText.authStrategyInfo.title(currentVersion?.registration_configs?.[0].name) }}
-            </p>
+              {{ helpText.authStrategyInfo.titleLabel }}
+              <KBadge shape="rectangular">
+                {{ currentVersion?.registration_configs?.[0].name }}
+              </KBadge>
+            </span>
             <p class="auth-methods-label">
               {{ helpText.authStrategyInfo.authMethods }}
             </p>
@@ -594,7 +597,7 @@ export default defineComponent({
     --KCardPaddingY: 12px;
     margin-bottom: 4px;
 
-    .title, .auth-methods-label {
+    .label, .auth-methods-label {
       margin-bottom: 4px;
     }
 
@@ -606,15 +609,13 @@ export default defineComponent({
       row-gap: 8px;
     }
 
-    .badge-container {
-      :deep(.k-badge) {
-        &:not(:last-child) {
-          margin-right: 4px;
-        }
-        background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
-        border: 1px solid transparent;
-        color: var(--button_colors-primary-text, #fff);
+    :deep(.k-badge) {
+      &:not(:last-child) {
+        margin-right: 4px;
       }
+      background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
+      border: 1px solid transparent;
+      color: var(--button_colors-primary-text, #fff);
     }
   }
 </style>
