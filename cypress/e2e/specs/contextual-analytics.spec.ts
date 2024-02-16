@@ -1,4 +1,4 @@
-import { apps, productRegistrations, versions } from '../fixtures/consts'
+import { apps, productRegistrations } from '../fixtures/consts'
 
 describe('Contextual Developer Analytics', () => {
   beforeEach(() => {
