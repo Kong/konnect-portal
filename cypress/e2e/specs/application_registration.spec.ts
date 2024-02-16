@@ -989,7 +989,9 @@ describe('Application Registration', () => {
       cy.get('[data-testid="app-reg-v2-register-btn"]', { timeout: 12000 }).click()
       cy.get(selectors.appRegModal).should('exist')
       cy.get(`${selectors.appRegModal} [data-testid="create-application"]`).should('exist')
-      cy.get(`${selectors.appRegModal} [data-testid="create-application"]`).should('have.prop', 'href').should('contain', `/application/create?product=${productWithKeyAuthAppAuthStrategy.id}&product_version=${versionWithKeyAuthAuthStrategy.id}&auth-strategy-id=${versionWithKeyAuthAuthStrategy.registration_configs[0].id}`)
+      cy.get(`${selectors.appRegModal} [data-testid="create-application"]`)
+        .should('have.prop', 'href')
+        .should('contain', `/application/create?product=${productWithKeyAuthAppAuthStrategy.id}&product_version=${versionWithKeyAuthAuthStrategy.id}&auth_strategy_id=${versionWithKeyAuthAuthStrategy.registration_configs[0].id}`)
     })
 
     it('does not show select available scopes if no scopes are available - feature flag on', () => {
