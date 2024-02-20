@@ -45,6 +45,7 @@ export interface I18nType {
     credentialTypeLabel: string;
     registerBtnText: (productVersionName: string) => string;
     authMethods: string;
+    keyNames: string;
     bearer: string;
     keyAuth: string;
     clientCredentials: string;

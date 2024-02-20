@@ -49,6 +49,7 @@ export const ca_ES: I18nType = {
     credentialTypeLabel: translationNeeded(en.authStrategyInfo.credentialTypeLabel),
     registerBtnText: (productVersionName: string) => translationNeeded(en.authStrategyInfo.registerBtnText(productVersionName)),
     authMethods: translationNeeded(en.authStrategyInfo.authMethods),
+    keyNames: translationNeeded(en.authStrategyInfo.keyNames),
     bearer: translationNeeded(en.authStrategyInfo.bearer),
     keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
     clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
