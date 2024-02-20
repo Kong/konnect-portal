@@ -14,6 +14,56 @@
       v-if="currentState.matches('success')"
     >
       <div>
+        <KCard
+          v-if="appRegV2Enabled && application && application.auth_strategy"
+          class="auth-strategy-card"
+          data-testid="auth-strategy-card"
+        >
+          <template #body>
+            <span
+              class="label"
+              data-testid="auth-strategy-title"
+            >
+              {{ helpText.authStrategyInfo.titleLabel }}
+              <KBadge shape="rectangular">
+                {{ application.auth_strategy.name }}
+              </KBadge>
+            </span>
+            <span
+              class="label"
+              data-testid="auth-strategy-credential-type"
+            >
+              {{ helpText.authStrategyInfo.credentialTypeLabel }}
+              <KBadge shape="rectangular">
+                {{ authMethodLabelObj[application.auth_strategy.credential_type] }}
+              </KBadge>
+            </span>
+            <p
+              v-if="application.auth_strategy.credential_type !== 'key_auth'"
+              class="auth-methods-label"
+              data-testid="auth-strategy-auth-methods-label"
+            >
+              {{ helpText.authStrategyInfo.authMethods }}
+            </p>
+            <div class="info-container">
+              <KCard
+                v-if="application.auth_strategy.credential_type !== 'key_auth'"
+                class="badge-container"
+              >
+                <template #body>
+                  <KBadge
+                    v-for="(authMethod, index) in application.auth_strategy.auth_methods"
+                    :key="authMethod + index"
+                    :data-testid="`auth-method-${authMethod}`"
+                    shape="rectangular"
+                  >
+                    {{ authMethodLabelObj[authMethod] }}
+                  </KBadge>
+                </template>
+              </KCard>
+            </div>
+          </template>
+        </KCard>
         <PageTitle
           class="mb-5"
           :title="application.name"
@@ -137,6 +187,13 @@ export default defineComponent({
 
     const helpText = useI18nStore().state.helpText
     const $route = useRoute()
+    const authMethodLabelObj = {
+      bearer: helpText.authStrategyInfo.bearer,
+      session: helpText.authStrategyInfo.session,
+      client_credentials: helpText.authStrategyInfo.clientCredentials,
+      key_auth: helpText.authStrategyInfo.keyAuth,
+      self_managed_client_credentials: helpText.authStrategyInfo.selfManagedClientCredentials
+    }
     const id = computed(() => $route.params.application_id as string)
     const breadcrumbs = computed(() => ([{
       key: 'my-apps',
@@ -204,6 +261,8 @@ export default defineComponent({
     })
 
     return {
+      appRegV2Enabled,
+      authMethodLabelObj,
       analyticsCardTitle,
       currentState,
       errorMessage,
@@ -219,3 +278,40 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+  .auth-strategy-card {
+    --KCardBorder: 1px solid var(--section_colors-stroke);
+    --KCardBorderRadius: 4px;
+    --KCardPaddingX: 12px;
+    --KCardPaddingY: 12px;
+    margin-bottom: 12px;
+
+    .label {
+      &:not(:last-of-type) {
+        margin-right: 12px;
+      }
+    }
+
+    .label, .auth-methods-label {
+      margin-bottom: 4px;
+    }
+
+    .info-container {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      row-gap: 8px;
+    }
+
+    :deep(.k-badge) {
+      &:not(:last-child) {
+        margin-right: 4px;
+      }
+      background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
+      border: 1px solid transparent;
+      color: var(--button_colors-primary-text, #fff);
+    }
+  }
+</style>

@@ -1252,6 +1252,33 @@ describe('Application Registration', () => {
     cy.get('[data-testid="client-secret-table"] [data-testid="refresh-secret-button"]').should('not.exist')
     cy.get('.credentials-list').should('exist')
   })
+  it('app-reg-v2 - show auth strategy info for key-auth app', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    const keyAuthApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'key-auth-strat-id',
+        name: 'keyauthstrat',
+        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
+      }
+    }
+
+    cy.mockApplications([{ ...keyAuthApp }], 1)
+    mockApplicationWithCredAndReg({ ...keyAuthApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+    cy.get('[data-testid="auth-strategy-card"]').should('exist')
+    cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('not.exist')
+    cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', keyAuthApp.auth_strategy.name)
+    cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Key Auth')
+  })
   it('app-reg-v2 - does not show any tables if app is oidc ', () => {
     cy.mockLaunchDarklyFlags([
       {
@@ -1284,7 +1311,41 @@ describe('Application Registration', () => {
     cy.get('[data-testid="client-secret-table"] [data-testid="refresh-secret-button"]').should('not.exist')
     cy.get('.credentials-list').should('not.exist')
   })
+  it('app-reg-v2 - show auth strategy info for oidc app', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    const oidcApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'oidc-strat-id',
+        name: 'oidc-strat',
+        auth_methods: [
+          'client_credentials',
+          'session',
+          'bearer'
+        ],
+        credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.SelfManagedClientCredentials
+      }
+    }
 
+    cy.mockApplications([{ ...oidcApp }], 1)
+    mockApplicationWithCredAndReg({ ...oidcApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+    cy.get('[data-testid="auth-strategy-card"]').should('exist')
+    cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('exist')
+    cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', oidcApp.auth_strategy.name)
+    cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Self Managed Client Credentials')
+    oidcApp.auth_strategy.auth_methods.forEach((method) => {
+      cy.get(`[data-testid="auth-method-${method}"]`).should('exist')
+    })
+  })
   it('app-reg-v2 - show dcr token table if app is DCR ', () => {
     cy.mockLaunchDarklyFlags([
       {
@@ -1340,6 +1401,41 @@ describe('Application Registration', () => {
     cy.get('[data-testid="close-btn"]').click()
 
     cy.get('[data-testid="application-secret-token-modal"]').should('not.exist')
+  })
+  it('app-reg-v2 - show auth strategy info for dcr app', () => {
+    cy.mockLaunchDarklyFlags([
+      {
+        name: 'tdx-3531-app-reg-v2',
+        value: true
+      }
+    ])
+    const dcrApp = {
+      ...apps[0],
+      auth_strategy: {
+        id: 'okta-strat-id',
+        name: 'dcr-strat',
+        auth_methods: [
+          'bearer',
+          'client_credentials',
+          'session'
+        ],
+        credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.ClientCredentials
+      }
+    }
+
+    cy.mockApplications([{ ...dcrApp }], 1)
+    mockApplicationWithCredAndReg({ ...dcrApp })
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="applications-table"] tbody tr').click()
+    cy.get('[data-testid="auth-strategy-card"]').should('exist')
+    cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('exist')
+    cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', dcrApp.auth_strategy.name)
+    cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Client Credentials')
+    dcrApp.auth_strategy.auth_methods.forEach((method) => {
+      cy.get(`[data-testid="auth-method-${method}"]`).should('exist')
+    })
   })
 
   describe('Credential management with DCR', () => {

@@ -41,12 +41,14 @@ export interface I18nType {
     registerProductVersion: string;
   };
   authStrategyInfo: {
-    title: (authStrategyName: string) => string;
+    titleLabel: string;
+    credentialTypeLabel: string;
     registerBtnText: (productVersionName: string) => string;
     authMethods: string;
     bearer: string;
     keyAuth: string;
     clientCredentials: string;
+    selfManagedClientCredentials: string;
     session: string;
   };
   userDropdown: {
