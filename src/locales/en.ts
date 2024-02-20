@@ -45,6 +45,7 @@ export const en = {
     credentialTypeLabel: 'Credential Type:',
     registerBtnText: (productVersionName: string) => `Register for ${productVersionName}`,
     authMethods: 'Auth Methods:',
+    keyNames: 'Key Names:',
     bearer: 'Bearer',
     keyAuth: 'Key Auth',
     clientCredentials: 'Client Credentials',

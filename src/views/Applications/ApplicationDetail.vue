@@ -39,11 +39,10 @@
               </KBadge>
             </span>
             <p
-              v-if="application.auth_strategy.credential_type !== 'key_auth'"
               class="auth-methods-label"
-              data-testid="auth-strategy-auth-methods-label"
+              :data-testid="application.auth_strategy.credential_type !== 'key_auth' ? 'auth-strategy-auth-methods-label' : 'auth-strategy-key-names-label'"
             >
-              {{ helpText.authStrategyInfo.authMethods }}
+              {{ application.auth_strategy.credential_type !== 'key_auth' ? helpText.authStrategyInfo.authMethods : helpText.authStrategyInfo.keyNames }}
             </p>
             <div class="info-container">
               <KCard
@@ -52,12 +51,27 @@
               >
                 <template #body>
                   <KBadge
-                    v-for="(authMethod, index) in application.auth_strategy.auth_methods"
+                    v-for="(authMethod, index) in application.auth_strategy?.auth_methods"
                     :key="authMethod + index"
                     :data-testid="`auth-method-${authMethod}`"
                     shape="rectangular"
                   >
                     {{ authMethodLabelObj[authMethod] }}
+                  </KBadge>
+                </template>
+              </KCard>
+              <KCard
+                v-else
+                class="badge-container"
+              >
+                <template #body>
+                  <KBadge
+                    v-for="(keyName, index) in application.auth_strategy?.key_names"
+                    :key="keyName + index"
+                    :data-testid="`key-name-${keyName}`"
+                    shape="rectangular"
+                  >
+                    {{ keyName }}
                   </KBadge>
                 </template>
               </KCard>

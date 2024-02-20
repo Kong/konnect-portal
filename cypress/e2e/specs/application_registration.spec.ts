@@ -1264,7 +1264,8 @@ describe('Application Registration', () => {
       auth_strategy: {
         id: 'key-auth-strat-id',
         name: 'keyauthstrat',
-        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
+        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth,
+        key_names: ['key']
       }
     }
 
@@ -1276,7 +1277,11 @@ describe('Application Registration', () => {
     cy.get('[data-testid="applications-table"] tbody tr').click()
     cy.get('[data-testid="auth-strategy-card"]').should('exist')
     cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('not.exist')
+    cy.get('[data-testid="auth-strategy-key-names-label"]').should('exist')
     cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', keyAuthApp.auth_strategy.name)
+    keyAuthApp.auth_strategy.key_names.forEach((key) => {
+      cy.get(`[data-testid="key-name-${key}"]`).should('exist')
+    })
     cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Key Auth')
   })
   it('app-reg-v2 - does not show any tables if app is oidc ', () => {
@@ -1340,6 +1345,7 @@ describe('Application Registration', () => {
     cy.get('[data-testid="applications-table"] tbody tr').click()
     cy.get('[data-testid="auth-strategy-card"]').should('exist')
     cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('exist')
+    cy.get('[data-testid="auth-strategy-key-names-label"]').should('not.exist')
     cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', oidcApp.auth_strategy.name)
     cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Self Managed Client Credentials')
     oidcApp.auth_strategy.auth_methods.forEach((method) => {
