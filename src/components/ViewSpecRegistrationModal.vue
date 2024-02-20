@@ -396,7 +396,9 @@ export default defineComponent({
           })
         }
 
-        if (selectedApplication.value) {
+        // don't fetch the applications granted scopes if there are no available
+        // scopes.
+        if (selectedApplication.value && availableScopes.value?.length) {
           fetchingScopes.value = true
 
           await portalApiV2.value.service.applicationsApi.getApplicationProductVersionGrantedScopes({
