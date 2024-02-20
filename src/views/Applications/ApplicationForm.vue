@@ -355,7 +355,7 @@ export default defineComponent({
               value: strat.id,
               isDcr: strat.credential_type === 'client_credentials',
               isSelfManaged: strat.credential_type === 'self_managed_client_credentials',
-              selected: formData.value.auth_strategy_id ? strat.id === formData.value.auth_strategy_id : ($route.query.auth_strategy_id || false)
+              selected: formData.value.auth_strategy_id ? strat.id === formData.value.auth_strategy_id : (strat.id === $route.query.auth_strategy_id || false)
             }))
           }
 

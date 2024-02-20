@@ -25,6 +25,7 @@
           class="alert-message"
         />
         <KTable
+          class="applications-list"
           :is-loading="currentState.matches('pending')"
           data-testid="applications-list"
           :fetcher-cache-key="fetcherCacheKey"
@@ -369,7 +370,7 @@ export default defineComponent({
 
     watch(() => selectedApplication.value, (newSelectedApplication, oldSelectedApplication) => {
       // We reset selectedScopes if we change applications
-      if (newSelectedApplication !== oldSelectedApplication && selectedScopes.value.length) {
+      if (newSelectedApplication !== oldSelectedApplication && selectedScopes.value?.length) {
         selectedScopes.value = []
       }
     })
@@ -395,7 +396,9 @@ export default defineComponent({
           })
         }
 
-        if (selectedApplication.value) {
+        // don't fetch the applications granted scopes if there are no available
+        // scopes.
+        if (selectedApplication.value && availableScopes.value?.length) {
           fetchingScopes.value = true
 
           await portalApiV2.value.service.applicationsApi.getApplicationProductVersionGrantedScopes({
@@ -455,12 +458,11 @@ export default defineComponent({
 
  .table-text {
   text-align: left;
-  font-weight: 600;
  }
 
  .application-registration-modal {
   :deep(.selected) {
-    .k-input-label {
+    td {
       font-weight: 600;
       width: 100%;
     }
