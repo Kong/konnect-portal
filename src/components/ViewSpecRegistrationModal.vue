@@ -319,10 +319,10 @@ export default defineComponent({
     const handleChangedItem = (item) => {
       if (!item) { return }
 
-      const itemAdded = selectedScopes.value?.filter(curr => curr.value === item.value)
+      const itemAdded = selectedScopes.value.includes(item.value)
 
       // If a new item selected, set its `selected` state to true
-      item.selected = !!itemAdded?.length
+      item.selected = !itemAdded
     }
 
     const submitSelection = async () => {
