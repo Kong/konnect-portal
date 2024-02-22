@@ -93,6 +93,36 @@
       :application-registration-enabled="appRegV2Enabled ? false : applicationRegistrationEnabled"
       :active-operation="sidebarActiveOperationListItem"
       :current-version="currentVersion?.name"
+      :theme-overrides="{
+        languages: [
+          {
+            prismLanguage: 'bash',
+            target: 'shell',
+            client: 'curl'
+          },
+          {
+            prismLanguage: 'javascript',
+            target: 'javascript',
+            client: 'xhr'
+          },
+          {
+            prismLanguage: 'python',
+            target: 'python'
+          },
+          {
+            prismLanguage: 'ruby',
+            target: 'ruby'
+          },
+          {
+            prismLanguage: 'java',
+            target: 'java'
+          },
+          {
+            prismLanguage: 'csharp',
+            target: 'csharp'
+          }
+        ]
+      }"
       @clicked-view-spec="triggerViewSpecModal"
       @clicked-register="triggerViewSpecRegistrationModal"
     />
