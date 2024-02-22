@@ -174,11 +174,11 @@ export default defineComponent({
     const fetcherCacheKey = computed(() => key.value.toString())
 
     const mappedAvailableScopes = computed(() => {
-      if (!availableScopes.value.length) {
+      if (!availableScopes.value?.length) {
         return []
       }
 
-      return availableScopes.value.map((scope) => {
+      return availableScopes.value?.map((scope) => {
         const alreadySelected = alreadyGrantedScopes.value?.includes(scope)
 
         return {
@@ -284,7 +284,7 @@ export default defineComponent({
           : {}),
         productId: props.product?.id || $route.params.product?.toString(),
         productVersionId: props.version?.id || $route.params.product_version?.toString(),
-        ...(searchStr.value.length && { filterNameContains: searchStr.value }),
+        ...(searchStr.value?.length && { filterNameContains: searchStr.value }),
         unregistered: true,
         pageNumber,
         pageSize
@@ -319,10 +319,10 @@ export default defineComponent({
     const handleChangedItem = (item) => {
       if (!item) { return }
 
-      const itemAdded = selectedScopes.value.filter(curr => curr.value === item.value)
+      const itemAdded = selectedScopes.value.includes(item.value)
 
       // If a new item selected, set its `selected` state to true
-      item.selected = !!itemAdded.length
+      item.selected = !itemAdded
     }
 
     const submitSelection = async () => {
@@ -331,7 +331,7 @@ export default defineComponent({
         product_version_id: props.version.id
       }
 
-      if (selectedScopes.value.length) {
+      if (selectedScopes.value?.length) {
         payload.scopes = selectedScopes.value
       }
 
@@ -407,8 +407,11 @@ export default defineComponent({
           }).then((res) => {
             const grantedScopesArr = res.data.scopes
 
-            alreadyGrantedScopes.value = grantedScopesArr
-            selectedScopes.value = grantedScopesArr
+            if (grantedScopesArr?.length) {
+              alreadyGrantedScopes.value = grantedScopesArr
+              selectedScopes.value = grantedScopesArr
+            }
+
             fetchingScopes.value = false
           }).finally(() => {
             fetchingScopes.value = false
