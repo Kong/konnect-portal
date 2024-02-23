@@ -1,4 +1,4 @@
-import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, PortalAuthStrategy, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
+import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
 import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
@@ -187,7 +187,7 @@ describe('Application Registration', () => {
         }
       ])
       cy.mockApplications([], 0)
-      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials' } as PortalAuthStrategy], 0)
+      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials', auth_methods: ['session', 'bearer'] }], 0)
 
       cy.mockDcrPortal()
       cy.visit('/my-apps')
