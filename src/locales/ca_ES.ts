@@ -300,10 +300,12 @@ export const ca_ES: I18nType = {
   },
   myApp: {
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    authStrategyFetchError: (errString: string) => translationNeeded(en.myApp.authStrategyFetchError(errString)),
     newApp: 'Nova aplicació',
     plus: 'Més',
     myApps: 'Les meves aplicacions',
     refreshSecret: 'Actualitzar secret',
+    refreshSecretSuccess: translationNeeded(en.myApp.refreshSecretSuccess),
     noSearchResults: translationNeeded(en.myApp.noSearchResults),
     searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Eliminar',
@@ -311,7 +313,9 @@ export const ca_ES: I18nType = {
     noApp: 'Sense aplicacions',
     create: 'Crear una nova aplicació',
     getStarted: ' per començar',
-    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`
+    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`,
+    deleteSuccess: translationNeeded(en.myApp.deleteSuccess),
+    deleteFailure: (str: string) => translationNeeded(en.myApp.deleteFailure(str))
   },
   router: {
     portalTitle: 'Portal del desenvolupador',

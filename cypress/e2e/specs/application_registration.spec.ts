@@ -481,46 +481,116 @@ describe('Application Registration', () => {
     cy.get(submitButton).click()
     cy.contains(apps[0].name + 'z')
   })
-  it('can delete an existing application', () => {
-    cy.mockApplications(apps, 4)
-    cy.visit('/my-apps')
 
-    mockApplicationWithCredAndReg(apps[0])
+  describe('Delete Application', () => {
+    it('can delete an existing application', () => {
+      cy.mockApplications(apps, 4)
+      cy.visit('/my-apps')
 
-    cy.get('[data-testid="applications-table"] tbody tr')
-      .should('have.length', 4)
-      .contains(apps[0].name)
-      .click()
+      mockApplicationWithCredAndReg(apps[0])
 
-    cy.get('[data-testid="application-update-button"]').click()
-    cy.get('header h1').should('contain', 'Update Application')
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 4)
+        .contains(apps[0].name)
+        .click()
 
-    // Delete and cancel during confirmation
-    cy.get('[data-testid="application-delete-button"]').click()
-    cy.get('[data-testid="application-delete-modal"]').should('exist')
-    cy.get('[data-testid="application-delete-cancel-button"]').click()
-    cy.get('[data-testid="application-delete-modal"]').should('not.exist')
+      cy.get('[data-testid="application-update-button"]').click()
+      cy.get('header h1').should('contain', 'Update Application')
 
-    cy.intercept('DELETE', `api/v2/applications/${apps[0].id}`, {
-      statusCode: 200
-    }).as('deleteApplication')
+      // Delete and cancel during confirmation
+      cy.get('[data-testid="application-delete-button"]').click()
+      cy.get('[data-testid="application-delete-modal"]').should('exist')
+      cy.get('[data-testid="application-delete-cancel-button"]').click()
+      cy.get('[data-testid="application-delete-modal"]').should('not.exist')
 
-    cy.mockApplications([...apps.slice(1)], 2)
+      cy.intercept('DELETE', `api/v2/applications/${apps[0].id}`, {
+        statusCode: 200
+      }).as('deleteApplication')
 
-    // Delete and confirm deletion
-    cy.get('[data-testid="application-delete-button"]').click()
-    cy.get('[data-testid="application-delete-modal"]').should('exist')
-    cy.get('[data-testid="application-delete-confirm-button"]').click()
+      cy.mockApplications([...apps.slice(1)], 2)
 
-    cy.get('.toaster-container-outer .message').should(
-      'contain',
-      'Application successfully deleted'
-    )
+      // Delete and confirm deletion
+      cy.get('[data-testid="application-delete-button"]').click()
+      cy.get('[data-testid="application-delete-modal"]').should('exist')
+      cy.get('[data-testid="application-delete-confirm-button"]').click()
 
-    cy.get('[data-testid="applications-table"] tbody tr')
-      .should('have.length', 3)
-      .contains(apps[0].name)
-      .should('not.exist')
+      cy.get('.toaster-container-outer .message').should(
+        'contain',
+        'Application successfully deleted'
+      )
+
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 3)
+        .contains(apps[0].name)
+        .should('not.exist')
+    })
+    it('can delete an existing application from actions dropdown', () => {
+      cy.mockApplications(apps, 4)
+      cy.visit('/my-apps')
+
+      mockApplicationWithCredAndReg(apps[0])
+
+      cy.intercept('DELETE', `api/v2/applications/${apps[0].id}`, {
+        statusCode: 200
+      }).as('deleteApplication')
+
+      // Delete and confirm deletion
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 4)
+        .contains(apps[0].name)
+        .get(`[data-testid="actions-dropdown-${apps[0].id}"]`)
+        .click()
+
+      cy.mockApplications([...apps.slice(1)], 2)
+
+      cy.get(`[data-testid="actions-dropdown-${apps[0].id}"] [data-testid="dropdown-delete-application"]`).click()
+      cy.get('[data-testid="application-delete-modal"]').should('exist')
+      cy.get('[data-testid="application-delete-confirm-button"]').click()
+
+      cy.get('.toaster-container-outer .message').should(
+        'contain',
+        'Application successfully deleted'
+      )
+
+      cy.wait('@getApplications')
+
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 3)
+        .contains(apps[0].name)
+        .should('not.exist')
+    })
+    it('handles error when deleting an existing application', () => {
+      cy.mockApplications(apps, 4)
+      cy.visit('/my-apps')
+
+      mockApplicationWithCredAndReg(apps[0])
+
+      cy.intercept('DELETE', `api/v2/applications/${apps[0].id}`, {
+        statusCode: 500,
+        body: { message: 'Error deleting application' }
+      }).as('deleteApplication')
+
+      // Delete and confirm deletion
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 4)
+        .contains(apps[0].name)
+        .get(`[data-testid="actions-dropdown-${apps[0].id}"]`)
+        .click()
+
+      cy.get(`[data-testid="actions-dropdown-${apps[0].id}"] [data-testid="dropdown-delete-application"]`).click()
+      cy.get('[data-testid="application-delete-modal"]').should('exist')
+      cy.get('[data-testid="application-delete-confirm-button"]').click()
+
+      cy.get('[data-testid="delete-error-alert"]').should(
+        'contain',
+        'Error deleting application'
+      )
+
+      cy.get('[data-testid="applications-table"] tbody tr')
+        .should('have.length', 4)
+        .contains(apps[0].name)
+        .should('exist')
+    })
   })
 
   it('shows granted scopes if present ', () => {
