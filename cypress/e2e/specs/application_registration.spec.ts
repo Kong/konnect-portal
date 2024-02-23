@@ -1,4 +1,4 @@
-import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, ListAuthStrategiesItem, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
+import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, PortalAuthStrategy, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
 import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
@@ -187,7 +187,7 @@ describe('Application Registration', () => {
         }
       ])
       cy.mockApplications([], 0)
-      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials' } as ListAuthStrategiesItem], 0)
+      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials' } as PortalAuthStrategy], 0)
 
       cy.mockDcrPortal()
       cy.visit('/my-apps')
@@ -235,7 +235,7 @@ describe('Application Registration', () => {
         }
       ])
       cy.mockApplications([], 0)
-      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'key_auth' } as ListAuthStrategiesItem], 0)
+      cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'key_auth', key_names: ['key1', 'key2'] }], 0)
 
       cy.mockDcrPortal()
       cy.visit('/my-apps')
@@ -280,10 +280,10 @@ describe('Application Registration', () => {
       ])
       cy.mockApplications([], 0)
       cy.mockApplicationAuthStrategies([
-        { name: 'foo', id: '1', credential_type: 'client_credentials' },
-        { name: 'bar', id: '2', credential_type: 'key_auth' },
-        { name: 'baz', id: '3', credential_type: 'self_managed_client_credentials' }
-      ] as ListAuthStrategiesItem[], 0)
+        { name: 'foo', id: '1', credential_type: 'client_credentials', auth_methods: ['client_credentials', 'session'] },
+        { name: 'bar', id: '2', credential_type: 'key_auth', key_names: ['key1', 'key2'] },
+        { name: 'baz', id: '3', credential_type: 'self_managed_client_credentials', auth_methods: ['client_credentials', 'session', 'bearer'] }
+      ], 0)
 
       cy.mockDcrPortal()
       cy.visit('/my-apps')
@@ -1237,7 +1237,8 @@ describe('Application Registration', () => {
       auth_strategy: {
         id: 'key-auth-strat-id',
         name: 'keyauthstrat',
-        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
+        credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth,
+        key_names: ['key1', 'key2']
       }
     }
 

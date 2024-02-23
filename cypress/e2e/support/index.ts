@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 // Import commands.js using ES2015 syntax:
-import { GetApplicationResponse, GetRegistrationResponse, ListAuthStrategiesItem, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
+import { GetApplicationResponse, GetRegistrationResponse, PortalAuthStrategy, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
 import { SinonStub } from 'cypress/types/sinon'
 
@@ -26,7 +26,7 @@ declare global {
       mockProduct(productId?: string, mockProduct?: Product, mockVersions?: ProductVersion[]): Chainable<JQuery<HTMLElement>>
       mockProductVersion(productId?: string, versionId?: string, mockVersion?: ProductVersion): Chainable<JQuery<HTMLElement>>
       mockApplications(searchResults?: Array<GetApplicationResponse>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
-      mockApplicationAuthStrategies(authStrategyItems?: Array<ListAuthStrategiesItem>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
+      mockApplicationAuthStrategies(authStrategyItems?: Array<PortalAuthStrategy>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
       mockApplicationWithCredAndReg(data: GetApplicationResponse, credentials?: ListCredentialsResponseDataInner[], registrations?: Array<GetRegistrationResponse>): Chainable<JQuery<HTMLElement>>,
       mockContextualAnalytics(): Chainable<JQuery<HTMLElement>>
       mockRegistrations(applicationId?: string, registrations?: Array<GetRegistrationResponse>, totalCount?: number): Chainable<JQuery<HTMLElement>>
