@@ -188,7 +188,7 @@ import {
 } from '@kong-ui-public/analytics-utilities'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { AuthStrategyCredentialType } from '@kong/sdk-portal-js'
+import { CredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'ApplicationDetail',
@@ -236,13 +236,13 @@ export default defineComponent({
     }))
 
     const isApplicationOIDC = computed(() => {
-      return application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.SelfManagedClientCredentials
+      return application.value.auth_strategy?.credential_type === CredentialType.SelfManagedClientCredentials
     })
 
     const isApplicationDcr = computed(() => {
       if (appRegV2Enabled && application.value) {
         // check the application type
-        if (application.value.auth_strategy?.credential_type === AuthStrategyCredentialType.ClientCredentials) {
+        if (application.value.auth_strategy?.credential_type === CredentialType.ClientCredentials) {
           return true
         } else {
           return false

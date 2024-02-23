@@ -232,7 +232,7 @@ import usePortalApi from '@/hooks/usePortalApi'
 import cleanupEmptyFields from '@/helpers/cleanupEmptyFields'
 import useToaster from '@/composables/useToaster'
 import { useI18nStore, useAppStore } from '@/stores'
-import { CreateApplicationPayload, ListAuthStrategiesItem } from '@kong/sdk-portal-js'
+import { CreateApplicationPayload, PortalAuthStrategy } from '@kong/sdk-portal-js'
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { fetchAll } from '@/helpers/fetchAll'
@@ -350,7 +350,7 @@ export default defineComponent({
           const [_, rawAuthStrategies] = await Promise.all(promises)
           if (rawAuthStrategies.length) {
             hasAppAuthStrategies.value = true
-            appAuthStrategies.value = rawAuthStrategies.map((strat: ListAuthStrategiesItem) => ({
+            appAuthStrategies.value = rawAuthStrategies.map((strat: PortalAuthStrategy) => ({
               label: strat.name,
               value: strat.id,
               isDcr: strat.credential_type === 'client_credentials',

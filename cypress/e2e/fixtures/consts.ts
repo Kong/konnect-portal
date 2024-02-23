@@ -136,6 +136,7 @@ export const appWithAuthStrategy: GetApplicationResponse = {
   auth_strategy: {
     id: crypto.randomUUID(),
     name: 'keyauthstrat',
+    key_names: ['key'],
     credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
   }
 }
