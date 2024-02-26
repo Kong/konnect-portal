@@ -116,6 +116,7 @@ export interface I18nType {
     clientID: string;
     clientSecret: string;
     reqField: string;
+    grantedScopes: string;
     redirectUriLabel: string;
     applicationCredentials: string;
     applicationSecret: string;

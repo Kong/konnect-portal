@@ -113,6 +113,7 @@ export const en = {
     applicationName: 'Application Name ',
     authStrategy: 'Auth Strategy',
     authStrategyWarning: 'You cannot create an application as this developer portal has no available application auth strategies. Please contact a developer portal admin.',
+    grantedScopes: 'Granted Scopes:',
     clientID: 'Client ID: ',
     clientSecret: 'Client Secret: ',
     reqField: ' indicates required field',
