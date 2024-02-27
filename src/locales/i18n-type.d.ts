@@ -302,6 +302,7 @@ export interface I18nType {
     myApps: string;
     refreshSecret: string;
     refreshSecretSuccess: string;
+    refreshSecretFailure: (error:string) => string;
     delete: string;
     cancel: string;
     searchPlaceholder: string;

@@ -302,6 +302,7 @@ export const en = {
     myApps: 'My Apps',
     refreshSecret: 'Refresh secret',
     refreshSecretSuccess: 'Successfully refreshed secret',
+    refreshSecretFailure: (str: string) => `Failed to refresh secret: ${str}`,
     delete: 'Delete',
     cancel: 'Cancel',
     noApp: 'No Applications',

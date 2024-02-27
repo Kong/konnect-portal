@@ -1553,6 +1553,28 @@ describe('Application Registration', () => {
       cy.get('[data-testid="application-secret-token-modal"]').should('not.exist')
     })
 
+    it('handles failure to refresh token of existing application with dcr', () => {
+      cy.mockDcrPortal()
+      cy.mockApplications([{ ...apps[0] }], 1)
+      cy.visit('/my-apps')
+
+      cy.get('[data-testid="applications-table"] tbody tr .actions-badge')
+        .should('have.length', 1)
+        .click()
+
+      cy.intercept('POST', `api/v2/applications/${apps[0].id}/refresh-token`, {
+        statusCode: 500,
+        body: { error: 'Internal Server Error' }
+      }).as('refreshToken')
+
+      cy.get('[data-testid="dropdown-delete-application"]').should('exist')
+      cy.get('[data-testid="dropdown-refresh-application-dcr-token"]').should('exist').click()
+
+      cy.wait('@refreshToken')
+
+      cy.get('[data-testid="refresh-error-alert"]').should('exist').should('contain', 'Failed to refresh secret')
+    })
+
     it('can refresh token of existing application with dcr from application page', () => {
       cy.mockApplications([{ ...apps[0], created_at: '2022-11-02T18:59:30.789Z' }], 1)
       mockApplicationWithCredAndReg({ ...apps[0], created_at: '2022-11-02T18:59:30.789Z' })

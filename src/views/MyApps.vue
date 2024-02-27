@@ -66,6 +66,12 @@
         appearance="danger"
         data-testid="delete-error-alert"
       />
+      <KAlert
+        :is-showing="!!refreshSecretError"
+        :title="refreshSecretError"
+        appearance="danger"
+        data-testid="refresh-error-alert"
+      />
       <KCard>
         <template #body>
           <KTable
@@ -73,7 +79,7 @@
             :fetcher-cache-key="fetcherCacheKey"
             :fetcher="fetcher"
             has-side-border
-            :has-error="currentState.matches('error') && !deleteError"
+            :has-error="currentState.matches('error') && !deleteError && !refreshSecretError"
             :is-loading="currentState.matches('pending')"
             :headers="tableHeaders"
             is-clickable
@@ -243,6 +249,7 @@ export default defineComponent({
     const fetcherCacheKey = computed(() => key.value.toString())
     const deleteItem = ref(null)
     const deleteError = ref(null)
+    const refreshSecretError = ref(null)
     const showSecretModal = ref(false)
     const token = ref(null)
     const { portalApiV2 } = usePortalApi()
@@ -339,6 +346,9 @@ export default defineComponent({
     }
 
     const handleRefreshSecret = (id: string) => {
+      send('FETCH')
+      refreshSecretError.value = null
+
       portalApiV2.value.service.credentialsApi.refreshApplicationToken({ applicationId: id })
         .then((res) => {
           notify({
@@ -348,10 +358,8 @@ export default defineComponent({
           token.value = res.data.client_secret
         })
         .catch(error => {
-          notify({
-            appearance: 'danger',
-            message: getMessageFromError(error)
-          })
+          send('REJECT')
+          refreshSecretError.value = helpText.refreshSecretFailure(getMessageFromError(error))
         })
     }
 
@@ -428,6 +436,7 @@ export default defineComponent({
       token,
       onModalClose,
       handleRefreshSecret,
+      refreshSecretError,
       searchStr,
       fetcherCacheKey,
       fetcher,

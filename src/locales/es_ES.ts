@@ -306,6 +306,7 @@ export const es_ES: I18nType = {
     myApps: 'Mis aplicaciones',
     refreshSecret: 'Refrescar clave secreta',
     refreshSecretSuccess: translationNeeded(en.myApp.refreshSecretSuccess),
+    refreshSecretFailure: (error: string) => translationNeeded(en.myApp.refreshSecretFailure(error)),
     noSearchResults: translationNeeded(en.myApp.noSearchResults),
     searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Eliminar',
