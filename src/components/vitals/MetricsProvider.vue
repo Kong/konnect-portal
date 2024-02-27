@@ -8,14 +8,20 @@
 </template>
 <script setup lang="ts">
 import usePortalApi from '@/hooks/usePortalApi'
-import { TimeframeKeys, QueryTime, Timeframe } from '@kong-ui-public/analytics-utilities'
+import useToaster from '@/composables/useToaster'
+import { TimeframeKeys, type QueryTime, type Timeframe } from '@kong-ui-public/analytics-utilities'
 import { computed } from 'vue'
-import { MetricsProviderInternal, ExploreV2Query, EXPLORE_V2_DIMENSIONS, ExploreV2Filter } from '@kong-ui-public/analytics-metric-provider'
+import type { DataFetcher, ExploreV2Query, EXPLORE_V2_DIMENSIONS, ExploreV2Filter } from '@kong-ui-public/analytics-metric-provider'
+import { MetricsProviderInternal } from '@kong-ui-public/analytics-metric-provider'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from '@/stores'
+import getMessageFromError from '@/helpers/getMessageFromError'
 import { PortalTimeframeKeys } from '@/types/vitals'
 import { ApplicationAnalyticsApiQueryApplicationAnalyticsRequest } from '@kong/sdk-portal-js'
 import { snakeToCamelCase } from '@/helpers/snakeToCamelCase'
+type ProviderProps = InstanceType<typeof MetricsProviderInternal>['$props']
+
+const { notify } = useToaster()
 
 const props = withDefaults(defineProps<{
   overrideTimeframe?: Timeframe,
@@ -42,8 +48,14 @@ const { allowedTimePeriod } = storeToRefs(appStore)
 
 const hasTrendAccess = computed(() => allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS)
 
-// TODO: type as DataFetcher
-const dataFetcher: any = async (queryTime: QueryTime, query: ExploreV2Query) => {
+const handleError = (error) => {
+  notify({
+    appearance: 'danger',
+    message: getMessageFromError(error)
+  })
+}
+
+const dataFetcher: DataFetcher = (queryTime: QueryTime, query: ExploreV2Query) => {
   const appQuery = {
     queryApplicationAnalytics: {
       ...query,
@@ -56,27 +68,25 @@ const dataFetcher: any = async (queryTime: QueryTime, query: ExploreV2Query) => 
   // Drop unneeded `granularityMs`
   delete appQuery.queryApplicationAnalytics?.granularityMs
 
-  try {
-    // Unpack the original promise
-    const v3Result = await portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
+  return portalApiV2.value.service.applicationAnalyticsApi.queryApplicationAnalytics(appQuery as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
+    .then(({ data }) => {
+      // Transform the `meta` object contained in the response
+      data.meta = snakeToCamelCase(data.meta)
 
-    // Transform the `meta` object contained in the response
-    v3Result.data.meta = snakeToCamelCase(v3Result.data.meta)
-
-    // Package the transformed data as a new promise
-    return Promise.resolve(v3Result as any as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest)
-  } catch (error) {
-    return Promise.reject(error)
-  }
+      // Package the transformed data as a new promise
+      return data as ApplicationAnalyticsApiQueryApplicationAnalyticsRequest
+    }).catch((e) => {
+      handleError(e)
+    }) as Promise<any>
 }
 
-// Note: if Typescript starts complaining about the prop types, make sure `analytics-utilities` is the same version in both `portal-client` and `analytics-metric-provider`.
-// Otherwise, it starts thinking that the Timeframe types are incompatible.
-const internalProps = computed(() => ({
+// Note: if Typescript complains about prop type mismatches, bump `analytics-metric-provider` to a version whose analytics utils sub-dependency
+// matches the `analytics-utilities` version in the root package.json
+const internalProps = computed<ProviderProps>(() => ({
   ...props,
   dataFetcher,
   hasTrendAccess: hasTrendAccess.value,
   refreshInterval: 0 // Don't refresh metric cards on the dev portal by default.
-}))
+} as ProviderProps))
 
 </script>
