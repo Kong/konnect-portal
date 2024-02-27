@@ -182,7 +182,6 @@ export const fr: I18nType = {
       nameProduct: 'Produit',
       version: 'Version',
       status: 'Statut',
-      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Actions'
     }
   },

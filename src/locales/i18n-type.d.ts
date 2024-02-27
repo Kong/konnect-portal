@@ -179,7 +179,6 @@ export interface I18nType {
       version: string;
       status: string;
       actions: string;
-      scopes: string;
     };
   };
   dcrAuthentication: {

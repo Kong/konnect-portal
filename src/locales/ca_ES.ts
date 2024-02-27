@@ -182,7 +182,6 @@ export const ca_ES: I18nType = {
       nameProduct: 'Producte',
       version: 'Versió',
       status: 'Estat',
-      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Accions'
     }
   },

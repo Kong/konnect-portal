@@ -178,7 +178,6 @@ export const en = {
       nameProduct: 'Product',
       version: 'Version',
       status: 'Status',
-      scopes: 'Scopes',
       actions: 'Actions'
     }
   },
@@ -203,7 +202,7 @@ export const en = {
     createApplication: 'Create an Application',
     searchPlaceholder: 'Search applications',
     cancelButton: 'Cancel',
-    filterScopes: 'filter...',
+    filterScopes: 'Filter...',
     availableScopesLabel: 'Select scopes',
     fetchingScopesLabel: 'Fetching scopes...',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
