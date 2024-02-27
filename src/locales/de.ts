@@ -300,10 +300,13 @@ export const de: I18nType = {
   },
   myApp: {
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    authStrategyFetchError: (errString: string) => translationNeeded(en.myApp.authStrategyFetchError(errString)),
     newApp: 'Neue Applikation',
     plus: 'Plus',
     myApps: 'Meine Applikationen',
     refreshSecret: 'Secret erneuern',
+    refreshSecretSuccess: translationNeeded(en.myApp.refreshSecretSuccess),
+    refreshSecretFailure: (error: string) => translationNeeded(en.myApp.refreshSecretFailure(error)),
     noSearchResults: translationNeeded(en.myApp.noSearchResults),
     searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Löschen',
@@ -311,7 +314,9 @@ export const de: I18nType = {
     noApp: 'Keine Applikationen',
     create: 'Neue Applikation anlegen',
     getStarted: ' um loszulegen',
-    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`
+    deleteDialog: (name: string) => `Sind Sie sicher, dass Sie ${name} löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.`,
+    deleteSuccess: translationNeeded(en.myApp.deleteSuccess),
+    deleteFailure: (str: string) => translationNeeded(en.myApp.deleteFailure(str))
   },
   router: {
     portalTitle: 'Entwicklerportal',

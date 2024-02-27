@@ -60,6 +60,18 @@
       </MetricsProvider>
     </div>
     <div>
+      <KAlert
+        :is-showing="!!deleteError"
+        :title="deleteError"
+        appearance="danger"
+        data-testid="delete-error-alert"
+      />
+      <KAlert
+        :is-showing="!!refreshSecretError"
+        :title="refreshSecretError"
+        appearance="danger"
+        data-testid="refresh-error-alert"
+      />
       <KCard>
         <template #body>
           <KTable
@@ -67,7 +79,7 @@
             :fetcher-cache-key="fetcherCacheKey"
             :fetcher="fetcher"
             has-side-border
-            :has-error="currentState.matches('error')"
+            :has-error="currentState.matches('error') && !deleteError && !refreshSecretError"
             :is-loading="currentState.matches('pending')"
             :headers="tableHeaders"
             is-clickable
@@ -92,7 +104,10 @@
               {{ row.name }}
             </template>
             <template #actions="{ row }">
-              <ActionsDropdown :key="row.id">
+              <ActionsDropdown
+                :key="row.id"
+                :data-testid="'actions-dropdown-' + row.id"
+              >
                 <template #content>
                   <div
                     data-testid="dropdown-analytics-dashboard"
@@ -161,6 +176,7 @@
       :action-button-text="helpText.delete"
       action-button-appearance="danger"
       class="delete-modal"
+      data-testid="application-delete-modal"
       @canceled="deleteItem = null"
     >
       <template #header-content>
@@ -172,6 +188,9 @@
       <template #footer-content>
         <KButton
           appearance="danger"
+          data-testid="application-delete-confirm-button"
+          :disabled="currentState.matches('pending')"
+          :icon="currentState.matches('pending') ? 'spinner' : undefined"
           :is-rounded="false"
           class="mr-3"
           @click="handleDelete"
@@ -229,6 +248,8 @@ export default defineComponent({
     const key = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
     const deleteItem = ref(null)
+    const deleteError = ref(null)
+    const refreshSecretError = ref(null)
     const showSecretModal = ref(false)
     const token = ref(null)
     const { portalApiV2 } = usePortalApi()
@@ -265,7 +286,7 @@ export default defineComponent({
       states: {
         idle: { on: { FETCH: 'pending', REJECT: 'error' } },
         pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
-        success: { type: 'final' },
+        success: { on: { FETCH: 'pending' } },
         error: { on: { FETCH: 'pending' } }
       }
     }))
@@ -303,40 +324,42 @@ export default defineComponent({
     }
 
     const handleDelete = () => {
+      send('FETCH')
       portalApiV2.value.service.applicationsApi
         .deleteApplication({
           applicationId: deleteItem.value.id
         })
         .then(() => {
+          send('RESOLVE')
           deleteItem.value = null
+          deleteError.value = null
           revalidate() // refetch applications
           notify({
-            message: 'Application deleted'
+            message: helpText.deleteSuccess
           })
         })
         .catch(error => {
+          send('REJECT')
           deleteItem.value = null
-          notify({
-            appearance: 'danger',
-            message: `Error: ${getMessageFromError(error)}`
-          })
+          deleteError.value = helpText.deleteFailure(getMessageFromError(error))
         })
     }
 
     const handleRefreshSecret = (id: string) => {
+      send('FETCH')
+      refreshSecretError.value = null
+
       portalApiV2.value.service.credentialsApi.refreshApplicationToken({ applicationId: id })
         .then((res) => {
           notify({
-            message: 'Successfully refreshed secret'
+            message: helpText.refreshSecretSuccess
           })
           showSecretModal.value = true
           token.value = res.data.client_secret
         })
         .catch(error => {
-          notify({
-            appearance: 'danger',
-            message: getMessageFromError(error)
-          })
+          send('REJECT')
+          refreshSecretError.value = helpText.refreshSecretFailure(getMessageFromError(error))
         })
     }
 
@@ -390,7 +413,7 @@ export default defineComponent({
           fetchingAuthStrategies.value = false
           notify({
             appearance: 'danger',
-            message: `Error fetching application auth strategies: ${err}`
+            message: helpText.authStrategyFetchError(getMessageFromError(err))
           })
         }
       }
@@ -406,12 +429,14 @@ export default defineComponent({
       fetchingAuthStrategies,
       isApplicationDcr,
       deleteItem,
+      deleteError,
       showSecretModal,
       appRegV2Enabled,
       hasAppAuthStrategies,
       token,
       onModalClose,
       handleRefreshSecret,
+      refreshSecretError,
       searchStr,
       fetcherCacheKey,
       fetcher,

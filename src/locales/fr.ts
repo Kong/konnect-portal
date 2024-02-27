@@ -300,10 +300,13 @@ export const fr: I18nType = {
   },
   myApp: {
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    authStrategyFetchError: (errString: string) => translationNeeded(en.myApp.authStrategyFetchError(errString)),
     newApp: 'Nouvelle application',
     plus: 'Plus',
     myApps: 'Mes applications',
     refreshSecret: 'Actualiser le secret',
+    refreshSecretSuccess: translationNeeded(en.myApp.refreshSecretSuccess),
+    refreshSecretFailure: (error: string) => translationNeeded(en.myApp.refreshSecretFailure(error)),
     noSearchResults: translationNeeded(en.myApp.noSearchResults),
     searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Supprimer',
@@ -311,7 +314,9 @@ export const fr: I18nType = {
     noApp: 'Aucune application',
     create: 'Créer une nouvelle application',
     getStarted: ' pour commencer',
-    deleteDialog: (name: string) => `Voulez-vous vraiment supprimer ${name} ? Cette action est irréversible.`
+    deleteDialog: (name: string) => `Voulez-vous vraiment supprimer ${name} ? Cette action est irréversible.`,
+    deleteSuccess: translationNeeded(en.myApp.deleteSuccess),
+    deleteFailure: (str: string) => translationNeeded(en.myApp.deleteFailure(str))
   },
   router: {
     portalTitle: 'Portail développeur',

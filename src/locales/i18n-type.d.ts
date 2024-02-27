@@ -296,10 +296,13 @@ export interface I18nType {
   };
   myApp: {
     authStrategyWarning: string;
+    authStrategyFetchError: (errString: string) => string;
     newApp: string;
     plus: string;
     myApps: string;
     refreshSecret: string;
+    refreshSecretSuccess: string;
+    refreshSecretFailure: (error:string) => string;
     delete: string;
     cancel: string;
     searchPlaceholder: string;
@@ -308,6 +311,8 @@ export interface I18nType {
     create: string;
     getStarted: string;
     deleteDialog: (name: string) => string;
+    deleteSuccess: string;
+    deleteFailure: (str: string) => string;
   };
   router: {
     portalTitle: string;
