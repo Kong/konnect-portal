@@ -116,6 +116,7 @@ export interface I18nType {
     clientID: string;
     clientSecret: string;
     reqField: string;
+    grantedScopes: string;
     redirectUriLabel: string;
     applicationCredentials: string;
     applicationSecret: string;
@@ -178,7 +179,6 @@ export interface I18nType {
       version: string;
       status: string;
       actions: string;
-      scopes: string;
     };
   };
   dcrAuthentication: {

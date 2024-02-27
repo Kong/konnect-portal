@@ -597,23 +597,15 @@ describe('Application Registration', () => {
     cy.mockApplications(apps, 1)
     cy.visit('/my-apps')
 
-    mockApplicationWithCredAndReg(apps[0], [], [
-      {
-        id: 'regId',
-        product_id: 'id',
-        product_name: 'mockbin',
-        product_version_id: 'pvid',
-        product_version_name: 'version_name',
-        application_id: apps[0].id,
-        status: 'approved',
-        created_at: '2023-11-24T17:35:52.765Z',
-        updated_at: '2023-11-24T17:49:32.719Z',
-        granted_scopes: [
-          'scope1',
-          'scope2'
-        ]
-      }
-    ])
+    const app = {
+      ...apps[0],
+      scopes: [
+        'scope1',
+        'scope2'
+      ]
+    }
+
+    mockApplicationWithCredAndReg(app, [])
     cy.get('[data-testid="applications-table"] tbody tr')
       .contains(apps[0].name)
       .click()
@@ -627,25 +619,17 @@ describe('Application Registration', () => {
     cy.mockApplications(apps, 1)
     cy.visit('/my-apps')
 
-    mockApplicationWithCredAndReg(apps[0], [], [
-      {
-        id: 'regId',
-        product_id: 'id',
-        product_name: 'mockbin',
-        product_version_id: 'pvid',
-        product_version_name: 'version_name',
-        application_id: apps[0].id,
-        status: 'approved',
-        created_at: '2023-11-24T17:35:52.765Z',
-        updated_at: '2023-11-24T17:49:32.719Z',
-        granted_scopes: [
-          'scope1',
-          'scope2',
-          'scope3',
-          'scope4'
-        ]
-      }
-    ])
+    const app = {
+      ...apps[0],
+      scopes: [
+        'scope1',
+        'scope2',
+        'scope3',
+        'scope4'
+      ]
+    }
+
+    mockApplicationWithCredAndReg(app, [], [])
     cy.get('[data-testid="applications-table"] tbody tr')
       .contains(apps[0].name)
       .click()
@@ -661,19 +645,7 @@ describe('Application Registration', () => {
     cy.mockApplications(apps, 1)
     cy.visit('/my-apps')
 
-    mockApplicationWithCredAndReg(apps[0], [], [
-      {
-        id: 'regId',
-        product_id: 'id',
-        product_name: 'mockbin',
-        product_version_id: 'pvid',
-        product_version_name: 'version_name',
-        application_id: apps[0].id,
-        status: 'approved',
-        created_at: '2023-11-24T17:35:52.765Z',
-        updated_at: '2023-11-24T17:49:32.719Z'
-      }
-    ])
+    mockApplicationWithCredAndReg(apps[0], [], [])
     cy.get('[data-testid="applications-table"] tbody tr')
       .contains(apps[0].name)
       .click()

@@ -117,6 +117,7 @@ export const fr: I18nType = {
     applicationName: 'Nom de l\'application ',
     authStrategy: translationNeeded(en.application.authStrategy),
     authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    grantedScopes: translationNeeded(en.application.grantedScopes),
     clientID: 'Client ID : ',
     clientSecret: 'Client Secret : ',
     reqField: ' indique un champ obligatoire',
@@ -181,7 +182,6 @@ export const fr: I18nType = {
       nameProduct: 'Produit',
       version: 'Version',
       status: 'Statut',
-      scopes: translationNeeded(en.productList.labels.scopes),
       actions: 'Actions'
     }
   },

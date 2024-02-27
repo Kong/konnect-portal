@@ -5,12 +5,14 @@
       :key="(scope as string)"
       :data-testid="`granted-${scope}`"
       class="scope-badge"
+      shape="rectangular"
     >
       {{ scope }}
     </KBadge>
     <KBadge
       v-if="!showRest && hiddenItems.length"
       data-testid="show-more-scopes"
+      shape="rectangular"
       @click.stop="handleShowMore"
     >
       <span>
@@ -62,11 +64,16 @@ export default defineComponent({
   .badge-container {
     display: flex;
     flex-wrap: wrap;
-    max-width: 250px;
     row-gap: 6px;
 
     :not(:last-child) {
       margin-right: 4px;
+    }
+
+    :deep(.k-badge) {
+      background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
+      border: 1px solid transparent;
+      color: var(--button_colors-primary-text, #fff);
     }
   }
 </style>

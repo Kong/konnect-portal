@@ -118,6 +118,14 @@
             >
               {{ helpText.application.referenceId(application.reference_id) }}
             </div>
+            <div
+              v-if="application.scopes?.length"
+              class="granted-scopes color-text_colors-secondary"
+              data-testid="granted-scopes-container"
+            >
+              <span class="label">{{ helpText.application.grantedScopes }}</span>
+              <ScopeBadges :scopes="application.scopes" />
+            </div>
           </div>
         </div>
       </div>
@@ -178,6 +186,7 @@ import CredentialsList from './CredentialsList.vue'
 import ProductList from './ProductList.vue'
 import DcrAuthenticationTable from './DcrAuthenticationTable.vue'
 import AnalyticsMetricsCard from '@/components/vitals/AnalyticsMetricsCard.vue'
+import ScopeBadges from '@/components/ScopeBadges.vue'
 
 import { useI18nStore, useAppStore } from '@/stores'
 import { PortalTimeframeKeys } from '@/types/vitals'
@@ -192,7 +201,7 @@ import { CredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
   name: 'ApplicationDetail',
-  components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable },
+  components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable, ScopeBadges },
 
   setup () {
     const errorMessage = ref('')
@@ -326,6 +335,15 @@ export default defineComponent({
       background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
       border: 1px solid transparent;
       color: var(--button_colors-primary-text, #fff);
+    }
+  }
+
+  .granted-scopes {
+    display: flex;
+    justify-content: flex-end;
+
+    .label {
+      margin-right: 4px;
     }
   }
 </style>
