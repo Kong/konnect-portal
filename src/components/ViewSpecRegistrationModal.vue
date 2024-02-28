@@ -166,7 +166,6 @@ export default defineComponent({
     const availableScopes = ref([])
     const selectedScopes = ref([])
     const alreadyGrantedScopes = ref([])
-    const useDeveloperManagedScopes = useLDFeatureFlag(FeatureFlags.DeveloperManagedScopes, false)
     const useAppRegV2 = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const applications = ref([])
     const key = ref(0)
@@ -376,7 +375,7 @@ export default defineComponent({
     })
 
     watch([() => props.product, () => props.version, () => selectedApplication.value], async (newValues, oldValues) => {
-      if (props.product && props.version && useDeveloperManagedScopes) {
+      if (props.product && props.version) {
         alreadyGrantedScopes.value = []
         fetchingScopes.value = true
         // Only make the getProductVersion request if we change productVersions

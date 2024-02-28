@@ -10,5 +10,8 @@ updates:
     labels:
       - "dependencies"
     ignore:
+      - dependency-name: "@kong-ui-public/analytics-chart"
+      - dependency-name: "@kong-ui-public/analytics-metric-provider"
+      - dependency-name: "@kong-ui-public/analytics-utilities"
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
