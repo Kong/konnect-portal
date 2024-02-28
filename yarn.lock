@@ -975,7 +975,7 @@
   dependencies:
     tslib "^2.4.0"
 
-"@formatjs/intl@^2.10.0":
+"@formatjs/intl@^2.9.3":
   version "2.10.0"
   resolved "https://registry.npmjs.org/@formatjs/intl/-/intl-2.10.0.tgz#d7bb557e172ceb0bb0be9298b61e9de957119985"
   integrity sha512-X3xT9guVkKDS86EKV80lS0KxoazUglkJTGZO66sKY7otgl0VeStPA8B3u8UkKT47PexVV98fUzjpkchYmbe9nw==
@@ -1074,69 +1074,53 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kong-ui-public/analytics-chart@1.3.6":
-  version "1.3.6"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-1.3.6.tgz#6f39a90d0a6c4d0455fe6c4b214029fbc9847ec1"
-  integrity sha512-3jvFPx6fYWXq/lJDgs3wB1nLCBz7f5x66c6hklGGzttz27qQEF8FvIjK8+55XONRp1PuDSLCQaxPcXco8/hTYg==
+"@kong-ui-public/analytics-chart@0.15.2":
+  version "0.15.2"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-chart/-/analytics-chart-0.15.2.tgz#406be4da2f2c01f752697ca7e576856c534126f3"
+  integrity sha512-APImyIjNkaUMlFhMq3E1fTKMYKJayCbHK9t9UA/n98lniobNfqJ+u1wmP8K9u1/B3UHdBsQDwcC0PsZUMTf5UA==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.13.1"
-    "@kong/icons" "^1.8.14"
-    "@types/file-saver" "^2.0.7"
-    "@types/lodash.mapkeys" "^4.6.9"
-    "@types/lodash.pick" "^4.4.9"
-    "@types/lodash.pickby" "^4.6.9"
-    "@types/papaparse" "^5.3.14"
+    "@kong-ui-public/analytics-utilities" "^0.10.1"
     approximate-number "^2.1.1"
-    chart.js "^4.4.1"
+    chart.js "^4.4.0"
     chartjs-adapter-date-fns "^3.0.0"
     chartjs-plugin-annotation "^3.0.1"
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
     pretty-bytes "^6.1.1"
     uuid "^9.0.1"
-    vue-chartjs "^5.3.0"
+    vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-metric-provider@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-3.0.0.tgz#cc6fe5705b5009a71baa67a625d63c143aa6904e"
-  integrity sha512-HCRUHHdPFolF61kkPlmN++7DlJPG4hDEhtz1ZLF9PO+zR/QVG3Py+Xjz77AxtrEFYEU6Y7rhC6KOYLrdke5AsQ==
+"@kong-ui-public/analytics-metric-provider@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-metric-provider/-/analytics-metric-provider-1.2.9.tgz#59a64c20b0ccae7d086f1ea79f43cebaecef817a"
+  integrity sha512-xJZWZXcIq6Y2d40/QE8t+DHRMozAWWTpEsPYTCo3Wn8+03A01NGVUCGV+VGd5XvykraF7boVjDWBtzP6IdMYKw==
   dependencies:
-    "@kong-ui-public/analytics-utilities" "^0.14.0"
+    "@kong-ui-public/analytics-utilities" "^0.10.1"
     "@kong-ui-public/core" "1.1.0"
-    "@kong-ui-public/metric-cards" "^0.6.32"
-    axios "^1.6.5"
+    "@kong-ui-public/metric-cards" "^0.5.4"
+    axios "^1.6.0"
     swrv "^1.0.4"
 
-"@kong-ui-public/analytics-utilities@0.15.0":
-  version "0.15.0"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.15.0.tgz#3d246b0f73022295591c4bc1ac195da9423448da"
-  integrity sha512-yW1HdLftUSYJ5YfsmzrA+pSu3d8rYrlel31zRcKBxWwKRzfOz+MYUIn//qBhHHOS1qu85CZ/Ge+sbSEyovGMTw==
+"@kong-ui-public/analytics-utilities@0.10.1":
+  version "0.10.1"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.10.1.tgz#232c35658e9bf2d847fdf8fa22fdb39441ada229"
+  integrity sha512-csBjChpQBJSinQwbVX3S3pOhWgY1qPGSmmoAwXuK20CRlWMC3eOP4o6zL3gMEYt/vkup+FQln2XJqh60L7mf1w==
   dependencies:
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
 
-"@kong-ui-public/analytics-utilities@^0.13.1":
-  version "0.13.1"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.13.1.tgz#b3c3a06b690f79dea062484a189b276024f56b45"
-  integrity sha512-L8kDI5HbMlgN9YeCOycceXwW51G2wQPKnzb/uFN1VmhozEsygNsJZHhXT96trN3TTLZxXc6q1MzpHXbVowKYCg==
+"@kong-ui-public/analytics-utilities@^0.10.1":
+  version "0.10.6"
+  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.10.6.tgz#d24a4fec774219575915c1f24e9984497bb94f10"
+  integrity sha512-ukV3jrNq2GqLxQ8P97B/ygr85i9Tsd9ORwNlpeFQIcW2UY4Ye3Uv4CCcFMHgcqdD8RtjI2P9sa+ijDpNaJTHkg==
   dependencies:
     date-fns "^2.30.0"
     date-fns-tz "^2.0.0"
 
-"@kong-ui-public/analytics-utilities@^0.14.0":
-  version "0.14.1"
-  resolved "https://registry.npmjs.org/@kong-ui-public/analytics-utilities/-/analytics-utilities-0.14.1.tgz#d864f802d826c369951cb53e39c85bf217367d4b"
-  integrity sha512-0eH/8h6d7YJcPbOQoRFRFSk15JXeDkDlStjYdZv3LRgmVGhEV+WH/SccWaHrxhm2qjdaUwpBa2ApAj468nK+OQ==
-  dependencies:
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-
-"@kong-ui-public/copy-uuid@2.0.37":
-  version "2.0.37"
-  resolved "https://registry.npmjs.org/@kong-ui-public/copy-uuid/-/copy-uuid-2.0.37.tgz#72fd6c140651527ccf77a82dc7498438b2fe3862"
-  integrity sha512-25TqPJflvc/pAJ8CcWZIEXs33GUvnaQSpvUV05HMvghaNDQ+Jjkuaw+jRF40liU/EJJAnSvkg91CHEiOIwkW0A==
-  dependencies:
-    "@kong/icons" "^1.8.14"
+"@kong-ui-public/copy-uuid@1.1.5":
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/@kong-ui-public/copy-uuid/-/copy-uuid-1.1.5.tgz#2d5928fdc83d5d840ad376201cec1cde048a877d"
+  integrity sha512-60ZdTW273biRyqlewUmQR5Y+VwrQEfCU9/HhSEk+8vdx9NPc6I60tQaINF663nzjNJQzDWU1Nkdk1IGHC0P1GA==
 
 "@kong-ui-public/core@1.1.0":
   version "1.1.0"
@@ -1153,6 +1137,15 @@
     "@kong-ui-public/i18n" "^2.0.3"
     prismjs "^1.29.0"
 
+"@kong-ui-public/i18n@^0.8.6":
+  version "0.8.6"
+  resolved "https://registry.npmjs.org/@kong-ui-public/i18n/-/i18n-0.8.6.tgz#6774fe21626bcd014ef9b9d8a87bc950e28e0288"
+  integrity sha512-FPf5nfpJzjwvx5CQGXh7tjZqcy7IeRZyquoM6dsM+/O9wIlmr/PGfqVCiJwwdONgrkg/DCVuzm+qQBAjdaQlXQ==
+  dependencies:
+    "@formatjs/intl" "^2.9.3"
+    flat "^6.0.1"
+    intl-messageformat "^10.5.3"
+
 "@kong-ui-public/i18n@^2.0.3":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-2.0.3.tgz#3524021c71149b86c7e261d3b9270130b9934ea8"
@@ -1162,35 +1155,25 @@
     flat "^6.0.1"
     intl-messageformat "^10.5.8"
 
-"@kong-ui-public/i18n@^2.1.2":
-  version "2.1.3"
-  resolved "https://registry.npmjs.org/@kong-ui-public/i18n/-/i18n-2.1.3.tgz#69274abb275c612f999f6e0944da11c341fdc347"
-  integrity sha512-KPEzrVsfTjAGTZ2kcPK+b+hRwDlLjeY4Ys6VnTn+qYEYJjiPEjKansw5zJk33c8R4CTM4a7Zf5DPg1zaWjmNoQ==
+"@kong-ui-public/metric-cards@^0.5.4":
+  version "0.5.7"
+  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.5.7.tgz#2795b61ded9fa141b388854094453806bfbdf9ea"
+  integrity sha512-zi7uFOWTu05g15Y9GWL4eFtXzER3cPM4sxUhf3M6kJUfYxTIm2d3l5mVBlzWxEgZ88MPFpl+LTx3nLJKCq7EXg==
   dependencies:
-    "@formatjs/intl" "^2.10.0"
-    flat "^6.0.1"
-    intl-messageformat "^10.5.11"
-
-"@kong-ui-public/metric-cards@^0.6.32":
-  version "0.6.37"
-  resolved "https://registry.npmjs.org/@kong-ui-public/metric-cards/-/metric-cards-0.6.37.tgz#31eca39aa88a2ff9a404659a4a45ef07d1230474"
-  integrity sha512-i3nCrYfvQ/1mL6QaFKaPFN72t5EFoUvofxFWcHT8tQ7UQ+F2aoksogIE0DGp3GKcKAh+/btHjJ1QrZBBOqNUiQ==
-  dependencies:
-    "@kong/icons" "^1.8.14"
+    "@kong/icons" "^1.8.0"
     approximate-number "^2.1.1"
 
-"@kong-ui-public/spec-renderer@2.0.46":
-  version "2.0.46"
-  resolved "https://registry.npmjs.org/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.46.tgz#30eecf41ae93087327b50f126b4d8010ba14c13c"
-  integrity sha512-qhuycTcmw3B0YZ2wBtxSBfTWapX06pJRSW9SXd6fOWJkw7r5wPx4DdFDP1NRqVDnLbQ1C3CBKaV8ruyWgylcug==
+"@kong-ui-public/spec-renderer@0.13.5":
+  version "0.13.5"
+  resolved "https://registry.npmjs.org/@kong-ui-public/spec-renderer/-/spec-renderer-0.13.5.tgz#333690ce4d67d3f425c43c5f1817f48ea9a07e44"
+  integrity sha512-hUICm1vJZQtlRk6a7fRkHDFPuMPUBlEx1wFPjVHxoIrT+auUVKcc9SbMkj1G81byoMdEKsfeD7E3IQrHxDPFHg==
   dependencies:
-    "@kong-ui-public/i18n" "^2.1.2"
-    "@kong-ui-public/swagger-ui-web-component" "^0.10.15"
-    "@kong/icons" "^1.8.14"
+    "@kong-ui-public/i18n" "^0.8.6"
+    "@kong-ui-public/swagger-ui-web-component" "^0.10.7"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.1"
 
-"@kong-ui-public/swagger-ui-web-component@^0.10.15":
+"@kong-ui-public/swagger-ui-web-component@^0.10.7":
   version "0.10.17"
   resolved "https://registry.npmjs.org/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.17.tgz#058d714413b21a8ce78d9247056f8e8a9232f0be"
   integrity sha512-7nq7dC7JzH888e63Z7Z8P+BLuTI4fplDGbg7+Kfu1dG1HXqkf50WR34BtvKh+hx+USTWc3Tftdee1YWNySPO5g==
@@ -1206,11 +1189,6 @@
   resolved "https://registry.npmjs.org/@kong/icons/-/icons-1.8.0.tgz#3fb6423fec31be4cc27af94f2912f52aee4f9077"
   integrity sha512-ynO3GXaJTh4yoJMZ7XeTbA+ZHvlrteleI+rWNGUbEr726Tw/jgHLdT6wZ1YWR65cA38FN0Q96vEX/7+6ExwaHA==
 
-"@kong/icons@^1.8.14":
-  version "1.8.14"
-  resolved "https://registry.npmjs.org/@kong/icons/-/icons-1.8.14.tgz#3219563df669b8bb3e260df12ac211a5072938e6"
-  integrity sha512-nJUTtLpqelKCTY8lS8VByWaHYUq1CuB5cBUX/q2FEDu5o6IKH/B7fEDQpb/pB1lLRYTqZXneHR/lGYjxy4u8eQ==
-
 "@kong/kong-auth-elements@2.11.1":
   version "2.11.1"
   resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.11.1.tgz#97fdc8621ac46479698530dcd9ec27371a6d2ebf"
@@ -1223,25 +1201,7 @@
     vue-recaptcha "^2.0.3"
     xstate "^4.38.3"
 
-"@kong/kongponents@9.0.0-alpha.101":
-  version "9.0.0-alpha.101"
-  resolved "https://registry.npmjs.org/@kong/kongponents/-/kongponents-9.0.0-alpha.101.tgz#f239a3a480e118337475813ce767c2e0900c6580"
-  integrity sha512-ZSOuLVFd8NajbuPjynk7EhvCbv5VtZmwxjOELPZCVnRHuUIkhVnz8znN+jtlHf0MCyX5fMCBuhxf5SA/sAeaSw==
-  dependencies:
-    "@kong/icons" "^1.8.14"
-    "@popperjs/core" "^2.11.8"
-    date-fns "^2.30.0"
-    date-fns-tz "^2.0.0"
-    focus-trap "^7.5.4"
-    focus-trap-vue "^4.0.3"
-    popper.js "^1.16.1"
-    sortablejs "^1.15.1"
-    swrv "^1.0.4"
-    uuid "^9.0.1"
-    v-calendar "^3.1.2"
-    vue-draggable-next "^2.2.1"
-
-"@kong/kongponents@^8.126.2":
+"@kong/kongponents@8.127.0", "@kong/kongponents@^8.126.2":
   version "8.127.0"
   resolved "https://registry.yarnpkg.com/@kong/kongponents/-/kongponents-8.127.0.tgz#5854fb862525aec2c7a05200ecc27718446a4d70"
   integrity sha512-C/MFT+OZtyul62ElgHEggqMYPbLjXiRJg5GE3il8MZpaep2D5QV+F5UQ7frbA98TkZCCVBD4LpR0OmiwXKs+tg==
@@ -1606,11 +1566,6 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.0.tgz#0e1bdf8d021e7ea58affade33d9d607e11365915"
   integrity sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==
-
-"@popperjs/core@^2.11.8":
-  version "2.11.8"
-  resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
-  integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
 "@rollup/rollup-android-arm-eabi@4.9.2":
   version "4.9.2"
@@ -2525,11 +2480,6 @@
     "@tufjs/canonical-json" "2.0.0"
     minimatch "^9.0.3"
 
-"@types/file-saver@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.npmjs.org/@types/file-saver/-/file-saver-2.0.7.tgz#8dbb2f24bdc7486c54aa854eb414940bbd056f7d"
-  integrity sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==
-
 "@types/hast@^2.0.0":
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/@types/hast/-/hast-2.3.4.tgz#8aa5ef92c117d20d974a82bdfb6a648b08c0bafc"
@@ -2560,32 +2510,6 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/lodash.mapkeys@^4.6.9":
-  version "4.6.9"
-  resolved "https://registry.npmjs.org/@types/lodash.mapkeys/-/lodash.mapkeys-4.6.9.tgz#edaf866c81be2ae940ffcca21f30249d2fbf6495"
-  integrity sha512-6/ERBCabeDI656LsV+oopLjdnJ/x1PCAE6kkkssH8e4i0K7Pw307noxHCbUc6cAVfTo9vx0Z+k3QZwy1IrUZcA==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash.pick@^4.4.9":
-  version "4.4.9"
-  resolved "https://registry.npmjs.org/@types/lodash.pick/-/lodash.pick-4.4.9.tgz#06f7d88faa81a6c5665584778aea7b1374a1dc5b"
-  integrity sha512-hDpr96x9xHClwy1KX4/RXRejqjDFTEGbEMT3t6wYSYeFDzxmMnSKB/xHIbktRlPj8Nii2g8L5dtFDRaNFBEzUQ==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash.pickby@^4.6.9":
-  version "4.6.9"
-  resolved "https://registry.npmjs.org/@types/lodash.pickby/-/lodash.pickby-4.6.9.tgz#b6d72b1adf8601aa76736f298adcbaa8f734b831"
-  integrity sha512-SPI248FYnyd3jOxDeJq2vX2UKQnDzqacuqdeOVqwE1MPSk8gN8TA3FcHSMQWLlpBnuHgXvgKInvywbOFbidpJA==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.14.202"
-  resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.202.tgz#f09dbd2fb082d507178b2f2a5c7e74bd72ff98f8"
-  integrity sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==
-
 "@types/lodash@^4.14.165":
   version "4.14.195"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.195.tgz#bafc975b252eb6cea78882ce8a7b6bf22a6de632"
@@ -2612,13 +2536,6 @@
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
-
-"@types/papaparse@^5.3.14":
-  version "5.3.14"
-  resolved "https://registry.npmjs.org/@types/papaparse/-/papaparse-5.3.14.tgz#345cc2a675a90106ff1dc33b95500dfb30748031"
-  integrity sha512-LxJ4iEFcpqc6METwp9f6BV6VVc43m6MfH0VqFosHvrUgfXiFe6ww7R3itkOQ+TCK6Y+Iv/+RnnvtRZnkc5Kc9g==
-  dependencies:
-    "@types/node" "*"
 
 "@types/prop-types@*":
   version "15.7.5"
@@ -2647,11 +2564,6 @@
     "@types/prop-types" "*"
     "@types/scheduler" "*"
     csstype "^3.0.2"
-
-"@types/resize-observer-browser@^0.1.7":
-  version "0.1.11"
-  resolved "https://registry.npmjs.org/@types/resize-observer-browser/-/resize-observer-browser-0.1.11.tgz#d3c98d788489d8376b7beac23863b1eebdd3c13c"
-  integrity sha512-cNw5iH8JkMkb3QkCoe7DaZiawbDQEUX8t7iuQaRTyLOyQCR2h+ibBD4GJt7p5yhUHrlOeL7ZtbxNHeipqNsBzQ==
 
 "@types/scheduler@*":
   version "0.16.3"
@@ -3570,15 +3482,6 @@ axios@^1.4.0, axios@^1.6.0:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
-axios@^1.6.5:
-  version "1.6.7"
-  resolved "https://registry.npmjs.org/axios/-/axios-1.6.7.tgz#7b48c2e27c96f9c68a2f8f31e2ab19f59b06b0a7"
-  integrity sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==
-  dependencies:
-    follow-redirects "^1.15.4"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
 babel-code-frame@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -4010,10 +3913,10 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chart.js@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.4.1.tgz#ac5dc0e69a7758909158a96fe80ce43b3bb96a9f"
-  integrity sha512-C74QN1bxwV1v2PEujhmKjOZ7iUM4w6BWs23Md/6aOZZSlwMzeCIDGuZay++rBgChYru7/+QFeoQW0fQoP534Dg==
+chart.js@^4.4.0:
+  version "4.4.2"
+  resolved "https://registry.npmjs.org/chart.js/-/chart.js-4.4.2.tgz#95962fa6430828ed325a480cc2d5f2b4e385ac31"
+  integrity sha512-6GD7iKwFpP5kbSD4MeRRRlTnQvxfQREy36uEtm1hzHzcOqwWx0YEHuspuoNlslu+nciLIB7fjjsHkUv/FzFcOg==
   dependencies:
     "@kurkle/color" "^0.3.0"
 
@@ -6093,11 +5996,6 @@ focus-trap-vue@^4.0.2:
   resolved "https://registry.yarnpkg.com/focus-trap-vue/-/focus-trap-vue-4.0.2.tgz#c9cc4976b2625d5290a8263b4edea542559fdb1a"
   integrity sha512-2iQN2xKCSCzyhcD90VpueQcTIAhaCRxxo67fkz7RSqLmEd16QKjfGslCr3KxvBx0LfpVN9j0IAyKKuJKw3Intg==
 
-focus-trap-vue@^4.0.3:
-  version "4.0.3"
-  resolved "https://registry.npmjs.org/focus-trap-vue/-/focus-trap-vue-4.0.3.tgz#c13f19d94e666c5144498793e93e51e0c46c2660"
-  integrity sha512-cIX5rybkCAlNZ4IHYJ3nCFIsipDDljJHHjtTO2IgYWkVYg7X9ipUVdab3HzYp88kmHgMwjcB71LYnXRRsF6ZqQ==
-
 focus-trap@^7.4.3, focus-trap@^7.5.2:
   version "7.5.2"
   resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.5.2.tgz#e5ee678d10a18651f2591ffb66c949fb098d57cf"
@@ -6105,22 +6003,10 @@ focus-trap@^7.4.3, focus-trap@^7.5.2:
   dependencies:
     tabbable "^6.2.0"
 
-focus-trap@^7.5.4:
-  version "7.5.4"
-  resolved "https://registry.npmjs.org/focus-trap/-/focus-trap-7.5.4.tgz#6c4e342fe1dae6add9c2aa332a6e7a0bbd495ba2"
-  integrity sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==
-  dependencies:
-    tabbable "^6.2.0"
-
 follow-redirects@^1.15.0:
   version "1.15.4"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.4.tgz#cdc7d308bf6493126b17ea2191ea0ccf3e535adf"
   integrity sha512-Cr4D/5wlrb0z9dgERpUL3LrmPKVDsETIJhaCMeDfuFYcqa5bldGV6wBsAN6X/vxlXQtFBMrXdXxdL8CbDTGniw==
-
-follow-redirects@^1.15.4:
-  version "1.15.5"
-  resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.5.tgz#54d4d6d062c0fa7d9d17feb008461550e3ba8020"
-  integrity sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -7091,7 +6977,7 @@ interpret@^1.0.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
-intl-messageformat@10.5.11, intl-messageformat@^10.5.11:
+intl-messageformat@10.5.11, intl-messageformat@^10.5.3:
   version "10.5.11"
   resolved "https://registry.npmjs.org/intl-messageformat/-/intl-messageformat-10.5.11.tgz#95d6a3b0b303f924d5d8c3f8d3ad057d1dc73c64"
   integrity sha512-eYq5fkFBVxc7GIFDzpFQkDOZgNayNTQn4Oufe8jw6YY6OHVw70/4pA3FyCsQ0Gb2DnvEJEMmN2tOaXUGByM+kg==
@@ -10781,11 +10667,6 @@ sortablejs@^1.15.0:
   resolved "https://registry.yarnpkg.com/sortablejs/-/sortablejs-1.15.0.tgz#53230b8aa3502bb77a29e2005808ffdb4a5f7e2a"
   integrity sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==
 
-sortablejs@^1.15.1:
-  version "1.15.2"
-  resolved "https://registry.npmjs.org/sortablejs/-/sortablejs-1.15.2.tgz#4e9f7bda4718bd1838add9f1866ec77169149809"
-  integrity sha512-FJF5jgdfvoKn1MAKSdGs33bIqLi3LmsgVTliuX6iITj834F+JRQZN90Z93yql8h0K2t0RwDPBmxwlbZfDcxNZA==
-
 "source-map-js@>=0.6.2 <2.0.0", source-map-js@^1.0.1, source-map-js@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.2.tgz#adbc361d9c62df380125e7f161f71c826f1e490c"
@@ -11963,18 +11844,6 @@ v-calendar@3.0.0-alpha.8:
     date-fns-tz "^1.0.12"
     lodash "^4.17.20"
 
-v-calendar@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/v-calendar/-/v-calendar-3.1.2.tgz#fb47320a5469973454f030d850134eebcd2307eb"
-  integrity sha512-QDWrnp4PWCpzUblctgo4T558PrHgHzDtQnTeUNzKxfNf29FkCeFpwGd9bKjAqktaa2aJLcyRl45T5ln1ku34kg==
-  dependencies:
-    "@types/lodash" "^4.14.165"
-    "@types/resize-observer-browser" "^0.1.7"
-    date-fns "^2.16.1"
-    date-fns-tz "^2.0.0"
-    lodash "^4.17.20"
-    vue-screen-utils "^1.0.0-beta.13"
-
 validate-npm-package-license@^3.0.1, validate-npm-package-license@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
@@ -12022,7 +11891,7 @@ vite@5.1:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vue-chartjs@^5.3.0:
+vue-chartjs@^5.2.0:
   version "5.3.0"
   resolved "https://registry.npmjs.org/vue-chartjs/-/vue-chartjs-5.3.0.tgz#59920a07d72f37a2375d495256e486b92813bf6e"
   integrity sha512-8XqX0JU8vFZ+WA2/knz4z3ThClduni2Nm0BMe2u0mXgTfd9pXrmJ07QBI+WAij5P/aPmPMX54HCE1seWL37ZdQ==
@@ -12068,11 +11937,6 @@ vue-router@4.2.1:
   integrity sha512-nW28EeifEp8Abc5AfmAShy5ZKGsGzjcnZ3L1yc2DYUo+MqbBClrRP9yda3dIekM4I50/KnEwo1wkBLf7kHH5Cw==
   dependencies:
     "@vue/devtools-api" "^6.5.0"
-
-vue-screen-utils@^1.0.0-beta.13:
-  version "1.0.0-beta.13"
-  resolved "https://registry.npmjs.org/vue-screen-utils/-/vue-screen-utils-1.0.0-beta.13.tgz#0c739e19f6ffbffab63184aba7b6d710b6a63681"
-  integrity sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==
 
 vue-template-compiler@^2.7.14:
   version "2.7.14"
