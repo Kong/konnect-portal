@@ -8,7 +8,6 @@ updates:
     commit-message:
       prefix: chore(deps)
     ignore:
-      - dependency-name: "@kong/kongponents"
       - dependency-name: "@kong-ui-public/analytics-chart"
       - dependency-name: "@kong-ui-public/analytics-metric-provider"
       - dependency-name: "@kong-ui-public/analytics-utilities"
