@@ -474,7 +474,7 @@ export default defineComponent({
             reference_id: res.data.reference_id,
             auth_strategy_id: res.data.auth_strategy?.id
           }
-          if (isDcr.value) {
+          if (!appRegV2Enabled && isDcr.value) {
             delete newFormData.reference_id
           } else {
             delete newFormData.redirect_uri
