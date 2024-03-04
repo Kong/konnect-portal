@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref, watch, watchEffect } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import getMessageFromError from '@/helpers/getMessageFromError'
@@ -211,6 +211,10 @@ onMounted(async () => {
   await fetchProduct()
   await fetchDocumentTree()
   initActiveProductVersionId()
+})
+
+onUnmounted(() => {
+  productStore.setProduct(null)
 })
 
 watch(() => productVersionParam.value, () => {
