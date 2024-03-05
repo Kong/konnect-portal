@@ -9,6 +9,10 @@ updates:
       prefix: chore(deps)
     labels:
       - "dependencies"
+    grouped-dependencies:
+      update-types:
+        - "minor"
+        - "patch"
     ignore:
       - dependency-name: "@kong-ui-public/analytics-chart"
       - dependency-name: "@kong-ui-public/analytics-metric-provider"
