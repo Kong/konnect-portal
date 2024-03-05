@@ -16,6 +16,7 @@ async function loadDeps () {
       }
     } catch (e) {
       // ignore failure to import as it's an optional dependency
+      console.error(e)
     }
   }
 }
@@ -31,6 +32,10 @@ export default function useLaunchDarkly () {
   const initialize = async () => {
     if (!enableLD) {
       return
+    }
+
+    if (!ldModule) {
+      await loadDeps()
     }
 
     try {
