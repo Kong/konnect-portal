@@ -48,6 +48,15 @@
                 :placeholder="helpText.applicationRegistration.searchPlaceholder"
                 type="search"
               />
+
+              <KButton
+                v-if="state.hasData"
+                appearance="primary"
+                :is-rounded="false"
+                :to="{ name: 'create-application', query: createApplicationQuery }"
+              >
+                {{ helpText.applicationRegistration.createApplication }}
+              </KButton>
             </div>
           </template>
           <template #name="{ row }">
@@ -486,6 +495,11 @@ export default defineComponent({
     .available-scopes-select {
       margin-top: 14px;
     }
+  }
+
+  .applications-toolbar {
+    display: flex;
+    justify-content: space-between;
   }
 
 </style>
