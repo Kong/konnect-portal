@@ -6,7 +6,7 @@
     <div class="container max-w-screen-2xl px-5 md:px-0">
       <div class="swagger-ui has-sidebar breadcrumbs">
         <KCard
-          v-if="appRegV2Enabled && applicationRegistrationEnabled && currentVersion?.registration_configs?.length"
+          v-if="appRegV2Enabled && applicationRegistrationEnabled && currentVersion?.registration_configs?.length && !isPublic"
           class="auth-strategy-card"
           data-testid="auth-strategy-card"
         >
