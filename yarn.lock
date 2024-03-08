@@ -1148,7 +1148,7 @@
     flat "^6.0.1"
     intl-messageformat "^10.5.8"
 
-"@kong-ui-public/i18n@^2.1.4-pr.1168.c7eb3315.0":
+"@kong-ui-public/i18n@^2.1.4-pr.1168.713231d6.0":
   version "2.1.4-pr.1170.bda7c038.0"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-2.1.4-pr.1170.bda7c038.0.tgz#bead17feff9d0ea15a4c782d2ad162fe251b480b"
   integrity sha512-lbedZEhLuXguNniHM1u+6TzzY5ZwiL1ZMiRIU1vkGA04TACkPa+S8i9Lv0LxBs9q1Y5nU7SyZyOoTOvKX7h9xA==
@@ -1165,18 +1165,18 @@
     "@kong/icons" "^1.8.0"
     approximate-number "^2.1.1"
 
-"@kong-ui-public/spec-renderer@^2.0.55-pr.1168.c7eb3315.0":
-  version "2.0.55-pr.1168.c7eb3315.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.55-pr.1168.c7eb3315.0.tgz#2b386faa52842a3ac57d1842b7b17b30675ae990"
-  integrity sha512-M3ZjNAd60TmsAXXN1cTnp6CjW4hW9cS6U2U+5Htj6ZFT+zCB1grtoJTLvKbL07tT16ElNbrXDoITYi6t8s7YZQ==
+"@kong-ui-public/spec-renderer@^2.0.55-pr.1168.713231d6.0":
+  version "2.0.55-pr.1168.713231d6.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.55-pr.1168.713231d6.0.tgz#2956dafe6971b5cb0a4d23ad433daea0834cd591"
+  integrity sha512-eVhX/UF4xMoTcoULezBfNJTF4nnkjicG3WFo7dEn4kqoMvvokfWSEnsEAI8CL2Tym6rQKjOMlAUfuS1EGYZIRA==
   dependencies:
-    "@kong-ui-public/i18n" "^2.1.4-pr.1168.c7eb3315.0"
-    "@kong-ui-public/swagger-ui-web-component" "^0.10.20-pr.1168.c7eb3315.0"
+    "@kong-ui-public/i18n" "^2.1.4-pr.1168.713231d6.0"
+    "@kong-ui-public/swagger-ui-web-component" "^0.10.20-pr.1168.713231d6.0"
     "@kong/icons" "^1.8.14"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.1"
 
-"@kong-ui-public/swagger-ui-web-component@^0.10.20-pr.1168.c7eb3315.0":
+"@kong-ui-public/swagger-ui-web-component@^0.10.20-pr.1168.713231d6.0":
   version "0.10.20-pr.1168.c7eb3315.0"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.20-pr.1168.c7eb3315.0.tgz#4d3687facfa919d37d92990587cd4d480312c0c8"
   integrity sha512-0/rmbMyXsSMWYrnUJHL+TZt3q+v0mggQ9jGkRrFXvBBZDNKGARTU9httfGC4WZR0IrhnEweiL7jWHPB9BLUBqw==
