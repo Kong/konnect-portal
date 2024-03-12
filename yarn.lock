@@ -1150,7 +1150,7 @@
     flat "^6.0.1"
     intl-messageformat "^10.5.8"
 
-"@kong-ui-public/i18n@^2.1.4-pr.1168.e2febd6b.0":
+"@kong-ui-public/i18n@^2.1.4-pr.1168.bb71d05e.0":
   version "2.1.4-pr.1170.bda7c038.0"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/i18n/-/i18n-2.1.4-pr.1170.bda7c038.0.tgz#bead17feff9d0ea15a4c782d2ad162fe251b480b"
   integrity sha512-lbedZEhLuXguNniHM1u+6TzzY5ZwiL1ZMiRIU1vkGA04TACkPa+S8i9Lv0LxBs9q1Y5nU7SyZyOoTOvKX7h9xA==
@@ -1167,21 +1167,21 @@
     "@kong/icons" "^1.8.0"
     approximate-number "^2.1.1"
 
-"@kong-ui-public/spec-renderer@2.0.57-pr.1168.e2febd6b.0":
-  version "2.0.57-pr.1168.e2febd6b.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.57-pr.1168.e2febd6b.0.tgz#3df5d9a8d9d14fcfdf1fff38a357428e87b69526"
-  integrity sha512-Qd+qQ2wpUJEeEGLPraRoBI21clWmQsmZfpk7JtIYrhr/EjP22ipC5faXy9xJ0aICzfmbEWaJA9XBsUy/VoarAg==
+"@kong-ui-public/spec-renderer@^2.0.58-pr.1168.bb71d05e.0":
+  version "2.0.58-pr.1168.bb71d05e.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.58-pr.1168.bb71d05e.0.tgz#cc012e43b5d72be467e5f95d357dc516d74efa3d"
+  integrity sha512-RWoHPhnHsg8GVsJNSuKTP8UCYutmNpjpuf/pLC0zyBkO5kcLgkRVf5XLOXoXt2qAK0u3u4T+tRbemwzt3+PZLg==
   dependencies:
-    "@kong-ui-public/i18n" "^2.1.4-pr.1168.e2febd6b.0"
-    "@kong-ui-public/swagger-ui-web-component" "^0.10.21-pr.1168.e2febd6b.0"
+    "@kong-ui-public/i18n" "^2.1.4-pr.1168.bb71d05e.0"
+    "@kong-ui-public/swagger-ui-web-component" "^0.10.21-pr.1168.bb71d05e.0"
     "@kong/icons" "^1.8.14"
     lodash.clonedeep "^4.5.0"
     uuid "^9.0.1"
 
-"@kong-ui-public/swagger-ui-web-component@^0.10.21-pr.1168.e2febd6b.0":
-  version "0.10.21-pr.1209.8446e3e7.0"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.21-pr.1209.8446e3e7.0.tgz#714dd77d91f6d28b4df7b68c75914cc64f599065"
-  integrity sha512-XZb5/Xi60GsAX3D5eHSJTottr8zwapb92hsHtskLwpR3EvNv1PJdiT665bm5og426MLb9DYaAviJc96s8lYUEQ==
+"@kong-ui-public/swagger-ui-web-component@^0.10.21-pr.1168.bb71d05e.0":
+  version "0.10.21-pr.1209.9873c76b.0"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/swagger-ui-web-component/-/swagger-ui-web-component-0.10.21-pr.1209.9873c76b.0.tgz#3e0687ef5288d2044dfaa9b872431470f892d7c8"
+  integrity sha512-O9H7ibB9roiXgQPhAj8fUYbQnk9gPau0yzSkgDASQb41ZLhln66zwOR8NJEtdGhaloSBF40QBj/36XVmAM6gGw==
   dependencies:
     "@kong/swagger-ui-kong-theme-universal" "^4.3.3"
     react "17.0.2"
