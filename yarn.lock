@@ -1167,7 +1167,7 @@
     "@kong/icons" "^1.8.0"
     approximate-number "^2.1.1"
 
-"@kong-ui-public/spec-renderer@^2.0.58-pr.1168.bb71d05e.0":
+"@kong-ui-public/spec-renderer@2.0.58-pr.1168.bb71d05e.0":
   version "2.0.58-pr.1168.bb71d05e.0"
   resolved "https://registry.yarnpkg.com/@kong-ui-public/spec-renderer/-/spec-renderer-2.0.58-pr.1168.bb71d05e.0.tgz#cc012e43b5d72be467e5f95d357dc516d74efa3d"
   integrity sha512-RWoHPhnHsg8GVsJNSuKTP8UCYutmNpjpuf/pLC0zyBkO5kcLgkRVf5XLOXoXt2qAK0u3u4T+tRbemwzt3+PZLg==
