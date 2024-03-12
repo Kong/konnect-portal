@@ -30,7 +30,7 @@
     "@kong-ui-public/analytics-utilities": "0.10.1",
     "@kong-ui-public/copy-uuid": "1.1.5",
     "@kong-ui-public/document-viewer": "2.0.16",
-    "@kong-ui-public/spec-renderer": "^2.0.58-pr.1168.bb71d05e.0",
+    "@kong-ui-public/spec-renderer": "2.0.58-pr.1168.bb71d05e.0",
     "@kong/kong-auth-elements": "2.11.1",
     "@kong/kongponents": "8.127.0",
     "@kong/sdk-portal-js": "2.9.0",
