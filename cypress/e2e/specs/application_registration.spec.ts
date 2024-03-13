@@ -271,7 +271,7 @@ describe('Application Registration', () => {
       })
     })
 
-    it.only('appregv2 - can create an application with DCR for portal enabled - many auth strat', () => {
+    it('appregv2 - can create an application with DCR for portal enabled - many auth strat', () => {
       cy.mockLaunchDarklyFlags([
         {
           name: 'tdx-3531-app-reg-v2',
