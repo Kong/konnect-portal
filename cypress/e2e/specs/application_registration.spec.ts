@@ -271,7 +271,7 @@ describe('Application Registration', () => {
       })
     })
 
-    it('appregv2 - can create an application with DCR for portal enabled - many auth strat', () => {
+    it.only('appregv2 - can create an application with DCR for portal enabled - many auth strat', () => {
       cy.mockLaunchDarklyFlags([
         {
           name: 'tdx-3531-app-reg-v2',
@@ -282,7 +282,8 @@ describe('Application Registration', () => {
       cy.mockApplicationAuthStrategies([
         { name: 'foo', id: '1', credential_type: 'client_credentials', auth_methods: ['client_credentials', 'session'] },
         { name: 'bar', id: '2', credential_type: 'key_auth', key_names: ['key1', 'key2'] },
-        { name: 'baz', id: '3', credential_type: 'self_managed_client_credentials', auth_methods: ['client_credentials', 'session', 'bearer'] }
+        { name: 'baz', id: '3', credential_type: 'self_managed_client_credentials', auth_methods: ['client_credentials', 'session', 'bearer'] },
+        { name: 'scopes', id: '4', credential_type: 'client_credentials', auth_methods: ['client_credentials', 'session'], available_scopes: ['scope1', 'scope2'] }
       ], 0)
 
       cy.mockDcrPortal()
@@ -306,6 +307,12 @@ describe('Application Registration', () => {
       cy.get('[data-testid="k-select-item-3"] > .k-select-item-container > button').contains('baz').click()
       cy.get('#redirectUri').should('exist')
       cy.get('[data-testid="reference-id-input"]').should('exist')
+
+      cy.get('[data-testid="application-auth-strategy-select"]').click()
+      cy.get('[data-testid="k-select-item-4"] > .k-select-item-container > button').contains('scopes').click()
+      cy.get('#redirectUri').should('exist')
+      cy.get('#availableScopes').should('exist')
+      cy.get('[data-testid="reference-id-input"]').should('not.exist')
 
       cy.get('[data-testid="application-auth-strategy-select"]').click()
       cy.get('[data-testid="k-select-item-1"] > .k-select-item-container > button').contains('foo').click()

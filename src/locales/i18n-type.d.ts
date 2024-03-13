@@ -117,6 +117,8 @@ export interface I18nType {
     clientSecret: string;
     reqField: string;
     grantedScopes: string;
+    availableScopes: string;
+    filterScopesPlaceholder: string;
     redirectUriLabel: string;
     applicationCredentials: string;
     applicationSecret: string;
@@ -205,6 +207,7 @@ export interface I18nType {
     registeredApplicationsProduct: string;
     searchPlaceholder: string;
     availableScopesLabel: string;
+    updateScopesWarning: string;
     filterScopes: string;
     modalApplicationRegistrationDefault: {
       title: (serviceName: string, productVersion: string) => string;

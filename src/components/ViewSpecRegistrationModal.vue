@@ -80,7 +80,11 @@
                   :placeholder="fetchingScopes ? helpText.applicationRegistration.fetchingScopesLabel : helpText.applicationRegistration.filterScopes"
                   width="100%"
                   @change="handleChangedItem"
-                />
+                >
+                  <template #label-tooltip>
+                    {{ helpText.applicationRegistration.updateScopesWarning }}
+                  </template>
+                </KMultiselect>
               </div>
             </div>
           </template>
