@@ -1318,7 +1318,7 @@ describe('Application Registration', () => {
     cy.get('[data-testid="auth-strategy-auth-methods-label"]').should('exist')
     cy.get('[data-testid="auth-strategy-key-names-label"]').should('not.exist')
     cy.get('[data-testid="auth-strategy-title"]').should('exist').should('contain.text', oidcApp.auth_strategy.name)
-    cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Self Managed Client Credentials')
+    cy.get('[data-testid="auth-strategy-credential-type"]').should('exist').should('contain.text', 'Self Managed')
     oidcApp.auth_strategy.auth_methods.forEach((method) => {
       cy.get(`[data-testid="auth-method-${method}"]`).should('exist')
     })

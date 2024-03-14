@@ -49,7 +49,7 @@ export const en = {
     bearer: 'Bearer',
     keyAuth: 'Key Auth',
     clientCredentials: 'Client Credentials',
-    selfManagedClientCredentials: 'Self Managed Client Credentials',
+    selfManagedClientCredentials: 'Self Managed',
     session: 'Session'
   },
   userDropdown: {
