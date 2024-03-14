@@ -472,8 +472,10 @@ export default defineComponent({
         }
       }
 
-      if (selectedScopes.value?.length) {
-        formData.value.scopes = selectedScopes.value
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
       }
 
       portalApiV2.value.service.applicationsApi
@@ -498,8 +500,10 @@ export default defineComponent({
       send('CLICKED_SUBMIT')
       errorMessage.value = ''
 
-      if (selectedScopes.value?.length) {
-        formData.value.scopes = selectedScopes.value
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
       }
 
       delete formData.value.auth_strategy_id
