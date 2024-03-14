@@ -114,6 +114,8 @@ export const en = {
     authStrategy: 'Auth Strategy',
     authStrategyWarning: 'You cannot create an application as this developer portal has no available application auth strategies. Please contact a developer portal admin.',
     grantedScopes: 'Granted Scopes:',
+    availableScopes: 'Available Scopes',
+    filterScopesPlaceholder: 'Filter Scopes',
     clientID: 'Client ID: ',
     clientSecret: 'Client Secret: ',
     reqField: ' indicates required field',
@@ -204,6 +206,7 @@ export const en = {
     cancelButton: 'Cancel',
     filterScopes: 'Filter...',
     availableScopesLabel: 'Select scopes',
+    updateScopesWarning: 'Updating scopes will affect all application registrations related to this application',
     fetchingScopesLabel: 'Fetching scopes...',
     registeredApplicationsProduct: 'The following applications are already registered to this product:',
     modalApplicationRegistrationDefault: {

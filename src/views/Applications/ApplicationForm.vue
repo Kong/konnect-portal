@@ -55,6 +55,27 @@
             />
           </div>
           <div
+            v-if="selectedAuthStrategy?.availableScopes"
+            class="mb-5"
+          >
+            <KLabel
+              for="availableScopes"
+            >
+              {{ helpText.application.availableScopes }}
+            </KLabel>
+            <KMultiselect
+              id="availableScopes"
+              v-model="selectedScopes"
+              collapsed-context
+              data-testid="available-scopes-select"
+              class="available-scopes-select"
+              :items="mappedAvailableScopes"
+              :placeholder="helpText.application.filterScopesPlaceholder"
+              width="100%"
+              @change="handleChangedItem"
+            />
+          </div>
+          <div
             v-if="(!appRegV2Enabled && isDcr) || (appRegV2Enabled && appIsDcr) || (appRegV2Enabled && appIsSelfManaged)"
             class="mb-5"
           >
@@ -272,6 +293,9 @@ export default defineComponent({
     const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const appAuthStrategies = ref([])
     const appIsDcr = ref(false)
+    const selectedAuthStrategy = ref(null)
+    const selectedScopes = ref([])
+    const alreadyGrantedScopes = ref([])
     const appIsSelfManaged = ref(false)
     const hasAppAuthStrategies = ref(false)
     const fetchingAuthStrategies = ref(true)
@@ -355,6 +379,7 @@ export default defineComponent({
               value: strat.id,
               isDcr: strat.credential_type === 'client_credentials',
               isSelfManaged: strat.credential_type === 'self_managed_client_credentials',
+              availableScopes: strat.credential_type === 'client_credentials' ? strat.available_scopes ? strat.available_scopes : undefined : undefined,
               selected: formData.value.auth_strategy_id ? strat.id === formData.value.auth_strategy_id : (strat.id === $route.query.auth_strategy_id || false)
             }))
           }
@@ -366,6 +391,7 @@ export default defineComponent({
           if (selected) {
             formData.value.auth_strategy_id = selected.value
             appIsDcr.value = selected.isDcr
+            selectedAuthStrategy.value = selected
             appIsSelfManaged.value = selected.isSelfManaged
           }
 
@@ -382,6 +408,22 @@ export default defineComponent({
       }
     })
 
+    const mappedAvailableScopes = computed(() => {
+      if (!selectedAuthStrategy.value.availableScopes?.length) {
+        return []
+      }
+
+      return selectedAuthStrategy.value.availableScopes?.map((scope) => {
+        const alreadySelected = alreadyGrantedScopes.value?.includes(scope)
+
+        return {
+          label: scope,
+          value: scope,
+          selected: alreadySelected
+        }
+      })
+    })
+
     const copyTokenToClipboard = (executeCopy, copyItem) => {
       if (!executeCopy(copyItem)) {
         notify({
@@ -395,8 +437,20 @@ export default defineComponent({
       })
     }
 
+    const handleChangedItem = (item) => {
+      if (!item) { return }
+
+      const itemAdded = selectedScopes.value.includes(item.value)
+
+      // If a new item selected, set its `selected` state to true
+      item.selected = !itemAdded
+    }
+
     const onChangeAuthStrategy = (event) => {
       const selected = appAuthStrategies.value.find((authStrat) => authStrat.value === event.value)
+
+      selectedAuthStrategy.value = selected
+
       if (!selected) {
         return
       }
@@ -416,6 +470,12 @@ export default defineComponent({
         } else {
           delete formData.value.redirect_uri
         }
+      }
+
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
       }
 
       portalApiV2.value.service.applicationsApi
@@ -439,6 +499,12 @@ export default defineComponent({
     const handleUpdate = () => {
       send('CLICKED_SUBMIT')
       errorMessage.value = ''
+
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
+      }
 
       delete formData.value.auth_strategy_id
       portalApiV2.value.service.applicationsApi
@@ -474,6 +540,11 @@ export default defineComponent({
             reference_id: res.data.reference_id,
             auth_strategy_id: res.data.auth_strategy?.id
           }
+
+          if (res.data.scopes?.length) {
+            alreadyGrantedScopes.value = res.data.scopes
+          }
+
           if (!appRegV2Enabled && isDcr.value) {
             delete newFormData.reference_id
           } else {
@@ -566,6 +637,9 @@ export default defineComponent({
       copyTokenToClipboard,
       fetchingAuthStrategies,
       secretModalIsVisible,
+      handleChangedItem,
+      mappedAvailableScopes,
+      selectedScopes,
       handleAcknowledgeSecret,
       hasAppAuthStrategies,
       appRegV2Enabled,
@@ -578,6 +652,7 @@ export default defineComponent({
       generateReferenceId,
       helpText,
       appAuthStrategies,
+      selectedAuthStrategy,
       onChangeAuthStrategy,
       appIsDcr,
       appIsSelfManaged
