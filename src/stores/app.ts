@@ -13,7 +13,6 @@ interface PortalData {
   featuresetId: string;
   featureSet: string;
   isPublic: boolean;
-  isDcr: boolean;
   isRbacEnabled: boolean;
   allowedTimePeriod: string;
 }
@@ -21,7 +20,6 @@ interface PortalData {
 export const useAppStore = defineStore('app', () => {
   const authTokenIsRefreshing = ref<boolean>(false)
   const isPublic = ref<boolean>(false)
-  const isDcr = ref<boolean>(false)
   const isRbacEnabled = ref<boolean>(null)
   const globalLoading = ref<boolean>(false)
   const portalId = ref<string>(null)
@@ -63,10 +61,6 @@ export const useAppStore = defineStore('app', () => {
       isRbacEnabled.value = data.isRbacEnabled
     }
 
-    if (data.isDcr) {
-      isDcr.value = data.isDcr
-    }
-
     if (data.isPublic) {
       isPublic.value = data.isPublic
     }
@@ -83,7 +77,6 @@ export const useAppStore = defineStore('app', () => {
   return {
     authTokenIsRefreshing,
     isPublic,
-    isDcr,
     isRbacEnabled,
     globalLoading,
     portalId,

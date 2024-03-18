@@ -140,8 +140,6 @@ import useToaster from '@/composables/useToaster'
 import usePortalApi from '@/hooks/usePortalApi'
 import { ProductWithVersions, useI18nStore } from '@/stores'
 import getMessageFromError from '@/helpers/getMessageFromError'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
-import { FeatureFlags } from '@/constants/feature-flags'
 import { CreateRegistrationPayload } from '@kong/sdk-portal-js'
 
 export default defineComponent({
@@ -179,7 +177,6 @@ export default defineComponent({
     const availableScopes = ref([])
     const selectedScopes = ref([])
     const alreadyGrantedScopes = ref([])
-    const useAppRegV2 = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const applications = ref([])
     const key = ref(0)
     const fetchingScopes = ref(false)
@@ -266,7 +263,7 @@ export default defineComponent({
       return {
         product: $route.params.product,
         product_version: $route.params.product_version,
-        ...(useAppRegV2 && authStrategyId.value)
+        ...(authStrategyId.value)
           ? { auth_strategy_id: authStrategyId.value }
           : {}
       }
@@ -289,13 +286,9 @@ export default defineComponent({
       const { pageSize, page: pageNumber } = payload
 
       const requestOptions = {
-        ...(useAppRegV2
-          ? {
-              filterAuthStrategyId: authStrategyId.value
-            }
-          : {}),
         productId: props.product?.id || $route.params.product?.toString(),
         productVersionId: props.version?.id || $route.params.product_version?.toString(),
+        filterAuthStrategyId: authStrategyId.value,
         ...(searchStr.value?.length && { filterNameContains: searchStr.value }),
         unregistered: true,
         pageNumber,
