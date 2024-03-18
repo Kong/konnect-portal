@@ -36,7 +36,6 @@
             />
           </div>
           <div
-            v-if="appAuthStrategies.length > 1"
             class="mb-5"
           >
             <KLabel
