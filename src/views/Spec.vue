@@ -6,7 +6,7 @@
     <div class="container max-w-screen-2xl px-5 md:px-0">
       <div class="swagger-ui has-sidebar breadcrumbs">
         <KCard
-          v-if="appRegV2Enabled && applicationRegistrationEnabled && currentVersion?.registration_configs?.length && !isPublic"
+          v-if="applicationRegistrationEnabled && currentVersion?.registration_configs?.length && !isPublic"
           class="auth-strategy-card"
           data-testid="auth-strategy-card"
         >
@@ -90,7 +90,7 @@
       class="w-100"
       :document="spec"
       :has-sidebar="false"
-      :application-registration-enabled="appRegV2Enabled ? false : applicationRegistrationEnabled"
+      :application-registration-enabled="false"
       :active-operation="sidebarActiveOperationListItem"
       :current-version="currentVersion?.name"
       :theme-overrides="{
@@ -159,8 +159,6 @@ import { OperationListItem, SpecDetails } from '@kong-ui-public/spec-renderer'
 import { idFromPathMethod } from '@/helpers/generatedOperationId'
 import '@kong-ui-public/spec-renderer/dist/style.css'
 import { ProductVersionSpecDocument } from '@kong/sdk-portal-js'
-import { FeatureFlags } from '@/constants/feature-flags'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 
 export default defineComponent({
   name: 'Spec',
@@ -183,7 +181,6 @@ export default defineComponent({
     const viewSpecModalIsVisible = ref(false)
     const viewSpecRegistrationModalIsVisible = ref(false)
     const isAllowedToRegister = ref(false)
-    const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const specContents = ref('')
     const specName = ref('')
     const specDetails = ref(null)
@@ -544,7 +541,6 @@ export default defineComponent({
     }
 
     return {
-      appRegV2Enabled,
       authMethodLabelObj,
       helpText,
       viewSpecModalIsVisible,

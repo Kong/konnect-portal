@@ -1,4 +1,4 @@
-import { AuthStrategyKeyAuthCredentialTypeEnum, GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion, RegistrationConfiguration } from '@kong/sdk-portal-js'
+import { AuthStrategyClientCredentialsCredentialTypeEnum, AuthStrategyKeyAuthCredentialTypeEnum, GetApplicationResponse, GetRegistrationResponse, PortalContext, Product, ProductVersion, RegistrationConfiguration } from '@kong/sdk-portal-js'
 
 const versions: ProductVersion[] = [
   {
@@ -138,6 +138,34 @@ export const appWithAuthStrategy: GetApplicationResponse = {
     name: 'keyauthstrat',
     key_names: ['key'],
     credential_type: AuthStrategyKeyAuthCredentialTypeEnum.KeyAuth
+  }
+}
+
+export const oidcApp = {
+  ...apps[0],
+  auth_strategy: {
+    id: 'oidc-strat-id',
+    name: 'oidc-strat',
+    auth_methods: [
+      'client_credentials',
+      'session',
+      'bearer'
+    ],
+    credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.SelfManagedClientCredentials
+  }
+}
+
+export const dcrApp = {
+  ...apps[0],
+  auth_strategy: {
+    id: 'okta-strat-id',
+    name: 'dcr-strat',
+    auth_methods: [
+      'bearer',
+      'client_credentials',
+      'session'
+    ],
+    credential_type: AuthStrategyClientCredentialsCredentialTypeEnum.ClientCredentials
   }
 }
 

@@ -15,7 +15,7 @@
     >
       <div>
         <KCard
-          v-if="appRegV2Enabled && application && application.auth_strategy"
+          v-if="application && application.auth_strategy"
           class="auth-strategy-card"
           data-testid="auth-strategy-card"
         >
@@ -195,8 +195,6 @@ import {
   TimeframeKeys,
   TimePeriods
 } from '@kong-ui-public/analytics-utilities'
-import { FeatureFlags } from '@/constants/feature-flags'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { CredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
@@ -206,7 +204,6 @@ export default defineComponent({
   setup () {
     const errorMessage = ref('')
     const application = ref(null)
-    const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
 
     const helpText = useI18nStore().state.helpText
     const $route = useRoute()
@@ -226,7 +223,7 @@ export default defineComponent({
 
     const { portalApiV2 } = usePortalApi()
     const appStore = useAppStore()
-    const { isDcr: isPortalDcr, allowedTimePeriod } = storeToRefs(appStore)
+    const { allowedTimePeriod } = storeToRefs(appStore)
     const vitalsLoading = ref(false)
     const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
       ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY) as Timeframe)
@@ -249,7 +246,7 @@ export default defineComponent({
     })
 
     const isApplicationDcr = computed(() => {
-      if (appRegV2Enabled && application.value) {
+      if (application.value) {
         // check the application type
         if (application.value.auth_strategy?.credential_type === CredentialType.ClientCredentials) {
           return true
@@ -258,7 +255,7 @@ export default defineComponent({
         }
       }
 
-      return isPortalDcr.value
+      return false
     })
 
     const analyticsCardTitle = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
@@ -284,7 +281,6 @@ export default defineComponent({
     })
 
     return {
-      appRegV2Enabled,
       authMethodLabelObj,
       analyticsCardTitle,
       currentState,

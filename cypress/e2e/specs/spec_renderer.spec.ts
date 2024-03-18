@@ -378,7 +378,7 @@ describe('Spec Renderer Page', () => {
       cy.get('[data-testid="kong-public-ui-spec-details-swagger"]', { timeout: 12000 })
         .get('.info h2').should('contain', 'Swagger Petstore')
 
-      cy.get('[data-testid="register-button"]').should('exist')
+      cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
     })
 
     it('does not retrieve product actions if rbac not enabled', () => {
@@ -393,7 +393,7 @@ describe('Spec Renderer Page', () => {
       cy.get('[data-testid="kong-public-ui-spec-details-swagger"]', { timeout: 12000 })
         .get('.info h2').should('contain', 'Swagger Petstore')
 
-      cy.get('[data-testid="register-button"]').should('exist')
+      cy.get('[data-testid="app-reg-v2-register-btn"]').should('exist')
 
       cy.get('@apiNotCalled').should('not.been.called')
     })
@@ -427,14 +427,7 @@ describe('Spec Renderer Page', () => {
 
       cy.get('@apiNotCalled').should('not.been.called')
     })
-    it.only('appregv2 - does not show auth strategy information if public portal', () => {
-      cy.mockLaunchDarklyFlags([
-        {
-          name: 'tdx-3531-app-reg-v2',
-          value: true
-        }
-      ])
-
+    it('does not show auth strategy information if public portal', () => {
       cy.intercept('GET', '**/portal_api/portal/portal_context', {
         rbac_enabled: true
       }).as('getPortalContext')

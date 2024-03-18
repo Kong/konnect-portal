@@ -8,7 +8,7 @@
         <KButton
           data-testid="create-application-button"
           appearance="primary"
-          :disabled="appRegV2Enabled && !hasAppAuthStrategies"
+          :disabled="!hasAppAuthStrategies"
           :is-rounded="false"
           :to="{ name: 'create-application' }"
         >
@@ -33,7 +33,7 @@
       </template>
     </PageTitle>
     <KAlert
-      v-if="appRegV2Enabled && !hasAppAuthStrategies && !fetchingAuthStrategies"
+      v-if="!hasAppAuthStrategies && !fetchingAuthStrategies"
       :alert-message="helpText.authStrategyWarning"
       appearance="warning"
       class="no-auth-strategies-warning"
@@ -226,14 +226,10 @@ import ActionsDropdown from '@/components/ActionsDropdown.vue'
 import MetricsProvider from '@/components/vitals/MetricsProvider.vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import useToaster from '@/composables/useToaster'
-import { useI18nStore, useAppStore } from '@/stores'
+import { useI18nStore } from '@/stores'
 import { Timeframe, TimeframeKeys } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-metric-provider/dist/style.css'
 import { EXPLORE_V2_DIMENSIONS, EXPLORE_V2_FILTER_TYPES, MetricsConsumer } from '@kong-ui-public/analytics-metric-provider'
-
-import { storeToRefs } from 'pinia'
-import { FeatureFlags } from '@/constants/feature-flags'
-import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { GetApplicationResponse, CredentialType } from '@kong/sdk-portal-js'
 
 export default defineComponent({
@@ -253,12 +249,9 @@ export default defineComponent({
     const showSecretModal = ref(false)
     const token = ref(null)
     const { portalApiV2 } = usePortalApi()
-    const appRegV2Enabled = useLDFeatureFlag(FeatureFlags.AppRegV2, false)
     const hasAppAuthStrategies = ref(false)
     const fetchingAuthStrategies = ref(true)
 
-    const appStore = useAppStore()
-    const { isDcr: isPortalDcr } = storeToRefs(appStore)
     const helpText = useI18nStore().state.helpText.myApp
     const helpTextVitals = useI18nStore().state.helpText.analytics
     const vitalsLoading = ref(true)
@@ -269,11 +262,7 @@ export default defineComponent({
     })
 
     const isApplicationDcr = (application: GetApplicationResponse) => {
-      if (appRegV2Enabled) {
-        return application.auth_strategy?.credential_type === CredentialType.ClientCredentials
-      }
-
-      return isPortalDcr.value
+      return application.auth_strategy?.credential_type === CredentialType.ClientCredentials
     }
 
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
@@ -399,23 +388,21 @@ export default defineComponent({
 
     onMounted(async () => {
       vitalsLoading.value = false
+      fetchingAuthStrategies.value = true
 
-      if (appRegV2Enabled) {
-        fetchingAuthStrategies.value = true
-        try {
-          const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
-          if (appAuthStrategies.data?.data?.length) {
-            hasAppAuthStrategies.value = true
-          }
-
-          fetchingAuthStrategies.value = false
-        } catch (err) {
-          fetchingAuthStrategies.value = false
-          notify({
-            appearance: 'danger',
-            message: helpText.authStrategyFetchError(getMessageFromError(err))
-          })
+      try {
+        const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
+        if (appAuthStrategies.data?.data?.length) {
+          hasAppAuthStrategies.value = true
         }
+
+        fetchingAuthStrategies.value = false
+      } catch (err) {
+        fetchingAuthStrategies.value = false
+        notify({
+          appearance: 'danger',
+          message: helpText.authStrategyFetchError(getMessageFromError(err))
+        })
       }
     })
 
@@ -431,7 +418,6 @@ export default defineComponent({
       deleteItem,
       deleteError,
       showSecretModal,
-      appRegV2Enabled,
       hasAppAuthStrategies,
       token,
       onModalClose,
