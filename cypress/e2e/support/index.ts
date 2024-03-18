@@ -15,7 +15,6 @@ declare global {
       visit(url:string, options?: Partial<TypeOptions> & {useOriginalFn: boolean}): Chainable<JQuery<HTMLElement>>
       dataCy(value: string): Chainable<JQuery<HTMLElement>>
       mockPrivatePortal(portalOptions?:Partial<PortalContext>): Chainable<null>
-      mockDcrPortal(): Chainable<JQuery<HTMLElement>>
       mockPublicPortal(): Chainable<JQuery<HTMLElement>>
       mockSuccessfulDeveloperAuth(): Chainable<JQuery<HTMLElement>>
       mockSuccessfulPasswordReset(): Chainable<JQuery<HTMLElement>>

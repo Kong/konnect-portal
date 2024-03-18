@@ -149,23 +149,6 @@ Cypress.Commands.add('mockPrivatePortal', (overrideContext = {}) => {
   }).as('isPublicPortal')
 })
 
-Cypress.Commands.add('mockDcrPortal', () => {
-  cy.intercept('GET', '**/api/v2/portal/*', {
-    statusCode: 200
-  })
-
-  const portalContextResponse: PortalContext = {
-    ...defaultContext,
-    dcr_provider_ids: [crypto.randomUUID()]
-  }
-
-  return cy.intercept('GET', '**/api/v2/portal', {
-    statusCode: 200,
-    body: portalContextResponse,
-    delay: 300
-  }).as('isDcrPortal')
-})
-
 Cypress.Commands.add('mockPublicPortal', () => {
   const portalContextResponse: PortalContext = {
     ...defaultContext,
