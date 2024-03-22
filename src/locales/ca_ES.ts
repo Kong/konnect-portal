@@ -329,6 +329,7 @@ export const ca_ES: I18nType = {
     resetPasswordTitle: 'Restablir la contrasenya',
     catalogTitleProduct: 'Catàleg de productes',
     specTitle: "Especificació de l'API",
+    oauth2RedirectTitle: translationNeeded(en.router.oauth2RedirectTitle),
     docsTitle: "Documentació de l'API",
     appsTitle: 'Les meves aplicacions',
     createAppTitle: 'Crear nova aplicació',
@@ -338,5 +339,12 @@ export const ca_ES: I18nType = {
     notFoundTitle: 'No trobat',
     forbiddenTitle: 'Prohibit',
     errorTitle: 'Error'
+  },
+  oauth2: {
+    dataNotFound: translationNeeded(en.oauth2.authMaybeUnsafe),
+    noDescription: translationNeeded(en.oauth2.noDescription),
+    moreInfo: translationNeeded(en.oauth2.moreInfo),
+    authMaybeUnsafe: translationNeeded(en.oauth2.authMaybeUnsafe),
+    defaultError: translationNeeded(en.oauth2.defaultError)
   }
 }

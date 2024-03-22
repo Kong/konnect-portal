@@ -325,6 +325,7 @@ export const en = {
     resetPasswordTitle: 'Reset Password',
     catalogTitleProduct: 'Product Catalog',
     specTitle: 'API Spec',
+    oauth2RedirectTitle: 'OAuth2 Authorization',
     docsTitle: 'API Docs',
     appsTitle: 'My Apps',
     createAppTitle: 'Create New Application',
@@ -334,5 +335,12 @@ export const en = {
     notFoundTitle: 'Not Found',
     forbiddenTitle: 'Forbidden',
     errorTitle: 'Error'
+  },
+  oauth2: {
+    dataNotFound: 'OAuth data not found',
+    noDescription: 'No description',
+    moreInfo: 'More info: ',
+    authMaybeUnsafe: "Authorization may be unsafe, passed state was changed in server Passed state wasn't returned from auth server",
+    defaultError: '[Authorization failed]: no accessCode received from the server'
   }
 }

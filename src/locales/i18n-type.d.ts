@@ -325,6 +325,7 @@ export interface I18nType {
     resetPasswordTitle: string;
     catalogTitleProduct: string;
     specTitle: string;
+    oauth2RedirectTitle: string;
     docsTitle: string;
     appsTitle: string;
     createAppTitle: string;
@@ -335,4 +336,11 @@ export interface I18nType {
     forbiddenTitle: string;
     errorTitle: string;
   };
+  oauth2: {
+    dataNotFound: string;
+    noDescription: string;
+    moreInfo: string;
+    authMaybeUnsafe: string;
+    defaultError: string;
+  }
 }
