@@ -10,6 +10,7 @@
 <script lang="ts" setup>
 import { useI18nStore } from '@/stores'
 import { onMounted } from 'vue'
+import { LocationQuery, useRoute } from 'vue-router'
 
 interface OAuth2 {
   state: string;
@@ -24,6 +25,35 @@ interface OAuth2 {
 }
 
 const helpText = useI18nStore().state.helpText.oauth2
+const route = useRoute()
+
+const parseRouteData = (routeData: string | LocationQuery): Record<string, string> => {
+  if (!routeData) return {}
+
+  // handle locationQuery
+  if (typeof routeData === 'object') {
+    // decode any URI components:
+    const routeDataDecoded = Object.keys(routeData).reduce((acc, key) => {
+      acc[key] = decodeURIComponent((routeData[key] && routeData[key].toString()) || '')
+
+      return acc
+    }, {})
+
+    return routeDataDecoded
+  }
+
+  const data = routeData.startsWith('#') ? routeData.substring(1) : routeData
+  const pairs = data.split('&')
+  const result = {}
+
+  pairs.forEach(pair => {
+    const [key, value] = pair.split('=')
+
+    result[key] = decodeURIComponent(value || '')
+  })
+
+  return result
+}
 
 const handleOAuthRedirect = () => {
   const oauth2 = window.opener ? (window.opener as any).swaggerUIRedirectOauth2 as OAuth2 : null
@@ -35,9 +65,10 @@ const handleOAuthRedirect = () => {
 
   const sentState = oauth2.state
   const redirectUrl = oauth2.redirectUrl
-  const hashParams = parseHashParams(window.location.hash)
-  const queryParams = parseQueryParams(window.location.search)
-  const params = { ...hashParams, ...queryParams }
+  const params = {
+    ...parseRouteData(route.query),
+    ...parseRouteData(route.hash)
+  }
   const isValid = params.state === sentState
 
   if (isAuthorizationCodeFlow(oauth2) && !oauth2.auth.code) {
@@ -47,7 +78,7 @@ const handleOAuthRedirect = () => {
 
     if (params.code) {
       delete oauth2.state
-      oauth2.auth.code = params.code
+      oauth2.auth.code = params.code.toString()
       oauth2.callback({ auth: oauth2.auth, redirectUrl })
     } else {
       reportError(oauth2, helpText.defaultError, 'error', params)
@@ -57,18 +88,6 @@ const handleOAuthRedirect = () => {
   }
 
   window.close()
-}
-
-const parseHashParams = (hash: string): Record<string, string> => {
-  const params = new URLSearchParams(hash.substring(1))
-
-  return Object.fromEntries(params.entries())
-}
-
-const parseQueryParams = (query: string): Record<string, string> => {
-  const params = new URLSearchParams(query.substring(1))
-
-  return Object.fromEntries(params.entries())
 }
 
 const isAuthorizationCodeFlow = (oauth2: OAuth2): boolean => {
