@@ -87,6 +87,7 @@
 
     <SpecDetails
       v-else-if="spec"
+      ref="specDetailsRef"
       class="w-100"
       :document="spec"
       :has-sidebar="false"
@@ -234,6 +235,19 @@ export default defineComponent({
     const $router = useRouter()
     const $route = useRoute()
     const { portalApiV2 } = usePortalApi()
+
+    const specDetailsRef = ref(null)
+
+    watch(() => specDetailsRef.value, (newValue, oldValue) => {
+      if (newValue && newValue !== oldValue) {
+        newValue.swaggerInstance.instance.initOAuth({
+          usePkceWithAuthorizationCodeGrant: true,
+          additionalQueryStringParams: {
+            nonce: Math.random().toString(36).substring(7)
+          }
+        })
+      }
+    })
 
     // fallback in case the operations are loaded in after the spec.
     watch(() => sidebarOperations.value, async () => {
@@ -541,6 +555,7 @@ export default defineComponent({
     }
 
     return {
+      specDetailsRef,
       authMethodLabelObj,
       helpText,
       viewSpecModalIsVisible,
@@ -642,6 +657,10 @@ export default defineComponent({
       background: var(--button_colors-primary-fill, var(--blue-500, #1155cb));
       border: 1px solid transparent;
       color: var(--button_colors-primary-text, #fff);
+    }
+
+    .swagger-ui .auth-container .errors {
+      word-wrap: break-word;
     }
   }
 </style>
