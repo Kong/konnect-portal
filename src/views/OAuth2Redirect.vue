@@ -1,5 +1,10 @@
 <template>
-  <KSkeleton :rows="5" :columns="5" :width="100" :height="20" />
+  <KSkeleton
+    :rows="5"
+    :columns="5"
+    :width="100"
+    :height="20"
+  />
 </template>
 
 <script lang="ts" setup>
