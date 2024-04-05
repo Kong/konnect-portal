@@ -131,7 +131,6 @@ const props = defineProps<{
 const selectedTimeframe = computed(() => props.modelValue.timeframe?.value)
 const selectedProductVersions = computed(() => props.modelValue.apiVersions?.value)
 const timeseriesQueryTime = computed(() => new TimeseriesQueryTime(selectedTimeframe.value))
-// @ts-ignore - The actual key name we want to extract is `value`
 const productVersionsCacheKey = computed(() => selectedProductVersions.value.map(entry => entry.value).join('-') || '')
 const appCacheKey = computed(() => `${productVersionsCacheKey.value}-${timeseriesQueryTime.value.startMs()}-${timeseriesQueryTime.value.endMs()}`)
 
