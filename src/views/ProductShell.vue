@@ -57,7 +57,6 @@ const deselectOperation = ref<boolean>(false)
 
 const deprecatedWarning = helpText.productVersion.deprecatedWarningProduct
 
-// @ts-ignore
 const productStore = useProductStore()
 const { product, documentTree, activeDocumentSlug, activeProductVersionId } = storeToRefs(productStore)
 
@@ -111,7 +110,6 @@ async function fetchDocumentTree () {
     const requestOptions = {
       productId: id
     }
-    // @ts-ignore
     // overriding the axios response because we're specifying what we're accepting above
     if (productStore.product) {
       const res = await documentationApi.listProductDocuments(requestOptions, {
