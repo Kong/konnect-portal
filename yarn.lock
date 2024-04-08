@@ -7122,18 +7122,18 @@ klaw-sync@^6.0.0:
   dependencies:
     graceful-fs "^4.1.11"
 
-launchdarkly-js-client-sdk@3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.1.3.tgz#e046439f0e4f0bfd6d38b9eaa4420a6e40ffc0c7"
-  integrity sha512-/JR/ri8z3bEj9RFTTKDjd+con4F1MsWUea1MmBDtFj4gDA0l9NDm1KzhMKiIeoBdmB2rSaeFYe4CaYOEp8IryA==
+launchdarkly-js-client-sdk@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-client-sdk/-/launchdarkly-js-client-sdk-3.2.0.tgz#9ee981ab234bf894bfcb8a12fc867cc1c4cbbcd8"
+  integrity sha512-QHkZ94GL0dADB7nCtSeHXNjO1edqdnyfwdaLkkQ5R1FB21u5z774DIas5mGHo3hCklPCxoPfoBXNGywdWlG2gw==
   dependencies:
     escape-string-regexp "^4.0.0"
-    launchdarkly-js-sdk-common "5.0.3"
+    launchdarkly-js-sdk-common "5.1.0"
 
-launchdarkly-js-sdk-common@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.0.3.tgz#345f899f5779be8b03d6599978c855eb838d8b7f"
-  integrity sha512-wKG8UsVbPVq8+7eavgAm5CVmulQWN6Ddod2ZoA3euZ1zPvJPwIQ2GrOYaCJr3cFrrMIX+nQyBJHBHYxUAPcM+Q==
+launchdarkly-js-sdk-common@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/launchdarkly-js-sdk-common/-/launchdarkly-js-sdk-common-5.1.0.tgz#33378e81626e16ab234164c3ee1643204033cfeb"
+  integrity sha512-0/dUtXpCxd4wgbJHaE0kWwt9Te2WjaiTuHhgNte+x3oCIwB3Odp6caQ4QOkR4Nh9GfjNeBE/WMHFD/s4wrX9cg==
   dependencies:
     base64-js "^1.3.0"
     fast-deep-equal "^2.0.1"
