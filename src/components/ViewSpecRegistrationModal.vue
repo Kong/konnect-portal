@@ -8,7 +8,14 @@
     @canceled="closeModal"
   >
     <template #header-content>
-      <span class="color-text_colors-primary">
+      <KSkeleton
+        v-if="currentState.matches('pending')"
+        :delay-milliseconds="200"
+      />
+      <span
+        v-else
+        class="color-text_colors-primary"
+      >
         {{ applications.length ? modalText.title : helpText.applicationRegistration.noApplications }}
       </span>
     </template>
