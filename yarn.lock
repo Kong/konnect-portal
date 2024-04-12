@@ -1142,15 +1142,20 @@
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.14.tgz#3219563df669b8bb3e260df12ac211a5072938e6"
   integrity sha512-nJUTtLpqelKCTY8lS8VByWaHYUq1CuB5cBUX/q2FEDu5o6IKH/B7fEDQpb/pB1lLRYTqZXneHR/lGYjxy4u8eQ==
 
-"@kong/kong-auth-elements@2.11.1":
-  version "2.11.1"
-  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.11.1.tgz#97fdc8621ac46479698530dcd9ec27371a6d2ebf"
-  integrity sha512-2iEdZmKn8gA+4r2W0H0Rg+EDM1y0Gtt9u7yrx27RT7Taw8015tIP6Ha42kBzBtVJ6/5dc5lz/m+DwAvgYwg8nQ==
+"@kong/icons@^1.8.16":
+  version "1.8.16"
+  resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.8.16.tgz#4284e8c3b587f0c903f5ef2f99bee5fabe3762b5"
+  integrity sha512-aQvZUrX9Px7SqQkGlZnjlAf7aubW3mFobF9ojJ88lMPZ1XN4gDI0TKBcWtvGCtCqgbvtqe0LJD9gqAjTRqArEg==
+
+"@kong/kong-auth-elements@2.12.0":
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.12.0.tgz#8e291ae0e2048f5f7bd8523e52afa11b82171ffd"
+  integrity sha512-cNHmxOGU21Ixgq4rGR7QnkAI7ya+ZCUluavThA9ebyVcnTIhotE9Ba1glSjKFJWW/NTIRbckfjBYIgsJlw+VdA==
   dependencies:
-    "@kong/icons" "^1.8.0"
+    "@kong/icons" "^1.8.16"
     "@xstate/vue" "^2.0.0"
-    axios "^1.6.0"
-    vue "^3.3.7"
+    axios "^1.6.8"
+    vue "^3.4.21"
     vue-recaptcha "^2.0.3"
     xstate "^4.38.3"
 
@@ -3027,6 +3032,15 @@ axios@1.6.7, axios@^1.4.0, axios@^1.6.0:
   integrity sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==
   dependencies:
     follow-redirects "^1.15.4"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@^1.6.8:
+  version "1.6.8"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.8.tgz#66d294951f5d988a00e87a0ffb955316a619ea66"
+  integrity sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==
+  dependencies:
+    follow-redirects "^1.15.6"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
@@ -5527,7 +5541,7 @@ focus-trap@^7.4.3, focus-trap@^7.5.2:
   dependencies:
     tabbable "^6.2.0"
 
-follow-redirects@^1.15.0, follow-redirects@^1.15.4:
+follow-redirects@^1.15.0, follow-redirects@^1.15.4, follow-redirects@^1.15.6:
   version "1.15.6"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
@@ -11260,7 +11274,7 @@ vue-tsc@1.8.4:
     "@vue/typescript" "1.8.4"
     semver "^7.3.8"
 
-vue@3.4.21, vue@^3.3.7:
+vue@3.4.21, vue@^3.4.21:
   version "3.4.21"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.4.21.tgz#69ec30e267d358ee3a0ce16612ba89e00aaeb731"
   integrity sha512-5hjyV/jLEIKD/jYl4cavMcnzKwjMKohureP8ejn3hhEjwhWIhWeuzL2kJAjzl/WyVsgPY56Sy4Z40C3lVshxXA==
