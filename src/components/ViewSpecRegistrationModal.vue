@@ -3,13 +3,13 @@
     data-testid="application-registration-modal"
     class="application-registration-modal"
     :is-visible="isVisible"
-    :title="applications.length ? modalText.title : helpText.applicationRegistration.noApplications"
+    :title="modalText.title"
     @proceed="submitSelection"
     @canceled="closeModal"
   >
     <template #header-content>
       <span class="color-text_colors-primary">
-        {{ applications.length ? modalText.title : helpText.applicationRegistration.noApplications }}
+        {{ modalText.title }}
       </span>
     </template>
     <template #body-content>
@@ -232,21 +232,27 @@ export default defineComponent({
       })
     )
 
-    const modalText = computed(() => {
-      const defaultModal = helpText.applicationRegistration.modalApplicationRegistrationDefault
-      const successModal = helpText.applicationRegistration.modalApplicationRegistrationStatusIsPending
+    const defaultModalText = helpText.applicationRegistration.modalApplicationRegistrationDefault
+    const successModalText = helpText.applicationRegistration.modalApplicationRegistrationStatusIsPending
 
-      return {
-        default: {
-          title: defaultModal.title(props.product?.name, props.version?.name),
-          buttonText: defaultModal.buttonText
-        },
-        success: {
-          title: successModal.title,
-          body: successModal.body,
-          buttonText: successModal.buttonText
-        }
-      }[currentState.value.matches('success_application_status_is_pending') ? 'success' : 'default']
+    const defaultModalTitle = computed(() => {
+      if (currentState.value.matches('pending')) {
+        return ''
+      }
+
+      if (applications.value.length) {
+        return defaultModalText.title(props.product?.name, props.version?.name)
+      }
+
+      return helpText.applicationRegistration.noApplications
+    })
+
+    const modalText = computed(() => {
+      if (currentState.value.matches('success_application_status_is_pending')) {
+        return successModalText
+      }
+
+      return { ...defaultModalText, title: defaultModalTitle.value, body: '' }
     })
 
     const authStrategyId = computed(() => {
