@@ -184,15 +184,16 @@ export default defineComponent({
     const isAllowedToRegister = ref(false)
     const specContents = ref('')
     const specName = ref('')
+    const specExt = ref('')
     const specDetails = ref(null)
     const productVersions = ref(new Map())
     const { canUserAccess } = usePermissionsStore()
     const appStore = useAppStore()
     const { isPublic } = storeToRefs(appStore)
 
-    const objectParsers = [
-      (x: string) => JSON.parse(x),
-      (x: string) => jsyaml.load(x)
+    const specTypes = [
+      { ext: '.json', parser: (x: string) => JSON.parse(x) },
+      { ext: '.yaml', parser: (x: string) => jsyaml.load(x) }
     ]
 
     const applicationRegistrationEnabled = computed(() => {
@@ -319,7 +320,6 @@ export default defineComponent({
 
     function triggerViewSpecModal () {
       viewSpecModalIsVisible.value = true
-      specContents.value = getSpecContents()
     }
 
     function triggerViewSpecRegistrationModal () {
@@ -359,17 +359,8 @@ export default defineComponent({
     }
 
     function downloadSpecContents (): void {
-      let extension: string
       let fileName: string
-      const content = specContents.value
       const element = document.createElement('a')
-
-      try {
-        JSON.parse(content)
-        extension = '.json'
-      } catch (e) {
-        extension = '.yaml'
-      }
 
       if (window.location.pathname.includes('/')) {
         const splitPath = window.location.pathname.split('/')
@@ -380,15 +371,11 @@ export default defineComponent({
       }
 
       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(specContents.value))
-      element.setAttribute('download', fileName + extension)
+      element.setAttribute('download', fileName + specExt.value)
       element.style.display = 'none'
       document.body.appendChild(element)
       element.click()
       document.body.removeChild(element)
-    }
-
-    function getSpecContents () {
-      return JSON.stringify(spec.value, null, 2)
     }
 
     function setTitle (versionName: string) {
@@ -434,15 +421,16 @@ export default defineComponent({
             return res
           }
 
-          const rawContent = res.data.content
+          specContents.value = res.data.content
 
           let parsedObject: any
           const parseErrors = []
 
-          for (const parser of objectParsers) {
+          for (const specType of specTypes) {
             try {
-              parsedObject = parser(rawContent)
+              parsedObject = specType.parser(specContents.value)
               if (parsedObject) {
+                specExt.value = specType.ext
                 break
               }
             } catch (err) {
