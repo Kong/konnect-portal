@@ -215,7 +215,7 @@ export default defineComponent({
     const convertOperationToListItem: ComputedGetter<OperationListItem|null> = () => {
       if (sidebarActiveOperation.value) {
         const { tags, ...props } = sidebarActiveOperation.value
-        const tag = props.tag ? props.tag : tags[0]
+        const tag = props.tag ? props.tag : tags?.[0]
 
         return {
           ...props,
