@@ -46,7 +46,7 @@
             <KSelect
               id="authStrat"
               :items="appAuthStrategies"
-              :disabled="formMode === 'edit'"
+              :disabled="formMode === 'edit' || appAuthStrategies.length === 1"
               data-testid="application-auth-strategy-select"
               appearance="select"
               width="100%"
@@ -373,15 +373,21 @@ export default defineComponent({
           }))
         }
 
-        const selected = rawAuthStrategies.length === 1
+        const hasOneAvailableAuthStrategy = rawAuthStrategies.length === 1
+
+        const prefilledAuthStrategy = hasOneAvailableAuthStrategy
           ? appAuthStrategies.value[0]
           : appAuthStrategies.value.find((authStrat) => authStrat.selected === true)
 
-        if (selected) {
-          formData.value.auth_strategy_id = selected.value
-          appIsDcr.value = selected.isDcr
-          selectedAuthStrategy.value = selected
-          appIsSelfManaged.value = selected.isSelfManaged
+        if (prefilledAuthStrategy) {
+          if (hasOneAvailableAuthStrategy) {
+            prefilledAuthStrategy.selected = true
+          }
+
+          formData.value.auth_strategy_id = prefilledAuthStrategy.value
+          appIsDcr.value = prefilledAuthStrategy.isDcr
+          selectedAuthStrategy.value = prefilledAuthStrategy
+          appIsSelfManaged.value = prefilledAuthStrategy.isSelfManaged
         }
 
         fetchingAuthStrategies.value = false
