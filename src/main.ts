@@ -29,6 +29,7 @@ import '@kong-ui-public/copy-uuid/dist/style.css'
 import useToaster from './composables/useToaster'
 import usePortalApi from './hooks/usePortalApi'
 import { createRedirectHandler } from './helpers/auth'
+import portalAnalyticsBridge from '@kong-ui-public/portal-analytics-bridge'
 
 /**
  * Initialize application
@@ -82,6 +83,10 @@ async function init () {
     const { initialize: initLaunchDarkly } = useLaunchDarkly()
 
     await initLaunchDarkly()
+
+    app.use(portalAnalyticsBridge, {
+      apiClient: portalApiV2.value.service.applicationAnalyticsApi
+    })
 
     if (!isPublic) {
       if (session.authenticatedWithIdp()) {

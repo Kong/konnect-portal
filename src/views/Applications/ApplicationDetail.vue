@@ -130,33 +130,33 @@
         </div>
       </div>
       <hr class="my-6">
-      <div
-        v-if="!vitalsLoading"
-      >
-        <PageTitle class="mb-5">
-          <h2 class="font-normal type-lg m-0">
-            {{ analyticsCardTitle }}
-          </h2>
-          <template #right>
-            <KButton
-              data-testid="application-dashboard-button"
-              :is-rounded="false"
-              appearance="secondary"
-              @click="$router.push({ name: 'application-dashboard', params: { application_id: id }})"
-            >
-              {{ helpText.analytics.viewAnalytics }}
-            </KButton>
-          </template>
-        </PageTitle>
-        <AnalyticsMetricsCard
-          class="mb-4"
-          data-testid="analytics-metric-cards"
-          hide-title
-          :application-id="application.id"
-          :timeframe="(fixedTimeframe as Timeframe)"
-        />
-        <hr class="my-6">
-      </div>
+      <AnalyticsConfigCheck require-analytics>
+        <div>
+          <PageTitle class="mb-5">
+            <h2 class="font-normal type-lg m-0">
+              {{ analyticsCardTitle }}
+            </h2>
+            <template #right>
+              <KButton
+                data-testid="application-dashboard-button"
+                :is-rounded="false"
+                appearance="secondary"
+                @click="$router.push({ name: 'application-dashboard', params: { application_id: id }})"
+              >
+                {{ helpText.analytics.viewAnalytics }}
+              </KButton>
+            </template>
+          </PageTitle>
+          <AnalyticsMetricsCard
+            class="mb-4"
+            data-testid="analytics-metric-cards"
+            hide-title
+            :application-id="application.id"
+            :timeframe="(fixedTimeframe as Timeframe)"
+          />
+          <hr class="my-6">
+        </div>
+      </AnalyticsConfigCheck>
       <DcrAuthenticationTable
         v-if="isApplicationDcr"
         :application="application"
@@ -196,10 +196,11 @@ import {
   TimePeriods
 } from '@kong-ui-public/analytics-utilities'
 import { CredentialType } from '@kong/sdk-portal-js'
+import { AnalyticsConfigCheck } from '@kong-ui-public/analytics-config-store'
 
 export default defineComponent({
   name: 'ApplicationDetail',
-  components: { AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable, ScopeBadges },
+  components: { AnalyticsConfigCheck, AnalyticsMetricsCard, PageTitle, CredentialsList, ProductList, DcrAuthenticationTable, ScopeBadges },
 
   setup () {
     const errorMessage = ref('')
@@ -224,7 +225,6 @@ export default defineComponent({
     const { portalApiV2 } = usePortalApi()
     const appStore = useAppStore()
     const { allowedTimePeriod } = storeToRefs(appStore)
-    const vitalsLoading = ref(false)
     const fixedTimeframe = allowedTimePeriod.value === PortalTimeframeKeys.NINETY_DAYS
       ? ref(TimePeriods.get(TimeframeKeys.THIRTY_DAY) as Timeframe)
       : ref(TimePeriods.get(TimeframeKeys.ONE_DAY) as Timeframe)
@@ -291,8 +291,7 @@ export default defineComponent({
       breadcrumbs,
       isApplicationDcr,
       isApplicationOIDC,
-      fixedTimeframe,
-      vitalsLoading
+      fixedTimeframe
     }
   }
 })

@@ -1,5 +1,24 @@
 import { apps, productRegistrations } from '../fixtures/consts'
 
+const noAnalytics = {
+  analytics: null
+}
+
+const hasAnalytics = {
+  analytics: {
+    percentiles: true,
+    retention_ms: 36720000000
+  }
+}
+
+const mockConfig = (analytics: boolean) => {
+  cy.intercept('GET', '**/api/v2/stats/config', {
+    statusCode: 200,
+    body: analytics ? hasAnalytics : noAnalytics,
+    delay: 0
+  })
+}
+
 describe('Contextual Developer Analytics', () => {
   beforeEach(() => {
     cy.mockPrivatePortal()
@@ -22,6 +41,8 @@ describe('Contextual Developer Analytics', () => {
   }
 
   it('My Apps – displays displays metric cards', () => {
+    mockConfig(true)
+
     cy.mockApplications(apps, 4)
 
     cy.visit('/', { useOriginalFn: true })
@@ -36,6 +57,8 @@ describe('Contextual Developer Analytics', () => {
 
 
   it('App Dashboard - vitals elements load', () => {
+    mockConfig(true)
+
     cy.mockApplications(apps, 4)
 
     cy.intercept('GET', `**/api/v2/applications/${apps[0].id}`, {
@@ -78,5 +101,54 @@ describe('Contextual Developer Analytics', () => {
 
     cy.get('[data-testid="k-multiselect-input"]').should('exist').click()
     cy.get('.k-multiselect-item').first().should('contain', mockedServiceVersionName)
+  })
+
+  it('My Apps – metric cards if no analytics', () => {
+    mockConfig(false)
+
+    cy.mockApplications(apps, 4)
+
+    cy.visit('/', { useOriginalFn: true })
+    cy.visit('/my-apps')
+
+    cy.get(selectors.metricCardsParent).should('not.exist')
+
+    cy.get('[data-testid="applications-table"]').find('.actions-badge').first().click()
+    cy.get(selectors.dashboardDropdownLink).should('not.exist')
+  })
+
+  it('App Dashboard - no vitals elements if no analytics', () => {
+    mockConfig(false)
+
+    cy.mockApplications(apps, 4)
+
+    cy.intercept('GET', `**/api/v2/applications/${apps[0].id}`, {
+      statusCode: 200,
+      body: apps[0],
+      delay: 0
+    }).as('getSingleApplication')
+
+    cy.intercept(
+      'GET',
+      `**/api/v2/applications/${apps[0].id}/registrations*`,
+      {
+        body: {
+          data: productRegistrations,
+          meta: {
+            page: {
+              total: 1,
+              number: 1,
+              size: 1
+            }
+          }
+        },
+        delay: 0
+      }
+    ).as('getApplicationRegistration')
+
+    cy.visit(`/application/${apps[0].id}/application-dashboard`)
+
+    // There should be a forbidden page.
+    cy.get('section.forbidden').should('exist')
   })
 })

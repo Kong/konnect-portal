@@ -1,106 +1,111 @@
 <template>
-  <Content>
-    <KSkeleton v-if="currentState.matches('pending')" />
-    <KBreadcrumbs
-      v-if="!currentState.matches('pending')"
-      :items="breadcrumbs"
-    />
-    <EmptyState
-      v-else-if="currentState.matches('error')"
-      is-error
-      :message="errorMessage"
-    />
-    <section
-      v-if="currentState.matches('success')"
-    >
-      <PageTitle
-        class="mb-5"
-        :title="helpText.analytics.dashboard"
+  <AnalyticsConfigCheck require-analytics>
+    <Content>
+      <KSkeleton v-if="currentState.matches('pending')" />
+      <KBreadcrumbs
+        v-if="!currentState.matches('pending')"
+        :items="breadcrumbs"
       />
-      <div v-if="hasProductVersions">
-        <div
-          class="analytics-filters d-flex flex-grow-1 justify-content-between align-items-baseline mb-6"
-        >
-          <KMultiselect
-            v-model="versionMultiSelectModel"
-            autosuggest
-            collapsed-context
-            data-testid="analytics-service-filter"
-            class="analytics-service-filter flex-grow-1"
-            :dropdown-footer-text="multiselectFooter"
-            dropdown-footer-text-position="static"
-            :items="multiselectItems"
-            :label="helpText.analytics.filterLabelProductVersions"
-            :loading="filterMultiselectLoading"
-            @change="handleChangedItem"
-            @query-change="handleProductVersionSearch"
-            @selected="handleProductVersionSelection"
-          />
-          <div>
-            <KLabel for="dateTimePicker">
-              {{ helpText.analytics.timeRange }}
-            </KLabel>
-            <KDateTimePicker
-              id="analytics-timepicker"
-              v-model="timeframe"
-              data-test-id="analytics-timepicker"
-              class="analytics-timepicker"
-              :min-date="minDateCalendar"
-              :max-date="new Date()"
-              :mode="hideCalendar ? 'relative': 'date'"
-              :placeholder="helpText.analytics.selectDateRange"
-              :time-periods="timePeriods"
-              :range="true"
-              width="100%"
-              @change="changeTimeframe"
+      <EmptyState
+        v-else-if="currentState.matches('error')"
+        is-error
+        :message="errorMessage"
+      />
+      <section
+        v-if="currentState.matches('success')"
+      >
+        <PageTitle
+          class="mb-5"
+          :title="helpText.analytics.dashboard"
+        />
+        <div v-if="hasProductVersions">
+          <div
+            class="analytics-filters d-flex flex-grow-1 justify-content-between align-items-baseline mb-6"
+          >
+            <KMultiselect
+              v-model="versionMultiSelectModel"
+              autosuggest
+              collapsed-context
+              data-testid="analytics-service-filter"
+              class="analytics-service-filter flex-grow-1"
+              :dropdown-footer-text="multiselectFooter"
+              dropdown-footer-text-position="static"
+              :items="multiselectItems"
+              :label="helpText.analytics.filterLabelProductVersions"
+              :loading="filterMultiselectLoading"
+              @change="handleChangedItem"
+              @query-change="handleProductVersionSearch"
+              @selected="handleProductVersionSelection"
+            />
+            <div>
+              <KLabel for="dateTimePicker">
+                {{ helpText.analytics.timeRange }}
+              </KLabel>
+              <KDateTimePicker
+                id="analytics-timepicker"
+                v-model="timeframe"
+                data-test-id="analytics-timepicker"
+                class="analytics-timepicker"
+                :min-date="minDateCalendar"
+                :max-date="new Date()"
+                :mode="hideCalendar ? 'relative': 'date'"
+                :placeholder="helpText.analytics.selectDateRange"
+                :time-periods="timePeriods"
+                :range="true"
+                width="100%"
+                @change="changeTimeframe"
+              />
+            </div>
+          </div>
+          <div class="mb-6">
+            <h2 class="font-normal type-lg mb-4">
+              {{ helpText.analytics.summary }}
+            </h2>
+            <AnalyticsMetricsCard
+              v-if="!vitalsLoading"
+              class="mb-6"
+              data-testid="analytics-metric-cards"
+              :application-id="(appId as string)"
+              :timeframe="(selectedTimeframe as Timeframe)"
+              :product-version-ids="selectedProductVersionIds"
+            />
+            <h2 class="font-normal type-lg mb-4">
+              {{ helpText.analytics.chartOverview }}
+            </h2>
+            <ChartPanel
+              v-model="chartFilters"
+              :app-id="(appId as string)"
             />
           </div>
         </div>
-        <div class="mb-6">
-          <h2 class="font-normal type-lg mb-4">
-            {{ helpText.analytics.summary }}
-          </h2>
-          <AnalyticsMetricsCard
-            v-if="!vitalsLoading"
-            class="mb-6"
-            data-testid="analytics-metric-cards"
-            :application-id="(appId as string)"
-            :timeframe="(selectedTimeframe as Timeframe)"
-            :product-version-ids="selectedProductVersionIds"
-          />
-          <h2 class="font-normal type-lg mb-4">
-            {{ helpText.analytics.chartOverview }}
-          </h2>
-          <ChartPanel
-            v-model="chartFilters"
-            :app-id="(appId as string)"
-          />
-        </div>
-      </div>
-      <AnalyticsEmptyState
-        v-else-if="!filterMultiselectLoading"
-        icon="stateNoData"
-        icon-size="96"
-        :title="helpText.analytics.selectProductVersions"
-        :message="helpText.analytics.selectProductVersions"
-      >
-        <template #message>
-          <p class="mb-4">
-            {{ helpText.productVersion.noProductVersionsDetail }}
-          </p>
-          <KButton
-            appearance="primary"
-            :is-rounded="false"
-            data-testid="copy-btn"
-            icon="plus"
-            :to="{ name: 'catalog' }"
-          >
-            {{ helpText.productVersion.registerProductVersion }}
-          </KButton>
-        </template>
-      </AnalyticsEmptyState>
-    </section>
-  </Content>
+        <AnalyticsEmptyState
+          v-else-if="!filterMultiselectLoading"
+          icon="stateNoData"
+          icon-size="96"
+          :title="helpText.analytics.selectProductVersions"
+          :message="helpText.analytics.selectProductVersions"
+        >
+          <template #message>
+            <p class="mb-4">
+              {{ helpText.productVersion.noProductVersionsDetail }}
+            </p>
+            <KButton
+              appearance="primary"
+              :is-rounded="false"
+              data-testid="copy-btn"
+              icon="plus"
+              :to="{ name: 'catalog' }"
+            >
+              {{ helpText.productVersion.registerProductVersion }}
+            </KButton>
+          </template>
+        </AnalyticsEmptyState>
+      </section>
+    </Content>
+    <template #fallback>
+      <Forbidden />
+    </template>
+  </AnalyticsConfigCheck>
 </template>
 
 <script setup lang="ts">
@@ -128,6 +133,8 @@ import PageTitle from '@/components/PageTitle.vue'
 import { useAppStore, useI18nStore } from '@/stores'
 import cloneDeep from 'lodash.clonedeep'
 import { PortalTimeframeKeys } from '@/types/vitals'
+import { AnalyticsConfigCheck } from '@kong-ui-public/analytics-config-store'
+import Forbidden from '@/views/Forbidden.vue'
 
 const { notify } = useToaster()
 const errorMessage = ref('')
