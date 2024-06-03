@@ -1141,10 +1141,10 @@
   resolved "https://registry.yarnpkg.com/@kong/icons/-/icons-1.9.2.tgz#13b1c72af2616227ec0a0c3193658d53e8913519"
   integrity sha512-XMLnCyaBE0xrrnY7DOLXVy2Q1F76AEsfi4mxEdVKfSGOkgV0dqVIHL34aqxo8OoSKUllcCKn/WW25X+YI65nCw==
 
-"@kong/kong-auth-elements@2.12.5":
-  version "2.12.5"
-  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.12.5.tgz#1d89568b99b14c9ddde054c979b3977b1dfa745a"
-  integrity sha512-lgmqHCBCmzmo1NFxHSB98RxNf8FwOx627FwbKehFHeRcOWhSI5vPw1Q2jqatIWeyY1nplYzTDIy4wM6VPn6PMA==
+"@kong/kong-auth-elements@2.12.6":
+  version "2.12.6"
+  resolved "https://registry.yarnpkg.com/@kong/kong-auth-elements/-/kong-auth-elements-2.12.6.tgz#c2b0f6c4c0025ffc67440a3bd8567dcd3e442760"
+  integrity sha512-t52IsDe2Q7EC0Do+FMq9CU8Nr43pjmAefTSWYStiZs9gLY5usRd7AHWGxbQtMVCSAwE9DYOneQ7sIOmaE6HhrQ==
   dependencies:
     "@kong/icons" "^1.9.2"
     "@xstate/vue" "^2.0.0"
