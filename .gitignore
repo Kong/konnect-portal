@@ -7,9 +7,6 @@ public/bundle.js
 /cypress/e2e/videos/
 
 # env
-.env
-.env.local
-.env.*.local
 
 # Log files
 npm-debug.log*
