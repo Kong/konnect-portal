@@ -51,6 +51,7 @@ export interface I18nType {
     clientCredentials: string;
     selfManagedClientCredentials: string;
     session: string;
+    disabled: string;
   };
   userDropdown: {
     myApps: string;

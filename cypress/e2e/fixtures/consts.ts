@@ -7,21 +7,31 @@ const versions: ProductVersion[] = [
     id: '1afac832-5b2a-474c-a56d-c241364f41cf',
     name: 'v1-beta',
     deprecated: false,
-    registration_configs: [{ name: 'key-auth' }]
+    registration_configs: [{
+      id: crypto.randomUUID(),
+      credential_type: 'key_auth',
+      name: 'key-auth',
+      registration_enabled: true,
+      registration_auto_approve: true
+    }]
   }
 ]
 
 const keyAuthRegConfig: RegistrationConfiguration = {
   name: 'key auth auth strategy',
   credential_type: 'key_auth',
-  id: 'd668b397-8a0d-482d-9b97-9e05cbfc7618'
+  id: 'd668b397-8a0d-482d-9b97-9e05cbfc7618',
+  registration_enabled: true,
+  registration_auto_approve: true
 }
 
 const oidcAuthRegConfig: RegistrationConfiguration = {
   auth_methods: ['bearer', 'client_credentials'],
   name: 'oidc auth strategy',
   credential_type: 'client_credentials',
-  id: '7b651144-0b48-431a-af9b-58604adc9268'
+  id: '7b651144-0b48-431a-af9b-58604adc9268',
+  registration_enabled: true,
+  registration_auto_approve: true
 }
 
 const versionWithOidcAuthStrategy: ProductVersion = {
@@ -39,6 +49,16 @@ const versionWithKeyAuthAuthStrategy: ProductVersion = {
   deprecated: false,
   registration_configs: [
     keyAuthRegConfig
+  ]
+}
+
+const versionWithRegistrationDisabled: ProductVersion = {
+  ...versions[0],
+  registration_configs: [
+    {
+      ...keyAuthRegConfig,
+      registration_enabled: false
+    }
   ]
 }
 
@@ -190,11 +210,12 @@ const defaultContext: PortalContext = {
   oidc_auth_enabled: false,
   featureset_id: '6202956f054d96149719eed0',
   rbac_enabled: false,
-  allowed_time_period: '2022-03-25T13:15:02.104Z'
+  allowed_time_period: '2022-03-25T13:15:02.104Z',
+  name: 'best portal'
 }
 
 const productRegistrations: GetRegistrationResponse[] = [
   productRegistration
 ]
 
-export { versions, product, productVersion, productRegistration, versionWithOidcAuthStrategy, versionWithKeyAuthAuthStrategy, productRegistrations, apps, defaultContext }
+export { versions, product, productVersion, productRegistration, versionWithOidcAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithRegistrationDisabled, productRegistrations, apps, defaultContext }

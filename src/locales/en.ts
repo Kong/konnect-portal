@@ -50,7 +50,8 @@ export const en = {
     keyAuth: 'Key Auth',
     clientCredentials: 'Client Credentials',
     selfManagedClientCredentials: 'Self Managed',
-    session: 'Session'
+    session: 'Session',
+    disabled: 'Registration for this product version is not enabled'
   },
   userDropdown: {
     myApps: 'My Apps',

@@ -116,7 +116,7 @@ async function fetchDocumentTree () {
         headers: {
           accept: DocumentContentTypeEnum.VndKonnectDocumentTreejson
         }
-      }) as AxiosResponse<ListDocumentsTree, any>
+      }) as any as AxiosResponse<ListDocumentsTree, any>
 
       productStore.setDocumentTree((res.data).data)
     }

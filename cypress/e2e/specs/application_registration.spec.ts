@@ -1,5 +1,5 @@
 import { AuthStrategyKeyAuthCredentialTypeEnum, CredentialCreationResponse, GetApplicationResponse, ListCredentialsResponse, ListCredentialsResponseDataInner, ListRegistrationsResponse } from '@kong/sdk-portal-js'
-import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy, oidcApp, dcrApp } from '../fixtures/consts'
+import { product, versions, productRegistration, apps, productWithKeyAuthAppAuthStrategy, appWithAuthStrategy, versionWithKeyAuthAuthStrategy, versionWithOidcAuthStrategy, oidcApp, dcrApp, versionWithRegistrationDisabled } from '../fixtures/consts'
 
 const mockApplicationWithCredAndReg = (
   data: GetApplicationResponse,
@@ -847,6 +847,25 @@ describe('Application Registration', () => {
         'contain',
         'You will be notified upon approval'
       )
+    })
+    it('registration disabled if registration disabled on auth strategy', () => {
+        cy.mockProductDocument()
+        cy.mockProduct(product.id, product, [versionWithRegistrationDisabled])
+        cy.mockProductVersionApplicationRegistration(versionWithRegistrationDisabled)
+        cy.mockGetProductDocuments(product.id)
+        cy.mockProductOperations(product.id, versions[0].id)
+        cy.mockProductVersionSpec(product.id, versions[0].id)
+        cy.mockRegistrations('*', []) // mock with empty so that we add one.
+
+        cy.viewport(1440, 900)
+        cy.visit(`/spec/${product.id}`)
+        cy.get('.swagger-ui', { timeout: 12000 })
+
+        cy.mockApplications(apps, 4)
+        cy.mockProductVersionAvailableRegistrations(product.id, versions[0].id, apps)
+        cy.mockGrantedScopes(versions[0].id, apps[0].id, ['scope1', 'scope2'])
+
+        cy.get('[data-testid="app-reg-v2-register-btn"]').should('be.disabled')
     })
     it('shows information about application auth strategy (key-auth)', () => {
       cy.mockProductDocument()

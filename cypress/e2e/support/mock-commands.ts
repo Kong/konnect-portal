@@ -410,7 +410,7 @@ Cypress.Commands.add('mockProductVersionApplicationRegistration', (version, conf
     'GET',
     `**/api/v2/application_registrations/product_versions/${version.id}`, {
       body: {
-        auth_config: { name: 'key-auth', config: {} },
+        auth_config: { name: 'key-auth', registration_enabled: true, config: {} },
         auto_approve: false,
         created_at: '2022-03-25T10:56:27.268Z',
         errors: [],
