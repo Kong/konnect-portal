@@ -56,10 +56,13 @@
                 >
                   {{ helpText.authStrategyInfo.registerBtnText(currentVersion?.name) }}
                 </KButton>
-                <template #content v-if="!applicationRegistrationEnabled">
+                <template
+                  v-if="!applicationRegistrationEnabled"
+                  #content
+                >
                   {{ helpText.authStrategyInfo.disabled }}
                 </template>
-            </KTooltip>
+              </KTooltip>
             </div>
           </template>
         </KCard>
