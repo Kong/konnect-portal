@@ -6,7 +6,7 @@
     <div class="container max-w-screen-2xl px-5 md:px-0">
       <div class="swagger-ui has-sidebar breadcrumbs">
         <KCard
-          v-if="applicationRegistrationEnabled && currentVersion?.registration_configs?.length && !isPublic"
+          v-if="currentVersion?.registration_configs?.length && !isPublic"
           class="auth-strategy-card"
           data-testid="auth-strategy-card"
         >
@@ -44,14 +44,22 @@
                   </KBadge>
                 </template>
               </KCard>
-              <KButton
-                appearance="primary"
-                class="register-btn"
-                data-testid="app-reg-v2-register-btn"
-                @click="triggerViewSpecRegistrationModal"
+              <KTooltip
+                trigger="hover"
               >
-                {{ helpText.authStrategyInfo.registerBtnText(currentVersion?.name) }}
-              </KButton>
+                <KButton
+                  :disabled="!applicationRegistrationEnabled"
+                  appearance="primary"
+                  class="register-btn"
+                  data-testid="app-reg-v2-register-btn"
+                  @click="triggerViewSpecRegistrationModal"
+                >
+                  {{ helpText.authStrategyInfo.registerBtnText(currentVersion?.name) }}
+                </KButton>
+                <template #content v-if="!applicationRegistrationEnabled">
+                  {{ helpText.authStrategyInfo.disabled }}
+                </template>
+            </KTooltip>
             </div>
           </template>
         </KCard>
@@ -197,7 +205,7 @@ export default defineComponent({
     ]
 
     const applicationRegistrationEnabled = computed(() => {
-      return Boolean(currentVersion.value?.registration_configs?.length && isAllowedToRegister.value)
+      return currentVersion.value?.registration_configs.some(config => config.registration_enabled) && isAllowedToRegister.value
     })
 
     const helpText = useI18nStore().state.helpText

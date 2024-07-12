@@ -54,7 +54,8 @@ export const fr: I18nType = {
     keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
     clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
     selfManagedClientCredentials: translationNeeded(en.authStrategyInfo.selfManagedClientCredentials),
-    session: translationNeeded(en.authStrategyInfo.session)
+    session: translationNeeded(en.authStrategyInfo.session),
+    disabled: translationNeeded(en.authStrategyInfo.disabled)
   },
   userDropdown: {
     myApps: 'Mes Applications',
