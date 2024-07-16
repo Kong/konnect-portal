@@ -38,6 +38,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.20.3'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build the app
+        run: yarn build
       - name: Deploy
         uses: Azure/static-web-apps-deploy@1a947af9992250f3bc2e68ad0754c0b0c11566c9
         with:
