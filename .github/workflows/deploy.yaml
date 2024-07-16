@@ -47,7 +47,6 @@ jobs:
           app_location: ${{ env.APP_LOCATION }}
           api_location: ${{ env.API_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
-          deployment_environment: "release_candidate"
 
   close_pull_request:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
