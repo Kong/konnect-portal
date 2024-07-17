@@ -41,10 +41,10 @@ export const en = {
     registerProductVersion: 'Register Product version'
   },
   authStrategyInfo: {
-    titleLabel: 'Supported Application Auth Strategy:',
+    titleLabel: 'Application Auth Strategy',
     credentialTypeLabel: 'Credential Type:',
     registerBtnText: (productVersionName: string) => `Register for ${productVersionName}`,
-    authMethods: 'Auth Methods:',
+    authMethods: 'Auth Methods',
     keyNames: 'Key Names:',
     bearer: 'Bearer',
     keyAuth: 'Key Auth',

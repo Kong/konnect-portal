@@ -3,11 +3,11 @@
     :ref="specDetails"
     class="spec mt-6 api-documentation"
   >
-    <div class="container max-w-screen-2xl px-5 md:px-0">
-      <div class="swagger-ui has-sidebar breadcrumbs">
+    <div class="w-100">
+      <div class="swagger-ui mx-auto has-sidebar breadcrumbs px-5 md:px-0">
         <KCard
           v-if="currentVersion?.registration_configs?.length && !isPublic"
-          class="auth-strategy-card"
+          class="auth-strategy-card px-0"
           data-testid="auth-strategy-card"
         >
           <template #body>
@@ -16,34 +16,35 @@
               data-testid="auth-strategy-title"
             >
               {{ helpText.authStrategyInfo.titleLabel }}
-              <KBadge shape="rectangular">
+              <KBadge
+                class="ml-1"
+                shape="rectangular"
+              >
                 {{ currentVersion?.registration_configs?.[0].name }}
               </KBadge>
             </span>
-            <p class="auth-methods-label">
-              {{ helpText.authStrategyInfo.authMethods }}
-            </p>
             <div class="info-container">
-              <KCard class="badge-container">
-                <template #body>
-                  <KBadge
-                    v-if="currentVersion?.registration_configs?.[0].credential_type === 'key_auth'"
-                    shape="rectangular"
-                    data-testid="auth-method-key-auth"
-                  >
-                    {{ helpText.authStrategyInfo.keyAuth }}
-                  </KBadge>
-                  <KBadge
-                    v-for="(authMethod, index) in currentVersion?.registration_configs?.[0].auth_methods"
-                    v-else
-                    :key="authMethod + index"
-                    :data-testid="`auth-method-${authMethod}`"
-                    shape="rectangular"
-                  >
-                    {{ authMethodLabelObj[authMethod] }}
-                  </KBadge>
-                </template>
-              </KCard>
+              <span class="label">
+                {{ helpText.authStrategyInfo.authMethods }}
+                <KBadge
+                  v-if="currentVersion?.registration_configs?.[0].credential_type === 'key_auth'"
+                  class="ml-1"
+                  shape="rectangular"
+                  data-testid="auth-method-key-auth"
+                >
+                  {{ helpText.authStrategyInfo.keyAuth }}
+                </KBadge>
+                <KBadge
+                  v-for="(authMethod, index) in currentVersion?.registration_configs?.[0].auth_methods"
+                  v-else
+                  :key="authMethod + index"
+                  class="ml-1"
+                  :data-testid="`auth-method-${authMethod}`"
+                  shape="rectangular"
+                >
+                  {{ authMethodLabelObj[authMethod] }}
+                </KBadge>
+              </span>
               <KTooltip
                 trigger="hover"
               >
@@ -631,13 +632,11 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .auth-strategy-card {
-    --KCardBorder: 1px solid var(--section_colors-stroke);
-    --KCardBorderRadius: 4px;
-    --KCardPaddingX: 12px;
+    --KCardBorder: none;
     --KCardPaddingY: 12px;
     margin-bottom: 4px;
 
-    .label, .auth-methods-label {
+    .label {
       margin-bottom: 4px;
     }
 
