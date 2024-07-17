@@ -11,7 +11,6 @@ name: Deploy web app to Azure Static Web Apps
 
 env:
   APP_LOCATION: "/" # location of your client code
-  #API_LOCATION: "api" # location of your api source code - optional
   OUTPUT_LOCATION: "dist" # location of client code build output
   VITE_PORTAL_API_URL: ${{ secrets.VUE_APP_API_URL }}
 
@@ -53,7 +52,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: ${{ env.APP_LOCATION }}
-          api_location: ${{ env.API_LOCATION }}
           output_location: ${{ env.OUTPUT_LOCATION }}
 
   close_pull_request:
