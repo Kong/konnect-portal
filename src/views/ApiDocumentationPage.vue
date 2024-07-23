@@ -232,6 +232,11 @@ export default defineComponent({
   pre {
     overflow-x: auto;
   }
+
+  li > p {
+    display: block;
+    margin-bottom: 12px;
+  }
 }
 </style>
 
