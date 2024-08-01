@@ -39,7 +39,10 @@
       class="no-auth-strategies-warning"
       data-testid="no-auth-strategies-warning"
     />
-    <AnalyticsConfigCheck require-analytics>
+    <AnalyticsConfigCheck
+      v-if="!myAppsReady || appsArePresent"
+      require-analytics
+    >
       <div>
         <MetricsProvider
           v-slot="{ timeframe }"
@@ -268,7 +271,7 @@ export default defineComponent({
     }
 
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
-    const appIds = ref([])
+    const appIds = ref<string[] | null>(null)
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,
@@ -375,10 +378,14 @@ export default defineComponent({
       return helpTextVitals.summary
     }
 
-    const myAppsReady = computed(() => Boolean(appIds.value && appIds.value?.length))
+    // Show the metric cards if applications are loading or if applications have loaded and exist.
+    // If we try to show metric cards when there aren't any applications, they won't be able to
+    // issue a query and will just show an endless skeleton loader.
+    const myAppsReady = computed(() => appIds.value !== null)
+    const appsArePresent = computed(() => !!appIds.value?.length)
 
     const metricProviderProps = computed(() => ({
-      queryReady: myAppsReady.value,
+      queryReady: appsArePresent.value,
       additionalFilter: [
         {
           type: EXPLORE_V2_FILTER_TYPES.IN,
@@ -431,7 +438,9 @@ export default defineComponent({
       helpText,
       helpTextVitals,
       analyticsCardTitle,
-      metricProviderProps
+      metricProviderProps,
+      myAppsReady,
+      appsArePresent
     }
   }
 })
