@@ -1,0 +1,1 @@
+function n(r,t){const e=[];return r.type===t&&e.push(r),Array.isArray(r.children)&&e.push(...r.children.flatMap(i=>n(i,t))),e}function a(r){return n(r,"text").map(t=>t.text).join("")}function s(r,t){return r.some(e=>e.id===t||e.children&&s(e.children,t))}export{n as f,a as g,s as h};
