@@ -38,10 +38,10 @@
           :link-text="helpText.apiDocumentation.error.linkText"
         />
 
-       <MarkdownUi
+        <MarkdownUi
           v-if="markdown"
-          class="documentation-display"
           v-model="markdown"
+          class="documentation-display"
           theme="light"
         />
       </template>
@@ -75,7 +75,6 @@ import { MarkdownUi } from '@kong/markdown'
 import '@kong/markdown/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
 
-
 export default defineComponent({
   name: 'ApiDocumentationPage',
   components: {
@@ -99,7 +98,6 @@ export default defineComponent({
     const router = useRouter()
     const { portalApiV2 } = usePortalApi()
     const documentationDisplay = ref()
-
 
     const breadcrumbs = computed(() => ([
       {
@@ -138,7 +136,6 @@ export default defineComponent({
     const markdown = ref<string>(null)
     const content = ref<DocumentBlock>(null)
 
-
     const sections = computed(() => {
       if (!content.value) {
         return []
@@ -171,13 +168,13 @@ export default defineComponent({
       errorCode.value = null
       isDocumentLoading.value = true
 
-      const getMarkdown =  portalApiV2.value.service.documentationApi.getProductDocument({
+      const getMarkdown = portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
         documentId: slug
       })
         .then((res) => {
           markdown.value = res.data.content
-      })
+        })
 
       const getDocumentNodes = portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
@@ -193,13 +190,12 @@ export default defineComponent({
           title.value = data.title
           content.value = data.content
           productStore.setActiveDocumentId(data.id)
-      })
+        })
 
       await Promise.all([getMarkdown, getDocumentNodes]).finally(() => {
         isDocumentLoading.value = false
       })
     }
-
 
     const handleError = (error) => {
       notify({

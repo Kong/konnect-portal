@@ -1179,7 +1179,7 @@
     v-calendar "3.0.0-alpha.8"
     vue-draggable-next "^2.2.1"
 
-"@kong/markdown@^1.7.8":
+"@kong/markdown@1.7.8":
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/@kong/markdown/-/markdown-1.7.8.tgz#24c451cdbd38381cb9b973dfc47370a70e5623c1"
   integrity sha512-cnow1XfB1UAApiJgYX44nU9cUsGSwxxuKCDDrCTBPTQDcd9jDgjw2Dm/H/9/JHcKuQGtzSe9fNbyBFOilp7dLg==
