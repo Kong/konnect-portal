@@ -148,7 +148,6 @@ export default defineComponent({
 
       return allHeadings
         .map((node) => {
-          console.log
           const text = getNodeTextContent(node)
           const { slug } = addSlug(node, slugMap, '')
           const level = getMaxHeaderLevel(2)
