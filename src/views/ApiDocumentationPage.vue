@@ -37,11 +37,12 @@
           :description="helpText.apiDocumentation.error.description"
           :link-text="helpText.apiDocumentation.error.linkText"
         />
-        <DocumentViewer
-          v-else-if="content"
-          data-testid="portal-document-viewer"
-          class="portal-document-viewer"
-          :document="content"
+
+       <MarkdownUi
+          v-if="markdown"
+          class="documentation-display"
+          v-model="markdown"
+          theme="light"
         />
       </template>
     </div>
@@ -69,15 +70,16 @@ import ErrorWrapper from '@/components/ErrorWrapper.vue'
 import { findAllNodesOfType, getNodeTextContent } from '@/helpers/document'
 import { ProductWithVersions, useI18nStore, useProductStore } from '@/stores'
 import useToaster from '@/composables/useToaster'
-import DocumentViewer, { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
-
-import '@kong-ui-public/document-viewer/dist/style.css'
+import { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
+import { MarkdownUi } from '@kong/markdown'
+import '@kong/markdown/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
+
 
 export default defineComponent({
   name: 'ApiDocumentationPage',
   components: {
-    DocumentViewer,
+    MarkdownUi,
     DocumentSections,
     ErrorWrapper
   },
@@ -96,6 +98,8 @@ export default defineComponent({
     const errorCode = ref(null)
     const router = useRouter()
     const { portalApiV2 } = usePortalApi()
+    const documentationDisplay = ref()
+
 
     const breadcrumbs = computed(() => ([
       {
@@ -131,7 +135,9 @@ export default defineComponent({
 
     const title = ref<string>(null)
     const isDocumentLoading = ref<boolean>(true)
+    const markdown = ref<string>(null)
     const content = ref<DocumentBlock>(null)
+
 
     const sections = computed(() => {
       if (!content.value) {
@@ -165,7 +171,15 @@ export default defineComponent({
       errorCode.value = null
       isDocumentLoading.value = true
 
-      await portalApiV2.value.service.documentationApi.getProductDocument({
+      const getMarkdown =  portalApiV2.value.service.documentationApi.getProductDocument({
+        productId,
+        documentId: slug
+      })
+        .then((res) => {
+          markdown.value = res.data.content
+      })
+
+      const getDocumentNodes = portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
         documentId: slug
       }, {
@@ -179,11 +193,13 @@ export default defineComponent({
           title.value = data.title
           content.value = data.content
           productStore.setActiveDocumentId(data.id)
-        })
-        .finally(() => {
-          isDocumentLoading.value = false
-        })
+      })
+
+      await Promise.all([getMarkdown, getDocumentNodes]).finally(() => {
+        isDocumentLoading.value = false
+      })
     }
+
 
     const handleError = (error) => {
       notify({
@@ -216,12 +232,14 @@ export default defineComponent({
       helpText,
       title,
       content,
+      markdown,
       isDocumentLoading,
       sections,
       breadcrumbs,
       document,
       errorCode,
-      slug: activeDocumentSlug.value
+      slug: activeDocumentSlug.value,
+      documentationDisplay
     }
   }
 })
