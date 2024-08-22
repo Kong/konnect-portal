@@ -38,7 +38,6 @@
     "@kong/markdown": "1.7.8",
     "@kong/sdk-portal-js": "2.14.0",
     "@xstate/vue": "2.0.0",
-    "add": "^2.0.6",
     "axios": "1.6.7",
     "date-fns": "3.3.0",
     "dotenv": "16.4.5",
@@ -46,8 +45,7 @@
     "pinia": "2.1.3",
     "vue": "3.4.21",
     "vue-router": "4.3.0",
-    "xstate": "4.38.3",
-    "yarn": "^1.22.22"
+    "xstate": "4.38.3"
   },
   "devDependencies": {
     "@commitlint/cli": "18.6.1",
