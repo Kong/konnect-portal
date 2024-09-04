@@ -1,5 +1,6 @@
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { ProductAction, usePermissionsStore } from '@/stores'
+import { RouteLocationNormalized, RouteLocationRaw } from 'vue-router'
 
 export const AUTH_ROUTES = {
   login: true,
@@ -47,8 +48,17 @@ export function getRedirectRoute (redirectName, fromName) {
   return redirectName !== fromName && { name: redirectName }
 }
 
-export function getRedirectRouteBasedOnPath (redirectToPath, fromPath) {
-  return redirectToPath !== fromPath && { path: redirectToPath }
+export function getRedirectRouteBasedOnPath (redirectToPath: string, fromPath: string): RouteLocationRaw | undefined {
+  if (redirectToPath !== fromPath) {
+    const hash = redirectToPath.split('#')[1]
+
+    return {
+      path: redirectToPath,
+      hash: hash ? `#${hash}` : undefined
+    }
+  } else {
+    return undefined
+  }
 }
 
 export function removeQueryParam (queryParam) {
@@ -106,6 +116,6 @@ export function verifyDeveloperFulfillMetaForRoute (to) {
 
 // Combine both checks and should be used as default one to check developer permissions
 
-export async function shouldDeveloperAccessRoute (to, data) {
+export async function shouldDeveloperAccessRoute (to: RouteLocationNormalized, data: { portalId: string; }) {
   return verifyDeveloperFulfillMetaForRoute(to) && await verifyDeveloperIsAuthorizedForRoute(to, data)
 }
