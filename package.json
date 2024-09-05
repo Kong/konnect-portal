@@ -83,7 +83,7 @@
     "semantic-release": "22.0.5",
     "tailwindcss": "3.4.0",
     "typescript": "5.4.4",
-    "vite": "5.1",
+    "vite": "5.4",
     "vite-svg-loader": "5.1.0",
     "vue-tsc": "1.8.4"
   },
