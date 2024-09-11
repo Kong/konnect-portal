@@ -343,4 +343,13 @@ export default defineComponent({
     }
   }
 }
+
+.documentation-display {
+   --kui-color-background: var(--section_colors-body);
+   --kui-font-family-text: var(--font-family-sans);
+   --kui-color-text: var(--text_colors-primary);
+   --kui-color-text-primary: var(--text_colors-link);
+   --kui-color-text-primary-stronger: var(--text_colors-accent);
+   --kui-color-background-neutral-weaker: var(--section_colors-accent);
+}
 </style>
