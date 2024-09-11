@@ -38,8 +38,15 @@
           :link-text="helpText.apiDocumentation.error.linkText"
         />
 
+        <DocumentViewer
+          v-if="content && !newMarkdownRenderEnabled"
+          data-testid="portal-document-viewer"
+          class="portal-document-viewer"
+          :document="content"
+        />
+
         <MarkdownUi
-          v-if="markdown"
+          v-else-if="markdown && newMarkdownRenderEnabled"
           v-model="markdown"
           class="documentation-display"
           theme="light"
@@ -74,6 +81,8 @@ import { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
 import { MarkdownUi } from '@kong/markdown'
 import '@kong/markdown/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ApiDocumentationPage',
@@ -135,6 +144,7 @@ export default defineComponent({
     const isDocumentLoading = ref<boolean>(true)
     const markdown = ref<string>(null)
     const content = ref<DocumentBlock>(null)
+    const newMarkdownRenderEnabled = useLDFeatureFlag(FeatureFlags.newMarkdownRender, false)
 
     const sections = computed(() => {
       if (!content.value) {
@@ -149,7 +159,7 @@ export default defineComponent({
       return allHeadings
         .map((node) => {
           const text = getNodeTextContent(node)
-          const { slug } = addSlug(node, slugMap, '')
+          const { slug } = addSlug(node, slugMap, newMarkdownRenderEnabled.value ? '' : undefined)
           const level = getMaxHeaderLevel(2)
 
           return {
@@ -235,7 +245,8 @@ export default defineComponent({
       document,
       errorCode,
       slug: activeDocumentSlug.value,
-      documentationDisplay
+      documentationDisplay,
+      newMarkdownRenderEnabled
     }
   }
 })
