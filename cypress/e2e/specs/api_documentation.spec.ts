@@ -1,16 +1,24 @@
 import { product, productVersion } from '../fixtures/consts'
 import childrenApiDocumentationJSON from '../fixtures/dochub_mocks/childrenApiDocumentation.json'
 import documentTreeJSON from '../fixtures/dochub_mocks/documentTree.json'
-
+import { FeatureFlags } from '@/constants/feature-flags'
 describe('Api Documentation Page', () => {
   beforeEach(() => {
     product.document_count = 1
-    cy.mockPrivatePortal()
-    cy.mockProduct(product.id, product)
-    cy.mockGetProductDocumentBySlug(product.id, 'bar')
-    cy.mockGetProductDocuments(product.id)
-    cy.mockProductOperations()
-    cy.mockStylesheetFont()
+
+    cy.mockLaunchDarklyFlags([
+      {
+        name: FeatureFlags.newMarkdownRender,
+        value: false
+      }
+    ]).then(() => {
+      cy.mockPrivatePortal()
+      cy.mockProduct(product.id, product)
+      cy.mockGetProductDocumentBySlug(product.id, 'bar')
+      cy.mockGetProductDocuments(product.id)
+      cy.mockProductOperations()
+      cy.mockStylesheetFont()
+    })
   })
 
   const PARENT_DOCUMENT_URL = `/docs/${product.id}/${documentTreeJSON[0].slug}`

@@ -48,7 +48,7 @@
         <MarkdownUi
           v-else-if="markdown && newMarkdownRenderEnabled"
           v-model="markdown"
-          class="documentation-display"
+          class="documentation-display portal-document-viewer"
           theme="light"
         />
       </template>
@@ -77,7 +77,8 @@ import ErrorWrapper from '@/components/ErrorWrapper.vue'
 import { findAllNodesOfType, getNodeTextContent } from '@/helpers/document'
 import { ProductWithVersions, useI18nStore, useProductStore } from '@/stores'
 import useToaster from '@/composables/useToaster'
-import { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
+import DocumentViewer, { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
+import '@kong-ui-public/document-viewer/dist/style.css'
 import { MarkdownUi } from '@kong/markdown'
 import '@kong/markdown/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
@@ -88,6 +89,7 @@ export default defineComponent({
   name: 'ApiDocumentationPage',
   components: {
     MarkdownUi,
+    DocumentViewer,
     DocumentSections,
     ErrorWrapper
   },
