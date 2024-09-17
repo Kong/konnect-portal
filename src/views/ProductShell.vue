@@ -158,7 +158,7 @@ function initActiveProductVersionId () {
   }
 
   if (!activeProductVersionId.value) {
-    productStore.setActiveProductVersionId(versions[0]?.id)
+    productStore.setActiveProductVersionId(versions[versions.length - 1]?.id)
   }
 }
 
