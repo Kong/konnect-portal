@@ -15,6 +15,7 @@ interface PortalData {
   isPublic: boolean;
   isRbacEnabled: boolean;
   allowedTimePeriod: string;
+  canonicalDomain: string;
 }
 
 export const useAppStore = defineStore('app', () => {
@@ -28,6 +29,7 @@ export const useAppStore = defineStore('app', () => {
   const featuresetId = ref<string>(null)
   const featureSet = ref<string>('')
   const allowedTimePeriod = ref<string>(PortalTimeframeKeys.ONE_DAY)
+  const canonicalDomain = ref<string>('')
   const authClientConfig = ref<{
     basicAuthEnabled: boolean;
     oidcAuthEnabled: boolean;
@@ -68,6 +70,10 @@ export const useAppStore = defineStore('app', () => {
     if (data.allowedTimePeriod) {
       allowedTimePeriod.value = data.allowedTimePeriod
     }
+
+    if (data.canonicalDomain) {
+      canonicalDomain.value = data.canonicalDomain
+    }
   }
 
   const setSession = (session: SessionCookie) => {
@@ -85,6 +91,7 @@ export const useAppStore = defineStore('app', () => {
     featuresetId,
     featureSet,
     allowedTimePeriod,
+    canonicalDomain,
     authClientConfig,
 
     logout,
