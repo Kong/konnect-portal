@@ -1266,12 +1266,12 @@
     mermaid "^10.9.1"
     uuid "^10.0.0"
 
-"@kong/sdk-portal-js@2.14.0":
-  version "2.14.0"
-  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-2.14.0.tgz#f39c01a3de23270fef1ca8ad5a8e52e9a69eb6b0"
-  integrity sha512-3ZJckN0Ei1ul3k+U5wuzmlA/K2ZRw2uQmYtO0UUPfD9G5A5eiOAWvJWrHCIBYk407DOVUjto2TdCAyFnjpjpWg==
+"@kong/sdk-portal-js@2.15.4":
+  version "2.15.4"
+  resolved "https://registry.yarnpkg.com/@kong/sdk-portal-js/-/sdk-portal-js-2.15.4.tgz#0020c4b2f892df656bda615e078f8ad7db908037"
+  integrity sha512-zRgjA518C9g5Pyv3oksHK/f4MastP/KBbkgMahUe9LdOWrUFdUScy0jC/8W1PihK6Szd8VhNVgScSfG/2OYy+A==
   dependencies:
-    axios "1.6.0"
+    axios "1.7.4"
 
 "@kong/swagger-ui-kong-theme-universal@^4.3.3":
   version "4.3.3"
@@ -2590,6 +2590,40 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@unhead/dom@1.11.6":
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/@unhead/dom/-/dom-1.11.6.tgz#639e90793eb18605038591d496ee772d0e6a1449"
+  integrity sha512-FYU8Cu+XWcpbO4OvXdB6x7m6GTPcl6CW7igI8rNu6Kc0Ilxb+atxIvyFXdTGAyB7h/F0w3ex06ZVWJ65f3EW8A==
+  dependencies:
+    "@unhead/schema" "1.11.6"
+    "@unhead/shared" "1.11.6"
+
+"@unhead/schema@1.11.6":
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/@unhead/schema/-/schema-1.11.6.tgz#4528d08ecb1addae0721221aca443fc04bb61bdd"
+  integrity sha512-Ava5+kQERaZ2fi66phgR9KZQr9SsheN1YhhKM8fCP2A4Jb5lHUssVQ19P0+89V6RX9iUg/Q27WdEbznm75LzhQ==
+  dependencies:
+    hookable "^5.5.3"
+    zhead "^2.2.4"
+
+"@unhead/shared@1.11.6":
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/@unhead/shared/-/shared-1.11.6.tgz#f70a0b0c72bfb836f96f36a20bb1831ddecd160e"
+  integrity sha512-aGrtzRCcFlVh9iru73fBS8FA1vpQskS190t5cCRRMpisOEunVv3ueqXN1F8CseQd0W4wyEr/ycDvdfKt+RPv5g==
+  dependencies:
+    "@unhead/schema" "1.11.6"
+
+"@unhead/vue@1.11.6":
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.11.6.tgz#dd9b117777f3be93b39a9cf50099a7b7b2ae7a94"
+  integrity sha512-CMuDJGTi4n4wKdOp6/JmB9roGshjTdoFKF34PEkXu4+g97BiVFiZ9LvgY44+UlWCUzQHcqEPRQIzm9iKEqcfKw==
+  dependencies:
+    "@unhead/schema" "1.11.6"
+    "@unhead/shared" "1.11.6"
+    defu "^6.1.4"
+    hookable "^5.5.3"
+    unhead "1.11.6"
+
 "@vitejs/plugin-vue-jsx@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-vue-jsx/-/plugin-vue-jsx-3.1.0.tgz#9953fd9456539e1f0f253bf0fcd1289e66c67cd1"
@@ -3298,21 +3332,21 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.12.0.tgz#ce1c9d143389679e253b314241ea9aa5cec980d3"
   integrity sha512-NmWvPnx0F1SfrQbYwOi7OeaNGokp9XhzNioJ/CSBs8Qa4vxug81mhJEAVZwxXuBmYB5KDRfMq/F3RR0BIU7sWg==
 
-axios@1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.0.tgz#f1e5292f26b2fd5c2e66876adc5b06cdbd7d2102"
-  integrity sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==
-  dependencies:
-    follow-redirects "^1.15.0"
-    form-data "^4.0.0"
-    proxy-from-env "^1.1.0"
-
 axios@1.6.7, axios@^1.4.0, axios@^1.6.0:
   version "1.6.7"
   resolved "https://registry.yarnpkg.com/axios/-/axios-1.6.7.tgz#7b48c2e27c96f9c68a2f8f31e2ab19f59b06b0a7"
   integrity sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==
   dependencies:
     follow-redirects "^1.15.4"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
+axios@1.7.4:
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.4.tgz#4c8ded1b43683c8dd362973c393f3ede24052aa2"
+  integrity sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==
+  dependencies:
+    follow-redirects "^1.15.6"
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
@@ -4847,6 +4881,11 @@ define-properties@^1.1.3, define-properties@^1.1.4, define-properties@^1.2.0:
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
 
+defu@^6.1.4:
+  version "6.1.4"
+  resolved "https://registry.yarnpkg.com/defu/-/defu-6.1.4.tgz#4e0c9cf9ff68fe5f3d7f2765cc1a012dfdcb0479"
+  integrity sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==
+
 delaunator@5:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/delaunator/-/delaunator-5.0.1.tgz#39032b08053923e924d6094fe2cde1a99cc51278"
@@ -6164,7 +6203,7 @@ focus-trap@^7.4.3, focus-trap@^7.5.2:
   dependencies:
     tabbable "^6.2.0"
 
-follow-redirects@^1.15.0, follow-redirects@^1.15.4, follow-redirects@^1.15.6:
+follow-redirects@^1.15.4, follow-redirects@^1.15.6:
   version "1.15.6"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
   integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
@@ -6820,6 +6859,11 @@ hook-std@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/hook-std/-/hook-std-3.0.0.tgz#47038a01981e07ce9d83a6a3b2eb98cad0f7bd58"
   integrity sha512-jHRQzjSDzMtFy34AGj1DN+vq54WVuhSvKgrHf0OMiFQTwDD4L/qqofVEWjLOBMTn5+lCD3fPg32W9yOfnEJTTw==
+
+hookable@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/hookable/-/hookable-5.5.3.tgz#6cfc358984a1ef991e2518cb9ed4a778bbd3215d"
+  integrity sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==
 
 hosted-git-info@^2.1.4:
   version "2.8.9"
@@ -12065,6 +12109,16 @@ underscore@^1.8.3:
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.6.tgz#04786a1f589dc6c09f761fc5f45b89e935136441"
   integrity sha512-+A5Sja4HP1M08MaXya7p5LvjuM7K6q/2EaC0+iovj/wOcMsTzMvDFbasi/oSapiwOlt252IqsKqPjCl7huKS0A==
 
+unhead@1.11.6:
+  version "1.11.6"
+  resolved "https://registry.yarnpkg.com/unhead/-/unhead-1.11.6.tgz#2358cfe4e1d2a6f70d992a0ec57bc7ae5f6354dc"
+  integrity sha512-TKTQGUzHKF925VZ4KZVbLfKFzTVTEWfPLaXKmkd/ptEY2FHEoJUF7xOpAWc3K7Jzy/ExS66TL7GnLLjtd4sISg==
+  dependencies:
+    "@unhead/dom" "1.11.6"
+    "@unhead/schema" "1.11.6"
+    "@unhead/shared" "1.11.6"
+    hookable "^5.5.3"
+
 unicode-emoji-modifier-base@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unicode-emoji-modifier-base/-/unicode-emoji-modifier-base-1.0.0.tgz#dbbd5b54ba30f287e2a8d5a249da6c0cef369459"
@@ -12605,3 +12659,8 @@ zenscroll@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/zenscroll/-/zenscroll-4.0.2.tgz#e8d5774d1c0738a47bcfa8729f3712e2deddeb25"
   integrity sha512-jEA1znR7b4C/NnaycInCU6h/d15ZzCd1jmsruqOKnZP6WXQSMH3W2GL+OXbkruslU4h+Tzuos0HdswzRUk/Vgg==
+
+zhead@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/zhead/-/zhead-2.2.4.tgz#87cd1e2c3d2f465fa9f43b8db23f9716dfe6bed7"
+  integrity sha512-8F0OI5dpWIA5IGG5NHUg9staDwz/ZPxZtvGVf01j7vHqSyZ0raHY+78atOVxRqb73AotX22uV1pXt3gYSstGag==

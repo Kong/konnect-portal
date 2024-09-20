@@ -1,3 +1,4 @@
+import { createHead } from '@unhead/vue'
 import { createApp } from 'vue'
 import piniaInstance, { useAppStore } from '@/stores'
 
@@ -37,6 +38,9 @@ import portalAnalyticsBridge from '@kong-ui-public/portal-analytics-bridge'
 
 async function init () {
   const app = createApp(App)
+  const head = createHead()
+
+  app.use(head)
 
   // Initialize the Pinia store
   app.use(piniaInstance)
@@ -65,7 +69,8 @@ async function init () {
       is_public: isPublic,
       basic_auth_enabled: basicAuthEnabled,
       rbac_enabled: isRbacEnabled,
-      allowed_time_period: allowedTimePeriod
+      allowed_time_period: allowedTimePeriod,
+      canonical_domain: canonicalDomain
     } = portalContext.data
 
     if (isPublic === false) {
@@ -74,7 +79,7 @@ async function init () {
 
     const authClientConfig = { basicAuthEnabled, oidcAuthEnabled }
 
-    setPortalData({ portalId, orgId, authClientConfig, featuresetId, featureSet, isPublic, isRbacEnabled, allowedTimePeriod })
+    setPortalData({ portalId, orgId, authClientConfig, featuresetId, featureSet, isPublic, isRbacEnabled, allowedTimePeriod, canonicalDomain })
     setSession(session)
 
     // Fetch session data from localStorage
