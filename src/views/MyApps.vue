@@ -144,7 +144,7 @@
                 :title="searchStr ? helpText.noSearchResults : helpText.noApp"
               >
                 <template #message>
-                  <p>
+                  <p v-if="hasAppAuthStrategies">
                     <router-link
                       data-testid="create-application-link"
                       :to="{

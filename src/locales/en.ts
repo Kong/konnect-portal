@@ -299,7 +299,7 @@ export const en = {
     logoAlt: 'logo'
   },
   myApp: {
-    authStrategyWarning: 'You cannot create an application as this developer portal has no available application auth strategies. Please contact a developer portal admin.',
+    authStrategyWarning: 'There are no APIs that require authentication published to this portal. Application creation is disabled.',
     authStrategyFetchError: (errString: string) => `Error fetching auth strategies: ${errString}`,
     newApp: 'New App',
     plus: 'Plus',
