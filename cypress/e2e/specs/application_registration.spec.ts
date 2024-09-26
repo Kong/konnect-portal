@@ -127,7 +127,7 @@ describe('Application Registration', () => {
     cy.visit('/my-apps')
 
     cy.get('[data-testid="create-application-button"]').should('exist')
-    cy.get('[data-testid="create-application-link"]').should('exist')
+    cy.get('[data-testid="create-application-link"]').should('not.exist')
     cy.get('[data-testid="empty-state-card"]')
       .should('exist')
       .should('contain', 'No Applications')
