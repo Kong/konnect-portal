@@ -127,10 +127,23 @@ describe('Application Registration', () => {
     cy.visit('/my-apps')
 
     cy.get('[data-testid="create-application-button"]').should('exist')
-    cy.get('[data-testid="create-application-link"]').should('exist')
+    cy.get('[data-testid="create-application-link"]').should('not.exist')
     cy.get('[data-testid="empty-state-card"]')
       .should('exist')
       .should('contain', 'No Applications')
+  })
+
+  it('displays empty dashboard with enabled buttons', () => {
+    cy.mockApplications([], 0)
+    cy.mockApplicationAuthStrategies([{ name: 'foo', id: '1', credential_type: 'client_credentials', auth_methods: ['session', 'bearer'] }], 0)
+
+    cy.visit('/my-apps')
+
+    cy.get('[data-testid="create-application-button"]').should('exist')
+    cy.get('[data-testid="create-application-link"]').should('exist')
+    cy.get('[data-testid="empty-state-card"]')
+    .should('exist')
+    .should('contain', 'No Applications')
   })
 
   it('can return to My Apps from application details via breadcrumb', () => {
