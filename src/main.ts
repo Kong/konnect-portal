@@ -31,6 +31,7 @@ import useToaster from './composables/useToaster'
 import usePortalApi from './hooks/usePortalApi'
 import { createRedirectHandler } from './helpers/auth'
 import portalAnalyticsBridge from '@kong-ui-public/portal-analytics-bridge'
+import { PortalContext } from '@kong/sdk-portal-js'
 
 /**
  * Initialize application
@@ -66,18 +67,20 @@ async function init () {
       featureset_id: featuresetId,
       feature_set: featureSet,
       oidc_auth_enabled: oidcAuthEnabled,
+      saml_auth_enabled: samlAuthEnabled,
       is_public: isPublic,
       basic_auth_enabled: basicAuthEnabled,
       rbac_enabled: isRbacEnabled,
       allowed_time_period: allowedTimePeriod,
       canonical_domain: canonicalDomain
-    } = portalContext.data
+    } = portalContext.data as PortalContext & { saml_auth_enabled: boolean }
 
     if (isPublic === false) {
       portalApiV2.value.updateClientWithCredentials()
     }
 
-    const authClientConfig = { basicAuthEnabled, oidcAuthEnabled }
+    // SAML Auth enabled comes on a different portal context property, but is handled the same as OIDC by the Auth Client
+    const authClientConfig = { basicAuthEnabled, oidcAuthEnabled: oidcAuthEnabled || samlAuthEnabled }
 
     setPortalData({ portalId, orgId, authClientConfig, featuresetId, featureSet, isPublic, isRbacEnabled, allowedTimePeriod, canonicalDomain })
     setSession(session)

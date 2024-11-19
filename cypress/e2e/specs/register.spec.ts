@@ -63,7 +63,17 @@ describe('Register Page', () => {
       cy.get('[data-testid="kong-auth-login-sso"]').should('not.exist')
     })
     it('redirects to login (with SSO) when basic auth disabled', () => {
-      cy.mockPrivatePortal({ basic_auth_enabled: false, oidc_auth_enabled: true })
+      cy.mockPrivatePortal({ basic_auth_enabled: false, oidc_auth_enabled: true, saml_auth_enabled: false })
+
+      cy.visit('/', { useOriginalFn: true })
+      cy.location('pathname').should('equal', '/login')
+      cy.get('[data-testid="auth-form"]').should('be.visible')
+      cy.get('[data-testid="sign-up-encouragement-message"]').should('not.exist')
+      cy.get('[data-testid="kong-auth-login-sso"]').should('exist')
+    })
+
+    it('redirects to login (with SSO - SAML) when basic auth disabled', () => {
+      cy.mockPrivatePortal({ basic_auth_enabled: false, oidc_auth_enabled: false, saml_auth_enabled: true })
 
       cy.visit('/', { useOriginalFn: true })
       cy.location('pathname').should('equal', '/login')
