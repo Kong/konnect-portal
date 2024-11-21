@@ -216,7 +216,7 @@ describe('Login Page', () => {
   })
 
   it('shows Login with SSO button', () => {
-    cy.mockPrivatePortal({ oidc_auth_enabled: true, basic_auth_enabled: false })
+    cy.mockPrivatePortal({ oidc_auth_enabled: true, basic_auth_enabled: false, saml_auth_enabled: false })
 
     cy.visit('/', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
@@ -225,8 +225,19 @@ describe('Login Page', () => {
     cy.get('[data-testid="kong-auth-login-sso"]').should('exist')
   })
 
+  it('shows Login with SSO button (SAML)', () => {
+    cy.mockPrivatePortal({ oidc_auth_enabled: false, basic_auth_enabled: false, saml_auth_enabled: true })
+
+    cy.visit('/', { useOriginalFn: true })
+    cy.location('pathname').should('equal', '/login')
+    cy.get('[data-testid="auth-form"]').should('be.visible')
+    cy.get('[data-testid="sign-up-encouragement-message"]').should('not.exist')
+    cy.get('[data-testid="kong-auth-login-sso"]').should('exist')
+  })
+
+
   it('does not show Login with SSO button', () => {
-    cy.mockPrivatePortal({ oidc_auth_enabled: false })
+    cy.mockPrivatePortal({ oidc_auth_enabled: false, saml_auth_enabled: false })
 
     cy.visit('/', { useOriginalFn: true })
     cy.location('pathname').should('equal', '/login')
