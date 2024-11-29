@@ -1,5 +1,6 @@
 import { ProductCatalogIndexSourceLatestVersion, SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
 import { generateProducts } from '../support/utils/generateProducts'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 const mockProductSearchQuery = (searchQuery: string) => {
   const searchResults: SearchResultsDataInner[] = ([
@@ -25,7 +26,8 @@ const mockProductSearchQuery = (searchQuery: string) => {
         latest_version: {
           name: versions[0],
           id: crypto.randomUUID()
-        }
+        },
+        public_labels: {}
       }
     }))
 
@@ -195,6 +197,105 @@ describe('Catalog', () => {
         cy.get('.k-table thead th').should('contain', 'Details').should('exist')
         cy.get('.k-table tbody td:nth-of-type(4) a').should('exist').should('contain', 'Specification')
         cy.get('.k-table tbody td:nth-of-type(4) a').should('exist').should('contain', 'Documentation')
+      })
+    })
+
+    describe('Catalog Item Public Labels (feature flag enabled)', () => {
+      beforeEach(() => {
+        cy.mockPublicPortal()
+        cy.mockLaunchDarklyFlags([
+          { name: FeatureFlags.publicLabelsUI, value: true }
+        ])
+        cy.visit('/')
+        // click view toggle to table mode
+        cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
+      })
+
+      it('renders public labels correctly', () => {
+        const productWithLabels = {
+          id: 'test-product',
+          title: 'Test Product',
+          description: 'A test product with public labels',
+          public_labels: {
+            category: 'test',
+            version: '1.0'
+          },
+          showSpecLink: true,
+          documentCount: 1,
+          latestVersion: { name: 'v1' }
+        }
+
+        cy.mockProductsCatalog(1, [productWithLabels])
+
+        cy.visit('/')
+
+        cy.get('.catalog-item').eq(0).within(() => {
+          // Check if the public labels section exists
+          cy.contains('Labels:').should('exist')
+
+          // Check if all public labels are rendered
+          cy.get('.product-public-label').should('have.length', 2)
+
+          // Check the content of each label
+          cy.get('.product-public-label').eq(0).should('contain', 'category: test')
+          cy.get('.product-public-label').eq(1).should('contain', 'version: 1.0')
+        })
+      })
+
+      it('does not render public labels section when product has no labels', () => {
+        const productWithoutLabels = {
+          id: 'test-product-no-labels',
+          title: 'Test Product Without Labels',
+          description: 'A test product without public labels',
+          public_labels: {},
+          showSpecLink: true,
+          documentCount: 1,
+          latestVersion: { name: 'v1' }
+        }
+
+        cy.mockProductsCatalog(1, [productWithoutLabels])
+
+        cy.visit('/')
+
+        cy.get('.catalog-item').eq(0).within(() => {
+          // Check that the public labels section does not exist
+          cy.contains('Labels:').should('not.exist')
+          cy.get('.product-public-label').should('not.exist')
+        })
+      })
+    })
+    describe('Catalog Item Public Labels (feature flag disabled)', () => {
+      beforeEach(() => {
+        cy.mockPublicPortal()
+        cy.mockLaunchDarklyFlags([
+          { name: FeatureFlags.publicLabelsUI, value: false }
+        ])
+        cy.visit('/')
+      })
+
+      it('renders no labels ', () => {
+        const productWithLabels = {
+          id: 'test-product',
+          title: 'Test Product',
+          description: 'A test product with public labels',
+          public_labels: {
+            category: 'test',
+            version: '1.0'
+          },
+          showSpecLink: true,
+          documentCount: 1,
+          latestVersion: { name: 'v1' }
+        }
+
+        cy.mockProductsCatalog(1, [productWithLabels])
+
+        cy.visit('/')
+
+        cy.get('.catalog-item').within(() => {
+          // Check if the public labels section exists
+          cy.contains('Labels:').should('not.exist')
+          cy.get('.product-public-label').should('not.exist')
+        })
       })
     })
   })

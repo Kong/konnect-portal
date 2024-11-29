@@ -251,6 +251,7 @@ export const en = {
   },
   catalogItem: {
     latestVersion: 'Latest Version:',
+    publicLabels: 'Labels:',
     specificationLink: 'Specification',
     documentationLink: 'Documentation'
   },

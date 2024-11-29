@@ -18,9 +18,7 @@
     </template>
     <template #body>
       <p class="description color-text_colors-secondary">
-        <template
-          v-if="loading"
-        >
+        <template v-if="loading">
           <KSkeletonBox width="100" />
           <KSkeletonBox width="50" />
           <KSkeletonBox width="75" />
@@ -35,9 +33,7 @@
             v-if="version"
             class="my-2 color-text_colors-secondary"
           >
-            <template
-              v-if="loading"
-            >
+            <template v-if="loading">
               <KSkeletonBox width="2" />
             </template>
             <template v-else>
@@ -49,6 +45,33 @@
               >
                 {{ version.name }}
               </KBadge>
+            </template>
+          </span>
+        </li>
+        <li
+          v-if="publicLabelsUIEnabled"
+          class="details-item"
+        >
+          <span
+            v-if="product.publicLabels.length"
+            class="my-2 color-text_colors-secondary"
+          >
+            <template v-if="loading">
+              <KSkeletonBox width="2" />
+            </template>
+            <template v-else>
+              <span class="mr-2">{{ helpText.publicLabels }}</span>
+              <div>
+                <KBadge
+                  v-for="label in product.publicLabels"
+                  :key="label.key"
+                  color="var(--text_colors-secondary)"
+                  background-color="var(--section_colors-accent)"
+                  class="product-public-label"
+                >
+                  {{ label.key }}: {{ label.value }}
+                </KBadge>
+              </div>
             </template>
           </span>
         </li>
@@ -104,6 +127,8 @@
 </template>
 
 <script lang="ts">
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { CatalogItemModel, useI18nStore } from '@/stores'
 import { PropType } from 'vue'
 
@@ -122,8 +147,12 @@ export default {
   data () {
     const helpText = useI18nStore().state.helpText.catalogItem
 
+    // check for feature flag
+    const publicLabelsUIEnabled = useLDFeatureFlag(FeatureFlags.publicLabelsUI, false)
+
     return {
-      helpText
+      helpText,
+      publicLabelsUIEnabled
     }
   },
   computed: {

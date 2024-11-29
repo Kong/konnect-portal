@@ -14,6 +14,7 @@ export interface CatalogItemModel {
   description: string;
   documentCount: number;
   versionCount: number;
+  publicLabels: Array<{key: string; value: string}>;
 }
 
 export type CustomOperation = Operation & {tag?: string}

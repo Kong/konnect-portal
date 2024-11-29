@@ -251,6 +251,7 @@ export interface I18nType {
   };
   catalogItem: {
     latestVersion: string;
+    publicLabels: string;
     specificationLink: string;
     documentationLink: string;
   };
