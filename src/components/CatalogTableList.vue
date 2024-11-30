@@ -23,7 +23,7 @@
             <KBadge
               color="var(--text_colors-secondary)"
               background-color="var(--section_colors-accent)"
-              class="product-version"
+              class="product-public-label"
             >
               {{ label.key }}: {{ label.value }}
             </KBadge>
@@ -45,6 +45,7 @@
       <template #links="{ row }">
         <router-link
           v-if="row.showSpecLink"
+          :data-testid="`spec-link-${row.id}`"
           :to="{ name: 'spec', params: { product: row.id } }"
           class="link"
         >
@@ -52,6 +53,7 @@
         </router-link>
         <router-link
           v-if="row.documentCount"
+          :data-testid="`docs-link-${row.id}`"
           :to="{ name: 'api-documentation-page', params: { product: row.id } }"
           class="link"
         >

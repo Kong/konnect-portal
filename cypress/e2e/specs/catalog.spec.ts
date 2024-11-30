@@ -1,4 +1,4 @@
-import { ProductCatalogIndexSourceLatestVersion, SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
+import type { ProductCatalogIndexSourceLatestVersion, SearchResults, SearchResultsDataInner } from '@kong/sdk-portal-js'
 import { generateProducts } from '../support/utils/generateProducts'
 import { FeatureFlags } from '@/constants/feature-flags'
 
@@ -8,10 +8,10 @@ const mockProductSearchQuery = (searchQuery: string) => {
     ['fooApi', ['v1']],
     ['sampleapi', ['v1']],
     ['testapi', ['v1']],
-    ['xapi', ['v1']]
+    ['xapi', ['v1']],
   ] as [string, string[]][])
     .filter((data) =>
-      searchQuery !== '' ? JSON.stringify(data).includes(searchQuery) : true
+      searchQuery !== '' ? JSON.stringify(data).includes(searchQuery) : true,
     )
     .map(([name, versions]) => ({
       index: 'product-catalog',
@@ -25,10 +25,10 @@ const mockProductSearchQuery = (searchQuery: string) => {
         version_count: versions.length,
         latest_version: {
           name: versions[0],
-          id: crypto.randomUUID()
+          id: crypto.randomUUID(),
         },
-        public_labels: {}
-      }
+        public_labels: {},
+      },
     }))
 
   const responseBody: SearchResults = {
@@ -37,16 +37,16 @@ const mockProductSearchQuery = (searchQuery: string) => {
       page: {
         number: 1,
         size: searchResults.length,
-        total: searchResults.length
-      }
-    }
+        total: searchResults.length,
+      },
+    },
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
     times: 1,
     statusCode: 200,
     body: responseBody,
-    delay: 0
+    delay: 0,
   }).as('productSearch')
 }
 
@@ -57,15 +57,15 @@ const mockProductSearchResults = (searchResults:SearchResultsDataInner[], pageNu
       page: {
         number: pageNumber,
         size: searchResults.length,
-        total: totalCount
-      }
-    }
+        total: totalCount,
+      },
+    },
   }
 
   cy.intercept('GET', '**/api/v2/search/product-catalog**', {
     delay: 0,
     statusCode: 200,
-    body: responseBody
+    body: responseBody,
   }).as('productSearch')
 }
 
@@ -165,9 +165,8 @@ describe('Catalog', () => {
       cy.mockPublicPortal()
       cy.mockProductsCatalog(13)
       cy.visit('/')
-      cy.wait('@productSearch').then(() => {
-        cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
-      })
+      cy.wait('@productSearch')
+      cy.selectViewMode('table')
     })
 
     it('displays the table view', () => {
@@ -188,114 +187,132 @@ describe('Catalog', () => {
     })
     it('renders the documentation link for catalog item ', () => {
       cy.mockPrivatePortal()
-      cy.mockProductsCatalog(1, [{ description: 'great description', document_count: 1 }])
+      const mockedProductWithDocs = { description: 'great description', document_count: 1, id: '12345' }
+      cy.mockProductsCatalog(1, [mockedProductWithDocs])
       cy.mockProduct()
       cy.visit('/')
 
-      cy.wait('@productSearch').then(() => {
-        cy.get('.k-table').should('have.length', 1)
-        cy.get('.k-table thead th').should('contain', 'Details').should('exist')
-        cy.get('.k-table tbody td:nth-of-type(4) a').should('exist').should('contain', 'Specification')
-        cy.get('.k-table tbody td:nth-of-type(4) a').should('exist').should('contain', 'Documentation')
+      cy.wait('@productSearch')
+      cy.get('.k-table').should('have.length', 1)
+      cy.get('.k-table thead th').should('contain', 'Details').should('exist')
+      cy.get(`[data-testid="spec-link-${mockedProductWithDocs.id}"]`).should('exist').and('contain', 'Specification')
+      cy.get(`[data-testid="docs-link-${mockedProductWithDocs.id}"]`).should('exist').and('contain', 'Documentation')
+
+    })
+  })
+
+  describe('Catalog Item Public Labels (feature flag enabled)', () => {
+    beforeEach(() => {
+      cy.mockPublicPortal()
+      cy.mockLaunchDarklyFlags([
+        { name: FeatureFlags.publicLabelsUI, value: true },
+      ])
+      cy.visit('/')
+    })
+
+    it('renders public labels correctly', () => {
+      const productWithLabels = {
+        title: 'Test Product',
+        description: 'A test product with public labels',
+        public_labels: {
+          category: 'test',
+          version: '1.0',
+        },
+      }
+
+      cy.mockProductsCatalog(1, [productWithLabels])
+
+      cy.visit('/')
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+
+      cy.selectViewMode('card')
+      cy.get('.catalog-item').eq(0).within(() => {
+        // Check if the public labels section exists
+        cy.contains('Labels:').should('exist')
+
+        // Check if all public labels are rendered
+        cy.get('.product-public-label').should('have.length', 2)
+
+        // Check the content of each label
+        cy.get('.product-public-label').eq(0).should('contain', 'category: test')
+        cy.get('.product-public-label').eq(1).should('contain', 'version: 1.0')
+      })
+
+      cy.selectViewMode('table')
+      cy.get('.k-table tbody tr').eq(0).within(() => {
+        cy.get('.product-public-label').should('have.length', 2)
+        cy.get('.product-public-label').eq(0).should('contain', 'category: test')
+        cy.get('.product-public-label').eq(1).should('contain', 'version: 1.0')
       })
     })
 
-    describe('Catalog Item Public Labels (feature flag enabled)', () => {
-      beforeEach(() => {
-        cy.mockPublicPortal()
-        cy.mockLaunchDarklyFlags([
-          { name: FeatureFlags.publicLabelsUI, value: true }
-        ])
-        cy.visit('/')
-        // click view toggle to table mode
-        cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
+    it('does not render public labels section when product has no labels', () => {
+      const productWithoutLabels = {
+        title: 'Test Product Without Labels',
+        description: 'A test product without public labels',
+        public_labels: {},
+      }
+
+      cy.mockProductsCatalog(1, [productWithoutLabels])
+
+      cy.visit('/')
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+
+      cy.selectViewMode('card')
+      cy.get('.catalog-item').eq(0).within(() => {
+        // Check that the public labels section does not exist
+        cy.contains('Labels:').should('not.exist')
+        cy.get('.product-public-label').should('not.exist')
       })
 
-      it('renders public labels correctly', () => {
-        const productWithLabels = {
-          id: 'test-product',
-          title: 'Test Product',
-          description: 'A test product with public labels',
-          public_labels: {
-            category: 'test',
-            version: '1.0'
-          },
-          showSpecLink: true,
-          documentCount: 1,
-          latestVersion: { name: 'v1' }
-        }
-
-        cy.mockProductsCatalog(1, [productWithLabels])
-
-        cy.visit('/')
-
-        cy.get('.catalog-item').eq(0).within(() => {
-          // Check if the public labels section exists
-          cy.contains('Labels:').should('exist')
-
-          // Check if all public labels are rendered
-          cy.get('.product-public-label').should('have.length', 2)
-
-          // Check the content of each label
-          cy.get('.product-public-label').eq(0).should('contain', 'category: test')
-          cy.get('.product-public-label').eq(1).should('contain', 'version: 1.0')
-        })
-      })
-
-      it('does not render public labels section when product has no labels', () => {
-        const productWithoutLabels = {
-          id: 'test-product-no-labels',
-          title: 'Test Product Without Labels',
-          description: 'A test product without public labels',
-          public_labels: {},
-          showSpecLink: true,
-          documentCount: 1,
-          latestVersion: { name: 'v1' }
-        }
-
-        cy.mockProductsCatalog(1, [productWithoutLabels])
-
-        cy.visit('/')
-
-        cy.get('.catalog-item').eq(0).within(() => {
-          // Check that the public labels section does not exist
-          cy.contains('Labels:').should('not.exist')
-          cy.get('.product-public-label').should('not.exist')
-        })
+      cy.selectViewMode('table')
+      cy.get('.k-table tbody tr').eq(0).within(() => {
+        cy.get('.product-public-label').should('not.exist')
       })
     })
-    describe('Catalog Item Public Labels (feature flag disabled)', () => {
-      beforeEach(() => {
-        cy.mockPublicPortal()
-        cy.mockLaunchDarklyFlags([
-          { name: FeatureFlags.publicLabelsUI, value: false }
-        ])
-        cy.visit('/')
+  })
+  describe('Catalog Item Public Labels (feature flag disabled)', () => {
+    beforeEach(() => {
+      cy.mockPublicPortal()
+      cy.mockLaunchDarklyFlags([
+        { name: FeatureFlags.publicLabelsUI, value: false },
+      ])
+      cy.visit('/')
+    })
+
+    it('renders no labels ', () => {
+      const productWithLabels = {
+        title: 'Test Product',
+        description: 'A test product with public labels',
+        public_labels: {
+          category: 'test',
+          version: '1.0',
+        },
+        showSpecLink: true,
+        documentCount: 1,
+        latestVersion: { name: 'v1' },
+      }
+
+      cy.mockProductsCatalog(1, [productWithLabels])
+
+      cy.visit('/')
+
+      // Wait for the product search to complete
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+
+      cy.selectViewMode('card')
+
+      cy.get('.catalog-item').should('be.visible').within(() => {
+        // Check if the public labels section exists
+        cy.contains('Labels:').should('not.exist')
+        cy.get('.product-public-label').should('not.exist')
       })
-
-      it('renders no labels ', () => {
-        const productWithLabels = {
-          id: 'test-product',
-          title: 'Test Product',
-          description: 'A test product with public labels',
-          public_labels: {
-            category: 'test',
-            version: '1.0'
-          },
-          showSpecLink: true,
-          documentCount: 1,
-          latestVersion: { name: 'v1' }
-        }
-
-        cy.mockProductsCatalog(1, [productWithLabels])
-
-        cy.visit('/')
-
-        cy.get('.catalog-item').within(() => {
-          // Check if the public labels section exists
-          cy.contains('Labels:').should('not.exist')
-          cy.get('.product-public-label').should('not.exist')
-        })
+      cy.selectViewMode('table')
+      cy.get('.k-table tbody tr').eq(0).within(() => {
+        cy.get('.product-public-label').should('not.exist')
       })
     })
   })
@@ -303,6 +320,7 @@ describe('Catalog', () => {
   describe('Catalog versions', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
+
     })
 
     it('displays most recent created_at version', () => {
@@ -310,18 +328,18 @@ describe('Catalog', () => {
         version_count: 2,
         latest_version: {
           id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-          name: 'v4'
-        }
+          name: 'v4',
+        },
       }])
 
       cy.visit('/')
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+      cy.selectViewMode('card')
       cy.get('.product-version').should('have.length', 1).contains('v4')
-      cy.get('[data-testid="view-switcher"]:not(:disabled)')
-        .click()
-        .get('.k-table tbody tr:first-child td:nth-child(3)')
-        .should('have.length', 1)
-        .contains('v4')
-      cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
+      cy.selectViewMode('table')
+      cy.get('.k-table tbody tr:first-child td:nth-child(3)')
+        .should('have.length', 1).contains('v4')
     })
 
     it('displays most recent created_at regardless of version name', () => {
@@ -329,20 +347,18 @@ describe('Catalog', () => {
         version_count: 2,
         latest_version: {
           id: '6159b9be-bfbc-4f30-bd22-df720f6dcf90',
-          name: 'v4'
-        }
+          name: 'v4',
+        },
       }])
       cy.visit('/')
-      cy.get('[data-testid="view-switcher"]:not(:disabled)')
-        .click()
-        .get('.k-table tbody tr:first-child td:nth-child(3)')
+      cy.selectViewMode('table')
+      cy.get('.k-table tbody tr:first-child td:nth-child(3)')
         .should('have.length', 1)
         .contains('v4')
-      cy.get('[data-testid="view-switcher"]:not(:disabled)').click()
     })
   })
 
-  describe('Catalog search', () => {
+  describe.only('Catalog search', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
       mockProductSearchQuery('')
@@ -350,6 +366,8 @@ describe('Catalog', () => {
     })
 
     it('loads all product packages', () => {
+      cy.wait('@productSearch')
+      cy.wait('@spec')
       cy.get('.catalog-item').should('have.length', 5)
     })
 
@@ -360,10 +378,10 @@ describe('Catalog', () => {
 
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search-button]').click()
-      cy.wait('@productSearch').then(() => {
-        cy.get('.catalog-item').should('have.length', 1)
-        cy.get('[data-testid=catalog-search]').type('{backspace}')
-      })
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+      cy.get('.catalog-item').should('have.length', 1)
+      cy.get('[data-testid=catalog-search]').type('{backspace}')
     })
 
     it('searches when {enter} is typed', () => {
@@ -372,10 +390,11 @@ describe('Catalog', () => {
       mockProductSearchQuery(searchQuery)
 
       cy.get('[data-testid=catalog-search]').type(searchQuery + '{enter}')
-      cy.wait('@productSearch').then(() => {
-        cy.get('.catalog-item').should('have.length', 1)
-        cy.get('[data-testid=catalog-search]').type('{backspace}')
-      })
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+
+      cy.get('.catalog-item').should('have.length', 1)
+      cy.get('[data-testid=catalog-search]').type('{backspace}')
     })
 
     it('shows multiple results when searching', () => {
@@ -384,10 +403,10 @@ describe('Catalog', () => {
       mockProductSearchQuery(searchQuery)
       cy.get('[data-testid=catalog-search]').type(searchQuery)
       cy.get('[data-testid=catalog-search-button]').click()
-      cy.wait('@productSearch').then(() => {
-        cy.get('.catalog-item').should('have.length', 2)
-        cy.get('[data-testid=catalog-search]').type('{backspace}')
-      })
+      cy.wait('@productSearch')
+      cy.wait('@spec')
+      cy.get('.catalog-item').should('have.length', 2)
+      cy.get('[data-testid=catalog-search]').type('{backspace}')
     })
 
     it('updates table entries when searching', () => {
@@ -397,6 +416,7 @@ describe('Catalog', () => {
       cy.get('[data-testid=catalog-search]').type('{enter}')
       cy.get('[data-testid="view-switcher"]:not(:disabled)')
         .click()
+      cy.get('[data-testid="view-switcher"]:not(:disabled)')
         .get('.k-table tbody td:nth-of-type(1)')
         .should('have.length', 5)
 
@@ -454,7 +474,7 @@ describe('Catalog', () => {
         mockProductSearchResults(
           productsData.filter((s) => s.source.name === searchQuery),
           1,
-          1
+          1,
         )
         cy.get('[data-testid=catalog-search]').type(searchQuery + '{enter}')
 
@@ -462,10 +482,10 @@ describe('Catalog', () => {
           cy.get('.catalog-item').should('have.length', 1)
           cy.get('.card-pagination-bar').should('not.exist')
 
-          const searchInput = cy.get('[data-testid=catalog-search]')
+
 
           for (let i = 0; i < searchQuery.length; i++) {
-            searchInput.type('{backspace}')
+            cy.get('[data-testid=catalog-search]').type('{backspace}')
           }
         })
       })
@@ -544,22 +564,22 @@ describe('Catalog', () => {
         cy.get('.card-pagination-bar [data-testid=pagination-backwards]').click()
         cy.get('.card-pagination-bar')
           .contains('1 - 12 of 37')
-          .get('.catalog-item')
+        cy.get('.catalog-item')
           .should('have.length', 12)
         // to last page
         mockProductSearchResults(productsData.slice(0, 1), 1, totalProductCount)
-        cy.get('.card-pagination-bar [data-testid=pagination-forwards]')
-          .click()
-          .get('.card-pagination-bar [data-testid=pagination-forwards]')
-          .click()
-          .get('.card-pagination-bar [data-testid=pagination-forwards]')
-          .click()
-          .get('.card-pagination-bar [data-testid=pagination-forwards]')
-          .click()
-          .get('.card-pagination-bar')
-          .contains('37 - 37 of 37')
-          .get('.catalog-item')
-          .should('have.length', 1)
+        cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
+        cy.wait('@productSearch')
+        cy.get('.card-pagination-bar').contains('13 - 24 of 37')
+
+        cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
+        cy.wait('@productSearch')
+        cy.get('.card-pagination-bar').contains('25 - 36 of 37')
+
+        cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
+        cy.wait('@productSearch')
+        cy.get('.card-pagination-bar').contains('37 - 37 of 37')
+        cy.get('.catalog-item').should('have.length', 1)
       })
 
       it('allows go to first page and go to last page', () => {
@@ -571,19 +591,18 @@ describe('Catalog', () => {
         cy.get('.card-pagination-bar [data-testid=pagination-forwards]').click()
         // to first page
         mockProductSearchResults(productsData.slice(0, 12), 1, totalProductCount)
-        cy.get('.card-pagination-bar [data-testid=pagination-first]')
-          .click()
-          .get('.card-pagination-bar')
+        cy.get('.card-pagination-bar [data-testid=pagination-first]').click()
+        cy.get('.card-pagination-bar')
           .contains('1 - 12 of 37')
-          .get('.catalog-item')
+        cy.get('.catalog-item')
           .should('have.length', 12)
         // to last page
         mockProductSearchResults(productsData.slice(0, 1), 1, totalProductCount)
         cy.get('.card-pagination-bar [data-testid=pagination-last]')
           .click()
-          .get('.card-pagination-bar')
+        cy.get('.card-pagination-bar')
           .contains('37 - 37 of 37')
-          .get('.catalog-item')
+        cy.get('.catalog-item')
           .should('have.length', 1)
       })
     })
