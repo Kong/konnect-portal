@@ -60,7 +60,6 @@
               <KSkeletonBox width="2" />
             </template>
             <template v-else>
-              <span class="mr-2">{{ helpText.publicLabels }}</span>
               <div>
                 <KBadge
                   v-for="label in product.publicLabels"
