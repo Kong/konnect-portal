@@ -256,8 +256,7 @@ export const fr: I18nType = {
   catalogItem: {
     latestVersion: 'Dernière version :',
     specificationLink: 'Spécification',
-    documentationLink: 'Documentation',
-    publicLabels: translationNeeded(en.catalogItem.publicLabels)
+    documentationLink: 'Documentation'
   },
   catalogTable: {
     specificationLink: 'Spécification',

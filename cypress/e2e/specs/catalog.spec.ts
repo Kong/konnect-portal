@@ -228,9 +228,6 @@ describe('Catalog', () => {
 
       cy.selectViewMode('card')
       cy.get('.catalog-item').eq(0).within(() => {
-        // Check if the public labels section exists
-        cy.contains('Labels:').should('exist')
-
         // Check if all public labels are rendered
         cy.get('.product-public-label').should('have.length', 2)
 
@@ -263,7 +260,6 @@ describe('Catalog', () => {
       cy.selectViewMode('card')
       cy.get('.catalog-item').eq(0).within(() => {
         // Check that the public labels section does not exist
-        cy.contains('Labels:').should('not.exist')
         cy.get('.product-public-label').should('not.exist')
       })
 
@@ -358,7 +354,7 @@ describe('Catalog', () => {
     })
   })
 
-  describe.only('Catalog search', () => {
+  describe('Catalog search', () => {
     beforeEach(() => {
       cy.mockPublicPortal()
       mockProductSearchQuery('')

@@ -23,6 +23,9 @@
   --KPaginationActiveBackgroundColor: var(--section_colors-accent);
   --KPaginationActiveBorderColor: var(--section_colors-stroke);
   --KPaginationPageSizeColor: var(--text_colors-link);
+  --KTruncateCollapseIconColor: var(--button_colors-primary-text);
+  --KTruncateCollapseBackground: var(--button_colors-primary-fill);
+  --KTruncateToggleColor: var(--button_colors-primary-fill);
 }
 
 .card-pagination-bar {

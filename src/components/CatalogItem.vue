@@ -60,17 +60,7 @@
               <KSkeletonBox width="2" />
             </template>
             <template v-else>
-              <div>
-                <KBadge
-                  v-for="label in product.publicLabels"
-                  :key="label.key"
-                  color="var(--text_colors-secondary)"
-                  background-color="var(--section_colors-accent)"
-                  class="product-public-label"
-                >
-                  {{ label.key }}: {{ label.value }}
-                </KBadge>
-              </div>
+              <PublicLabels :labels="product.publicLabels" />
             </template>
           </span>
         </li>
@@ -130,9 +120,13 @@ import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { CatalogItemModel, useI18nStore } from '@/stores'
 import { PropType } from 'vue'
+import PublicLabels from './PublicLabels.vue'
 
 export default {
   name: 'CatalogItem',
+  components: {
+    PublicLabels
+  },
   props: {
     product: {
       type: Object as PropType<CatalogItemModel>,
@@ -210,13 +204,13 @@ export default {
     --KCardBorder: 1px solid var(--section_colors-stroke);
 
     .kong-card {
-      height: 19rem;
       display: flex;
       flex-direction: column;
+      min-height: 19rem;
     }
 
     .show-docs.kong-card {
-      height: 20rem;
+      min-height: 20rem;
     }
 
     .k-card-title {
