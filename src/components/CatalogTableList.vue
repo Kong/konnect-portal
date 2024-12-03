@@ -14,6 +14,22 @@
       <template #title="{ rowValue }">
         {{ rowValue }}
       </template>
+      <template #publicLabels="{ row }">
+        <div v-if="publicLabelsUIEnabled">
+          <div
+            v-for="label in row.publicLabels"
+            :key="label.key"
+          >
+            <KBadge
+              color="var(--text_colors-secondary)"
+              background-color="var(--section_colors-accent)"
+              class="product-public-label"
+            >
+              {{ label.key }}: {{ label.value }}
+            </KBadge>
+          </div>
+        </div>
+      </template>
       <template #latestVersion="{ row }">
         <div>
           <KBadge
@@ -29,6 +45,7 @@
       <template #links="{ row }">
         <router-link
           v-if="row.showSpecLink"
+          :data-testid="`spec-link-${row.id}`"
           :to="{ name: 'spec', params: { product: row.id } }"
           class="link"
         >
@@ -36,6 +53,7 @@
         </router-link>
         <router-link
           v-if="row.documentCount"
+          :data-testid="`docs-link-${row.id}`"
           :to="{ name: 'api-documentation-page', params: { product: row.id } }"
           class="link"
         >
@@ -47,6 +65,8 @@
 </template>
 
 <script lang="ts">
+import { FeatureFlags } from '@/constants/feature-flags'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { useI18nStore, CatalogItemModel } from '@/stores'
 import { defineComponent, ref, computed, watch, PropType } from 'vue'
 import { useRouter } from 'vue-router'
@@ -95,11 +115,15 @@ export default defineComponent({
     }
   },
   data () {
+    const publicLabelsUIEnabled = useLDFeatureFlag(FeatureFlags.publicLabelsUI, false)
+
     return {
+      publicLabelsUIEnabled,
       tableHeaders: [
         { label: 'Title', key: 'title' },
         { label: 'Description', key: 'description' },
         { label: 'Latest Version', key: 'latestVersion' },
+        { label: 'Labels', key: 'publicLabels' },
         { label: 'Details', key: 'links' }
       ]
     }

@@ -2,6 +2,7 @@
 // Import commands.js using ES2015 syntax:
 import { GetApplicationResponse, GetRegistrationResponse, PortalAuthStrategy, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
+import './commands'
 import { SinonStub } from 'cypress/types/sinon'
 
 // from https://docs.cypress.io/guides/tooling/typescript-support
@@ -47,6 +48,8 @@ declare global {
       mockLaunchDarklyFlags(flags: Array<{name:string, value:boolean}>): Chainable<JQuery<HTMLElement>>
       mockDeveloperRefresh(): Chainable<JQuery<HTMLElement>>
       mockDeveloperLogout(): Chainable<JQuery<HTMLElement>>
+      assertViewMode(mode: 'table' | 'card'): Chainable<JQuery<HTMLElement>>
+      selectViewMode(mode: 'table' | 'card'): Chainable<JQuery<HTMLElement>>
     }
   }
 }
