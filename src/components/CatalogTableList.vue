@@ -64,70 +64,56 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { FeatureFlags } from '@/constants/feature-flags'
 import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { useI18nStore, CatalogItemModel } from '@/stores'
-import { defineComponent, ref, computed, watch, PropType } from 'vue'
+import { ref, computed, watch, PropType } from 'vue'
 import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  name: 'CatalogTableList',
-  props: {
-    products: {
-      type: Array as PropType<CatalogItemModel[]>,
-      default: () => []
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    }
+const props = defineProps({
+  products: {
+    type: Array as PropType<CatalogItemModel[]>,
+    default: () => []
   },
-  setup (props) {
-    const $router = useRouter()
-    const helpText = useI18nStore().state.helpText.catalogTable
-    const key = ref(0)
-    const fetcherCacheKey = computed(() => key.value.toString())
-    const revalidate = () => {
-      key.value += 1
-    }
-
-    function handleRowClick (e, row) {
-      $router.push({ path: `/spec/${row.id}` })
-    }
-
-    function fetcher () {
-      return {
-        total: props.products.length,
-        data: props.products
-      }
-    }
-
-    watch(() => props.products, () => {
-      revalidate()
-    }, { deep: true })
-
-    return {
-      handleRowClick,
-      fetcher,
-      fetcherCacheKey,
-      helpText
-    }
-  },
-  data () {
-    const publicLabelsUIEnabled = useLDFeatureFlag(FeatureFlags.publicLabelsUI, false)
-
-    return {
-      publicLabelsUIEnabled,
-      tableHeaders: [
-        { label: 'Title', key: 'title' },
-        { label: 'Description', key: 'description' },
-        { label: 'Latest Version', key: 'latestVersion' },
-        { label: 'Labels', key: 'publicLabels' },
-        { label: 'Details', key: 'links' }
-      ]
-    }
+  loading: {
+    type: Boolean,
+    default: false
   }
+})
+
+const $router = useRouter()
+const helpText = useI18nStore().state.helpText.catalogTable
+const key = ref(0)
+const fetcherCacheKey = computed(() => key.value.toString())
+const revalidate = () => {
+  key.value += 1
+}
+
+function handleRowClick (e, row) {
+  $router.push({ path: `/spec/${row.id}` })
+}
+
+function fetcher () {
+  return {
+    total: props.products.length,
+    data: props.products
+  }
+}
+
+watch(() => props.products, () => {
+  revalidate()
+}, { deep: true })
+
+const publicLabelsUIEnabled = useLDFeatureFlag(FeatureFlags.publicLabelsUI, false)
+const tableHeaders = computed(() => {
+  return [
+    { label: 'Title', key: 'title' },
+    { label: 'Description', key: 'description' },
+    { label: 'Latest Version', key: 'latestVersion' },
+    ...(publicLabelsUIEnabled ? [{ label: 'Public Labels', key: 'publicLabels' }] : []),
+    { label: 'Details', key: 'links' }
+  ]
 })
 </script>
 
