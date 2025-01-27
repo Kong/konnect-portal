@@ -4717,10 +4717,10 @@ cypress-split@1.20.1:
     globby "^11.1.0"
     humanize-duration "^3.28.0"
 
-cypress-terminal-report@6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-6.0.1.tgz#976522a49e3ba6a6580791559d5bdb8f6074a25b"
-  integrity sha512-I+kiUIJRwmdOATjqHGM84PfJZM3TpyPzcUgcpxX2PG04fIPXIWprSMAxc3hbFKP8gE8B7D9Nj9yzf7CwyOH5Iw==
+cypress-terminal-report@6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/cypress-terminal-report/-/cypress-terminal-report-6.2.0.tgz#9456c4003ade23a0908746edf9f926846ee6b1bc"
+  integrity sha512-u5YaGaVhRW7uATZRx0Ccg2QIfwP08cNpihQEbtvN0toT/oZbQYHo9oNkrkX6hPJ5kf3DSDj194G61greu4gG0g==
   dependencies:
     chalk "^4.0.0"
     fs-extra "^10.1.0"
