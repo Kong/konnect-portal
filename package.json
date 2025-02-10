@@ -35,7 +35,7 @@
     "@kong-ui-public/spec-renderer": "2.3.0",
     "@kong/kong-auth-elements": "2.12.6",
     "@kong/kongponents": "8.127.0",
-    "@kong/markdown": "1.7.8",
+    "@kong/markdown": "1.7.27",
     "@kong/sdk-portal-js": "2.16.0",
     "@unhead/vue": "1.11.6",
     "@xstate/vue": "2.0.0",
