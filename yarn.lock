@@ -1045,10 +1045,10 @@
     uuid "^9.0.1"
     vue-chartjs "^5.2.0"
 
-"@kong-ui-public/analytics-config-store@0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-config-store/-/analytics-config-store-0.4.2.tgz#ff1902c149edc0e8644453b7d8fa22188e8d96f8"
-  integrity sha512-mAz3Os2SwjrQmC5VMFngIsslDkyy1cYuo1dq5dEAOjHDHRjGmapx7htZuB8SZg3IANeJMiZ8BsFqnamkDC6/Kw==
+"@kong-ui-public/analytics-config-store@0.8.37":
+  version "0.8.37"
+  resolved "https://registry.yarnpkg.com/@kong-ui-public/analytics-config-store/-/analytics-config-store-0.8.37.tgz#e0e8be3339d0ddf72b097c8a46ef1bd4eb5a4216"
+  integrity sha512-gNESNHkWagZkAJW1NCyjZ/XTFwhPdce+D3pArCz3xtuuhj9N2n5Ar53Ypanb08qX0EiXOUWKmxpxqOewX/c9zA==
 
 "@kong-ui-public/analytics-metric-provider@1.2.9":
   version "1.2.9"
