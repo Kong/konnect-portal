@@ -8,18 +8,18 @@ jobs:
     name: Lint and type check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
         with:
           fetch-depth: 0
       - name: Check unpinned versions
         run: ./.github/scripts/pin-version
       - name: node modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@2f8e54208210a422b2efd51efaa6bd6d7ca8920f
         with:
           path: node_modules
           key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version-file: '.nvmrc'
       - name: Install Dependencies
@@ -37,9 +37,9 @@ jobs:
       matrix:
         containers: [1, 2, 3]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
@@ -50,7 +50,7 @@ jobs:
         run: yarn build
         # run 3 copies of the current job in parallel
       - name: Run split Cypress tests 🧪
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@248bde77443c376edc45906ede03a1aba9da0462
         with:
           start: node cypress.server.mjs
           browser: chrome
