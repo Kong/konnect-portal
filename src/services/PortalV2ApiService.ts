@@ -42,7 +42,7 @@ export default class PortalV2ApiService {
     registrationsApi: RegistrationsApi,
     documentationApi: DocumentationApi,
     versionsApi: VersionsApi,
-    applicationAnalyticsApi: ApplicationAnalyticsApi
+    applicationAnalyticsApi: ApplicationAnalyticsApi,
   }
 
   setAuthErrorCallback (authErrorCallback) {

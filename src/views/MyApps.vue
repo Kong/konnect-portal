@@ -8,6 +8,7 @@
         <KButton
           data-testid="create-application-button"
           appearance="primary"
+          :disabled="!hasAppAuthStrategies"
           :is-rounded="false"
           :to="{ name: 'create-application' }"
         >
@@ -31,27 +32,49 @@
         </KButton>
       </template>
     </PageTitle>
-    <div
-      v-if="!vitalsLoading && myAppsReady"
+    <KAlert
+      v-if="!hasAppAuthStrategies && !fetchingAuthStrategies"
+      :alert-message="helpText.authStrategyWarning"
+      appearance="warning"
+      class="no-auth-strategies-warning"
+      data-testid="no-auth-strategies-warning"
+    />
+    <AnalyticsConfigCheck
+      v-if="!myAppsReady || appsArePresent"
+      require-analytics
     >
-      <MetricsProvider
-        v-slot="{ timeframe }"
-        v-bind="metricProviderProps"
-      >
-        <h2 class="summary-tier-based mb-4">
-          {{ analyticsCardTitle(timeframe) }}
-        </h2>
-        <KCard
-          class="mb-4 analytics-my-apps"
-          data-testid="analytics-metric-cards"
+      <div>
+        <MetricsProvider
+          v-slot="{ timeframe }"
+          v-bind="metricProviderProps"
         >
-          <template #body>
-            <MetricsConsumer />
-          </template>
-        </KCard>
-      </MetricsProvider>
-    </div>
+          <h2 class="summary-tier-based mb-4">
+            {{ analyticsCardTitle(timeframe) }}
+          </h2>
+          <KCard
+            class="mb-4 analytics-my-apps"
+            data-testid="analytics-metric-cards"
+          >
+            <template #body>
+              <MetricsConsumer />
+            </template>
+          </KCard>
+        </MetricsProvider>
+      </div>
+    </AnalyticsConfigCheck>
     <div>
+      <KAlert
+        :is-showing="!!deleteError"
+        :title="deleteError"
+        appearance="danger"
+        data-testid="delete-error-alert"
+      />
+      <KAlert
+        :is-showing="!!refreshSecretError"
+        :title="refreshSecretError"
+        appearance="danger"
+        data-testid="refresh-error-alert"
+      />
       <KCard>
         <template #body>
           <KTable
@@ -59,7 +82,7 @@
             :fetcher-cache-key="fetcherCacheKey"
             :fetcher="fetcher"
             has-side-border
-            :has-error="currentState.matches('error')"
+            :has-error="currentState.matches('error') && !deleteError && !refreshSecretError"
             :is-loading="currentState.matches('pending')"
             :headers="tableHeaders"
             is-clickable
@@ -84,17 +107,22 @@
               {{ row.name }}
             </template>
             <template #actions="{ row }">
-              <ActionsDropdown :key="row.id">
+              <ActionsDropdown
+                :key="row.id"
+                :data-testid="'actions-dropdown-' + row.id"
+              >
                 <template #content>
+                  <AnalyticsConfigCheck require-analytics>
+                    <div
+                      data-testid="dropdown-analytics-dashboard"
+                      class="py-2 px-3 type-md cursor-pointer"
+                      @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
+                    >
+                      {{ helpTextVitals.viewAnalytics }}
+                    </div>
+                  </AnalyticsConfigCheck>
                   <div
-                    data-testid="dropdown-analytics-dashboard"
-                    class="py-2 px-3 type-md cursor-pointer"
-                    @click="$router.push({ name: 'application-dashboard', params: { application_id: row.id }})"
-                  >
-                    {{ helpTextVitals.viewAnalytics }}
-                  </div>
-                  <div
-                    v-if="isDcr"
+                    v-if="isApplicationDcr(row)"
                     data-testid="dropdown-refresh-application-dcr-token"
                     class="py-2 px-3 type-md cursor-pointer"
                     @click="handleRefreshSecret(row.id)"
@@ -116,7 +144,7 @@
                 :title="searchStr ? helpText.noSearchResults : helpText.noApp"
               >
                 <template #message>
-                  <p>
+                  <p v-if="hasAppAuthStrategies">
                     <router-link
                       data-testid="create-application-link"
                       :to="{
@@ -153,6 +181,7 @@
       :action-button-text="helpText.delete"
       action-button-appearance="danger"
       class="delete-modal"
+      data-testid="application-delete-modal"
       @canceled="deleteItem = null"
     >
       <template #header-content>
@@ -164,6 +193,9 @@
       <template #footer-content>
         <KButton
           appearance="danger"
+          data-testid="application-delete-confirm-button"
+          :disabled="currentState.matches('pending')"
+          :icon="currentState.matches('pending') ? 'spinner' : undefined"
           :is-rounded="false"
           class="mr-3"
           @click="handleDelete"
@@ -199,16 +231,16 @@ import ActionsDropdown from '@/components/ActionsDropdown.vue'
 import MetricsProvider from '@/components/vitals/MetricsProvider.vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import useToaster from '@/composables/useToaster'
-import { useI18nStore, useAppStore } from '@/stores'
+import { useI18nStore } from '@/stores'
 import { Timeframe, TimeframeKeys } from '@kong-ui-public/analytics-utilities'
 import '@kong-ui-public/analytics-metric-provider/dist/style.css'
 import { EXPLORE_V2_DIMENSIONS, EXPLORE_V2_FILTER_TYPES, MetricsConsumer } from '@kong-ui-public/analytics-metric-provider'
-
-import { storeToRefs } from 'pinia'
+import { GetApplicationResponse, CredentialType } from '@kong/sdk-portal-js'
+import { AnalyticsConfigCheck } from '@kong-ui-public/analytics-config-store'
 
 export default defineComponent({
   name: 'MyApps',
-  components: { PageTitle, ActionsDropdown, RefreshTokenModal, MetricsProvider, MetricsConsumer },
+  components: { AnalyticsConfigCheck, PageTitle, ActionsDropdown, RefreshTokenModal, MetricsProvider, MetricsConsumer },
 
   setup () {
     const { notify } = useToaster()
@@ -218,23 +250,28 @@ export default defineComponent({
     const key = ref(0)
     const fetcherCacheKey = computed(() => key.value.toString())
     const deleteItem = ref(null)
+    const deleteError = ref(null)
+    const refreshSecretError = ref(null)
     const showSecretModal = ref(false)
     const token = ref(null)
     const { portalApiV2 } = usePortalApi()
+    const hasAppAuthStrategies = ref(false)
+    const fetchingAuthStrategies = ref(true)
 
-    const appStore = useAppStore()
-    const { isDcr } = storeToRefs(appStore)
     const helpText = useI18nStore().state.helpText.myApp
     const helpTextVitals = useI18nStore().state.helpText.analytics
-    const vitalsLoading = ref(true)
 
     const paginationConfig = ref({
       paginationPageSizes: [25, 50, 100],
       initialPageSize: 25
     })
 
+    const isApplicationDcr = (application: GetApplicationResponse) => {
+      return application.auth_strategy?.credential_type === CredentialType.ClientCredentials
+    }
+
     const modalTitle = computed(() => `Delete ${deleteItem.value?.name}`)
-    const appIds = ref([])
+    const appIds = ref<string[] | null>(null)
 
     const { state: currentState, send } = useMachine(createMachine({
       predictableActionArguments: true,
@@ -243,7 +280,7 @@ export default defineComponent({
       states: {
         idle: { on: { FETCH: 'pending', REJECT: 'error' } },
         pending: { on: { RESOLVE: 'success', REJECT: 'error' } },
-        success: { type: 'final' },
+        success: { on: { FETCH: 'pending' } },
         error: { on: { FETCH: 'pending' } }
       }
     }))
@@ -281,40 +318,42 @@ export default defineComponent({
     }
 
     const handleDelete = () => {
+      send('FETCH')
       portalApiV2.value.service.applicationsApi
         .deleteApplication({
           applicationId: deleteItem.value.id
         })
         .then(() => {
+          send('RESOLVE')
           deleteItem.value = null
+          deleteError.value = null
           revalidate() // refetch applications
           notify({
-            message: 'Application deleted'
+            message: helpText.deleteSuccess
           })
         })
         .catch(error => {
+          send('REJECT')
           deleteItem.value = null
-          notify({
-            appearance: 'danger',
-            message: `Error: ${getMessageFromError(error)}`
-          })
+          deleteError.value = helpText.deleteFailure(getMessageFromError(error))
         })
     }
 
     const handleRefreshSecret = (id: string) => {
+      send('FETCH')
+      refreshSecretError.value = null
+
       portalApiV2.value.service.credentialsApi.refreshApplicationToken({ applicationId: id })
         .then((res) => {
           notify({
-            message: 'Successfully refreshed secret'
+            message: helpText.refreshSecretSuccess
           })
           showSecretModal.value = true
           token.value = res.data.client_secret
         })
         .catch(error => {
-          notify({
-            appearance: 'danger',
-            message: getMessageFromError(error)
-          })
+          send('REJECT')
+          refreshSecretError.value = helpText.refreshSecretFailure(getMessageFromError(error))
         })
     }
 
@@ -339,10 +378,14 @@ export default defineComponent({
       return helpTextVitals.summary
     }
 
-    const myAppsReady = computed(() => Boolean(appIds.value && appIds.value?.length))
+    // Show the metric cards if applications are loading or if applications have loaded and exist.
+    // If we try to show metric cards when there aren't any applications, they won't be able to
+    // issue a query and will just show an endless skeleton loader.
+    const myAppsReady = computed(() => appIds.value !== null)
+    const appsArePresent = computed(() => !!appIds.value?.length)
 
     const metricProviderProps = computed(() => ({
-      queryReady: myAppsReady.value,
+      queryReady: appsArePresent.value,
       additionalFilter: [
         {
           type: EXPLORE_V2_FILTER_TYPES.IN,
@@ -352,8 +395,23 @@ export default defineComponent({
       ]
     }))
 
-    onMounted(() => {
-      vitalsLoading.value = false
+    onMounted(async () => {
+      fetchingAuthStrategies.value = true
+
+      try {
+        const appAuthStrategies = await portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies()
+        if (appAuthStrategies.data?.data?.length) {
+          hasAppAuthStrategies.value = true
+        }
+
+        fetchingAuthStrategies.value = false
+      } catch (err) {
+        fetchingAuthStrategies.value = false
+        notify({
+          appearance: 'danger',
+          message: helpText.authStrategyFetchError(getMessageFromError(err))
+        })
+      }
     })
 
     return {
@@ -363,12 +421,16 @@ export default defineComponent({
       currentState,
       tableHeaders,
       handleDelete,
-      isDcr,
+      fetchingAuthStrategies,
+      isApplicationDcr,
       deleteItem,
+      deleteError,
       showSecretModal,
+      hasAppAuthStrategies,
       token,
       onModalClose,
       handleRefreshSecret,
+      refreshSecretError,
       searchStr,
       fetcherCacheKey,
       fetcher,
@@ -376,17 +438,21 @@ export default defineComponent({
       helpText,
       helpTextVitals,
       analyticsCardTitle,
-      vitalsLoading,
       metricProviderProps,
-      myAppsReady
+      myAppsReady,
+      appsArePresent
     }
   }
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .delete-modal, .refresh-secret-modal {
   --KModalHeaderColor: var(--text_colors-headings);
   --KModalColor: var(--text_colors-primary);
+}
+
+.no-auth-strategies-warning {
+  margin-bottom: 8px;
 }
 </style>

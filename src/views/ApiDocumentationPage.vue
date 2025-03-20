@@ -37,11 +37,19 @@
           :description="helpText.apiDocumentation.error.description"
           :link-text="helpText.apiDocumentation.error.linkText"
         />
+
         <DocumentViewer
-          v-else-if="content"
+          v-if="content && !newMarkdownRenderEnabled"
           data-testid="portal-document-viewer"
           class="portal-document-viewer"
           :document="content"
+        />
+
+        <MarkdownUi
+          v-else-if="markdown && newMarkdownRenderEnabled"
+          v-model="markdown"
+          class="documentation-display portal-document-viewer"
+          theme="light"
         />
       </template>
     </div>
@@ -70,13 +78,17 @@ import { findAllNodesOfType, getNodeTextContent } from '@/helpers/document'
 import { ProductWithVersions, useI18nStore, useProductStore } from '@/stores'
 import useToaster from '@/composables/useToaster'
 import DocumentViewer, { HeadingNode, addSlug } from '@kong-ui-public/document-viewer'
-
 import '@kong-ui-public/document-viewer/dist/style.css'
+import { MarkdownUi } from '@kong/markdown'
+import '@kong/markdown/dist/style.css'
 import { DocumentBlock, ProductDocument } from '@kong/sdk-portal-js'
+import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
+import { FeatureFlags } from '@/constants/feature-flags'
 
 export default defineComponent({
   name: 'ApiDocumentationPage',
   components: {
+    MarkdownUi,
     DocumentViewer,
     DocumentSections,
     ErrorWrapper
@@ -96,6 +108,7 @@ export default defineComponent({
     const errorCode = ref(null)
     const router = useRouter()
     const { portalApiV2 } = usePortalApi()
+    const documentationDisplay = ref()
 
     const breadcrumbs = computed(() => ([
       {
@@ -131,7 +144,9 @@ export default defineComponent({
 
     const title = ref<string>(null)
     const isDocumentLoading = ref<boolean>(true)
+    const markdown = ref<string>(null)
     const content = ref<DocumentBlock>(null)
+    const newMarkdownRenderEnabled = useLDFeatureFlag(FeatureFlags.newMarkdownRender, false)
 
     const sections = computed(() => {
       if (!content.value) {
@@ -141,12 +156,12 @@ export default defineComponent({
       // this is to prevent duplicate slugs
       const slugMap = new Map<string, number>()
 
-      const allHeadings = findAllNodesOfType<DocumentBlock>(content.value, 'heading') as HeadingNode[]
+      const allHeadings = findAllNodesOfType<DocumentBlock>(content.value, 'heading') as unknown as HeadingNode[]
 
       return allHeadings
         .map((node) => {
           const text = getNodeTextContent(node)
-          const { slug } = addSlug(node, slugMap)
+          const { slug } = addSlug(node, slugMap, newMarkdownRenderEnabled.value ? '' : undefined)
           const level = getMaxHeaderLevel(2)
 
           return {
@@ -165,7 +180,15 @@ export default defineComponent({
       errorCode.value = null
       isDocumentLoading.value = true
 
-      await portalApiV2.value.service.documentationApi.getProductDocument({
+      const getMarkdown = portalApiV2.value.service.documentationApi.getProductDocument({
+        productId,
+        documentId: slug
+      })
+        .then((res) => {
+          markdown.value = res.data.content
+        })
+
+      const getDocumentNodes = portalApiV2.value.service.documentationApi.getProductDocument({
         productId,
         documentId: slug
       }, {
@@ -180,9 +203,10 @@ export default defineComponent({
           content.value = data.content
           productStore.setActiveDocumentId(data.id)
         })
-        .finally(() => {
-          isDocumentLoading.value = false
-        })
+
+      await Promise.all([getMarkdown, getDocumentNodes]).finally(() => {
+        isDocumentLoading.value = false
+      })
     }
 
     const handleError = (error) => {
@@ -216,12 +240,15 @@ export default defineComponent({
       helpText,
       title,
       content,
+      markdown,
       isDocumentLoading,
       sections,
       breadcrumbs,
       document,
       errorCode,
-      slug: activeDocumentSlug.value
+      slug: activeDocumentSlug.value,
+      documentationDisplay,
+      newMarkdownRenderEnabled
     }
   }
 })
@@ -231,6 +258,11 @@ export default defineComponent({
 .portal-document-viewer {
   pre {
     overflow-x: auto;
+  }
+
+  li > p {
+    display: block;
+    margin-bottom: 12px;
   }
 }
 </style>
@@ -310,5 +342,14 @@ export default defineComponent({
       color: var(--steel-700, #0a2b66);
     }
   }
+}
+
+.documentation-display {
+   --kui-color-background: var(--section_colors-body);
+   --kui-font-family-text: var(--font-family-sans);
+   --kui-color-text: var(--text_colors-primary);
+   --kui-color-text-primary: var(--text_colors-link);
+   --kui-color-text-primary-stronger: var(--text_colors-accent);
+   --kui-color-background-neutral-weaker: var(--section_colors-accent);
 }
 </style>

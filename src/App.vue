@@ -33,6 +33,7 @@ import Nav from '@/components/Nav.vue'
 import { portalApiV2 } from '@/services'
 import { useAppStore } from '@/stores'
 import { createRedirectHandler } from './helpers/auth'
+import { useHead } from '@unhead/vue'
 
 const initialLoadingId = 'initial-fullscreen-loading-container'
 
@@ -42,6 +43,11 @@ export default defineComponent({
     Nav
   },
   setup () {
+    const { canonicalDomain } = useAppStore()
+
+    useHead({
+      link: [{ rel: 'canonical', href: canonicalDomain }]
+    })
     removeElementFromDOMById(initialLoadingId)
   },
   computed: {

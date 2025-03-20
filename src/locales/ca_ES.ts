@@ -44,6 +44,19 @@ export const ca_ES: I18nType = {
     noProductVersionsTitle: translationNeeded(en.productVersion.noProductVersionsTitle),
     registerProductVersion: translationNeeded(en.productVersion.registerProductVersion)
   },
+  authStrategyInfo: {
+    titleLabel: translationNeeded(en.authStrategyInfo.titleLabel),
+    credentialTypeLabel: translationNeeded(en.authStrategyInfo.credentialTypeLabel),
+    registerBtnText: (productVersionName: string) => translationNeeded(en.authStrategyInfo.registerBtnText(productVersionName)),
+    authMethods: translationNeeded(en.authStrategyInfo.authMethods),
+    keyNames: translationNeeded(en.authStrategyInfo.keyNames),
+    bearer: translationNeeded(en.authStrategyInfo.bearer),
+    keyAuth: translationNeeded(en.authStrategyInfo.keyAuth),
+    clientCredentials: translationNeeded(en.authStrategyInfo.clientCredentials),
+    selfManagedClientCredentials: translationNeeded(en.authStrategyInfo.selfManagedClientCredentials),
+    session: translationNeeded(en.authStrategyInfo.session),
+    disabled: translationNeeded(en.authStrategyInfo.disabled)
+  },
   userDropdown: {
     myApps: 'Les meves aplicacions',
     logout: 'Tancar sessió'
@@ -103,6 +116,11 @@ export const ca_ES: I18nType = {
     delete: 'Eliminar',
     proceed: 'Continuar',
     applicationName: "Nom de l'aplicació ",
+    authStrategy: translationNeeded(en.application.authStrategy),
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    grantedScopes: translationNeeded(en.application.grantedScopes),
+    availableScopes: translationNeeded(en.application.availableScopes),
+    filterScopesPlaceholder: translationNeeded(en.application.filterScopesPlaceholder),
     clientID: 'ID de client: ',
     clientSecret: 'Clau secreta de client: ',
     reqField: ' indica un camp obligatori',
@@ -154,6 +172,7 @@ export const ca_ES: I18nType = {
   },
   productList: {
     titleProducts: 'Productes',
+    showMoreLabel: (items: string) => translationNeeded(en.productList.showMoreLabel(items)),
     actions: {
       unregister: 'Anul·lar el registre'
     },
@@ -185,6 +204,10 @@ export const ca_ES: I18nType = {
     noAvailableApplications: 'Actualment no teniu cap aplicació per registrar.',
     noFoundApplications: translationNeeded(en.applicationRegistration.noFoundApplications),
     searchPlaceholder: translationNeeded(en.applicationRegistration.searchPlaceholder),
+    filterScopes: translationNeeded(en.applicationRegistration.filterScopes),
+    availableScopesLabel: translationNeeded(en.applicationRegistration.availableScopesLabel),
+    fetchingScopesLabel: translationNeeded(en.applicationRegistration.fetchingScopesLabel),
+    updateScopesWarning: translationNeeded(en.applicationRegistration.updateScopesWarning),
     noApplications: 'Sense aplicacions',
     selectApplication: 'Seleccionar aplicació',
     createNewApplication: 'Crear nova aplicació +',
@@ -280,10 +303,14 @@ export const ca_ES: I18nType = {
     logoAlt: 'logotip'
   },
   myApp: {
+    authStrategyWarning: translationNeeded(en.application.authStrategyWarning),
+    authStrategyFetchError: (errString: string) => translationNeeded(en.myApp.authStrategyFetchError(errString)),
     newApp: 'Nova aplicació',
     plus: 'Més',
     myApps: 'Les meves aplicacions',
     refreshSecret: 'Actualitzar secret',
+    refreshSecretSuccess: translationNeeded(en.myApp.refreshSecretSuccess),
+    refreshSecretFailure: (error: string) => translationNeeded(en.myApp.refreshSecretFailure(error)),
     noSearchResults: translationNeeded(en.myApp.noSearchResults),
     searchPlaceholder: translationNeeded(en.myApp.searchPlaceholder),
     delete: 'Eliminar',
@@ -291,7 +318,9 @@ export const ca_ES: I18nType = {
     noApp: 'Sense aplicacions',
     create: 'Crear una nova aplicació',
     getStarted: ' per començar',
-    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`
+    deleteDialog: (name: string) => `Segur que voleu eliminar ${name}?Aquesta acció no es pot desfer.`,
+    deleteSuccess: translationNeeded(en.myApp.deleteSuccess),
+    deleteFailure: (str: string) => translationNeeded(en.myApp.deleteFailure(str))
   },
   router: {
     portalTitle: 'Portal del desenvolupador',
@@ -301,6 +330,7 @@ export const ca_ES: I18nType = {
     resetPasswordTitle: 'Restablir la contrasenya',
     catalogTitleProduct: 'Catàleg de productes',
     specTitle: "Especificació de l'API",
+    oauth2RedirectTitle: translationNeeded(en.router.oauth2RedirectTitle),
     docsTitle: "Documentació de l'API",
     appsTitle: 'Les meves aplicacions',
     createAppTitle: 'Crear nova aplicació',
@@ -310,5 +340,12 @@ export const ca_ES: I18nType = {
     notFoundTitle: 'No trobat',
     forbiddenTitle: 'Prohibit',
     errorTitle: 'Error'
+  },
+  oauth2: {
+    dataNotFound: translationNeeded(en.oauth2.authMaybeUnsafe),
+    noDescription: translationNeeded(en.oauth2.noDescription),
+    moreInfo: translationNeeded(en.oauth2.moreInfo),
+    authMaybeUnsafe: translationNeeded(en.oauth2.authMaybeUnsafe),
+    defaultError: translationNeeded(en.oauth2.defaultError)
   }
 }

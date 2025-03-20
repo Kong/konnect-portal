@@ -62,6 +62,11 @@ export default defineComponent({
     @media only screen and (max-device-width: 528px) {
       width: 320px
     }
+
+    :deep(.k-button) {
+      justify-content: center;
+    }
+
     .card-header {
       height: 6rem;
       margin: calc(var(--KCardPaddingY) * -1) calc(var(--KCardPaddingY) * -1) 0;

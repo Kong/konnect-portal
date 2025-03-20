@@ -15,6 +15,13 @@
         <p class="text-sm mb-5">
           <span class="text-danger">*</span> {{ helpText.application.reqField }}
         </p>
+        <KAlert
+          v-if="!hasAppAuthStrategies && !fetchingAuthStrategies && formMode === 'create'"
+          :alert-message="helpText.application.authStrategyWarning"
+          appearance="warning"
+          class="no-auth-strategies-warning"
+          data-testid="no-auth-strategies-warning"
+        />
         <form @submit.prevent="formMethod">
           <div class="mb-5">
             <KLabel for="applicationName">
@@ -29,7 +36,46 @@
             />
           </div>
           <div
-            v-if="isDcr"
+            class="mb-5"
+          >
+            <KLabel
+              for="authStrat"
+            >
+              {{ helpText.application.authStrategy }} <span class="text-danger">*</span>
+            </KLabel>
+            <KSelect
+              id="authStrat"
+              :items="appAuthStrategies"
+              :disabled="formMode === 'edit' || appAuthStrategies.length === 1"
+              data-testid="application-auth-strategy-select"
+              appearance="select"
+              width="100%"
+              @change="onChangeAuthStrategy"
+            />
+          </div>
+          <div
+            v-if="selectedAuthStrategy?.availableScopes"
+            class="mb-5"
+          >
+            <KLabel
+              for="availableScopes"
+            >
+              {{ helpText.application.availableScopes }}
+            </KLabel>
+            <KMultiselect
+              id="availableScopes"
+              v-model="selectedScopes"
+              collapsed-context
+              data-testid="available-scopes-select"
+              class="available-scopes-select"
+              :items="mappedAvailableScopes"
+              :placeholder="helpText.application.filterScopesPlaceholder"
+              width="100%"
+              @change="handleChangedItem"
+            />
+          </div>
+          <div
+            v-if="appIsDcr || appIsSelfManaged"
             class="mb-5"
           >
             <KLabel for="redirectUri">
@@ -43,7 +89,7 @@
             />
           </div>
           <div
-            v-else
+            v-if="!appIsDcr"
             class="mb-5"
           >
             <KLabel for="referenceId">
@@ -195,7 +241,6 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
 import { useRoute, useRouter } from 'vue-router'
 import { useMachine } from '@xstate/vue'
@@ -205,21 +250,24 @@ import CopyButton from '@/components/CopyButton.vue'
 import usePortalApi from '@/hooks/usePortalApi'
 import cleanupEmptyFields from '@/helpers/cleanupEmptyFields'
 import useToaster from '@/composables/useToaster'
-import { useI18nStore, useAppStore } from '@/stores'
-import { CreateApplicationPayload, UpdateApplicationPayload } from '@kong/sdk-portal-js'
+import { useI18nStore } from '@/stores'
+import { CreateApplicationPayload, PortalAuthStrategy } from '@kong/sdk-portal-js'
+import { fetchAll } from '@/helpers/fetchAll'
 
 export default defineComponent({
   name: 'ApplicationForm',
   components: { PageTitle, CopyButton },
 
   setup () {
-    function makeDefaultFormData (isDcr:boolean): UpdateApplicationPayload {
+    function makeDefaultFormData (isDcr:boolean): CreateApplicationPayload {
       const returnObject = {
         name: '',
         description: '',
         redirect_uri: '',
-        reference_id: ''
+        reference_id: '',
+        auth_strategy_id: ''
       }
+      // TODO: rem
       if (isDcr) {
         delete returnObject.reference_id
       } else {
@@ -230,15 +278,22 @@ export default defineComponent({
     }
 
     const helpText = useI18nStore().state.helpText
-    const appStore = useAppStore()
-    const { isDcr } = storeToRefs(appStore)
     const errorMessage = ref('')
     const clientSecret = ref('')
     const clientId = ref('')
     const applicationId = ref('')
+    const applicationName = ref('')
     const secretModalIsVisible = ref(false)
+    const appAuthStrategies = ref([])
+    const appIsDcr = ref(false)
+    const selectedAuthStrategy = ref(null)
+    const selectedScopes = ref([])
+    const alreadyGrantedScopes = ref([])
+    const appIsSelfManaged = ref(false)
+    const hasAppAuthStrategies = ref(false)
+    const fetchingAuthStrategies = ref(true)
 
-    const defaultFormData: UpdateApplicationPayload = makeDefaultFormData(isDcr.value)
+    const defaultFormData: CreateApplicationPayload = makeDefaultFormData(appIsDcr.value)
     const formData = ref(defaultFormData)
 
     const { notify } = useToaster()
@@ -273,7 +328,8 @@ export default defineComponent({
       () =>
         !currentState.value.matches('pending') &&
         formData.value.name.length &&
-        (isDcr.value ? true : formData.value.reference_id?.length)
+        (formMode.value !== 'edit' ? hasAppAuthStrategies.value : true) &&
+        (appIsDcr.value || formData.value.reference_id?.length)
     )
     const modalTitle = computed(() => `Delete ${formData.value?.name}`)
     const id = computed(() => $route.params.application_id as string)
@@ -290,10 +346,74 @@ export default defineComponent({
 
     const { portalApiV2 } = usePortalApi()
 
-    onMounted(() => {
+    onMounted(async () => {
+      const promises = []
       if (id.value) {
-        fetchApplication()
+        promises.push(fetchApplication())
+      } else {
+        // placeholder to make destructuring result work
+        promises.push('_')
       }
+
+      fetchingAuthStrategies.value = true
+      promises.push(fetchAll(meta => portalApiV2.value.service.applicationsApi.listApplicationAuthStrategies(meta)))
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const [_, rawAuthStrategies] = await Promise.all(promises)
+        if (rawAuthStrategies.length) {
+          hasAppAuthStrategies.value = true
+          appAuthStrategies.value = rawAuthStrategies.map((strat: PortalAuthStrategy) => ({
+            label: strat.name,
+            value: strat.id,
+            isDcr: strat.credential_type === 'client_credentials',
+            isSelfManaged: strat.credential_type === 'self_managed_client_credentials',
+            availableScopes: strat.credential_type === 'client_credentials' ? strat.available_scopes ? strat.available_scopes : undefined : undefined,
+            selected: formData.value.auth_strategy_id ? strat.id === formData.value.auth_strategy_id : (strat.id === $route.query.auth_strategy_id || false)
+          }))
+        }
+
+        const hasOneAvailableAuthStrategy = rawAuthStrategies.length === 1
+
+        const prefilledAuthStrategy = hasOneAvailableAuthStrategy
+          ? appAuthStrategies.value[0]
+          : appAuthStrategies.value.find((authStrat) => authStrat.selected === true)
+
+        if (prefilledAuthStrategy) {
+          if (hasOneAvailableAuthStrategy) {
+            prefilledAuthStrategy.selected = true
+          }
+
+          formData.value.auth_strategy_id = prefilledAuthStrategy.value
+          appIsDcr.value = prefilledAuthStrategy.isDcr
+          selectedAuthStrategy.value = prefilledAuthStrategy
+          appIsSelfManaged.value = prefilledAuthStrategy.isSelfManaged
+        }
+
+        fetchingAuthStrategies.value = false
+      } catch (err) {
+        fetchingAuthStrategies.value = false
+        notify({
+          appearance: 'danger',
+          message: `Error fetching application auth strategies: ${err}`
+        })
+      }
+    })
+
+    const mappedAvailableScopes = computed(() => {
+      if (!selectedAuthStrategy.value.availableScopes?.length) {
+        return []
+      }
+
+      return selectedAuthStrategy.value.availableScopes?.map((scope) => {
+        const alreadySelected = alreadyGrantedScopes.value?.includes(scope)
+
+        return {
+          label: scope,
+          value: scope,
+          selected: alreadySelected
+        }
+      })
     })
 
     const copyTokenToClipboard = (executeCopy, copyItem) => {
@@ -309,18 +429,54 @@ export default defineComponent({
       })
     }
 
+    const handleChangedItem = (item) => {
+      if (!item) { return }
+
+      const itemAdded = selectedScopes.value.includes(item.value)
+
+      // If a new item selected, set its `selected` state to true
+      item.selected = !itemAdded
+    }
+
+    const onChangeAuthStrategy = (event) => {
+      const selected = appAuthStrategies.value.find((authStrat) => authStrat.value === event.value)
+
+      selectedAuthStrategy.value = selected
+
+      if (!selected) {
+        return
+      }
+
+      formData.value.auth_strategy_id = selected.value
+      appIsDcr.value = selected.isDcr
+      appIsSelfManaged.value = selected.isSelfManaged
+    }
+
     const handleSubmit = () => {
       send('CLICKED_SUBMIT')
       errorMessage.value = ''
+
+      if (appIsDcr.value) {
+        delete formData.value.reference_id
+      } else {
+        delete formData.value.redirect_uri
+      }
+
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
+      }
 
       portalApiV2.value.service.applicationsApi
         .createApplication({
           createApplicationPayload: cleanupEmptyFields(formData.value) as CreateApplicationPayload
         })
         .then((res) => {
-          if (isDcr.value) {
+          if (appIsDcr.value) {
             secretModalIsVisible.value = true
             applicationId.value = res.data.id
+            applicationName.value = res.data.name
             clientId.value = res.data.credentials?.client_id
             clientSecret.value = res.data.credentials?.client_secret
           } else {
@@ -334,6 +490,13 @@ export default defineComponent({
       send('CLICKED_SUBMIT')
       errorMessage.value = ''
 
+      if (selectedAuthStrategy.value?.availableScopes) {
+        formData.value.scopes = selectedScopes.value?.length ? selectedScopes.value : []
+      } else {
+        formData.value.scopes = undefined
+      }
+
+      delete formData.value.auth_strategy_id
       portalApiV2.value.service.applicationsApi
         .updateApplication({
           applicationId: id.value,
@@ -351,9 +514,10 @@ export default defineComponent({
         .catch((error) => handleError(error))
     }
 
-    const fetchApplication = () => {
+    const fetchApplication = async () => {
       send('FETCH')
-      portalApiV2.value.service.applicationsApi
+
+      return portalApiV2.value.service.applicationsApi
         .getApplication({ applicationId: id.value })
         .then((res) => {
           send('RESOLVE')
@@ -363,12 +527,12 @@ export default defineComponent({
             name: res.data.name,
             description: res.data.description || '',
             redirect_uri: res.data.redirect_uri,
-            reference_id: res.data.reference_id
+            reference_id: res.data.reference_id,
+            auth_strategy_id: res.data.auth_strategy?.id
           }
-          if (isDcr.value) {
-            delete newFormData.reference_id
-          } else {
-            delete newFormData.redirect_uri
+
+          if (res.data.scopes?.length) {
+            alreadyGrantedScopes.value = res.data.scopes
           }
 
           formData.value = newFormData
@@ -380,7 +544,7 @@ export default defineComponent({
       send('CLICKED_CANCEL')
       secretModalIsVisible.value = false
 
-      handleSuccess(applicationId.value, '', 'created')
+      handleSuccess(applicationId.value, applicationName.value, 'created')
     }
 
     const getRedirectRoute = (id: string, name: string) => {
@@ -451,12 +615,16 @@ export default defineComponent({
       errorMessage,
       isEnabled,
       id,
-      isDcr,
       clientSecret,
       clientId,
       copyTokenToClipboard,
+      fetchingAuthStrategies,
       secretModalIsVisible,
+      handleChangedItem,
+      mappedAvailableScopes,
+      selectedScopes,
       handleAcknowledgeSecret,
+      hasAppAuthStrategies,
       send,
       buttonText,
       formMode,
@@ -464,7 +632,12 @@ export default defineComponent({
       handleDelete,
       handleCancel,
       generateReferenceId,
-      helpText
+      helpText,
+      appAuthStrategies,
+      selectedAuthStrategy,
+      onChangeAuthStrategy,
+      appIsDcr,
+      appIsSelfManaged
     }
   }
 })
@@ -487,5 +660,9 @@ export default defineComponent({
   height: 36px;
   top: 4px;
   margin-left: 16px;
+}
+
+.no-auth-strategies-warning {
+  margin-bottom: 8px;
 }
 </style>

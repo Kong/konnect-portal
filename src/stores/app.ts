@@ -13,15 +13,14 @@ interface PortalData {
   featuresetId: string;
   featureSet: string;
   isPublic: boolean;
-  isDcr: boolean;
   isRbacEnabled: boolean;
   allowedTimePeriod: string;
+  canonicalDomain: string;
 }
 
 export const useAppStore = defineStore('app', () => {
   const authTokenIsRefreshing = ref<boolean>(false)
   const isPublic = ref<boolean>(false)
-  const isDcr = ref<boolean>(false)
   const isRbacEnabled = ref<boolean>(null)
   const globalLoading = ref<boolean>(false)
   const portalId = ref<string>(null)
@@ -30,6 +29,7 @@ export const useAppStore = defineStore('app', () => {
   const featuresetId = ref<string>(null)
   const featureSet = ref<string>('')
   const allowedTimePeriod = ref<string>(PortalTimeframeKeys.ONE_DAY)
+  const canonicalDomain = ref<string>('')
   const authClientConfig = ref<{
     basicAuthEnabled: boolean;
     oidcAuthEnabled: boolean;
@@ -63,16 +63,16 @@ export const useAppStore = defineStore('app', () => {
       isRbacEnabled.value = data.isRbacEnabled
     }
 
-    if (data.isDcr) {
-      isDcr.value = data.isDcr
-    }
-
     if (data.isPublic) {
       isPublic.value = data.isPublic
     }
 
     if (data.allowedTimePeriod) {
       allowedTimePeriod.value = data.allowedTimePeriod
+    }
+
+    if (data.canonicalDomain) {
+      canonicalDomain.value = data.canonicalDomain
     }
   }
 
@@ -83,7 +83,6 @@ export const useAppStore = defineStore('app', () => {
   return {
     authTokenIsRefreshing,
     isPublic,
-    isDcr,
     isRbacEnabled,
     globalLoading,
     portalId,
@@ -92,6 +91,7 @@ export const useAppStore = defineStore('app', () => {
     featuresetId,
     featureSet,
     allowedTimePeriod,
+    canonicalDomain,
     authClientConfig,
 
     logout,

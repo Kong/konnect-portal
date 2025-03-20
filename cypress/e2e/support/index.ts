@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 // Import commands.js using ES2015 syntax:
-import { GetApplicationResponse, GetRegistrationResponse, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
+import { GetApplicationResponse, GetRegistrationResponse, PortalAuthStrategy, ListCredentialsResponseDataInner, PortalAppearance, PortalContext, Product, ProductCatalogIndexSource, ProductVersion, ProductVersionSpecOperationsOperationsInner } from '@kong/sdk-portal-js'
 import './mock-commands'
+import './commands'
 import { SinonStub } from 'cypress/types/sinon'
 
 // from https://docs.cypress.io/guides/tooling/typescript-support
@@ -15,7 +16,6 @@ declare global {
       visit(url:string, options?: Partial<TypeOptions> & {useOriginalFn: boolean}): Chainable<JQuery<HTMLElement>>
       dataCy(value: string): Chainable<JQuery<HTMLElement>>
       mockPrivatePortal(portalOptions?:Partial<PortalContext>): Chainable<null>
-      mockDcrPortal(): Chainable<JQuery<HTMLElement>>
       mockPublicPortal(): Chainable<JQuery<HTMLElement>>
       mockSuccessfulDeveloperAuth(): Chainable<JQuery<HTMLElement>>
       mockSuccessfulPasswordReset(): Chainable<JQuery<HTMLElement>>
@@ -24,11 +24,14 @@ declare global {
       mockProductDocumentTree(productId?: string, options?: Partial<TypeOptions> & {body: any}): Chainable<JQuery<HTMLElement>>
       mockProductApiDocument(productId?: string, options?: Partial<TypeOptions> & {body: any}): Chainable<JQuery<HTMLElement>>
       mockProduct(productId?: string, mockProduct?: Product, mockVersions?: ProductVersion[]): Chainable<JQuery<HTMLElement>>
+      mockProductVersion(productId?: string, versionId?: string, mockVersion?: ProductVersion): Chainable<JQuery<HTMLElement>>
       mockApplications(searchResults?: Array<GetApplicationResponse>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
+      mockApplicationAuthStrategies(authStrategyItems?: Array<PortalAuthStrategy>, totalCount?: number, pageSize?: number, pageNumber?: number): Chainable<JQuery<HTMLElement>>
       mockApplicationWithCredAndReg(data: GetApplicationResponse, credentials?: ListCredentialsResponseDataInner[], registrations?: Array<GetRegistrationResponse>): Chainable<JQuery<HTMLElement>>,
       mockContextualAnalytics(): Chainable<JQuery<HTMLElement>>
       mockRegistrations(applicationId?: string, registrations?: Array<GetRegistrationResponse>, totalCount?: number): Chainable<JQuery<HTMLElement>>
       mockProductVersionApplicationRegistration(value:any): Chainable<JQuery<HTMLElement>>
+      mockGrantedScopes(versionId: string, applicationId: string, scopesResponse?: string[]): Chainable<JQuery<HTMLElement>>
       mockProductVersionAvailableRegistrations(productId: string, versionId: string, apps: GetApplicationResponse[]): Chainable<JQuery<HTMLElement>>
       mockProductsCatalog(count?: number, overrides?: Partial<ProductCatalogIndexSource>[], pageNum?:number, pageSize?:number): Chainable<JQuery<HTMLElement>>
       mockGetProductDocumentBySlug(servicePckageId: string, slug:string, options?:Partial<TypeOptions> & {document?:any, revision?: any}): Chainable<JQuery<HTMLElement>>
@@ -45,6 +48,8 @@ declare global {
       mockLaunchDarklyFlags(flags: Array<{name:string, value:boolean}>): Chainable<JQuery<HTMLElement>>
       mockDeveloperRefresh(): Chainable<JQuery<HTMLElement>>
       mockDeveloperLogout(): Chainable<JQuery<HTMLElement>>
+      assertViewMode(mode: 'table' | 'card'): Chainable<JQuery<HTMLElement>>
+      selectViewMode(mode: 'table' | 'card'): Chainable<JQuery<HTMLElement>>
     }
   }
 }

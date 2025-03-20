@@ -1,3 +1,4 @@
+import { createHead } from '@unhead/vue'
 import { createApp } from 'vue'
 import piniaInstance, { useAppStore } from '@/stores'
 
@@ -29,6 +30,8 @@ import '@kong-ui-public/copy-uuid/dist/style.css'
 import useToaster from './composables/useToaster'
 import usePortalApi from './hooks/usePortalApi'
 import { createRedirectHandler } from './helpers/auth'
+import portalAnalyticsBridge from '@kong-ui-public/portal-analytics-bridge'
+import { PortalContext } from '@kong/sdk-portal-js'
 
 /**
  * Initialize application
@@ -36,6 +39,9 @@ import { createRedirectHandler } from './helpers/auth'
 
 async function init () {
   const app = createApp(App)
+  const head = createHead()
+
+  app.use(head)
 
   // Initialize the Pinia store
   app.use(piniaInstance)
@@ -61,22 +67,22 @@ async function init () {
       featureset_id: featuresetId,
       feature_set: featureSet,
       oidc_auth_enabled: oidcAuthEnabled,
+      saml_auth_enabled: samlAuthEnabled,
       is_public: isPublic,
       basic_auth_enabled: basicAuthEnabled,
-      dcr_provider_ids: dcrProviderIds,
       rbac_enabled: isRbacEnabled,
-      allowed_time_period: allowedTimePeriod
-    } = portalContext.data
+      allowed_time_period: allowedTimePeriod,
+      canonical_domain: canonicalDomain
+    } = portalContext.data as PortalContext & { saml_auth_enabled: boolean }
 
     if (isPublic === false) {
       portalApiV2.value.updateClientWithCredentials()
     }
 
-    const authClientConfig = { basicAuthEnabled, oidcAuthEnabled }
+    // SAML Auth enabled comes on a different portal context property, but is handled the same as OIDC by the Auth Client
+    const authClientConfig = { basicAuthEnabled, oidcAuthEnabled: oidcAuthEnabled || samlAuthEnabled }
 
-    const isDcr = Array.isArray(dcrProviderIds) && dcrProviderIds.length > 0
-
-    setPortalData({ portalId, orgId, authClientConfig, featuresetId, featureSet, isPublic, isDcr, isRbacEnabled, allowedTimePeriod })
+    setPortalData({ portalId, orgId, authClientConfig, featuresetId, featureSet, isPublic, isRbacEnabled, allowedTimePeriod, canonicalDomain })
     setSession(session)
 
     // Fetch session data from localStorage
@@ -85,6 +91,10 @@ async function init () {
     const { initialize: initLaunchDarkly } = useLaunchDarkly()
 
     await initLaunchDarkly()
+
+    app.use(portalAnalyticsBridge, {
+      apiClient: portalApiV2.value.service.applicationAnalyticsApi
+    })
 
     if (!isPublic) {
       if (session.authenticatedWithIdp()) {

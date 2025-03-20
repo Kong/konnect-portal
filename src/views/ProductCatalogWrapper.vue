@@ -140,7 +140,7 @@ export default defineComponent({
             if (source.latest_version) {
               await portalApiV2.value.service.versionsApi.getProductVersionSpec({
                 productId: source.id as string,
-                versionId: source.latest_version.id
+                productVersionId: source.latest_version.id
               }).then((res) => {
                 if (res.status === 200) {
                   showSpecLink = true
@@ -152,6 +152,16 @@ export default defineComponent({
               })
             }
 
+            // convert source public_labels from key/value to array
+            const publicLabels = source.public_labels
+              ? Object.entries(source.public_labels).map(([key, value]) => {
+                return {
+                  key,
+                  value
+                }
+              })
+              : []
+
             return {
               id: source.id,
               title: source.name,
@@ -159,7 +169,8 @@ export default defineComponent({
               showSpecLink,
               description: source.description,
               documentCount: source.document_count,
-              versionCount: source.version_count
+              versionCount: source.version_count,
+              publicLabels
             }
           }))
           totalCount.value = meta.page.total

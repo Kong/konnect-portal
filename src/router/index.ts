@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
 import { session } from '@/services'
@@ -93,6 +93,14 @@ export const portalRouter = () => {
                   })
                 },
                 component: () => import('../views/Spec.vue')
+              },
+              {
+                path: '/spec/:product/oauth2-redirect.html',
+                name: 'oauth2-redirect',
+                component: () => import('../views/OAuth2Redirect.vue'),
+                meta: {
+                  title: helpText.oauth2RedirectTitle
+                }
               },
               {
                 path: '/docs/:product/:slug*',
@@ -216,7 +224,9 @@ export const portalRouter = () => {
         previousRoute: session.data?.to
       })
     ) {
-      return next(getRedirectRouteBasedOnPath(session.data.to, from.fullPath))
+      const redirectRoute = getRedirectRouteBasedOnPath(session.data.to, from.fullPath)
+
+      return next(redirectRoute)
     }
 
     if (shouldRedirectToLogin({ isPublic: isPublic.value, isSessionInvalid: !sessionDoesExist, to })) {
@@ -250,14 +260,23 @@ export function shouldRedirectUserToPreviouslyAccessedRoute ({
   isPublic,
   to,
   previousRoute
+}: {
+  isPublic: boolean
+  to: RouteLocationNormalized
+  previousRoute: string
 }) {
   const urlSearchParams = window && new URL(window.location.href)?.searchParams
 
+  const isLoginSuccessful = urlSearchParams?.get('loginSuccess') === 'true'
+  const hasPreviousRoute = previousRoute !== undefined
+  const isNewRoute = to.fullPath !== previousRoute
+  const isNotAuthRoute = !isAuthRoute(to.name)
+
   return (
     !isPublic &&
-    urlSearchParams?.get('loginSuccess') === 'true' &&
-    previousRoute !== undefined &&
-    to.fullPath !== previousRoute &&
-    !isAuthRoute(to.name)
+    isLoginSuccessful &&
+    hasPreviousRoute &&
+    isNewRoute &&
+    isNotAuthRoute
   )
 }

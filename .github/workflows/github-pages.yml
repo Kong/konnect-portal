@@ -15,20 +15,20 @@ jobs:
   deploy:
     # This permission is required on the first run of running the action on a branch
     # because the branch doesn't exist the workflow needs permission to create it
-    permissions: 
+    permissions:
       contents: write
     if: github.repository == 'kong/konnect-portal'
     name: deploy build to github-pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744
       - name: node modules cache
-        uses: actions/cache@v3
+        uses: actions/cache@2f8e54208210a422b2efd51efaa6bd6d7ca8920f
         with:
           path: node_modules
           key: ${{ hashFiles('.nvmrc', 'yarn.lock') }}
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
@@ -47,7 +47,7 @@ jobs:
       # See documentation of the github action below
       # ref: https://github.com/peaceiris/actions-gh-pages/tree/v3
       - name: Deploy to github pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@373f7f263a76c20808c831209c920827a82a2847
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # automatically generated github token
           publish_branch: gh-pages # the branch where you want the dist to be published

@@ -55,13 +55,13 @@ async function fetchOperations () {
   try {
     const res = await portalApiV2.service.versionsApi.getProductVersionSpecOperations({
       productId,
-      versionId: productVersionId
+      productVersionId
     })
 
-    operations.value = res.data.operations?.map(operation => ({
+    operations.value = res.data.operations?.map((operation) => ({
       ...operation,
       operationId: operation.operation_id
-    }))
+    })) as CustomOperation[]
 
     productStore.setSidebarOperations(operations.value)
   } catch (err) {

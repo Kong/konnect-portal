@@ -91,12 +91,14 @@ export default defineComponent({
     const viewCatalog2 = helpText.emptyState.viewCatalog2Product
 
     const { notify } = useToaster()
-    const tableHeaders = [
-      { label: nameLabel, key: 'name' },
-      { label: helpText.labels.version, key: 'version' },
-      { label: helpText.labels.status, key: 'status' },
-      { label: helpText.labels.actions, key: 'actions', hideLabel: true }
-    ]
+    const tableHeaders = computed(() => {
+      return [
+        { label: nameLabel, key: 'name' },
+        { label: helpText.labels.version, key: 'version' },
+        { label: helpText.labels.status, key: 'status' },
+        { label: helpText.labels.actions, key: 'actions', hideLabel: true }
+      ]
+    })
 
     const { portalApiV2 } = usePortalApi()
 
@@ -135,17 +137,19 @@ export default defineComponent({
         .then(({ data }) => {
           send('RESOLVE')
 
+          const items = data.data.map(registration => {
+            return {
+              name: registration.product_name,
+              version: registration.product_version_name,
+              id: registration.product_version_id,
+              specLink: `/spec/${registration.product_id}/${registration.product_version_id}`,
+              status: registration.status,
+              registrationId: registration.id
+            }
+          })
+
           return {
-            data: data.data.map(registration => {
-              return {
-                name: registration.product_name,
-                version: registration.product_version_name,
-                id: registration.product_version_id,
-                specLink: `/spec/${registration.product_id}/${registration.product_version_id}`,
-                status: registration.status,
-                registrationId: registration.id
-              }
-            }),
+            data: items,
             total: data.meta.page.total
           }
         }).catch((e) => {
