@@ -48,7 +48,8 @@ export default defineComponent({
       helpText,
       wrapForgotPasswordRequest,
       onUserClickLogin,
-      forgotPasswordEndpoint: 'api/v2/developer/forgot-password'
+      // temp update to use this route [https://konghq.atlassian.net/browse/TDX-5785]
+      forgotPasswordEndpoint: 'api/v3/next/developer/forgot-password'
     }
   }
 

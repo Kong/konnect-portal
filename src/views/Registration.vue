@@ -76,7 +76,8 @@ export default defineComponent({
     })
 
     return {
-      registerEndpoint: portalApiV2.value.getApiLink('/api/v2/developer'),
+      // temp update to use this route [https://konghq.atlassian.net/browse/TDX-5785]
+      registerEndpoint: portalApiV2.value.getApiLink('/api/v3/next/developer'),
       onRegisterSuccess,
       isBasicAuthEnabled,
       wrapRegisterRequest,
