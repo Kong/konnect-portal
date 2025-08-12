@@ -7,14 +7,24 @@
       >
         <KSkeletonBox width="10" />
       </p>
-      <router-link
-        v-else
-        :to="`/spec/${product.id}`"
-      >
-        <p class="products-card-title truncate">
-          {{ product.title }}
-        </p>
-      </router-link>
+      <div v-else>
+        <a
+          v-if="cacheBustSpecLinks"
+          :href="`/spec/${product.id}`"
+        >
+          <p class="products-card-title truncate">
+            {{ product.title }}
+          </p>
+        </a>
+        <router-link
+          v-else
+          :to="`/spec/${product.id}`"
+        >
+          <p class="products-card-title truncate">
+            {{ product.title }}
+          </p>
+        </router-link>
+      </div>
     </template>
     <template #body>
       <p class="description color-text_colors-secondary">
@@ -73,7 +83,21 @@
               <KSkeletonBox width="50" />
             </template>
             <template v-else>
+              <a
+                v-if="cacheBustSpecLinks"
+                :href="router.resolve({ name: 'spec', params: { product: product.id } })?.path"
+                class="link"
+              >
+                {{ helpText.specificationLink }}
+                <KIcon
+                  icon="arrowRight"
+                  size="16"
+                  color="var(--text_colors-link)"
+                  class="link-icon"
+                />
+              </a>
               <router-link
+                v-else
                 :to="{ name: 'spec', params: { product: product.id } }"
                 class="link"
               >
@@ -121,11 +145,13 @@ import useLDFeatureFlag from '@/hooks/useLDFeatureFlag'
 import { CatalogItemModel, useI18nStore } from '@/stores'
 import { PropType } from 'vue'
 import PublicLabels from './PublicLabels.vue'
+import { useRouter, RouterLink } from 'vue-router'
 
 export default {
   name: 'CatalogItem',
   components: {
-    PublicLabels
+    PublicLabels,
+    RouterLink
   },
   props: {
     product: {
@@ -142,10 +168,15 @@ export default {
 
     // check for feature flag
     const publicLabelsUIEnabled = useLDFeatureFlag(FeatureFlags.publicLabelsUI, false)
+    const cacheBustSpecLinks = useLDFeatureFlag(FeatureFlags.cacheBustSpecLinks, false)
+
+    const router = useRouter()
 
     return {
       helpText,
-      publicLabelsUIEnabled
+      publicLabelsUIEnabled,
+      router,
+      cacheBustSpecLinks
     }
   },
   computed: {
