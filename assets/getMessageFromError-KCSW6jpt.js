@@ -1,0 +1,1 @@
+function a(s){if(!s)return s;if(s&&s.response&&s.response.data){if(s.response.data.message)return s.response.data.message;if(typeof s.response.data=="string")return s.response.data;if(typeof s.response.data=="object")return Object.keys(s.response.data).map(e=>`${e} ${s.response.data[e]}`).join(", ")}return s.message||"There was an error"}export{a as g};
